@@ -115,14 +115,14 @@ export default function Home() {
                 
                 <div className="flex items-baseline mb-6 pb-6 border-b border-gray-100">
                   <span className="text-4xl font-bold text-brand-blue-800">$25</span>
-                  <span className="text-gray-500 ml-2 text-base">per person</span>
+                  <span className="text-gray-500 ml-2 text-base">{t.tours.perPerson}</span>
                 </div>
                 
                 <Link 
                   href="/tours"
                   className="block w-full text-center bg-brand-blue-800 hover:bg-brand-blue-700 text-white px-6 py-3.5 rounded-xl font-semibold transition-all duration-200 group-hover:shadow-lg"
                 >
-                  View Details
+                  {t.tours.viewDetails}
                 </Link>
               </div>
             </div>
@@ -154,14 +154,14 @@ export default function Home() {
                 
                 <div className="flex items-baseline mb-6 pb-6 border-b border-gray-100">
                   <span className="text-4xl font-bold text-brand-blue-800">$28</span>
-                  <span className="text-gray-500 ml-2 text-base">per person</span>
+                  <span className="text-gray-500 ml-2 text-base">{t.tours.perPerson}</span>
                 </div>
                 
                 <Link 
                   href="/tours"
                   className="block w-full text-center bg-brand-blue-800 hover:bg-brand-blue-700 text-white px-6 py-3.5 rounded-xl font-semibold transition-all duration-200 group-hover:shadow-lg"
                 >
-                  View Details
+                  {t.tours.viewDetails}
                 </Link>
               </div>
             </div>
@@ -193,14 +193,14 @@ export default function Home() {
                 
                 <div className="flex items-baseline mb-6 pb-6 border-b border-gray-100">
                   <span className="text-4xl font-bold text-brand-blue-800">$32</span>
-                  <span className="text-gray-500 ml-2 text-base">per person</span>
+                  <span className="text-gray-500 ml-2 text-base">{t.tours.perPerson}</span>
                 </div>
                 
                 <Link 
                   href="/tours"
                   className="block w-full text-center bg-brand-blue-800 hover:bg-brand-blue-700 text-white px-6 py-3.5 rounded-xl font-semibold transition-all duration-200 group-hover:shadow-lg"
                 >
-                  View Details
+                  {t.tours.viewDetails}
                 </Link>
               </div>
             </div>
@@ -340,7 +340,7 @@ export default function Home() {
                 </p>
                 <div className="flex items-baseline mb-5 pb-5 border-b border-gray-100">
                   <span className="text-3xl font-bold text-brand-blue-800">$8</span>
-                  <span className="text-gray-500 ml-2 text-sm">per day</span>
+                  <span className="text-gray-500 ml-2 text-sm">{t.rentals.perDay}</span>
                 </div>
                 <a 
                   href="https://wa.me/6289631281234?text=Hi!%20I%27d%20like%20to%20rent%20a%20Yamaha%20N-Max."
@@ -348,7 +348,7 @@ export default function Home() {
                   rel="noopener noreferrer"
                   className="block w-full text-center bg-brand-blue-800 hover:bg-brand-blue-700 text-white px-4 py-3 rounded-xl font-semibold transition-all duration-200 group-hover:shadow-lg"
                 >
-                  Book Now
+                  {t.rentals.bookNow}
                 </a>
               </div>
             </div>
@@ -369,11 +369,11 @@ export default function Home() {
                   Honda Vario
                 </h3>
                 <p className="text-gray-600 text-sm mb-4">
-                  Automatic scooter
+                  {t.rentals.automaticScooter}
                 </p>
                 <div className="flex items-baseline mb-5 pb-5 border-b border-gray-100">
                   <span className="text-3xl font-bold text-brand-blue-800">$6.50</span>
-                  <span className="text-gray-500 ml-2 text-sm">per day</span>
+                  <span className="text-gray-500 ml-2 text-sm">{t.rentals.perDay}</span>
                 </div>
                 <a 
                   href="https://wa.me/6289631281234?text=Hi!%20I%27d%20like%20to%20rent%20a%20Honda%20Vario."
@@ -381,7 +381,7 @@ export default function Home() {
                   rel="noopener noreferrer"
                   className="block w-full text-center bg-brand-blue-800 hover:bg-brand-blue-700 text-white px-4 py-3 rounded-xl font-semibold transition-all duration-200 group-hover:shadow-lg"
                 >
-                  Book Now
+                  {t.rentals.bookNow}
                 </a>
               </div>
             </div>
@@ -406,7 +406,7 @@ export default function Home() {
                 </p>
                 <div className="flex items-baseline mb-5 pb-5 border-b border-gray-100">
                   <span className="text-3xl font-bold text-brand-blue-800">$6.50</span>
-                  <span className="text-gray-500 ml-2 text-sm">per day</span>
+                  <span className="text-gray-500 ml-2 text-sm">{t.rentals.perDay}</span>
                 </div>
                 <a 
                   href="https://wa.me/6289631281234?text=Hi!%20I%27d%20like%20to%20rent%20a%20Honda%20Scoopy."
@@ -414,7 +414,7 @@ export default function Home() {
                   rel="noopener noreferrer"
                   className="block w-full text-center bg-brand-blue-800 hover:bg-brand-blue-700 text-white px-4 py-3 rounded-xl font-semibold transition-all duration-200 group-hover:shadow-lg"
                 >
-                  Book Now
+                  {t.rentals.bookNow}
                 </a>
               </div>
             </div>
@@ -447,7 +447,7 @@ export default function Home() {
                   rel="noopener noreferrer"
                   className="block w-full text-center bg-brand-blue-800 hover:bg-brand-blue-700 text-white px-4 py-3 rounded-xl font-semibold transition-all duration-200 group-hover:shadow-lg"
                 >
-                  Book Now
+                  {t.rentals.bookNow}
                 </a>
               </div>
             </div>
