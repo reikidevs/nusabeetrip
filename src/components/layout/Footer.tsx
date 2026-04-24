@@ -8,8 +8,20 @@ import { useLanguage } from '@/lib/LanguageContext';
 const WHATSAPP_NUMBER = '6289631281234';
 const WHATSAPP_MSG = encodeURIComponent('Hi! I would like to inquire about your tour and rental services.');
 
+const DESTINATIONS = [
+  'Kelingking Beach',
+  'Angel Bilabong',
+  'Broken Beach',
+  'Crystal Bay',
+  'Diamond Beach',
+  'Atuh Beach',
+  'Tree House',
+];
+
 const Footer: React.FC = () => {
   const { t } = useLanguage();
+
+  const destinations = DESTINATIONS;
 
   const quickLinks = [
     { name: t.nav.home, href: '/' },
