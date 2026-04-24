@@ -1,0 +1,233 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Import custom styles */
+@import '../styles/variables.css';
+@import '../styles/components.css';
+@import '../styles/utilities.css';
+
+/* Brand color CSS variables for compatibility */
+:root {
+  /* Primary brand colors extracted from NusaBeeTrip logo */
+  --primary-blue: #1E40AF;      /* Deep ocean blue */
+  --primary-orange: #FFB800;    /* Tropical sunset orange */
+  --accent-teal: #0EA5E9;       /* Crystal water teal */
+  
+  /* Supporting colors */
+  --secondary-blue: #3B82F6;    /* Lighter blue variant */
+  --secondary-orange: #FB923C;  /* Lighter orange variant */
+  --secondary-teal: #38BDF8;    /* Lighter teal variant */
+  
+  /* WhatsApp brand colors */
+  --whatsapp-green: #25D366;    /* Official WhatsApp green */
+  --whatsapp-dark: #128C7E;     /* Darker WhatsApp green */
+  
+  /* Semantic colors */
+  --success-color: #10B981;
+  --warning-color: #F59E0B;
+  --error-color: #EF4444;
+  --info-color: #0EA5E9;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    @apply text-gray-900 bg-white font-sans;
+    font-feature-settings: 'rlig' 1, 'calt' 1;
+  }
+  
+  /* Improved focus styles for accessibility */
+  *:focus {
+    outline: 2px solid var(--accent-teal);
+    outline-offset: 2px;
+  }
+  
+  /* Better text rendering */
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display;
+    text-rendering: optimizeLegibility;
+  }
+}
+
+@layer components {
+  /* Primary button styles */
+  .btn-primary {
+    @apply bg-brand-orange-800 hover:bg-brand-orange-600 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-200;
+    box-shadow: var(--shadow-brand-orange);
+  }
+  
+  .btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-xl);
+  }
+  
+  /* Secondary button styles */
+  .btn-secondary {
+    @apply bg-brand-blue-800 hover:bg-brand-blue-600 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-200;
+    box-shadow: var(--shadow-brand-blue);
+  }
+  
+  .btn-secondary:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-xl);
+  }
+  
+  /* WhatsApp button with enhanced styling */
+  .btn-whatsapp {
+    @apply bg-whatsapp-500 hover:bg-whatsapp-800 text-white font-semibold py-3 px-6 rounded-lg flex items-center gap-2 transition-all duration-200;
+    box-shadow: 0 4px 6px -1px rgba(37, 211, 102, 0.1), 0 2px 4px -1px rgba(37, 211, 102, 0.06);
+  }
+  
+  .btn-whatsapp:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 15px -3px rgba(37, 211, 102, 0.1), 0 4px 6px -2px rgba(37, 211, 102, 0.05);
+  }
+  
+  /* Card component with brand styling */
+  .card {
+    @apply bg-white rounded-lg shadow-lg border border-gray-200 transition-all duration-200;
+  }
+  
+  .card:hover {
+    @apply border-brand-teal-500 shadow-xl;
+    transform: translateY(-2px);
+  }
+  
+  /* Enhanced card variants */
+  .card-brand {
+    @apply card;
+    border-color: var(--accent-teal);
+  }
+  
+  .card-featured {
+    @apply card;
+    background: linear-gradient(135deg, rgba(30, 64, 175, 0.02), rgba(14, 165, 233, 0.02));
+    border-color: var(--accent-teal);
+  }
+  
+  /* Section padding utility */
+  .section-padding {
+    @apply py-16 px-4 sm:px-6 lg:px-8;
+  }
+  
+  .section-padding-sm {
+    @apply py-8 px-4 sm:px-6 lg:px-8;
+  }
+  
+  .section-padding-lg {
+    @apply py-24 px-4 sm:px-6 lg:px-8;
+  }
+  
+  /* Container utilities */
+  .container-max {
+    @apply max-w-7xl mx-auto;
+  }
+  
+  .container-content {
+    @apply max-w-4xl mx-auto;
+  }
+  
+  .container-narrow {
+    @apply max-w-2xl mx-auto;
+  }
+  
+  /* Form input styling */
+  .input-brand {
+    @apply w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-teal-500 focus:border-brand-teal-500 transition-colors duration-200;
+  }
+  
+  .input-brand:focus {
+    outline: none;
+    border-color: var(--accent-teal);
+    box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.1);
+  }
+  
+  /* Textarea styling */
+  .textarea-brand {
+    @apply input-brand resize-vertical min-h-[120px];
+  }
+  
+  /* Link styling */
+  .link-brand {
+    @apply text-brand-blue-800 hover:text-brand-teal-500 transition-colors duration-200;
+  }
+  
+  .link-brand:hover {
+    text-decoration: underline;
+    text-decoration-color: var(--accent-teal);
+  }
+}
+
+@layer utilities {
+  /* Text gradient utilities */
+  .text-gradient {
+    @apply bg-gradient-to-r from-brand-blue-800 to-brand-teal-500 bg-clip-text text-transparent;
+  }
+  
+  .text-gradient-sunset {
+    @apply bg-gradient-to-r from-brand-orange-800 to-brand-orange-600 bg-clip-text text-transparent;
+  }
+  
+  .text-gradient-ocean {
+    @apply bg-gradient-to-r from-brand-teal-500 to-brand-blue-800 bg-clip-text text-transparent;
+  }
+  
+  /* Background gradient utilities */
+  .bg-hero-gradient {
+    background: linear-gradient(135deg, var(--primary-blue) 0%, var(--accent-teal) 50%, var(--primary-orange) 100%);
+  }
+  
+  .bg-brand-gradient {
+    background: linear-gradient(135deg, var(--primary-blue), var(--accent-teal));
+  }
+  
+  .bg-sunset-gradient {
+    background: linear-gradient(135deg, var(--primary-orange), var(--secondary-orange));
+  }
+  
+  .bg-ocean-gradient {
+    background: linear-gradient(135deg, var(--accent-teal), var(--primary-blue));
+  }
+  
+  /* Brand color utilities */
+  .text-brand-primary {
+    color: var(--primary-blue);
+  }
+  
+  .text-brand-orange {
+    color: var(--primary-orange);
+  }
+  
+  .text-brand-teal {
+    color: var(--accent-teal);
+  }
+  
+  .bg-brand-primary {
+    background-color: var(--primary-blue);
+  }
+  
+  .bg-brand-orange {
+    background-color: var(--primary-orange);
+  }
+  
+  .bg-brand-teal {
+    background-color: var(--accent-teal);
+  }
+  
+  /* Border utilities */
+  .border-brand {
+    border-color: var(--accent-teal);
+  }
+  
+  .border-brand-orange {
+    border-color: var(--primary-orange);
+  }
+  
+  .border-brand-blue {
+    border-color: var(--primary-blue);
+  }
+}

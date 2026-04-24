@@ -1,0 +1,377 @@
+/* Custom utility classes for NusaBeeTrip brand colors */
+
+/* Brand gradient backgrounds */
+.bg-hero-gradient {
+  background: linear-gradient(135deg, var(--color-brand-blue-primary) 0%, var(--color-brand-teal-accent) 50%, var(--color-brand-orange-primary) 100%);
+}
+
+.bg-section-gradient {
+  background: linear-gradient(to right, rgba(30, 64, 175, 0.05), rgba(14, 165, 233, 0.05));
+}
+
+.bg-brand-gradient {
+  background: linear-gradient(135deg, var(--color-brand-blue-primary), var(--color-brand-teal-accent));
+}
+
+.bg-sunset-gradient {
+  background: linear-gradient(135deg, var(--color-brand-orange-primary), var(--color-brand-orange-light));
+}
+
+.bg-ocean-gradient {
+  background: linear-gradient(135deg, var(--color-brand-teal-accent), var(--color-brand-blue-primary));
+}
+
+/* Brand color backgrounds */
+.bg-brand-blue {
+  background-color: var(--color-brand-blue-primary);
+}
+
+.bg-brand-orange {
+  background-color: var(--color-brand-orange-primary);
+}
+
+.bg-brand-teal {
+  background-color: var(--color-brand-teal-accent);
+}
+
+.bg-brand-green {
+  background-color: var(--color-brand-green);
+}
+
+/* Brand color text */
+.text-brand-blue {
+  color: var(--color-brand-blue-primary);
+}
+
+.text-brand-orange {
+  color: var(--color-brand-orange-primary);
+}
+
+.text-brand-teal {
+  color: var(--color-brand-teal-accent);
+}
+
+.text-brand-green {
+  color: var(--color-brand-green);
+}
+
+/* WhatsApp button styles */
+.btn-whatsapp {
+  background-color: var(--color-whatsapp);
+  color: white;
+  transition: all var(--transition-normal);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-whatsapp:hover {
+  background-color: var(--color-whatsapp-dark);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-lg);
+}
+
+.btn-whatsapp:active {
+  transform: translateY(0);
+  box-shadow: var(--shadow-md);
+}
+
+/* Brand button styles */
+.btn-brand-primary {
+  background-color: var(--color-brand-orange-primary);
+  color: white;
+  transition: all var(--transition-normal);
+  box-shadow: var(--shadow-brand-orange);
+}
+
+.btn-brand-primary:hover {
+  background-color: var(--color-brand-orange-light);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-xl);
+}
+
+.btn-brand-secondary {
+  background-color: var(--color-brand-blue-primary);
+  color: white;
+  transition: all var(--transition-normal);
+  box-shadow: var(--shadow-brand-blue);
+}
+
+.btn-brand-secondary:hover {
+  background-color: var(--color-brand-blue-light);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-xl);
+}
+
+.btn-brand-teal {
+  background-color: var(--color-brand-teal-accent);
+  color: white;
+  transition: all var(--transition-normal);
+  box-shadow: var(--shadow-brand-teal);
+}
+
+.btn-brand-teal:hover {
+  background-color: var(--color-brand-teal-light);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-xl);
+}
+
+/* Outline button variants */
+.btn-outline-brand {
+  border: 2px solid var(--color-brand-blue-primary);
+  color: var(--color-brand-blue-primary);
+  background-color: transparent;
+  transition: all var(--transition-normal);
+}
+
+.btn-outline-brand:hover {
+  background-color: var(--color-brand-blue-primary);
+  color: white;
+  transform: translateY(-1px);
+}
+
+.btn-outline-orange {
+  border: 2px solid var(--color-brand-orange-primary);
+  color: var(--color-brand-orange-primary);
+  background-color: transparent;
+  transition: all var(--transition-normal);
+}
+
+.btn-outline-orange:hover {
+  background-color: var(--color-brand-orange-primary);
+  color: white;
+  transform: translateY(-1px);
+}
+
+/* Card hover effects with brand colors */
+.card-hover {
+  transition: all var(--transition-normal);
+  border: 1px solid var(--color-gray-200);
+}
+
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-xl);
+  border-color: var(--color-brand-teal-accent);
+}
+
+.card-brand-blue:hover {
+  border-color: var(--color-brand-blue-primary);
+  box-shadow: var(--shadow-brand-blue);
+}
+
+.card-brand-orange:hover {
+  border-color: var(--color-brand-orange-primary);
+  box-shadow: var(--shadow-brand-orange);
+}
+
+.card-brand-teal:hover {
+  border-color: var(--color-brand-teal-accent);
+  box-shadow: var(--shadow-brand-teal);
+}
+
+/* Text gradients */
+.text-brand-gradient {
+  background: linear-gradient(135deg, var(--color-brand-blue-primary), var(--color-brand-teal-accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-sunset-gradient {
+  background: linear-gradient(135deg, var(--color-brand-orange-primary), var(--color-brand-orange-light));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-ocean-gradient {
+  background: linear-gradient(135deg, var(--color-brand-teal-accent), var(--color-brand-blue-primary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Focus styles for accessibility */
+.focus-brand {
+  outline: 2px solid var(--color-brand-teal-accent);
+  outline-offset: 2px;
+}
+
+.focus-brand-blue {
+  outline: 2px solid var(--color-brand-blue-primary);
+  outline-offset: 2px;
+}
+
+.focus-brand-orange {
+  outline: 2px solid var(--color-brand-orange-primary);
+  outline-offset: 2px;
+}
+
+/* Loading spinner with brand colors */
+.spinner {
+  border: 2px solid var(--color-gray-200);
+  border-top: 2px solid var(--color-brand-blue-primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.spinner-orange {
+  border: 2px solid var(--color-gray-200);
+  border-top: 2px solid var(--color-brand-orange-primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.spinner-teal {
+  border: 2px solid var(--color-gray-200);
+  border-top: 2px solid var(--color-brand-teal-accent);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Brand-specific badges */
+.badge-brand {
+  background-color: var(--color-brand-blue-primary);
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--radius-full);
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.badge-orange {
+  background-color: var(--color-brand-orange-primary);
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--radius-full);
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.badge-teal {
+  background-color: var(--color-brand-teal-accent);
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--radius-full);
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.badge-success {
+  background-color: var(--color-success);
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--radius-full);
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+/* Responsive text sizes with brand styling */
+.text-responsive-xl {
+  font-size: 1.5rem;
+  line-height: 2rem;
+  font-weight: 700;
+  color: var(--color-brand-blue-primary);
+}
+
+@media (min-width: 768px) {
+  .text-responsive-xl {
+    font-size: 2rem;
+    line-height: 2.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .text-responsive-xl {
+    font-size: 2.5rem;
+    line-height: 3rem;
+  }
+}
+
+.text-responsive-lg {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  font-weight: 600;
+  color: var(--color-brand-blue-primary);
+}
+
+@media (min-width: 768px) {
+  .text-responsive-lg {
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .text-responsive-lg {
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+  }
+}
+
+/* Container with brand padding */
+.container-brand {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-md);
+}
+
+@media (min-width: 768px) {
+  .container-brand {
+    padding: 0 var(--spacing-lg);
+  }
+}
+
+@media (min-width: 1024px) {
+  .container-brand {
+    padding: 0 var(--spacing-xl);
+  }
+}
+
+/* Brand-specific dividers */
+.divider-brand {
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--color-brand-teal-accent), transparent);
+  margin: var(--spacing-xl) 0;
+}
+
+.divider-orange {
+  height: 2px;
+  background: linear-gradient(to right, transparent, var(--color-brand-orange-primary), transparent);
+  margin: var(--spacing-lg) 0;
+}
+
+/* Brand color overlays for images */
+.overlay-brand {
+  position: relative;
+}
+
+.overlay-brand::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(30, 64, 175, 0.7), rgba(14, 165, 233, 0.5));
+  z-index: 1;
+}
+
+.overlay-sunset {
+  position: relative;
+}
+
+.overlay-sunset::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(255, 184, 0, 0.7), rgba(251, 146, 60, 0.5));
+  z-index: 1;
+}

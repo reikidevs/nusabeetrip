@@ -1,0 +1,83 @@
+/* CSS Custom Properties for NusaBeeTrip Brand Colors */
+:root {
+  /* Primary brand colors extracted from NusaBeeTrip logo */
+  --color-brand-blue-primary: #1E40AF;      /* Deep ocean blue - primary brand color */
+  --color-brand-orange-primary: #FFB800;    /* Tropical sunset orange - primary accent */
+  --color-brand-teal-accent: #0EA5E9;       /* Crystal water teal - secondary accent */
+  
+  /* Supporting brand color variations */
+  --color-brand-blue-light: #3B82F6;        /* Lighter blue for hover states */
+  --color-brand-blue-dark: #1E3A8A;         /* Darker blue for depth */
+  --color-brand-orange-light: #FB923C;      /* Lighter orange for hover states */
+  --color-brand-orange-dark: #EA580C;       /* Darker orange for contrast */
+  --color-brand-teal-light: #38BDF8;        /* Lighter teal for backgrounds */
+  --color-brand-teal-dark: #0369A1;         /* Darker teal for text */
+  
+  /* Brand green for nature/eco elements */
+  --color-brand-green: #22C55E;             /* Tropical nature green */
+  --color-brand-green-light: #4ADE80;       /* Light green for accents */
+  --color-brand-green-dark: #15803D;        /* Dark green for text */
+  
+  /* Neutral colors optimized for tourism content */
+  --color-gray-50: #F8FAFC;
+  --color-gray-100: #F1F5F9;
+  --color-gray-200: #E2E8F0;
+  --color-gray-300: #CBD5E1;
+  --color-gray-400: #94A3B8;
+  --color-gray-500: #64748B;
+  --color-gray-600: #475569;
+  --color-gray-700: #334155;
+  --color-gray-800: #1E293B;
+  --color-gray-900: #0F172A;
+  
+  /* Semantic colors for UI feedback */
+  --color-success: #10B981;                 /* Success green */
+  --color-warning: #F59E0B;                 /* Warning amber */
+  --color-error: #EF4444;                   /* Error red */
+  --color-info: var(--color-brand-teal-accent); /* Info uses brand teal */
+  
+  /* WhatsApp brand colors */
+  --color-whatsapp: #25D366;                /* Official WhatsApp green */
+  --color-whatsapp-dark: #128C7E;           /* Darker WhatsApp green for hover */
+  --color-whatsapp-light: #4ADE80;          /* Lighter green for backgrounds */
+  
+  /* Typography scale */
+  --font-family-sans: 'Inter', system-ui, sans-serif;
+  --font-family-display: 'Poppins', system-ui, sans-serif;
+  
+  /* Spacing scale for consistent layouts */
+  --spacing-xs: 0.25rem;    /* 4px */
+  --spacing-sm: 0.5rem;     /* 8px */
+  --spacing-md: 1rem;       /* 16px */
+  --spacing-lg: 1.5rem;     /* 24px */
+  --spacing-xl: 2rem;       /* 32px */
+  --spacing-2xl: 3rem;      /* 48px */
+  --spacing-3xl: 4rem;      /* 64px */
+  --spacing-4xl: 6rem;      /* 96px */
+  
+  /* Border radius scale */
+  --radius-sm: 0.25rem;     /* 4px */
+  --radius-md: 0.5rem;      /* 8px */
+  --radius-lg: 0.75rem;     /* 12px */
+  --radius-xl: 1rem;        /* 16px */
+  --radius-2xl: 1.5rem;     /* 24px */
+  --radius-full: 9999px;    /* Full rounded */
+  
+  /* Shadow scale for depth */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  
+  /* Brand-specific shadows with color tints */
+  --shadow-brand-blue: 0 10px 15px -3px rgba(30, 64, 175, 0.1), 0 4px 6px -2px rgba(30, 64, 175, 0.05);
+  --shadow-brand-orange: 0 10px 15px -3px rgba(255, 184, 0, 0.1), 0 4px 6px -2px rgba(255, 184, 0, 0.05);
+  --shadow-brand-teal: 0 10px 15px -3px rgba(14, 165, 233, 0.1), 0 4px 6px -2px rgba(14, 165, 233, 0.05);
+  
+  /* Transition timing for smooth animations */
+  --transition-fast: 150ms ease-in-out;
+  --transition-normal: 200ms ease-in-out;
+  --transition-slow: 300ms ease-in-out;
+  --transition-bounce: 300ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
