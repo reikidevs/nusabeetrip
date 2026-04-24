@@ -3,6 +3,9 @@ import { getTourPackages } from '@/lib/db/queries';
 import { TourPackageGrid } from '@/components/business';
 import { TourPackage } from '@/types';
 
+// Opt out of static generation — this page fetches from DB at runtime
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
   title: 'Tour Packages - Best Travel Nusa Penida | NusaBeeTrip',
   description: 'Discover amazing tour packages in Nusa Penida. West trip, East trip, Mix trip with snorkeling options. Starting from 390,000 IDR.',

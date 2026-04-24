@@ -2,19 +2,49 @@ import { neon } from '@neondatabase/serverless';
 import { drizzle } from 'drizzle-orm/neon-http';
 import * as schema from './schema';
 
-// Load environment variables
-import { config } from 'dotenv';
-config({ path: '.env.local' });
+/**
+ * Lazy database initialization.
+ * Throws only at runtime when db is used, not at build time.
+ * This prevents Next.js static generation from failing during `next build`.
+ */
+function createDb() {
+  const databaseUrl = process.env.DATABASE_URL;
 
-if (!process.env.DATABASE_URL) {
-  throw new Error('DATABASE_URL environment variable is required');
+  if (!databaseUrl) {
+    throw new Error(
+      'DATABASE_URL environment variable is required. ' +
+      'Set it in your .env.local file or Vercel environment variables.'
+    );
+  }
+
+  const sqlClient = neon(databaseUrl);
+  return {
+    db: drizzle(sqlClient, { schema }),
+    sql: sqlClient,
+  };
 }
 
-// Create the Neon client
-const sql = neon(process.env.DATABASE_URL);
+// Lazy singleton — only initialized when first accessed
+let _instance: ReturnType<typeof createDb> | null = null;
 
-// Create the Drizzle database instance
-export const db = drizzle(sql, { schema });
+function getInstance() {
+  if (!_instance) {
+    _instance = createDb();
+  }
+  return _instance;
+}
 
-// Export the SQL client for raw queries if needed
-export { sql };
+export const db = new Proxy({} as ReturnType<typeof createDb>['db'], {
+  get(_target, prop) {
+    return (getInstance().db as any)[prop];
+  },
+});
+
+export const sql = new Proxy((() => {}) as ReturnType<typeof createDb>['sql'], {
+  apply(_target, _thisArg, args) {
+    return (getInstance().sql as any)(...args);
+  },
+  get(_target, prop) {
+    return (getInstance().sql as any)[prop];
+  },
+});

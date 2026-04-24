@@ -3,6 +3,9 @@ import { getRentalServices } from '@/lib/db/queries';
 import { RentalServiceGrid } from '@/components/business';
 import { RentalService } from '@/types';
 
+// Opt out of static generation — this page fetches from DB at runtime
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
   title: 'Vehicle Rentals - Motorcycle & Car Rental | NusaBeeTrip',
   description: 'Rent motorcycles and cars in Nusa Penida. N-Max, Vario, Scoopy motorcycles and car rentals available. Starting from 100,000 IDR per day.',
