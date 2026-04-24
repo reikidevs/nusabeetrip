@@ -1,13 +1,21 @@
-import { neon } from '@neondatabase/serverless';
+import { neon, NeonQueryFunction } from '@neondatabase/serverless';
 import { drizzle } from 'drizzle-orm/neon-http';
 import * as schema from './schema';
 
+type DbInstance = ReturnType<typeof drizzle<typeof schema>>;
+type SqlInstance = NeonQueryFunction<false, false>;
+
 /**
  * Lazy database initialization.
- * Throws only at runtime when db is used, not at build time.
+ * Throws only at runtime when getDb() is called, not at module load time (build time).
  * This prevents Next.js static generation from failing during `next build`.
  */
-function createDb() {
+let _db: DbInstance | null = null;
+let _sql: SqlInstance | null = null;
+
+function initDb(): { db: DbInstance; sql: SqlInstance } {
+  if (_db && _sql) return { db: _db, sql: _sql };
+
   const databaseUrl = process.env.DATABASE_URL;
 
   if (!databaseUrl) {
@@ -17,34 +25,34 @@ function createDb() {
     );
   }
 
-  const sqlClient = neon(databaseUrl);
-  return {
-    db: drizzle(sqlClient, { schema }),
-    sql: sqlClient,
-  };
+  _sql = neon(databaseUrl);
+  _db = drizzle(_sql, { schema });
+
+  return { db: _db, sql: _sql };
 }
 
-// Lazy singleton — only initialized when first accessed
-let _instance: ReturnType<typeof createDb> | null = null;
-
-function getInstance() {
-  if (!_instance) {
-    _instance = createDb();
-  }
-  return _instance;
+/** Returns the Drizzle DB instance. Throws if DATABASE_URL is not set. */
+export function getDb(): DbInstance {
+  return initDb().db;
 }
 
-export const db = new Proxy({} as ReturnType<typeof createDb>['db'], {
+/** Returns the Neon SQL client. Throws if DATABASE_URL is not set. */
+export function getSql(): SqlInstance {
+  return initDb().sql;
+}
+
+// Legacy named exports for backward compatibility with existing imports
+export const db = new Proxy({} as DbInstance, {
   get(_target, prop) {
-    return (getInstance().db as any)[prop];
+    return (initDb().db as any)[prop];
   },
 });
 
-export const sql = new Proxy((() => {}) as ReturnType<typeof createDb>['sql'], {
+export const sql = new Proxy({} as unknown as SqlInstance, {
+  get(_target, prop) {
+    return (initDb().sql as any)[prop];
+  },
   apply(_target, _thisArg, args) {
-    return (getInstance().sql as any)(...args);
+    return (initDb().sql as any)(...args);
   },
-  get(_target, prop) {
-    return (getInstance().sql as any)[prop];
-  },
-});
+}) as SqlInstance;
