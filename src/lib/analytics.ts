@@ -30,7 +30,7 @@ export const trackEvent = (
  * Track booking clicks for analytics
  */
 export const trackBookingClick = (params: {
-  serviceType: 'tour' | 'rental';
+  serviceType: 'tour' | 'rental' | 'souvenir';
   serviceName: string;
   price: number;
   method: 'whatsapp' | 'contact_form';

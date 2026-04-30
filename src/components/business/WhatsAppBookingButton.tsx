@@ -7,7 +7,7 @@ import { WhatsAppBookingParams } from '@/types';
 
 interface WhatsAppBookingButtonProps {
   phoneNumber: string;
-  serviceType: 'tour' | 'rental';
+  serviceType: 'tour' | 'rental' | 'souvenir';
   serviceName: string;
   price: number;
   currency: string;

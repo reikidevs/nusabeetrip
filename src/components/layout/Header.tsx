@@ -12,6 +12,7 @@ const NAV_ITEMS = [
   { key: 'home' as const, href: '/' },
   { key: 'tours' as const, href: '/tours' },
   { key: 'rentals' as const, href: '/rentals' },
+  { key: 'souvenirs' as const, href: '/souvenirs' },
   { key: 'about' as const, href: '/about' },
   { key: 'contact' as const, href: '/contact' },
 ];
@@ -120,18 +121,6 @@ const Header: React.FC = () => {
               </svg>
               +62 896-3128-1234
             </a>
-            {/* Email */}
-            <a
-              href="mailto:sidiqdwiatmoko@gmail.com"
-              className="flex items-center gap-1.5 hover:text-brand-orange-800 transition-colors"
-            >
-              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-              </svg>
-              sidiqdwiatmoko@gmail.com
-            </a>
-          </div>
-          <div className="flex items-center gap-4">
             {/* Instagram */}
             <a
               href="https://instagram.com/sidiq_1312"
@@ -144,6 +133,8 @@ const Header: React.FC = () => {
               </svg>
               @sidiq_1312
             </a>
+          </div>
+          <div className="flex items-center gap-4">
             {/* Language Switcher */}
             <LangSwitcher language={language} setLanguage={setLanguage} />
           </div>

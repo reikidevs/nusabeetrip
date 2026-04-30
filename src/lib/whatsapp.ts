@@ -27,6 +27,17 @@ Could you please provide more information about:
 - Payment methods and booking process
 
 Thank you!`,
+
+  souvenir: (serviceName: string, formattedPrice: string, currency: string) => `Hi! I'm interested in ordering ${serviceName} (${formattedPrice} ${currency}).
+
+Could you please provide more information about:
+- Product availability and stock
+- Size/color options (if applicable)
+- Shipping or pickup options
+- Payment methods
+- Delivery time
+
+Thank you!`,
 } as const;
 
 /**
@@ -71,7 +82,7 @@ export function validateWhatsAppParams(params: WhatsAppBookingParams): boolean {
     typeof params.price === 'number' &&
     params.price > 0 &&
     params.currency &&
-    ['tour', 'rental'].includes(params.serviceType)
+    ['tour', 'rental', 'souvenir'].includes(params.serviceType)
   );
 }
 

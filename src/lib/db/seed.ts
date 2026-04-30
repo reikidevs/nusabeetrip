@@ -19,7 +19,7 @@ const initialTourPackages = [
       'Transportation',
       'Entrance Fees'
     ],
-    imageUrl: '/images/tours/west-trip.jpg',
+    imageUrl: '/images/Broken%20Beach/WhatsApp%20Image%202026-04-19%20at%2019.44.59.jpeg',
     isActive: true,
   },
   {
@@ -38,7 +38,7 @@ const initialTourPackages = [
       'Transportation',
       'Entrance Fees'
     ],
-    imageUrl: '/images/tours/east-trip.jpg',
+    imageUrl: '/images/East%20Trip/WhatsApp%20Image%202026-04-19%20at%2020.32.36.jpeg',
     isActive: true,
   },
   {
@@ -59,7 +59,7 @@ const initialTourPackages = [
       'Transportation',
       'Entrance Fees'
     ],
-    imageUrl: '/images/tours/west-trip-snorkeling.jpg',
+    imageUrl: '/images/Crystal%20Bay%20Beach/WhatsApp%20Image%202026-04-19%20at%2019.45.14.jpeg',
     isActive: true,
   },
   {
@@ -81,7 +81,7 @@ const initialTourPackages = [
       'Transportation',
       'Entrance Fees'
     ],
-    imageUrl: '/images/tours/east-trip-snorkeling.jpg',
+    imageUrl: '/images/Diamond%20Beach/WhatsApp%20Image%202026-04-19%20at%2019.45.15.jpeg',
     isActive: true,
   },
   {
@@ -95,12 +95,11 @@ const initialTourPackages = [
       'Best of West Attractions',
       'Best of East Attractions',
       'Full Island Experience',
-      'Lunch Included',
       'Professional Guide',
       'Transportation',
       'Entrance Fees'
     ],
-    imageUrl: '/images/tours/mix-trip.jpg',
+    imageUrl: '/images/Atuh%20Beach/WhatsApp%20Image%202026-04-19%20at%2020.35.33.jpeg',
     isActive: true,
   },
 ];

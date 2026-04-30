@@ -7,6 +7,7 @@ export const translations = {
       home: 'Home',
       tours: 'Tours',
       rentals: 'Rentals',
+      souvenirs: 'Souvenirs',
       about: 'About',
       contact: 'Contact',
       bookNow: 'Book Now',
@@ -70,6 +71,14 @@ export const translations = {
       zeroToFourHours: '0-4 hours',
       carWithDriver: 'Car with Driver',
     },
+    // Souvenirs section
+    souvenirs: {
+      heading: 'Nusa Penida Souvenirs',
+      subheading: 'Take home a piece of Nusa Penida — authentic local souvenirs',
+      viewAll: 'View All Souvenirs',
+      orderNow: 'Order Now',
+      outOfStock: 'Out of Stock',
+    },
     // Contact section
     contact: {
       heading: 'Get In Touch',
@@ -103,6 +112,7 @@ export const translations = {
       home: 'Beranda',
       tours: 'Tur',
       rentals: 'Sewa',
+      souvenirs: 'Souvenir',
       about: 'Tentang',
       contact: 'Kontak',
       bookNow: 'Pesan Sekarang',
@@ -165,6 +175,14 @@ export const translations = {
       fourHourRental: 'Sewa 4 jam',
       zeroToFourHours: '0-4 jam',
       carWithDriver: 'Mobil dengan Sopir',
+    },
+    // Souvenirs section
+    souvenirs: {
+      heading: 'Souvenir Nusa Penida',
+      subheading: 'Bawa pulang kenangan dari Nusa Penida — souvenir lokal asli',
+      viewAll: 'Lihat Semua Souvenir',
+      orderNow: 'Pesan Sekarang',
+      outOfStock: 'Stok Habis',
     },
     // Contact section
     contact: {

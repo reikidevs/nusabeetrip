@@ -27,6 +27,18 @@ export interface RentalService {
   isAvailable: boolean;
 }
 
+export interface Souvenir {
+  id: string;
+  name: string;
+  slug: string;
+  description: string;
+  price: number;
+  currency: string;
+  category: string;
+  image: string;
+  isAvailable: boolean;
+}
+
 export interface ContactInfo {
   phone: string;
   whatsapp: string;
@@ -53,7 +65,7 @@ export interface ContactFormData {
 
 export interface WhatsAppBookingParams {
   phoneNumber: string;
-  serviceType: 'tour' | 'rental';
+  serviceType: 'tour' | 'rental' | 'souvenir';
   serviceName: string;
   price: number;
   currency: string;
@@ -149,10 +161,16 @@ export interface RentalServiceCardProps {
 
 export interface WhatsAppBookingButtonProps {
   phoneNumber: string;
-  serviceType: 'tour' | 'rental';
+  serviceType: 'tour' | 'rental' | 'souvenir';
   serviceName: string;
   price: number;
   currency: string;
+  className?: string;
+}
+
+export interface SouvenirCardProps {
+  souvenir: Souvenir;
+  onBookingClick?: (souvenirName: string, price: number) => void;
   className?: string;
 }
 
@@ -218,7 +236,7 @@ export interface AnalyticsEvent {
 }
 
 export interface BookingClickEvent extends AnalyticsEvent {
-  serviceType: 'tour' | 'rental';
+  serviceType: 'tour' | 'rental' | 'souvenir';
   serviceName: string;
   price: number;
   method: 'whatsapp' | 'contact_form';

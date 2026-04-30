@@ -75,9 +75,10 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Tour Packages Preview */}
+      {/* Tour Packages Preview - 2 Column Layout */}
       <section className="py-24 bg-gradient-to-b from-gray-50 to-white">
         <div className="container mx-auto px-4">
+          {/* Section Header */}
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-brand-blue-800 mb-4 tracking-tight">
               {t.tours.heading}
@@ -87,140 +88,166 @@ export default function Home() {
             </p>
           </div>
           
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
-            {/* West Trip Card */}
-            <div className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-100 hover:-translate-y-1">
-              <div className="relative h-56 overflow-hidden">
-                <Image
-                  src="/images/Broken%20Beach/WhatsApp%20Image%202026-04-19%20at%2019.44.59.jpeg"
-                  alt="Broken Beach - West Trip Nusa Penida"
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
-                <div className="absolute top-4 left-4">
-                  <span className="bg-white px-4 py-1.5 rounded-full text-sm font-bold text-brand-blue-800 shadow-md">
-                    8 Hours
-                  </span>
+          {/* 2 Column Layout: Content Left, Images Right */}
+          <div className="max-w-7xl mx-auto">
+            <div className="grid lg:grid-cols-2 gap-12 items-center mb-16">
+              {/* Left: Content */}
+              <div className="space-y-8">
+                <div className="bg-white p-8 rounded-2xl shadow-lg border border-gray-100 hover:shadow-xl transition-shadow">
+                  <div className="flex items-start gap-4">
+                    <div className="flex-shrink-0 w-16 h-16 bg-blue-100 rounded-xl flex items-center justify-center shadow-sm">
+                      <svg className="w-8 h-8 text-brand-blue-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 21v-4m0 0V5a2 2 0 012-2h6.5l1 1H21l-3 6 3 6h-8.5l-1-1H5a2 2 0 00-2 2zm9-13.5V9" />
+                      </svg>
+                    </div>
+                    <div className="flex-1">
+                      <div className="flex items-center gap-3 mb-2">
+                        <h3 className="text-2xl font-bold text-brand-blue-800">{t.tours.westTrip}</h3>
+                        <span className="bg-brand-blue-100 text-brand-blue-800 px-3 py-1 rounded-full text-sm font-semibold">8 {t.tours.hours}</span>
+                      </div>
+                      <p className="text-gray-600 mb-4 leading-relaxed">
+                        {t.tours.westTripDesc}
+                      </p>
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <span className="text-4xl font-bold text-brand-blue-800">$25</span>
+                          <span className="text-gray-500 ml-2">{t.tours.perPerson}</span>
+                        </div>
+                        <Link 
+                          href="/tours"
+                          className="bg-brand-blue-800 hover:bg-brand-blue-700 text-white px-6 py-3 rounded-xl font-semibold transition-all hover:shadow-lg"
+                        >
+                          {t.tours.viewDetails}
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="bg-white p-8 rounded-2xl shadow-lg border border-gray-100 hover:shadow-xl transition-shadow">
+                  <div className="flex items-start gap-4">
+                    <div className="flex-shrink-0 w-16 h-16 bg-teal-100 rounded-xl flex items-center justify-center shadow-sm">
+                      <svg className="w-8 h-8 text-brand-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                      </svg>
+                    </div>
+                    <div className="flex-1">
+                      <div className="flex items-center gap-3 mb-2">
+                        <h3 className="text-2xl font-bold text-brand-blue-800">{t.tours.eastTrip}</h3>
+                        <span className="bg-brand-teal-100 text-brand-teal-800 px-3 py-1 rounded-full text-sm font-semibold">8 {t.tours.hours}</span>
+                      </div>
+                      <p className="text-gray-600 mb-4 leading-relaxed">
+                        {t.tours.eastTripDesc}
+                      </p>
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <span className="text-4xl font-bold text-brand-blue-800">$28</span>
+                          <span className="text-gray-500 ml-2">{t.tours.perPerson}</span>
+                        </div>
+                        <Link 
+                          href="/tours"
+                          className="bg-brand-blue-800 hover:bg-brand-blue-700 text-white px-6 py-3 rounded-xl font-semibold transition-all hover:shadow-lg"
+                        >
+                          {t.tours.viewDetails}
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="bg-white p-8 rounded-2xl shadow-lg border border-gray-100 hover:shadow-xl transition-shadow">
+                  <div className="flex items-start gap-4">
+                    <div className="flex-shrink-0 w-16 h-16 bg-orange-100 rounded-xl flex items-center justify-center shadow-sm">
+                      <svg className="w-8 h-8 text-brand-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+                      </svg>
+                    </div>
+                    <div className="flex-1">
+                      <div className="flex items-center gap-3 mb-2">
+                        <h3 className="text-2xl font-bold text-brand-blue-800">{t.tours.mixTrip}</h3>
+                        <span className="bg-brand-orange-100 text-brand-orange-800 px-3 py-1 rounded-full text-sm font-semibold">12 {t.tours.hours}</span>
+                      </div>
+                      <p className="text-gray-600 mb-4 leading-relaxed">
+                        {t.tours.mixTripDesc}
+                      </p>
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <span className="text-4xl font-bold text-brand-blue-800">$32</span>
+                          <span className="text-gray-500 ml-2">{t.tours.perPerson}</span>
+                        </div>
+                        <Link 
+                          href="/tours"
+                          className="bg-brand-blue-800 hover:bg-brand-blue-700 text-white px-6 py-3 rounded-xl font-semibold transition-all hover:shadow-lg"
+                        >
+                          {t.tours.viewDetails}
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
-              
-              <div className="p-7">
-                <h3 className="text-2xl font-bold text-brand-blue-800 mb-3">
-                  {t.tours.westTrip}
-                </h3>
-                <p className="text-gray-600 mb-6 leading-relaxed">
-                  {t.tours.westTripDesc}
-                </p>
-                
-                <div className="flex items-baseline mb-6 pb-6 border-b border-gray-100">
-                  <span className="text-4xl font-bold text-brand-blue-800">$25</span>
-                  <span className="text-gray-500 ml-2 text-base">{t.tours.perPerson}</span>
+
+              {/* Right: Image Gallery/Carousel */}
+              <div className="space-y-4">
+                <div className="relative h-96 rounded-2xl overflow-hidden shadow-2xl group">
+                  <Image
+                    src="/images/Broken%20Beach/WhatsApp%20Image%202026-04-19%20at%2019.44.59.jpeg"
+                    alt="Broken Beach - West Trip"
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-700"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+                  <div className="absolute bottom-6 left-6 text-white">
+                    <p className="text-sm font-semibold mb-1">West Trip Highlight</p>
+                    <h4 className="text-2xl font-bold">Broken Beach</h4>
+                  </div>
                 </div>
-                
-                <Link 
-                  href="/tours"
-                  className="block w-full text-center bg-brand-blue-800 hover:bg-brand-blue-700 text-white px-6 py-3.5 rounded-xl font-semibold transition-all duration-200 group-hover:shadow-lg"
-                >
-                  {t.tours.viewDetails}
-                </Link>
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="relative h-48 rounded-xl overflow-hidden shadow-lg group">
+                    <Image
+                      src="/images/East%20Trip/WhatsApp%20Image%202026-04-19%20at%2020.32.36.jpeg"
+                      alt="East Trip"
+                      fill
+                      className="object-cover group-hover:scale-105 transition-transform duration-700"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+                    <div className="absolute bottom-3 left-3 text-white">
+                      <p className="text-xs font-semibold">East Trip</p>
+                    </div>
+                  </div>
+                  <div className="relative h-48 rounded-xl overflow-hidden shadow-lg group">
+                    <Image
+                      src="/images/Diamond%20Beach/WhatsApp%20Image%202026-04-19%20at%2019.45.15.jpeg"
+                      alt="Diamond Beach"
+                      fill
+                      className="object-cover group-hover:scale-105 transition-transform duration-700"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+                    <div className="absolute bottom-3 left-3 text-white">
+                      <p className="text-xs font-semibold">Diamond Beach</p>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
 
-            {/* East Trip Card */}
-            <div className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-100 hover:-translate-y-1">
-              <div className="relative h-56 overflow-hidden">
-                <Image
-                  src="/images/East%20Trip/WhatsApp%20Image%202026-04-19%20at%2020.32.36.jpeg"
-                  alt="East Trip Nusa Penida"
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
-                <div className="absolute top-4 left-4">
-                  <span className="bg-white px-4 py-1.5 rounded-full text-sm font-bold text-brand-blue-800 shadow-md">
-                    8 Hours
-                  </span>
-                </div>
-              </div>
-              
-              <div className="p-7">
-                <h3 className="text-2xl font-bold text-brand-blue-800 mb-3">
-                  {t.tours.eastTrip}
-                </h3>
-                <p className="text-gray-600 mb-6 leading-relaxed">
-                  {t.tours.eastTripDesc}
-                </p>
-                
-                <div className="flex items-baseline mb-6 pb-6 border-b border-gray-100">
-                  <span className="text-4xl font-bold text-brand-blue-800">$28</span>
-                  <span className="text-gray-500 ml-2 text-base">{t.tours.perPerson}</span>
-                </div>
-                
-                <Link 
-                  href="/tours"
-                  className="block w-full text-center bg-brand-blue-800 hover:bg-brand-blue-700 text-white px-6 py-3.5 rounded-xl font-semibold transition-all duration-200 group-hover:shadow-lg"
-                >
-                  {t.tours.viewDetails}
-                </Link>
-              </div>
+            {/* View All Link */}
+            <div className="text-center">
+              <Link 
+                href="/tours"
+                className="inline-flex items-center gap-2 text-brand-blue-800 hover:text-brand-teal-600 font-semibold text-lg transition-colors group"
+              >
+                {t.tours.viewAll}
+                <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+              </Link>
             </div>
-
-            {/* Mix Trip Card */}
-            <div className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-100 hover:-translate-y-1 md:col-span-2 lg:col-span-1">
-              <div className="relative h-56 overflow-hidden">
-                <Image
-                  src="/images/Diamond%20Beach/WhatsApp%20Image%202026-04-19%20at%2019.45.15.jpeg"
-                  alt="Diamond Beach - Mix Trip Nusa Penida"
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
-                <div className="absolute top-4 left-4">
-                  <span className="bg-white px-4 py-1.5 rounded-full text-sm font-bold text-brand-blue-800 shadow-md">
-                    12 Hours
-                  </span>
-                </div>
-              </div>
-              
-              <div className="p-7">
-                <h3 className="text-2xl font-bold text-brand-blue-800 mb-3">
-                  {t.tours.mixTrip}
-                </h3>
-                <p className="text-gray-600 mb-6 leading-relaxed">
-                  {t.tours.mixTripDesc}
-                </p>
-                
-                <div className="flex items-baseline mb-6 pb-6 border-b border-gray-100">
-                  <span className="text-4xl font-bold text-brand-blue-800">$32</span>
-                  <span className="text-gray-500 ml-2 text-base">{t.tours.perPerson}</span>
-                </div>
-                
-                <Link 
-                  href="/tours"
-                  className="block w-full text-center bg-brand-blue-800 hover:bg-brand-blue-700 text-white px-6 py-3.5 rounded-xl font-semibold transition-all duration-200 group-hover:shadow-lg"
-                >
-                  {t.tours.viewDetails}
-                </Link>
-              </div>
-            </div>
-          </div>
-
-          <div className="text-center mt-14">
-            <Link 
-              href="/tours"
-              className="inline-flex items-center gap-2 text-brand-blue-800 hover:text-brand-teal-600 font-semibold text-lg transition-colors group"
-            >
-              {t.tours.viewAll}
-              <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
-            </Link>
           </div>
         </div>
       </section>
 
-      {/* Destinations Gallery Section */}
+      {/* Destinations Gallery Section - Balanced Masonry Grid */}
       <section className="py-24 bg-white">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
@@ -231,32 +258,91 @@ export default function Home() {
               {t.destinations.subheading}
             </p>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 max-w-6xl mx-auto">
-            {[
-              { src: '/images/Angel%20Bilabong/WhatsApp%20Image%202026-04-19%20at%2019.45.02%20(1).jpeg', label: 'Angel Bilabong' },
-              { src: '/images/Atuh%20Beach/WhatsApp%20Image%202026-04-19%20at%2020.35.33.jpeg', label: 'Atuh Beach' },
-              { src: '/images/Crystal%20Bay%20Beach/WhatsApp%20Image%202026-04-19%20at%2019.45.14.jpeg', label: 'Crystal Bay Beach' },
-              { src: '/images/Diamond%20Beach/WhatsApp%20Image%202026-04-19%20at%2020.34.15.jpeg', label: 'Diamond Beach' },
-              { src: '/images/Tree%20House/WhatsApp%20Image%202026-04-19%20at%2019.45.15%20(1).jpeg', label: 'Tree House' },
-              { src: '/images/Broken%20Beach/WhatsApp%20Image%202026-04-19%20at%2019.44.59.jpeg', label: 'Broken Beach' },
-            ].map((spot) => (
-              <div key={spot.label} className="group relative rounded-2xl overflow-hidden aspect-[4/3] shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+          
+          {/* Balanced Grid Layout */}
+          <div className="max-w-7xl mx-auto">
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+              {/* Row 1: Large featured + 2 regular */}
+              <div className="col-span-2 row-span-2 group relative rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300">
+                <div className="relative h-full min-h-[400px]">
+                  <Image
+                    src="/images/Broken%20Beach/WhatsApp%20Image%202026-04-19%20at%2019.44.59.jpeg"
+                    alt="Broken Beach"
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-700"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+                  <div className="absolute bottom-6 left-6 text-white">
+                    <span className="text-sm font-semibold bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full mb-3 inline-block">Featured Destination</span>
+                    <h3 className="text-3xl font-bold mb-2">Broken Beach</h3>
+                    <p className="text-white/90 text-sm">Natural rock arch formation</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Right side - 2 stacked cards */}
+              <div className="group relative rounded-2xl overflow-hidden aspect-square shadow-md hover:shadow-xl transition-all duration-300">
                 <Image
-                  src={spot.src}
-                  alt={spot.label}
+                  src="/images/Angel%20Bilabong/WhatsApp%20Image%202026-04-19%20at%2019.45.02%20(1).jpeg"
+                  alt="Angel Bilabong"
                   fill
                   className="object-cover group-hover:scale-110 transition-transform duration-500"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-                <span className="absolute bottom-3 left-4 text-white font-semibold text-sm drop-shadow-md">{spot.label}</span>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                <span className="absolute bottom-4 left-4 text-white font-semibold drop-shadow-md">Angel Bilabong</span>
               </div>
-            ))}
+
+              <div className="group relative rounded-2xl overflow-hidden aspect-square shadow-md hover:shadow-xl transition-all duration-300">
+                <Image
+                  src="/images/Crystal%20Bay%20Beach/WhatsApp%20Image%202026-04-19%20at%2019.45.14.jpeg"
+                  alt="Crystal Bay Beach"
+                  fill
+                  className="object-cover group-hover:scale-110 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                <span className="absolute bottom-4 left-4 text-white font-semibold drop-shadow-md">Crystal Bay</span>
+              </div>
+
+              {/* Row 2: 3 equal cards */}
+              <div className="group relative rounded-2xl overflow-hidden aspect-square shadow-md hover:shadow-xl transition-all duration-300">
+                <Image
+                  src="/images/Diamond%20Beach/WhatsApp%20Image%202026-04-19%20at%2020.34.15.jpeg"
+                  alt="Diamond Beach"
+                  fill
+                  className="object-cover group-hover:scale-110 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                <span className="absolute bottom-4 left-4 text-white font-semibold drop-shadow-md">Diamond Beach</span>
+              </div>
+
+              <div className="group relative rounded-2xl overflow-hidden aspect-square shadow-md hover:shadow-xl transition-all duration-300">
+                <Image
+                  src="/images/Atuh%20Beach/WhatsApp%20Image%202026-04-19%20at%2020.35.33.jpeg"
+                  alt="Atuh Beach"
+                  fill
+                  className="object-cover group-hover:scale-110 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                <span className="absolute bottom-4 left-4 text-white font-semibold drop-shadow-md">Atuh Beach</span>
+              </div>
+
+              <div className="group relative rounded-2xl overflow-hidden aspect-square shadow-md hover:shadow-xl transition-all duration-300">
+                <Image
+                  src="/images/Tree%20House/WhatsApp%20Image%202026-04-19%20at%2019.45.15%20(1).jpeg"
+                  alt="Tree House"
+                  fill
+                  className="object-cover group-hover:scale-110 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                <span className="absolute bottom-4 left-4 text-white font-semibold drop-shadow-md">Tree House</span>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Why Choose Us Section */}
-      <section className="py-24 bg-white">
+      {/* Why Choose Us Section - Horizontal Layout */}
+      <section className="py-24 bg-gradient-to-b from-gray-50 to-white">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-brand-blue-800 mb-4 tracking-tight">
@@ -267,48 +353,57 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-10 max-w-6xl mx-auto">
-            <div className="text-center p-8 rounded-2xl hover:bg-gray-50 transition-colors">
-              <div className="w-16 h-16 bg-gradient-to-br from-brand-blue-600 to-brand-teal-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg">
-                <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div className="max-w-5xl mx-auto space-y-6">
+            {/* Horizontal card 1 */}
+            <div className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 p-8 flex items-start gap-6 group">
+              <div className="flex-shrink-0 w-20 h-20 bg-blue-100 rounded-2xl flex items-center justify-center shadow-sm group-hover:scale-105 transition-transform duration-300">
+                <svg className="w-10 h-10 text-brand-blue-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                 </svg>
               </div>
-              <h3 className="text-2xl font-bold text-brand-blue-800 mb-4">{t.whyUs.localGuides}</h3>
-              <p className="text-gray-600 leading-relaxed text-lg" suppressHydrationWarning>
-                {t.whyUs.localGuidesDesc}
-              </p>
+              <div className="flex-1">
+                <h3 className="text-2xl font-bold text-brand-blue-800 mb-3">{t.whyUs.localGuides}</h3>
+                <p className="text-gray-600 leading-relaxed text-lg" suppressHydrationWarning>
+                  {t.whyUs.localGuidesDesc}
+                </p>
+              </div>
             </div>
 
-            <div className="text-center p-8 rounded-2xl hover:bg-gray-50 transition-colors">
-              <div className="w-16 h-16 bg-gradient-to-br from-brand-teal-600 to-brand-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg">
-                <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            {/* Horizontal card 2 */}
+            <div className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 p-8 flex items-start gap-6 group">
+              <div className="flex-shrink-0 w-20 h-20 bg-teal-100 rounded-2xl flex items-center justify-center shadow-sm group-hover:scale-105 transition-transform duration-300">
+                <svg className="w-10 h-10 text-brand-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
               </div>
-              <h3 className="text-2xl font-bold text-brand-blue-800 mb-4">{t.whyUs.fairPricing}</h3>
-              <p className="text-gray-600 leading-relaxed text-lg">
-                {t.whyUs.fairPricingDesc}
-              </p>
+              <div className="flex-1">
+                <h3 className="text-2xl font-bold text-brand-blue-800 mb-3">{t.whyUs.fairPricing}</h3>
+                <p className="text-gray-600 leading-relaxed text-lg">
+                  {t.whyUs.fairPricingDesc}
+                </p>
+              </div>
             </div>
 
-            <div className="text-center p-8 rounded-2xl hover:bg-gray-50 transition-colors">
-              <div className="w-16 h-16 bg-gradient-to-br from-brand-orange-600 to-brand-teal-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg">
-                <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            {/* Horizontal card 3 */}
+            <div className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 p-8 flex items-start gap-6 group">
+              <div className="flex-shrink-0 w-20 h-20 bg-orange-100 rounded-2xl flex items-center justify-center shadow-sm group-hover:scale-105 transition-transform duration-300">
+                <svg className="w-10 h-10 text-brand-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
                 </svg>
               </div>
-              <h3 className="text-2xl font-bold text-brand-blue-800 mb-4">{t.whyUs.easyBooking}</h3>
-              <p className="text-gray-600 leading-relaxed text-lg">
-                {t.whyUs.easyBookingDesc}
-              </p>
+              <div className="flex-1">
+                <h3 className="text-2xl font-bold text-brand-blue-800 mb-3">{t.whyUs.easyBooking}</h3>
+                <p className="text-gray-600 leading-relaxed text-lg">
+                  {t.whyUs.easyBookingDesc}
+                </p>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Vehicle Rentals Section */}
-      <section className="py-24 bg-gradient-to-b from-gray-50 to-white">
+      {/* Vehicle Rentals Section - Horizontal Scroll/Carousel Style */}
+      <section className="py-24 bg-white">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-brand-blue-800 mb-4 tracking-tight">
@@ -319,137 +414,155 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
-            {/* N-Max Rental */}
-            <div className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-100 hover:-translate-y-1">
-              <div className="relative h-48 overflow-hidden">
-                <Image
-                  src="/images/Vehicle%20Rentals/Yamaha%20N-Max.webp"
-                  alt="Yamaha N-Max - Scooter Rental Nusa Penida"
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
-              </div>
-              <div className="p-6">
-                <h3 className="text-xl font-bold text-brand-blue-800 mb-2">
-                  Yamaha N-Max
-                </h3>
-                <p className="text-gray-600 text-sm mb-4" suppressHydrationWarning>
-                  {t.rentals.automaticScooter}
-                </p>
-                <div className="flex items-baseline mb-5 pb-5 border-b border-gray-100">
-                  <span className="text-3xl font-bold text-brand-blue-800">$8</span>
-                  <span className="text-gray-500 ml-2 text-sm">{t.rentals.perDay}</span>
+          {/* Horizontal scrollable container */}
+          <div className="relative max-w-7xl mx-auto">
+            <div className="flex gap-6 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+              {/* N-Max Rental */}
+              <div className="flex-shrink-0 w-80 snap-start">
+                <div className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-100 h-full">
+                  <div className="relative h-56 overflow-hidden">
+                    <Image
+                      src="/images/Vehicle%20Rentals/Yamaha%20N-Max.webp"
+                      alt="Yamaha N-Max - Scooter Rental Nusa Penida"
+                      fill
+                      className="object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute top-4 right-4">
+                      <span className="bg-brand-blue-800 text-white px-3 py-1 rounded-full text-sm font-semibold">Popular</span>
+                    </div>
+                  </div>
+                  <div className="p-6">
+                    <h3 className="text-xl font-bold text-brand-blue-800 mb-2">
+                      Yamaha N-Max
+                    </h3>
+                    <p className="text-gray-600 text-sm mb-4" suppressHydrationWarning>
+                      {t.rentals.automaticScooter}
+                    </p>
+                    <div className="flex items-baseline mb-5 pb-5 border-b border-gray-100">
+                      <span className="text-3xl font-bold text-brand-blue-800">$8</span>
+                      <span className="text-gray-500 ml-2 text-sm">{t.rentals.perDay}</span>
+                    </div>
+                    <a 
+                      href="https://wa.me/6289631281234?text=Hi!%20I%27d%20like%20to%20rent%20a%20Yamaha%20N-Max."
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block w-full text-center bg-brand-blue-800 hover:bg-brand-blue-700 text-white px-4 py-3 rounded-xl font-semibold transition-all duration-200"
+                    >
+                      {t.rentals.bookNow}
+                    </a>
+                  </div>
                 </div>
-                <a 
-                  href="https://wa.me/6289631281234?text=Hi!%20I%27d%20like%20to%20rent%20a%20Yamaha%20N-Max."
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block w-full text-center bg-brand-blue-800 hover:bg-brand-blue-700 text-white px-4 py-3 rounded-xl font-semibold transition-all duration-200 group-hover:shadow-lg"
-                >
-                  {t.rentals.bookNow}
-                </a>
+              </div>
+
+              {/* Vario Rental */}
+              <div className="flex-shrink-0 w-80 snap-start">
+                <div className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-100 h-full">
+                  <div className="relative h-56 overflow-hidden">
+                    <Image
+                      src="/images/Vehicle%20Rentals/Honda%20Vario.webp"
+                      alt="Honda Vario - Scooter Rental Nusa Penida"
+                      fill
+                      className="object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                  </div>
+                  <div className="p-6">
+                    <h3 className="text-xl font-bold text-brand-blue-800 mb-2">
+                      Honda Vario
+                    </h3>
+                    <p className="text-gray-600 text-sm mb-4">
+                      {t.rentals.automaticScooter}
+                    </p>
+                    <div className="flex items-baseline mb-5 pb-5 border-b border-gray-100">
+                      <span className="text-3xl font-bold text-brand-blue-800">$6.50</span>
+                      <span className="text-gray-500 ml-2 text-sm">{t.rentals.perDay}</span>
+                    </div>
+                    <a 
+                      href="https://wa.me/6289631281234?text=Hi!%20I%27d%20like%20to%20rent%20a%20Honda%20Vario."
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block w-full text-center bg-brand-blue-800 hover:bg-brand-blue-700 text-white px-4 py-3 rounded-xl font-semibold transition-all duration-200"
+                    >
+                      {t.rentals.bookNow}
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              {/* Scoopy Rental */}
+              <div className="flex-shrink-0 w-80 snap-start">
+                <div className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-100 h-full">
+                  <div className="relative h-56 overflow-hidden">
+                    <Image
+                      src="/images/Vehicle%20Rentals/Honda%20Scoopy.webp"
+                      alt="Honda Scoopy - Scooter Rental Nusa Penida"
+                      fill
+                      className="object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                  </div>
+                  <div className="p-6">
+                    <h3 className="text-xl font-bold text-brand-blue-800 mb-2">
+                      Honda Scoopy
+                    </h3>
+                    <p className="text-gray-600 text-sm mb-4">
+                      {t.rentals.compactScooter}
+                    </p>
+                    <div className="flex items-baseline mb-5 pb-5 border-b border-gray-100">
+                      <span className="text-3xl font-bold text-brand-blue-800">$6.50</span>
+                      <span className="text-gray-500 ml-2 text-sm">{t.rentals.perDay}</span>
+                    </div>
+                    <a 
+                      href="https://wa.me/6289631281234?text=Hi!%20I%27d%20like%20to%20rent%20a%20Honda%20Scoopy."
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block w-full text-center bg-brand-blue-800 hover:bg-brand-blue-700 text-white px-4 py-3 rounded-xl font-semibold transition-all duration-200"
+                    >
+                      {t.rentals.bookNow}
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              {/* Car Rental */}
+              <div className="flex-shrink-0 w-80 snap-start">
+                <div className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-100 h-full">
+                  <div className="relative h-56 overflow-hidden">
+                    <Image
+                      src="/images/Vehicle%20Rentals/Car%20with%20Driver.jpg"
+                      alt="Car with Driver - Car Rental Nusa Penida"
+                      fill
+                      className="object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute top-4 right-4">
+                      <span className="bg-brand-orange-600 text-white px-3 py-1 rounded-full text-sm font-semibold">Premium</span>
+                    </div>
+                  </div>
+                  <div className="p-6">
+                    <h3 className="text-xl font-bold text-brand-blue-800 mb-2">
+                      Car with Driver
+                    </h3>
+                    <p className="text-gray-600 text-sm mb-4">
+                      {t.rentals.fourHourRental}
+                    </p>
+                    <div className="flex items-baseline mb-5 pb-5 border-b border-gray-100">
+                      <span className="text-3xl font-bold text-brand-blue-800">$32</span>
+                      <span className="text-gray-500 ml-2 text-sm">{t.rentals.zeroToFourHours}</span>
+                    </div>
+                    <a 
+                      href="https://wa.me/6289631281234?text=Hi!%20I%27d%20like%20to%20rent%20a%20car%20with%20driver."
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block w-full text-center bg-brand-blue-800 hover:bg-brand-blue-700 text-white px-4 py-3 rounded-xl font-semibold transition-all duration-200"
+                    >
+                      {t.rentals.bookNow}
+                    </a>
+                  </div>
+                </div>
               </div>
             </div>
-
-            {/* Vario Rental */}
-            <div className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-100 hover:-translate-y-1">
-              <div className="relative h-48 overflow-hidden">
-                <Image
-                  src="/images/Vehicle%20Rentals/Honda%20Vario.webp"
-                  alt="Honda Vario - Scooter Rental Nusa Penida"
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
-              </div>
-              <div className="p-6">
-                <h3 className="text-xl font-bold text-brand-blue-800 mb-2">
-                  Honda Vario
-                </h3>
-                <p className="text-gray-600 text-sm mb-4">
-                  {t.rentals.automaticScooter}
-                </p>
-                <div className="flex items-baseline mb-5 pb-5 border-b border-gray-100">
-                  <span className="text-3xl font-bold text-brand-blue-800">$6.50</span>
-                  <span className="text-gray-500 ml-2 text-sm">{t.rentals.perDay}</span>
-                </div>
-                <a 
-                  href="https://wa.me/6289631281234?text=Hi!%20I%27d%20like%20to%20rent%20a%20Honda%20Vario."
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block w-full text-center bg-brand-blue-800 hover:bg-brand-blue-700 text-white px-4 py-3 rounded-xl font-semibold transition-all duration-200 group-hover:shadow-lg"
-                >
-                  {t.rentals.bookNow}
-                </a>
-              </div>
-            </div>
-
-            {/* Scoopy Rental */}
-            <div className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-100 hover:-translate-y-1">
-              <div className="relative h-48 overflow-hidden">
-                <Image
-                  src="/images/Vehicle%20Rentals/Honda%20Scoopy.webp"
-                  alt="Honda Scoopy - Scooter Rental Nusa Penida"
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
-              </div>
-              <div className="p-6">
-                <h3 className="text-xl font-bold text-brand-blue-800 mb-2">
-                  Honda Scoopy
-                </h3>
-                <p className="text-gray-600 text-sm mb-4">
-                  {t.rentals.compactScooter}
-                </p>
-                <div className="flex items-baseline mb-5 pb-5 border-b border-gray-100">
-                  <span className="text-3xl font-bold text-brand-blue-800">$6.50</span>
-                  <span className="text-gray-500 ml-2 text-sm">{t.rentals.perDay}</span>
-                </div>
-                <a 
-                  href="https://wa.me/6289631281234?text=Hi!%20I%27d%20like%20to%20rent%20a%20Honda%20Scoopy."
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block w-full text-center bg-brand-blue-800 hover:bg-brand-blue-700 text-white px-4 py-3 rounded-xl font-semibold transition-all duration-200 group-hover:shadow-lg"
-                >
-                  {t.rentals.bookNow}
-                </a>
-              </div>
-            </div>
-
-            {/* Car Rental */}
-            <div className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-100 hover:-translate-y-1">
-              <div className="relative h-48 overflow-hidden">
-                <Image
-                  src="/images/Vehicle%20Rentals/Car%20with%20Driver.jpg"
-                  alt="Car with Driver - Car Rental Nusa Penida"
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
-              </div>
-              <div className="p-6">
-                <h3 className="text-xl font-bold text-brand-blue-800 mb-2">
-                  Car with Driver
-                </h3>
-                <p className="text-gray-600 text-sm mb-4">
-                  {t.rentals.fourHourRental}
-                </p>
-                <div className="flex items-baseline mb-5 pb-5 border-b border-gray-100">
-                  <span className="text-3xl font-bold text-brand-blue-800">$32</span>
-                  <span className="text-gray-500 ml-2 text-sm">{t.rentals.zeroToFourHours}</span>
-                </div>
-                <a 
-                  href="https://wa.me/6289631281234?text=Hi!%20I%27d%20like%20to%20rent%20a%20car%20with%20driver."
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block w-full text-center bg-brand-blue-800 hover:bg-brand-blue-700 text-white px-4 py-3 rounded-xl font-semibold transition-all duration-200 group-hover:shadow-lg"
-                >
-                  {t.rentals.bookNow}
-                </a>
-              </div>
+            
+            {/* Scroll hint */}
+            <div className="text-center mt-6 text-gray-500 text-sm md:hidden">
+              Swipe to see more →
             </div>
           </div>
 
@@ -467,8 +580,181 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Souvenirs Section - Bento Grid Layout */}
+      <section className="py-24 bg-gradient-to-b from-gray-50 to-white">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold text-brand-blue-800 mb-4 tracking-tight">
+              {t.souvenirs.heading}
+            </h2>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+              {t.souvenirs.subheading}
+            </p>
+          </div>
+
+          {/* Bento Grid - Varied sizes */}
+          <div className="max-w-7xl mx-auto">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              {/* Large featured item - spans 2x2 */}
+              <div className="col-span-2 row-span-2 group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-100">
+                <div className="relative h-full min-h-[400px] bg-gray-100 overflow-hidden">
+                  <Image
+                    src="/images/Souvenir%20Nusa%20Penida/WhatsApp%20Image%202026-04-24%20at%2018.36.37.jpeg"
+                    alt="Nusa Penida T-Shirt"
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-300"
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
+                  <div className="absolute top-4 left-4">
+                    <span className="bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-semibold text-brand-blue-800">
+                      Featured
+                    </span>
+                  </div>
+                  <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+                    <h3 className="text-2xl font-bold mb-2">
+                      Nusa Penida T-Shirt
+                    </h3>
+                    <div className="flex items-center justify-between">
+                      <span className="text-3xl font-bold">$5</span>
+                      <a
+                        href="https://wa.me/6289631281234?text=Hi!%20I%27d%20like%20to%20order%20Nusa%20Penida%20T-Shirt."
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="bg-white text-brand-blue-800 hover:bg-gray-100 px-6 py-2 rounded-xl font-semibold transition-all duration-200"
+                      >
+                        {t.souvenirs.orderNow}
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Regular item */}
+              <div className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-100">
+                <div className="relative h-48 bg-gray-100 overflow-hidden">
+                  <Image
+                    src="/images/Souvenir%20Nusa%20Penida/WhatsApp%20Image%202026-04-24%20at%2018.36.39.jpeg"
+                    alt="Kelingking Beach Keychain"
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-300"
+                    sizes="(max-width: 768px) 50vw, 25vw"
+                  />
+                  <div className="absolute top-3 left-3">
+                    <span className="bg-white/90 backdrop-blur-sm px-2 py-1 rounded-full text-xs font-semibold text-brand-blue-800">
+                      Accessories
+                    </span>
+                  </div>
+                </div>
+                <div className="p-4">
+                  <h3 className="text-base font-bold text-brand-blue-800 mb-2">
+                    Kelingking Keychain
+                  </h3>
+                  <div className="flex items-center justify-between">
+                    <span className="text-2xl font-bold text-brand-blue-800">$3</span>
+                    <a
+                      href="https://wa.me/6289631281234?text=Hi!%20I%27d%20like%20to%20order%20Kelingking%20Beach%20Keychain."
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-brand-blue-800 hover:text-brand-blue-600 font-semibold text-sm"
+                    >
+                      Order →
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              {/* Regular item */}
+              <div className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-100">
+                <div className="relative h-48 bg-gray-100 overflow-hidden">
+                  <Image
+                    src="/images/Souvenir%20Nusa%20Penida/WhatsApp%20Image%202026-04-24%20at%2018.36.40%20(1).jpeg"
+                    alt="Nusa Penida Cap"
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-300"
+                    sizes="(max-width: 768px) 50vw, 25vw"
+                  />
+                  <div className="absolute top-3 left-3">
+                    <span className="bg-white/90 backdrop-blur-sm px-2 py-1 rounded-full text-xs font-semibold text-brand-blue-800">
+                      Apparel
+                    </span>
+                  </div>
+                </div>
+                <div className="p-4">
+                  <h3 className="text-base font-bold text-brand-blue-800 mb-2">
+                    Nusa Penida Cap
+                  </h3>
+                  <div className="flex items-center justify-between">
+                    <span className="text-2xl font-bold text-brand-blue-800">$6</span>
+                    <a
+                      href="https://wa.me/6289631281234?text=Hi!%20I%27d%20like%20to%20order%20Nusa%20Penida%20Cap."
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-brand-blue-800 hover:text-brand-blue-600 font-semibold text-sm"
+                    >
+                      Order →
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              {/* Wide item - spans 2 columns */}
+              <div className="col-span-2 group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-100">
+                <div className="flex h-full">
+                  <div className="relative w-1/2 bg-gray-100 overflow-hidden">
+                    <Image
+                      src="/images/Souvenir%20Nusa%20Penida/WhatsApp%20Image%202026-04-24%20at%2018.36.41.jpeg"
+                      alt="Canvas Tote Bag"
+                      fill
+                      className="object-cover group-hover:scale-105 transition-transform duration-300"
+                      sizes="(max-width: 768px) 50vw, 25vw"
+                    />
+                  </div>
+                  <div className="w-1/2 p-6 flex flex-col justify-between">
+                    <div>
+                      <span className="bg-brand-teal-100 text-brand-teal-800 px-3 py-1 rounded-full text-xs font-semibold inline-block mb-3">
+                        Bags
+                      </span>
+                      <h3 className="text-xl font-bold text-brand-blue-800 mb-2">
+                        Canvas Tote Bag
+                      </h3>
+                      <p className="text-gray-600 text-sm mb-4">
+                        Eco-friendly tote bag with Nusa Penida print
+                      </p>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span className="text-3xl font-bold text-brand-blue-800">$8</span>
+                      <a
+                        href="https://wa.me/6289631281234?text=Hi!%20I%27d%20like%20to%20order%20Canvas%20Tote%20Bag."
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="bg-brand-blue-800 hover:bg-brand-blue-700 text-white px-6 py-2 rounded-xl font-semibold transition-all duration-200"
+                      >
+                        {t.souvenirs.orderNow}
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="text-center mt-14">
+            <Link
+              href="/souvenirs"
+              className="inline-flex items-center gap-2 text-brand-blue-800 hover:text-brand-blue-600 font-semibold text-lg transition-colors group"
+            >
+              {t.souvenirs.viewAll}
+              <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* Contact Section */}
-      <section className="py-24 bg-white">
+      <section className="py-24 bg-gradient-to-b from-gray-50 to-white">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-brand-blue-800 mb-4 tracking-tight">

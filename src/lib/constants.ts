@@ -1,4 +1,4 @@
-import { TourPackage, RentalService, BusinessInfo, ContactInfo } from '@/types';
+import { TourPackage, RentalService, Souvenir, BusinessInfo, ContactInfo } from '@/types';
 
 // Business contact information
 export const CONTACT_INFO: ContactInfo = {
@@ -35,7 +35,7 @@ export const TOUR_PACKAGES: TourPackage[] = [
       'Professional Guide',
       'Transportation Included'
     ],
-    image: '/images/tours/west-trip.jpg',
+    image: '/images/Broken%20Beach/WhatsApp%20Image%202026-04-19%20at%2019.44.59.jpeg',
     isActive: true,
   },
   {
@@ -55,7 +55,7 @@ export const TOUR_PACKAGES: TourPackage[] = [
       'Professional Guide',
       'Transportation Included'
     ],
-    image: '/images/tours/east-trip.jpg',
+    image: '/images/East%20Trip/WhatsApp%20Image%202026-04-19%20at%2020.32.36.jpeg',
     isActive: true,
   },
   {
@@ -77,7 +77,7 @@ export const TOUR_PACKAGES: TourPackage[] = [
       'Professional Guide',
       'Transportation Included'
     ],
-    image: '/images/tours/west-trip-snorkeling.jpg',
+    image: '/images/Crystal%20Bay%20Beach/WhatsApp%20Image%202026-04-19%20at%2019.45.14.jpeg',
     isActive: true,
   },
   {
@@ -99,7 +99,7 @@ export const TOUR_PACKAGES: TourPackage[] = [
       'Professional Guide',
       'Transportation Included'
     ],
-    image: '/images/tours/east-trip-snorkeling.jpg',
+    image: '/images/Diamond%20Beach/WhatsApp%20Image%202026-04-19%20at%2019.45.15.jpeg',
     isActive: true,
   },
   {
@@ -115,11 +115,10 @@ export const TOUR_PACKAGES: TourPackage[] = [
       'Best of West Attractions',
       'Best of East Attractions',
       'Full Island Experience',
-      'Lunch Included',
       'Professional Guide',
       'Transportation Included'
     ],
-    image: '/images/tours/mix-trip.jpg',
+    image: '/images/Atuh%20Beach/WhatsApp%20Image%202026-04-19%20at%2020.35.33.jpeg',
     isActive: true,
   },
 ];
@@ -201,6 +200,109 @@ export const RENTAL_SERVICES: RentalService[] = [
   },
 ];
 
+// Souvenir products data
+export const SOUVENIRS: Souvenir[] = [
+  {
+    id: 'souvenir-1',
+    name: 'Nusa Penida T-Shirt',
+    slug: 'nusa-penida-tshirt',
+    description: 'Premium cotton t-shirt with Nusa Penida design',
+    price: 5,
+    currency: 'USD',
+    category: 'Apparel',
+    image: '/images/Souvenir%20Nusa%20Penida/WhatsApp%20Image%202026-04-24%20at%2018.36.37.jpeg',
+    isAvailable: true,
+  },
+  {
+    id: 'souvenir-2',
+    name: 'Kelingking Beach Keychain',
+    slug: 'kelingking-keychain',
+    description: 'Handcrafted keychain featuring iconic Kelingking Beach',
+    price: 3,
+    currency: 'USD',
+    category: 'Accessories',
+    image: '/images/Souvenir%20Nusa%20Penida/WhatsApp%20Image%202026-04-24%20at%2018.36.39.jpeg',
+    isAvailable: true,
+  },
+  {
+    id: 'souvenir-3',
+    name: 'Nusa Penida Cap',
+    slug: 'nusa-penida-cap',
+    description: 'Stylish cap with embroidered Nusa Penida logo',
+    price: 6,
+    currency: 'USD',
+    category: 'Apparel',
+    image: '/images/Souvenir%20Nusa%20Penida/WhatsApp%20Image%202026-04-24%20at%2018.36.40%20(1).jpeg',
+    isAvailable: true,
+  },
+  {
+    id: 'souvenir-4',
+    name: 'Island Sticker Pack',
+    slug: 'island-sticker-pack',
+    description: 'Set of 5 waterproof stickers with Nusa Penida landmarks',
+    price: 4,
+    currency: 'USD',
+    category: 'Stationery',
+    image: '/images/Souvenir%20Nusa%20Penida/WhatsApp%20Image%202026-04-24%20at%2018.36.40.jpeg',
+    isAvailable: true,
+  },
+  {
+    id: 'souvenir-5',
+    name: 'Fridge Magnet Set',
+    slug: 'fridge-magnet-set',
+    description: 'Beautiful magnet set featuring Nusa Penida attractions',
+    price: 5,
+    currency: 'USD',
+    category: 'Home Decor',
+    image: '/images/Souvenir%20Nusa%20Penida/WhatsApp%20Image%202026-04-24%20at%2018.36.41%20(1).jpeg',
+    isAvailable: true,
+  },
+  {
+    id: 'souvenir-6',
+    name: 'Canvas Tote Bag',
+    slug: 'canvas-tote-bag',
+    description: 'Eco-friendly tote bag with Nusa Penida print',
+    price: 8,
+    currency: 'USD',
+    category: 'Bags',
+    image: '/images/Souvenir%20Nusa%20Penida/WhatsApp%20Image%202026-04-24%20at%2018.36.41.jpeg',
+    isAvailable: true,
+  },
+  {
+    id: 'souvenir-7',
+    name: 'Postcard Collection',
+    slug: 'postcard-collection',
+    description: 'Set of 10 premium postcards with stunning Nusa Penida views',
+    price: 6,
+    currency: 'USD',
+    category: 'Stationery',
+    image: '/images/Souvenir%20Nusa%20Penida/WhatsApp%20Image%202026-04-24%20at%2018.36.42.jpeg',
+    isAvailable: true,
+  },
+  {
+    id: 'souvenir-8',
+    name: 'Handmade Bracelet',
+    slug: 'handmade-bracelet',
+    description: 'Traditional handmade bracelet by local artisans',
+    price: 7,
+    currency: 'USD',
+    category: 'Jewelry',
+    image: '/images/Souvenir%20Nusa%20Penida/WhatsApp%20Image%202026-04-24%20at%2018.36.43%20(1).jpeg',
+    isAvailable: true,
+  },
+  {
+    id: 'souvenir-9',
+    name: 'Wooden Wall Art',
+    slug: 'wooden-wall-art',
+    description: 'Handcrafted wooden wall art featuring Nusa Penida map',
+    price: 15,
+    currency: 'USD',
+    category: 'Home Decor',
+    image: '/images/Souvenir%20Nusa%20Penida/WhatsApp%20Image%202026-04-24%20at%2018.36.43.jpeg',
+    isAvailable: true,
+  },
+];
+
 // SEO target keywords
 export const TARGET_KEYWORDS = [
   'best travel nusa penida',
@@ -234,6 +336,7 @@ export const NAVIGATION_ITEMS = [
   { label: 'Home', href: '/' },
   { label: 'Tours', href: '/tours' },
   { label: 'Rentals', href: '/rentals' },
+  { label: 'Souvenirs', href: '/souvenirs' },
   { label: 'About', href: '/about' },
   { label: 'Contact', href: '/contact' },
 ];
