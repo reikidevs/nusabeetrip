@@ -161,7 +161,7 @@ export const RENTAL_SERVICES: RentalService[] = [
       'Full Tank',
       '24/7 Support'
     ],
-    image: '/images/Vehicle%20Rentals/Honda%20Vario.webp',
+    image: '/images/Vehicle%20Rentals/Honda%20Vario.png',
     isAvailable: true,
   },
   {

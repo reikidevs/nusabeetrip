@@ -451,7 +451,7 @@ export default function Home() {
                 <div className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-100 h-full">
                   <div className="relative h-56 overflow-hidden">
                     <Image
-                      src="/images/Vehicle%20Rentals/Honda%20Vario.webp"
+                      src="/images/Vehicle%20Rentals/Honda%20Vario.png"
                       alt="Honda Vario - Scooter Rental Nusa Penida"
                       fill
                       className="object-cover group-hover:scale-105 transition-transform duration-500"

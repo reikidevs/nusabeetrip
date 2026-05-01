@@ -19,8 +19,8 @@ const VEHICLE_IMAGE_MAP: Record<string, string> = {
   'yamaha n-max':   '/images/Vehicle%20Rentals/Yamaha%20N-Max.webp',
   'n-max':          '/images/Vehicle%20Rentals/Yamaha%20N-Max.webp',
   'nmax':           '/images/Vehicle%20Rentals/Yamaha%20N-Max.webp',
-  'honda vario':    '/images/Vehicle%20Rentals/Honda%20Vario.webp',
-  'vario':          '/images/Vehicle%20Rentals/Honda%20Vario.webp',
+  'honda vario':    '/images/Vehicle%20Rentals/Honda%20Vario.png',
+  'vario':          '/images/Vehicle%20Rentals/Honda%20Vario.png',
   'honda scoopy':   '/images/Vehicle%20Rentals/Honda%20Scoopy.webp',
   'scoopy':         '/images/Vehicle%20Rentals/Honda%20Scoopy.webp',
   'car with driver': '/images/Vehicle%20Rentals/Car%20with%20Driver.jpg',
@@ -104,7 +104,7 @@ export default async function RentalsPage() {
         pricePerDay: 100000,
         currency: 'IDR',
         features: ['Automatic Transmission', 'Fuel Efficient', 'Easy Handling', 'Helmet Included', 'Full Tank', '24/7 Support'],
-        image: '/images/Vehicle%20Rentals/Honda%20Vario.webp',
+        image: '/images/Vehicle%20Rentals/Honda%20Vario.png',
         isAvailable: true
       },
       {
