@@ -3,7 +3,7 @@
 import React from 'react';
 import { RentalService } from '@/types';
 import WhatsAppBookingButton from './WhatsAppBookingButton';
-import TourImage from './TourImage';
+import Image from 'next/image';
 import { useLanguage } from '@/lib/LanguageContext';
 import { formatPriceByLang } from '@/lib/currency';
 
@@ -40,13 +40,12 @@ const RentalServiceCard: React.FC<RentalServiceCardProps> = ({
     <div className={`group bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 border border-gray-100 ${className} ${!isAvailable ? 'opacity-75' : ''}`}>
       {/* Vehicle Image */}
       <div className="relative h-56 w-full overflow-hidden">
-        <TourImage
+        <Image
           src={image || '/images/placeholder-tour.svg'}
           alt={`${model} rental - Nusa Penida`}
           fill
-          className="rounded-t-2xl group-hover:scale-105 transition-transform duration-500"
+          className="object-cover group-hover:scale-105 transition-transform duration-500"
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          priority={false}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
         

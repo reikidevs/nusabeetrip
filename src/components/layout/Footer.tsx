@@ -27,6 +27,7 @@ const Footer: React.FC = () => {
     { name: t.nav.home, href: '/' },
     { name: t.nav.tours, href: '/tours' },
     { name: t.nav.rentals, href: '/rentals' },
+    { name: t.nav.souvenirs, href: '/souvenirs' },
     { name: t.nav.about, href: '/about' },
     { name: t.nav.contact, href: '/contact' },
   ];
@@ -80,7 +81,7 @@ const Footer: React.FC = () => {
           <div className="lg:col-span-1">
             <Link href="/" className="inline-block mb-5">
               <Image
-                src="/images/NusaBeeTrip-Logo.png"
+                src="/images/NusaBeeTrip-Logo-final.png"
                 alt="NusaBeeTrip"
                 width={160}
                 height={48}
@@ -215,7 +216,7 @@ const Footer: React.FC = () => {
                 {destinations.map((d) => (
                   <span
                     key={d}
-                    className="text-xs bg-gray-800 text-gray-400 px-2.5 py-1 rounded-full border border-gray-700"
+                    className="text-xs bg-gray-800 text-gray-400 px-2.5 py-1 rounded-full border border-gray-700 hover:border-brand-teal-600 hover:text-white cursor-default transition-colors duration-200"
                   >
                     {d}
                   </span>
@@ -230,7 +231,17 @@ const Footer: React.FC = () => {
       {/* Bottom bar */}
       <div className="border-t border-gray-800 bg-gray-950">
         <div className="max-w-7xl mx-auto px-4 py-5 flex flex-col sm:flex-row justify-between items-center gap-3 text-xs text-gray-500">
-          <p>© {new Date().getFullYear()} NusaBeeTrip. {t.footer.copyright} — {t.footer.bestTravel}</p>
+          <p className="flex items-center gap-1.5">
+            © {new Date().getFullYear()} NusaBeeTrip. {t.footer.copyright}
+            <span className="text-gray-700">·</span>
+            <span className="inline-flex items-center gap-1">
+              <svg className="w-3 h-3 text-brand-teal-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+              Nusa Penida, Bali
+            </span>
+          </p>
           <div className="flex items-center gap-4">
             <Link href="/privacy" className="hover:text-gray-300 transition-colors">{t.footer.privacyPolicy}</Link>
             <span className="text-gray-700">·</span>
