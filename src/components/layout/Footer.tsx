@@ -4,9 +4,9 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useLanguage } from '@/lib/LanguageContext';
+import { getWhatsAppLink } from '@/lib/whatsapp';
 
 const WHATSAPP_NUMBER = '6289631281234';
-const WHATSAPP_MSG = encodeURIComponent('Hi! I would like to inquire about your tour and rental services.');
 
 const DESTINATIONS = [
   'Kelingking Beach',
@@ -19,7 +19,7 @@ const DESTINATIONS = [
 ];
 
 const Footer: React.FC = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
 
   const destinations = DESTINATIONS;
 
@@ -52,7 +52,7 @@ const Footer: React.FC = () => {
           </div>
           <div className="flex flex-col sm:flex-row gap-3 flex-shrink-0">
             <a
-              href={`https://wa.me/${WHATSAPP_NUMBER}?text=${WHATSAPP_MSG}`}
+              href={getWhatsAppLink('services', language)}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-2 bg-whatsapp hover:bg-whatsapp-dark text-white px-6 py-3 rounded-xl font-semibold transition-all duration-200 hover:shadow-lg hover:scale-105"
@@ -93,7 +93,7 @@ const Footer: React.FC = () => {
             {/* Social icons */}
             <div className="flex items-center gap-3">
               <a
-                href="https://wa.me/6289631281234"
+                href={getWhatsAppLink('general', language)}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="WhatsApp"

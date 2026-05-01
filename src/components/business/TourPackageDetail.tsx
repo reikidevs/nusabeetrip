@@ -4,6 +4,8 @@ import React, { useState } from 'react';
 import { TourPackage } from '@/types';
 import WhatsAppBookingButton from './WhatsAppBookingButton';
 import TourImage from './TourImage';
+import { useLanguage } from '@/lib/LanguageContext';
+import { formatPriceByLang } from '@/lib/currency';
 
 interface TourPackageDetailProps {
   tourPackage: TourPackage;
@@ -19,6 +21,7 @@ const TourPackageDetail: React.FC<TourPackageDetailProps> = ({
   images = []
 }) => {
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+  const { t, language } = useLanguage();
   
   const {
     name,
@@ -57,7 +60,7 @@ const TourPackageDetail: React.FC<TourPackageDetailProps> = ({
             />
             {includesSnorkeling && (
               <div className="absolute top-4 right-4 bg-brand-teal-500 text-white px-3 py-2 rounded-full text-sm font-semibold">
-                + Snorkeling Included
+                + {t.tours.snorkelingEquipment}
               </div>
             )}
           </div>
@@ -100,7 +103,7 @@ const TourPackageDetail: React.FC<TourPackageDetailProps> = ({
                 <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
-                {duration} hours
+                {duration} {t.tours.hours.toLowerCase()}
               </div>
               <div className="flex items-center">
                 <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -123,19 +126,19 @@ const TourPackageDetail: React.FC<TourPackageDetailProps> = ({
           <div className="bg-gray-50 p-6 rounded-lg">
             <div className="flex items-baseline gap-2 mb-2">
               <span className="text-3xl font-bold text-brand-orange-800">
-                {price.toLocaleString('id-ID')} {currency}
+                {formatPriceByLang(price, language).display} {formatPriceByLang(price, language).currencyLabel}
               </span>
-              <span className="text-gray-600">per person</span>
+              <span className="text-gray-600">{t.tours.perPerson}</span>
             </div>
             <p className="text-sm text-gray-600">
-              Best price guaranteed • No hidden fees
+              {language === 'id' ? 'Harga terbaik • Tanpa biaya tersembunyi' : 'Best price guaranteed • No hidden fees'}
             </p>
           </div>
 
           {/* Features */}
           <div>
             <h3 className="text-xl font-semibold text-gray-900 mb-4">
-              What&apos;s Included
+              {t.tours.whatsIncluded}
             </h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {features.map((feature, index) => (
@@ -161,21 +164,21 @@ const TourPackageDetail: React.FC<TourPackageDetailProps> = ({
               onClick={handleBookingClick}
             />
             <p className="text-sm text-gray-600 text-center mt-3">
-              Get instant response • Available 24/7 • Free consultation
+              {language === 'id' ? 'Respon instan • Tersedia 24/7 • Konsultasi gratis' : 'Get instant response • Available 24/7 • Free consultation'}
             </p>
           </div>
 
           {/* Additional Info */}
           <div className="bg-blue-50 p-4 rounded-lg">
             <h4 className="font-semibold text-brand-blue-800 mb-2">
-              Important Information
+              {language === 'id' ? 'Informasi Penting' : 'Important Information'}
             </h4>
             <ul className="text-sm text-gray-700 space-y-1">
-              <li>• Pickup available from your accommodation</li>
-              <li>• Comfortable transportation included</li>
-              <li>• Professional local guide</li>
-              <li>• Flexible departure times</li>
-              <li>• Weather-dependent activities</li>
+              <li>• {language === 'id' ? 'Penjemputan dari akomodasi Anda' : 'Pickup available from your accommodation'}</li>
+              <li>• {language === 'id' ? 'Transportasi nyaman termasuk' : 'Comfortable transportation included'}</li>
+              <li>• {language === 'id' ? 'Pemandu lokal profesional' : 'Professional local guide'}</li>
+              <li>• {language === 'id' ? 'Waktu keberangkatan fleksibel' : 'Flexible departure times'}</li>
+              <li>• {language === 'id' ? 'Aktivitas tergantung cuaca' : 'Weather-dependent activities'}</li>
             </ul>
           </div>
         </div>

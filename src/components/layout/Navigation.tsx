@@ -39,9 +39,9 @@ const Navigation: React.FC<NavigationProps> = ({
     : 'flex flex-col space-y-4';
 
   const linkClasses = (href: string) => {
-    const baseLink = 'font-medium transition-colors duration-200';
+    const baseLink = 'font-medium transition-colors duration-200 outline-none';
     const activeClasses = showActiveState && isActive(href)
-      ? 'text-brand-blue-800 border-b-2 border-brand-blue-800'
+      ? 'text-brand-blue-800'
       : 'text-gray-700 hover:text-brand-blue-800';
     
     return `${baseLink} ${activeClasses}`;

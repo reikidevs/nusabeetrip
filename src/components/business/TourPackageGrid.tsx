@@ -3,6 +3,7 @@
 import React from 'react';
 import { TourPackage } from '@/types';
 import TourPackageCard from './TourPackageCard';
+import { useLanguage } from '@/lib/LanguageContext';
 
 interface TourPackageGridProps {
   tourPackages: TourPackage[];
@@ -21,6 +22,7 @@ const TourPackageGrid: React.FC<TourPackageGridProps> = ({
   title = 'Our Tour Packages',
   maxItems
 }) => {
+  const { t, language } = useLanguage();
   // Filter active packages and limit if maxItems is specified
   const displayPackages = tourPackages
     .filter(pkg => pkg.isActive)
@@ -33,8 +35,8 @@ const TourPackageGrid: React.FC<TourPackageGridProps> = ({
           <svg className="w-16 h-16 mx-auto mb-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
           </svg>
-          <p className="text-lg">No tour packages available at the moment.</p>
-          <p className="text-sm mt-2">Please check back later or contact us directly.</p>
+          <p className="text-lg">{language === 'id' ? 'Tidak ada paket tur tersedia saat ini.' : 'No tour packages available at the moment.'}</p>
+          <p className="text-sm mt-2">{language === 'id' ? 'Silakan cek kembali nanti atau hubungi kami langsung.' : 'Please check back later or contact us directly.'}</p>
         </div>
       </div>
     );
@@ -48,8 +50,9 @@ const TourPackageGrid: React.FC<TourPackageGridProps> = ({
             {title}
           </h2>
           <p className="text-gray-600 max-w-2xl mx-auto">
-            Discover the breathtaking beauty of Nusa Penida with our carefully curated tour packages. 
-            Each tour is designed to showcase the island&apos;s most stunning attractions.
+            {language === 'id'
+              ? 'Temukan keindahan menakjubkan Nusa Penida dengan paket tur yang dikurasi secara khusus. Setiap tur dirancang untuk menampilkan atraksi paling menawan di pulau ini.'
+              : "Discover the breathtaking beauty of Nusa Penida with our carefully curated tour packages. Each tour is designed to showcase the island's most stunning attractions."}
           </p>
         </div>
       )}
@@ -73,7 +76,7 @@ const TourPackageGrid: React.FC<TourPackageGridProps> = ({
             href="/tours"
             className="inline-flex items-center px-6 py-3 bg-brand-blue-800 hover:bg-brand-blue-700 text-white font-semibold rounded-lg transition-colors duration-200"
           >
-            View All Tour Packages
+            {t.tours.viewAll}
             <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
             </svg>

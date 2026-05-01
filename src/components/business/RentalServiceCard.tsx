@@ -4,6 +4,8 @@ import React from 'react';
 import { RentalService } from '@/types';
 import WhatsAppBookingButton from './WhatsAppBookingButton';
 import TourImage from './TourImage';
+import { useLanguage } from '@/lib/LanguageContext';
+import { formatPriceByLang } from '@/lib/currency';
 
 interface RentalServiceCardProps {
   rentalService: RentalService;
@@ -16,6 +18,7 @@ const RentalServiceCard: React.FC<RentalServiceCardProps> = ({
   onBookingClick,
   className = ''
 }) => {
+  const { t, language } = useLanguage();
   const {
     vehicleType,
     model,
@@ -33,76 +36,75 @@ const RentalServiceCard: React.FC<RentalServiceCardProps> = ({
     }
   };
 
-  const formatVehicleType = (type: string) => {
-    return type.charAt(0).toUpperCase() + type.slice(1);
-  };
-
   return (
-    <div className={`bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 ${className} ${!isAvailable ? 'opacity-75' : ''}`}>
+    <div className={`group bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 border border-gray-100 ${className} ${!isAvailable ? 'opacity-75' : ''}`}>
       {/* Vehicle Image */}
-      <div className="relative h-48 w-full">
+      <div className="relative h-56 w-full overflow-hidden">
         <TourImage
           src={image || '/images/placeholder-tour.svg'}
-          alt={`${model} ${vehicleType} rental - Nusa Penida`}
+          alt={`${model} rental - Nusa Penida`}
           fill
-          className="rounded-t-lg"
+          className="rounded-t-2xl group-hover:scale-105 transition-transform duration-500"
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           priority={false}
         />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
+        
         {!isAvailable && (
-          <div className="absolute top-3 right-3 bg-red-500 text-white px-2 py-1 rounded-full text-xs font-semibold">
-            Not Available
+          <div className="absolute top-4 right-4 bg-red-500 text-white px-3 py-1.5 rounded-full text-xs font-semibold shadow-lg">
+            {t.rentals.notAvailable}
           </div>
         )}
-        <div className="absolute top-3 left-3 bg-brand-blue-800 text-white px-2 py-1 rounded-full text-xs font-semibold">
-          {formatVehicleType(vehicleType)}
+        
+        {/* Vehicle Type Badge */}
+        <div className="absolute bottom-4 left-4 bg-white/95 backdrop-blur-sm px-3 py-1.5 rounded-full shadow-lg">
+          <span className="text-sm font-semibold text-brand-blue-800 capitalize">{vehicleType}</span>
         </div>
       </div>
 
       {/* Card Content */}
       <div className="p-6">
         {/* Vehicle Model */}
-        <h3 className="text-xl font-bold text-brand-blue-800 mb-2">
+        <h3 className="text-xl font-bold text-brand-blue-800 mb-3">
           {model}
         </h3>
 
-        {/* Vehicle Type */}
-        <p className="text-gray-600 mb-4 text-sm capitalize">
-          {vehicleType} Rental
-        </p>
-
         {/* Pricing */}
-        <div className="mb-4">
-          <div className="flex flex-col">
-            <div className="flex items-baseline">
-              <span className="text-2xl font-bold text-brand-orange-800">
-                {pricePerDay.toLocaleString('id-ID')} {currency}
-              </span>
-              <span className="text-gray-500 ml-2 text-sm">per day</span>
-            </div>
-            {pricePerHour && (
-              <div className="flex items-baseline mt-1">
-                <span className="text-lg font-semibold text-gray-700">
-                  {pricePerHour.toLocaleString('id-ID')} {currency}
-                </span>
-                <span className="text-gray-500 ml-2 text-xs">per hour</span>
-              </div>
-            )}
+        <div className="mb-5 pb-5 border-b border-gray-100">
+          <div className="flex items-baseline gap-2">
+            <span className="text-3xl font-bold text-brand-blue-800">
+              {formatPriceByLang(pricePerDay, language).display}
+            </span>
+            <span className="text-sm font-semibold text-gray-500">{formatPriceByLang(pricePerDay, language).currencyLabel}</span>
           </div>
+          <span className="text-xs text-gray-500">{t.rentals.perDay}</span>
+          {pricePerHour && (
+            <div className="mt-2 flex items-baseline gap-2">
+              <span className="text-lg font-semibold text-gray-700">
+                {formatPriceByLang(pricePerHour, language).display}
+              </span>
+              <span className="text-xs text-gray-500">{formatPriceByLang(pricePerHour, language).currencyLabel} {t.rentals.perHour} ({t.rentals.minHours})</span>
+            </div>
+          )}
         </div>
 
         {/* Features List */}
         <div className="mb-6">
-          <h4 className="text-sm font-semibold text-gray-700 mb-2">What&apos;s Included:</h4>
-          <ul className="space-y-1">
-            {features.map((feature, index) => (
-              <li key={index} className="flex items-center text-sm text-gray-600">
-                <svg className="w-4 h-4 text-green-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+          <h4 className="text-xs font-bold text-gray-700 mb-3 uppercase tracking-wide">{t.tours.whatsIncludedLabel}</h4>
+          <ul className="space-y-2">
+            {features.slice(0, 4).map((feature, index) => (
+              <li key={index} className="flex items-start text-sm text-gray-600">
+                <svg className="w-4 h-4 text-green-500 mr-2 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
                 </svg>
-                {feature}
+                <span>{feature}</span>
               </li>
             ))}
+            {features.length > 4 && (
+              <li className="text-xs text-brand-blue-600 font-semibold ml-6">
+                + {features.length - 4} {t.tours.moreIncluded}
+              </li>
+            )}
           </ul>
         </div>
 
@@ -110,16 +112,17 @@ const RentalServiceCard: React.FC<RentalServiceCardProps> = ({
         <WhatsAppBookingButton
           phoneNumber="+62 896-3128-1234"
           serviceType="rental"
-          serviceName={`${model} ${vehicleType}`}
+          serviceName={model}
           price={pricePerDay}
           currency={currency}
-          className={`w-full ${!isAvailable ? 'opacity-50 cursor-not-allowed' : ''}`}
+          className="w-full"
+          disabled={!isAvailable}
           onClick={isAvailable ? handleBookingClick : undefined}
         />
         
         {!isAvailable && (
           <p className="text-center text-red-500 text-xs mt-2">
-            Currently unavailable
+            {t.rentals.currentlyUnavailable}
           </p>
         )}
       </div>

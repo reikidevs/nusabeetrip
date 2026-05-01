@@ -1,6 +1,9 @@
+'use client';
+
 import React from 'react';
 import { Souvenir } from '@/types';
 import { SouvenirCard } from './SouvenirCard';
+import { useLanguage } from '@/lib/LanguageContext';
 
 export interface SouvenirGridProps {
   souvenirs: Souvenir[];
@@ -13,10 +16,14 @@ export const SouvenirGrid: React.FC<SouvenirGridProps> = ({
   onBookingClick,
   className = '',
 }) => {
+  const { language } = useLanguage();
+
   if (souvenirs.length === 0) {
     return (
       <div className="text-center py-12">
-        <p className="text-gray-500 text-lg">No souvenirs available at the moment.</p>
+        <p className="text-gray-500 text-lg">
+          {language === 'id' ? 'Tidak ada souvenir tersedia saat ini.' : 'No souvenirs available at the moment.'}
+        </p>
       </div>
     );
   }

@@ -3,9 +3,11 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { useLanguage } from '@/lib/LanguageContext'
+import { formatPriceByLang, formatUsdPriceByLang } from '@/lib/currency'
+import { getWhatsAppLink, getWhatsAppRentalLink, getWhatsAppItemLink } from '@/lib/whatsapp'
 
 export default function Home() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   return (
     <main className="min-h-screen">
       {/* Hero Section */}
@@ -44,7 +46,7 @@ export default function Home() {
               </Link>
               
               <a 
-                href="https://wa.me/6289631281234?text=Hi!%20I%27m%20interested%20in%20booking%20a%20tour."
+                href={getWhatsAppLink('bookTour', language)}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 bg-whatsapp hover:bg-whatsapp-dark text-white px-8 py-4 rounded-xl font-semibold hover:shadow-xl hover:scale-105 transition-all duration-200 shadow-lg"
@@ -110,7 +112,7 @@ export default function Home() {
                       </p>
                       <div className="flex items-center justify-between">
                         <div>
-                          <span className="text-4xl font-bold text-brand-blue-800">$25</span>
+                          <span className="text-4xl font-bold text-brand-blue-800">{formatPriceByLang(390000, language).display}</span>
                           <span className="text-gray-500 ml-2">{t.tours.perPerson}</span>
                         </div>
                         <Link 
@@ -141,7 +143,7 @@ export default function Home() {
                       </p>
                       <div className="flex items-center justify-between">
                         <div>
-                          <span className="text-4xl font-bold text-brand-blue-800">$28</span>
+                          <span className="text-4xl font-bold text-brand-blue-800">{formatPriceByLang(430000, language).display}</span>
                           <span className="text-gray-500 ml-2">{t.tours.perPerson}</span>
                         </div>
                         <Link 
@@ -172,7 +174,7 @@ export default function Home() {
                       </p>
                       <div className="flex items-center justify-between">
                         <div>
-                          <span className="text-4xl font-bold text-brand-blue-800">$32</span>
+                          <span className="text-4xl font-bold text-brand-blue-800">{formatPriceByLang(500000, language).display}</span>
                           <span className="text-gray-500 ml-2">{t.tours.perPerson}</span>
                         </div>
                         <Link 
@@ -198,7 +200,7 @@ export default function Home() {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
                   <div className="absolute bottom-6 left-6 text-white">
-                    <p className="text-sm font-semibold mb-1">West Trip Highlight</p>
+                    <p className="text-sm font-semibold mb-1">{language === 'id' ? 'Highlight West Trip' : 'West Trip Highlight'}</p>
                     <h4 className="text-2xl font-bold">Broken Beach</h4>
                   </div>
                 </div>
@@ -273,9 +275,9 @@ export default function Home() {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
                   <div className="absolute bottom-6 left-6 text-white">
-                    <span className="text-sm font-semibold bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full mb-3 inline-block">Featured Destination</span>
+                    <span className="text-sm font-semibold bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full mb-3 inline-block">{language === 'id' ? 'Destinasi Unggulan' : 'Featured Destination'}</span>
                     <h3 className="text-3xl font-bold mb-2">Broken Beach</h3>
-                    <p className="text-white/90 text-sm">Natural rock arch formation</p>
+                    <p className="text-white/90 text-sm">{language === 'id' ? 'Formasi lengkungan batu alam' : 'Natural rock arch formation'}</p>
                   </div>
                 </div>
               </div>
@@ -428,7 +430,7 @@ export default function Home() {
                       className="object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                     <div className="absolute top-4 right-4">
-                      <span className="bg-brand-blue-800 text-white px-3 py-1 rounded-full text-sm font-semibold">Popular</span>
+                      <span className="bg-brand-blue-800 text-white px-3 py-1 rounded-full text-sm font-semibold">{language === 'id' ? 'Populer' : 'Popular'}</span>
                     </div>
                   </div>
                   <div className="p-6">
@@ -439,11 +441,11 @@ export default function Home() {
                       {t.rentals.automaticScooter}
                     </p>
                     <div className="flex items-baseline mb-5 pb-5 border-b border-gray-100">
-                      <span className="text-3xl font-bold text-brand-blue-800">$8</span>
+                      <span className="text-3xl font-bold text-brand-blue-800">{formatPriceByLang(125000, language).display}</span>
                       <span className="text-gray-500 ml-2 text-sm">{t.rentals.perDay}</span>
                     </div>
                     <a 
-                      href="https://wa.me/6289631281234?text=Hi!%20I%27d%20like%20to%20rent%20a%20Yamaha%20N-Max."
+                      href={getWhatsAppRentalLink('Yamaha N-Max', language)}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="block w-full text-center bg-brand-blue-800 hover:bg-brand-blue-700 text-white px-4 py-3 rounded-xl font-semibold transition-all duration-200"
@@ -473,11 +475,11 @@ export default function Home() {
                       {t.rentals.automaticScooter}
                     </p>
                     <div className="flex items-baseline mb-5 pb-5 border-b border-gray-100">
-                      <span className="text-3xl font-bold text-brand-blue-800">$6.50</span>
+                      <span className="text-3xl font-bold text-brand-blue-800">{formatPriceByLang(100000, language).display}</span>
                       <span className="text-gray-500 ml-2 text-sm">{t.rentals.perDay}</span>
                     </div>
                     <a 
-                      href="https://wa.me/6289631281234?text=Hi!%20I%27d%20like%20to%20rent%20a%20Honda%20Vario."
+                      href={getWhatsAppRentalLink('Honda Vario', language)}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="block w-full text-center bg-brand-blue-800 hover:bg-brand-blue-700 text-white px-4 py-3 rounded-xl font-semibold transition-all duration-200"
@@ -507,11 +509,11 @@ export default function Home() {
                       {t.rentals.compactScooter}
                     </p>
                     <div className="flex items-baseline mb-5 pb-5 border-b border-gray-100">
-                      <span className="text-3xl font-bold text-brand-blue-800">$6.50</span>
+                      <span className="text-3xl font-bold text-brand-blue-800">{formatPriceByLang(100000, language).display}</span>
                       <span className="text-gray-500 ml-2 text-sm">{t.rentals.perDay}</span>
                     </div>
                     <a 
-                      href="https://wa.me/6289631281234?text=Hi!%20I%27d%20like%20to%20rent%20a%20Honda%20Scoopy."
+                      href={getWhatsAppRentalLink('Honda Scoopy', language)}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="block w-full text-center bg-brand-blue-800 hover:bg-brand-blue-700 text-white px-4 py-3 rounded-xl font-semibold transition-all duration-200"
@@ -533,22 +535,22 @@ export default function Home() {
                       className="object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                     <div className="absolute top-4 right-4">
-                      <span className="bg-brand-orange-600 text-white px-3 py-1 rounded-full text-sm font-semibold">Premium</span>
+                      <span className="bg-brand-orange-600 text-white px-3 py-1 rounded-full text-sm font-semibold">{language === 'id' ? 'Premium' : 'Premium'}</span>
                     </div>
                   </div>
                   <div className="p-6">
                     <h3 className="text-xl font-bold text-brand-blue-800 mb-2">
-                      Car with Driver
+                      {t.rentals.carWithDriver}
                     </h3>
                     <p className="text-gray-600 text-sm mb-4">
                       {t.rentals.fourHourRental}
                     </p>
                     <div className="flex items-baseline mb-5 pb-5 border-b border-gray-100">
-                      <span className="text-3xl font-bold text-brand-blue-800">$32</span>
+                      <span className="text-3xl font-bold text-brand-blue-800">{formatPriceByLang(500000, language).display}</span>
                       <span className="text-gray-500 ml-2 text-sm">{t.rentals.zeroToFourHours}</span>
                     </div>
                     <a 
-                      href="https://wa.me/6289631281234?text=Hi!%20I%27d%20like%20to%20rent%20a%20car%20with%20driver."
+                      href={getWhatsAppRentalLink('Car with Driver', language)}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="block w-full text-center bg-brand-blue-800 hover:bg-brand-blue-700 text-white px-4 py-3 rounded-xl font-semibold transition-all duration-200"
@@ -562,7 +564,7 @@ export default function Home() {
             
             {/* Scroll hint */}
             <div className="text-center mt-6 text-gray-500 text-sm md:hidden">
-              Swipe to see more →
+              {language === 'id' ? 'Geser untuk lihat lainnya →' : 'Swipe to see more →'}
             </div>
           </div>
 
@@ -608,7 +610,7 @@ export default function Home() {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
                   <div className="absolute top-4 left-4">
                     <span className="bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-semibold text-brand-blue-800">
-                      Featured
+                      {language === 'id' ? 'Unggulan' : 'Featured'}
                     </span>
                   </div>
                   <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
@@ -616,9 +618,9 @@ export default function Home() {
                       Nusa Penida T-Shirt
                     </h3>
                     <div className="flex items-center justify-between">
-                      <span className="text-3xl font-bold">$5</span>
+                      <span className="text-3xl font-bold">{formatUsdPriceByLang(5, language).display}</span>
                       <a
-                        href="https://wa.me/6289631281234?text=Hi!%20I%27d%20like%20to%20order%20Nusa%20Penida%20T-Shirt."
+                        href={getWhatsAppItemLink('Nusa Penida T-Shirt', language)}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="bg-white text-brand-blue-800 hover:bg-gray-100 px-6 py-2 rounded-xl font-semibold transition-all duration-200"
@@ -642,7 +644,7 @@ export default function Home() {
                   />
                   <div className="absolute top-3 left-3">
                     <span className="bg-white/90 backdrop-blur-sm px-2 py-1 rounded-full text-xs font-semibold text-brand-blue-800">
-                      Accessories
+                      {language === 'id' ? 'Aksesoris' : 'Accessories'}
                     </span>
                   </div>
                 </div>
@@ -651,14 +653,14 @@ export default function Home() {
                     Kelingking Keychain
                   </h3>
                   <div className="flex items-center justify-between">
-                    <span className="text-2xl font-bold text-brand-blue-800">$3</span>
+                    <span className="text-2xl font-bold text-brand-blue-800">{formatUsdPriceByLang(3, language).display}</span>
                     <a
-                      href="https://wa.me/6289631281234?text=Hi!%20I%27d%20like%20to%20order%20Kelingking%20Beach%20Keychain."
+                      href={getWhatsAppItemLink('Kelingking Keychain', language)}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-brand-blue-800 hover:text-brand-blue-600 font-semibold text-sm"
                     >
-                      Order →
+                      {t.souvenirs.orderNow} →
                     </a>
                   </div>
                 </div>
@@ -676,7 +678,7 @@ export default function Home() {
                   />
                   <div className="absolute top-3 left-3">
                     <span className="bg-white/90 backdrop-blur-sm px-2 py-1 rounded-full text-xs font-semibold text-brand-blue-800">
-                      Apparel
+                      {language === 'id' ? 'Pakaian' : 'Apparel'}
                     </span>
                   </div>
                 </div>
@@ -685,14 +687,14 @@ export default function Home() {
                     Nusa Penida Cap
                   </h3>
                   <div className="flex items-center justify-between">
-                    <span className="text-2xl font-bold text-brand-blue-800">$6</span>
+                    <span className="text-2xl font-bold text-brand-blue-800">{formatUsdPriceByLang(6, language).display}</span>
                     <a
-                      href="https://wa.me/6289631281234?text=Hi!%20I%27d%20like%20to%20order%20Nusa%20Penida%20Cap."
+                      href={getWhatsAppItemLink('Nusa Penida Cap', language)}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-brand-blue-800 hover:text-brand-blue-600 font-semibold text-sm"
                     >
-                      Order →
+                      {t.souvenirs.orderNow} →
                     </a>
                   </div>
                 </div>
@@ -713,19 +715,19 @@ export default function Home() {
                   <div className="w-1/2 p-6 flex flex-col justify-between">
                     <div>
                       <span className="bg-brand-teal-100 text-brand-teal-800 px-3 py-1 rounded-full text-xs font-semibold inline-block mb-3">
-                        Bags
+                         {language === 'id' ? 'Tas' : 'Bags'}
                       </span>
                       <h3 className="text-xl font-bold text-brand-blue-800 mb-2">
                         Canvas Tote Bag
                       </h3>
                       <p className="text-gray-600 text-sm mb-4">
-                        Eco-friendly tote bag with Nusa Penida print
+                        {language === 'id' ? 'Tote bag ramah lingkungan dengan print Nusa Penida' : 'Eco-friendly tote bag with Nusa Penida print'}
                       </p>
                     </div>
                     <div className="flex items-center justify-between">
-                      <span className="text-3xl font-bold text-brand-blue-800">$8</span>
+                      <span className="text-3xl font-bold text-brand-blue-800">{formatUsdPriceByLang(8, language).display}</span>
                       <a
-                        href="https://wa.me/6289631281234?text=Hi!%20I%27d%20like%20to%20order%20Canvas%20Tote%20Bag."
+                        href={getWhatsAppItemLink('Canvas Tote Bag', language)}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="bg-brand-blue-800 hover:bg-brand-blue-700 text-white px-6 py-2 rounded-xl font-semibold transition-all duration-200"
@@ -782,7 +784,7 @@ export default function Home() {
             
             {/* WhatsApp Card */}
             <a 
-              href="https://wa.me/6289631281234?text=Hi!%20I%27m%20interested%20in%20NusaBeeTrip%20services."
+              href={getWhatsAppLink('services', language)}
               target="_blank"
               rel="noopener noreferrer"
               className="group bg-gradient-to-br from-whatsapp to-whatsapp-dark text-white rounded-2xl p-8 hover:shadow-2xl transition-all duration-300 text-center hover:-translate-y-1"

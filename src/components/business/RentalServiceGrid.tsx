@@ -3,6 +3,7 @@
 import React from 'react';
 import { RentalService } from '@/types';
 import RentalServiceCard from './RentalServiceCard';
+import { useLanguage } from '@/lib/LanguageContext';
 
 interface RentalServiceGridProps {
   rentalServices: RentalService[];
@@ -21,6 +22,7 @@ const RentalServiceGrid: React.FC<RentalServiceGridProps> = ({
   title = 'Vehicle Rentals',
   maxItems
 }) => {
+  const { t, language } = useLanguage();
   // Filter available services and limit if maxItems is specified
   const availableServices = rentalServices.filter(service => service.isAvailable);
   const displayServices = maxItems 
@@ -49,9 +51,11 @@ const RentalServiceGrid: React.FC<RentalServiceGridProps> = ({
           <svg className="w-16 h-16 text-gray-300 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
           </svg>
-          <h3 className="text-lg font-semibold text-gray-600 mb-2">No Vehicles Available</h3>
+          <h3 className="text-lg font-semibold text-gray-600 mb-2">{language === 'id' ? 'Tidak Ada Kendaraan Tersedia' : 'No Vehicles Available'}</h3>
           <p className="text-gray-500">
-            All vehicles are currently rented out. Please check back later or contact us for availability.
+            {language === 'id' 
+              ? 'Semua kendaraan saat ini disewa. Silakan cek kembali nanti atau hubungi kami untuk ketersediaan.'
+              : 'All vehicles are currently rented out. Please check back later or contact us for availability.'}
           </p>
         </div>
       </div>
@@ -66,8 +70,9 @@ const RentalServiceGrid: React.FC<RentalServiceGridProps> = ({
             {title}
           </h2>
           <p className="text-gray-600 max-w-2xl mx-auto">
-            Explore Nusa Penida with our reliable vehicle rentals. Choose from motorcycles and cars 
-            to suit your adventure needs.
+            {language === 'id'
+              ? 'Jelajahi Nusa Penida dengan sewa kendaraan terpercaya kami. Pilih dari motor dan mobil sesuai kebutuhan petualangan Anda.'
+              : 'Explore Nusa Penida with our reliable vehicle rentals. Choose from motorcycles and cars to suit your adventure needs.'}
           </p>
         </div>
       )}
@@ -79,7 +84,7 @@ const RentalServiceGrid: React.FC<RentalServiceGridProps> = ({
             {/* Vehicle Type Section Header */}
             <div className="mb-6">
               <h3 className="text-xl font-semibold text-brand-blue-800 capitalize mb-2">
-                {vehicleType} Rentals
+                {language === 'id' ? `Sewa ${vehicleType}` : `${vehicleType} Rentals`}
               </h3>
               <div className="w-16 h-1 bg-brand-orange-800 rounded"></div>
             </div>
@@ -106,7 +111,7 @@ const RentalServiceGrid: React.FC<RentalServiceGridProps> = ({
             href="/rentals"
             className="inline-flex items-center px-6 py-3 bg-brand-blue-800 text-white font-semibold rounded-lg hover:bg-brand-blue-700 transition-colors duration-200"
           >
-            View All Rentals
+            {t.rentals.viewAll}
             <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
             </svg>

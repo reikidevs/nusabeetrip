@@ -4,6 +4,8 @@ import React from 'react';
 import { RentalService } from '@/types';
 import WhatsAppBookingButton from './WhatsAppBookingButton';
 import TourImage from './TourImage';
+import { useLanguage } from '@/lib/LanguageContext';
+import { formatPriceByLang } from '@/lib/currency';
 
 interface RentalServiceDetailProps {
   rentalService: RentalService;
@@ -16,6 +18,7 @@ const RentalServiceDetail: React.FC<RentalServiceDetailProps> = ({
   onBookingClick,
   className = ''
 }) => {
+  const { t, language } = useLanguage();
   const {
     vehicleType,
     model,
@@ -38,7 +41,16 @@ const RentalServiceDetail: React.FC<RentalServiceDetailProps> = ({
   };
 
   // Sample rental terms and conditions
-  const rentalTerms = [
+  const rentalTerms = language === 'id' ? [
+    'SIM yang masih berlaku diperlukan',
+    'Usia minimum: 18 tahun',
+    'Bahan bakar tidak termasuk dalam harga sewa',
+    'Kembalikan kendaraan dengan level bahan bakar sama',
+    'Deposit kerusakan mungkin diperlukan',
+    'Tersedia perlindungan asuransi',
+    'Antar gratis di area Nusa Penida',
+    'Bantuan darurat 24/7'
+  ] : [
     'Valid driving license required',
     'Minimum age: 18 years old',
     'Fuel not included in rental price',
@@ -84,7 +96,7 @@ const RentalServiceDetail: React.FC<RentalServiceDetailProps> = ({
             />
             {!isAvailable && (
               <div className="absolute top-3 right-3 bg-red-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
-                Not Available
+                {t.rentals.notAvailable}
               </div>
             )}
             <div className="absolute top-3 left-3 bg-brand-blue-800 text-white px-3 py-1 rounded-full text-sm font-semibold">
@@ -99,25 +111,25 @@ const RentalServiceDetail: React.FC<RentalServiceDetailProps> = ({
                 {model}
               </h1>
               <p className="text-lg text-gray-600 capitalize">
-                {vehicleType} Rental in Nusa Penida
+                {language === 'id' ? `Sewa ${vehicleType} di Nusa Penida` : `${vehicleType} Rental in Nusa Penida`}
               </p>
             </div>
 
             {/* Pricing */}
             <div className="bg-gray-50 p-4 rounded-lg">
-              <h3 className="text-lg font-semibold text-gray-800 mb-3">Rental Pricing</h3>
+              <h3 className="text-lg font-semibold text-gray-800 mb-3">{language === 'id' ? 'Harga Sewa' : 'Rental Pricing'}</h3>
               <div className="space-y-2">
                 <div className="flex justify-between items-center">
-                  <span className="text-gray-600">Daily Rate:</span>
+                  <span className="text-gray-600">{language === 'id' ? 'Tarif Harian:' : 'Daily Rate:'}</span>
                   <span className="text-2xl font-bold text-brand-orange-800">
-                    {pricePerDay.toLocaleString('id-ID')} {currency}
+                    {formatPriceByLang(pricePerDay, language).display} {formatPriceByLang(pricePerDay, language).currencyLabel}
                   </span>
                 </div>
                 {pricePerHour && (
                   <div className="flex justify-between items-center">
-                    <span className="text-gray-600">Hourly Rate:</span>
+                    <span className="text-gray-600">{language === 'id' ? 'Tarif Per Jam:' : 'Hourly Rate:'}</span>
                     <span className="text-lg font-semibold text-gray-700">
-                      {pricePerHour.toLocaleString('id-ID')} {currency}
+                      {formatPriceByLang(pricePerHour, language).display} {formatPriceByLang(pricePerHour, language).currencyLabel}
                     </span>
                   </div>
                 )}
@@ -137,7 +149,9 @@ const RentalServiceDetail: React.FC<RentalServiceDetailProps> = ({
             
             {!isAvailable && (
               <p className="text-center text-red-500 text-sm">
-                This vehicle is currently unavailable. Contact us for alternative options.
+                {language === 'id' 
+                  ? 'Kendaraan ini saat ini tidak tersedia. Hubungi kami untuk opsi alternatif.' 
+                  : 'This vehicle is currently unavailable. Contact us for alternative options.'}
               </p>
             )}
           </div>
@@ -147,7 +161,7 @@ const RentalServiceDetail: React.FC<RentalServiceDetailProps> = ({
         <div className="space-y-6">
           {/* Features */}
           <div>
-            <h3 className="text-xl font-semibold text-brand-blue-800 mb-4">What&apos;s Included</h3>
+            <h3 className="text-xl font-semibold text-brand-blue-800 mb-4">{t.tours.whatsIncluded}</h3>
             <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2">
               {features.map((feature, index) => (
                 <li key={index} className="flex items-center text-sm text-gray-600">
@@ -162,7 +176,7 @@ const RentalServiceDetail: React.FC<RentalServiceDetailProps> = ({
 
           {/* Specifications */}
           <div>
-            <h3 className="text-xl font-semibold text-brand-blue-800 mb-4">Specifications</h3>
+            <h3 className="text-xl font-semibold text-brand-blue-800 mb-4">{language === 'id' ? 'Spesifikasi' : 'Specifications'}</h3>
             <ul className="space-y-2">
               {specifications.map((spec, index) => (
                 <li key={index} className="flex items-center text-sm text-gray-600">
@@ -177,7 +191,7 @@ const RentalServiceDetail: React.FC<RentalServiceDetailProps> = ({
 
           {/* Rental Terms */}
           <div>
-            <h3 className="text-xl font-semibold text-brand-blue-800 mb-4">Rental Terms</h3>
+            <h3 className="text-xl font-semibold text-brand-blue-800 mb-4">{language === 'id' ? 'Syarat & Ketentuan' : 'Rental Terms'}</h3>
             <ul className="space-y-2">
               {rentalTerms.map((term, index) => (
                 <li key={index} className="flex items-start text-sm text-gray-600">
@@ -192,9 +206,11 @@ const RentalServiceDetail: React.FC<RentalServiceDetailProps> = ({
 
           {/* Contact Info */}
           <div className="bg-brand-blue-50 p-4 rounded-lg">
-            <h3 className="text-lg font-semibold text-brand-blue-800 mb-2">Need Help?</h3>
+            <h3 className="text-lg font-semibold text-brand-blue-800 mb-2">{language === 'id' ? 'Butuh Bantuan?' : 'Need Help?'}</h3>
             <p className="text-sm text-gray-600 mb-3">
-              Contact us for questions about availability, pricing, or special requirements.
+              {language === 'id'
+                ? 'Hubungi kami untuk pertanyaan tentang ketersediaan, harga, atau kebutuhan khusus.'
+                : 'Contact us for questions about availability, pricing, or special requirements.'}
             </p>
             <div className="space-y-1 text-sm">
               <p className="text-gray-600">

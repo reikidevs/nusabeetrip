@@ -1,8 +1,12 @@
+'use client';
+
 import React from 'react';
 import Image from 'next/image';
 import { Souvenir } from '@/types';
 import WhatsAppBookingButton from './WhatsAppBookingButton';
 import { trackBookingClick } from '@/lib/analytics';
+import { useLanguage } from '@/lib/LanguageContext';
+import { formatUsdPriceByLang } from '@/lib/currency';
 
 export interface SouvenirCardProps {
   souvenir: Souvenir;
@@ -15,6 +19,7 @@ export const SouvenirCard: React.FC<SouvenirCardProps> = ({
   onBookingClick,
   className = '',
 }) => {
+  const { t, language } = useLanguage();
   const { name, description, price, currency, category, image, isAvailable } = souvenir;
 
   const handleBookingClick = () => {
@@ -30,12 +35,7 @@ export const SouvenirCard: React.FC<SouvenirCardProps> = ({
     }
   };
 
-  const formatPrice = (amount: number, curr: string) => {
-    if (curr === 'USD') {
-      return `$${amount}`;
-    }
-    return `Rp ${amount.toLocaleString('id-ID')}`;
-  };
+
 
   return (
     <div
@@ -55,7 +55,7 @@ export const SouvenirCard: React.FC<SouvenirCardProps> = ({
         {!isAvailable && (
           <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
             <span className="bg-white px-4 py-2 rounded-full text-sm font-bold text-gray-800">
-              Out of Stock
+              {t.souvenirs.outOfStock}
             </span>
           </div>
         )}
@@ -81,7 +81,7 @@ export const SouvenirCard: React.FC<SouvenirCardProps> = ({
         {/* Price */}
         <div className="flex items-baseline mb-5 pb-5 border-b border-gray-100">
           <span className="text-3xl font-bold text-brand-blue-800">
-            {formatPrice(price, currency)}
+            {formatUsdPriceByLang(price, language).display}
           </span>
         </div>
 
