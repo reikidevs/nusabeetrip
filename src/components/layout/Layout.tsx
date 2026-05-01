@@ -24,6 +24,9 @@ const Layout: React.FC<LayoutProps> = ({
       <main className="flex-1">
         {children}
       </main>
+
+      {/* Extra bottom space on mobile so content isn't hidden behind the bottom tab bar */}
+      <div className="md:hidden h-20" />
       
       {showFooter && <Footer />}
     </div>
