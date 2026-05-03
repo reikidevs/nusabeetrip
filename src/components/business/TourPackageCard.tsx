@@ -39,7 +39,7 @@ const TourPackageCard: React.FC<TourPackageCardProps> = ({
   return (
     <div className={`group bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 border border-gray-100 ${className}`}>
       {/* Tour Image */}
-      <div className="relative h-56 w-full overflow-hidden">
+      <div className="relative h-40 sm:h-56 w-full overflow-hidden">
         <Image
           src={image || '/images/placeholder-tour.svg'}
           alt={`${name} - Best Travel Nusa Penida`}
@@ -65,21 +65,21 @@ const TourPackageCard: React.FC<TourPackageCardProps> = ({
       </div>
 
       {/* Card Content */}
-      <div className="p-6">
+      <div className="p-4 sm:p-6">
         {/* Tour Name */}
-        <h3 className="text-xl font-bold text-brand-blue-800 mb-3">
+        <h3 className="text-base sm:text-xl font-bold text-brand-blue-800 mb-2 sm:mb-3">
           {name}
         </h3>
 
         {/* Description */}
-        <p className="text-gray-600 mb-4 text-sm leading-relaxed line-clamp-2">
+        <p className="text-gray-600 mb-3 sm:mb-4 text-xs sm:text-sm leading-relaxed line-clamp-2">
           {description}
         </p>
 
         {/* Price */}
         <div className="mb-5 pb-5 border-b border-gray-100">
           <div className="flex items-baseline gap-2">
-            <span className="text-3xl font-bold text-brand-blue-800">
+            <span className="text-xl sm:text-3xl font-bold text-brand-blue-800">
               {formatPriceByLang(price, language).display}
             </span>
             <span className="text-sm font-semibold text-gray-500">{formatPriceByLang(price, language).currencyLabel}</span>

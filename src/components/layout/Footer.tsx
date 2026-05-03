@@ -48,7 +48,7 @@ const Footer: React.FC = () => {
       <div className="bg-gradient-to-r from-brand-blue-800 via-brand-blue-700 to-brand-teal-700">
         <div className="max-w-7xl mx-auto px-4 py-10 flex flex-col md:flex-row items-center justify-between gap-6">
           <div>
-            <h3 className="text-2xl font-bold text-white mb-1">{t.footer.ctaHeading}</h3>
+            <h3 className="text-xl sm:text-2xl font-bold text-white mb-1">{t.footer.ctaHeading}</h3>
             <p className="text-white/80">{t.footer.ctaSubtext}</p>
           </div>
           <div className="flex flex-col sm:flex-row gap-3 flex-shrink-0">
@@ -74,8 +74,8 @@ const Footer: React.FC = () => {
       </div>
 
       {/* Main footer grid */}
-      <div className="max-w-7xl mx-auto px-4 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+      <div className="max-w-7xl mx-auto px-4 py-10 sm:py-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-12">
 
           {/* Brand column */}
           <div className="lg:col-span-1">

@@ -44,7 +44,7 @@ export const SouvenirCard: React.FC<SouvenirCardProps> = ({
       } ${className}`}
     >
       {/* Image */}
-      <div className="relative h-64 bg-gray-100 overflow-hidden">
+      <div className="relative h-40 sm:h-64 bg-gray-100 overflow-hidden">
         <Image
           src={image}
           alt={name}
@@ -69,18 +69,18 @@ export const SouvenirCard: React.FC<SouvenirCardProps> = ({
       </div>
 
       {/* Content */}
-      <div className="p-6">
-        <h3 className="text-xl font-bold text-brand-blue-800 mb-2 line-clamp-2">
+      <div className="p-4 sm:p-6">
+        <h3 className="text-base sm:text-xl font-bold text-brand-blue-800 mb-1.5 sm:mb-2 line-clamp-2">
           {name}
         </h3>
         
-        <p className="text-gray-600 text-sm mb-4 line-clamp-2 min-h-[40px]">
+        <p className="text-gray-600 text-xs sm:text-sm mb-3 sm:mb-4 line-clamp-2 min-h-[32px] sm:min-h-[40px]">
           {description}
         </p>
 
         {/* Price */}
         <div className="flex items-baseline mb-5 pb-5 border-b border-gray-100">
-          <span className="text-3xl font-bold text-brand-blue-800">
+          <span className="text-xl sm:text-3xl font-bold text-brand-blue-800">
             {formatUsdPriceByLang(price, language).display}
           </span>
         </div>

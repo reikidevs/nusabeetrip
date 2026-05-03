@@ -39,7 +39,7 @@ const RentalServiceCard: React.FC<RentalServiceCardProps> = ({
   return (
     <div className={`group bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 border border-gray-100 ${className} ${!isAvailable ? 'opacity-75' : ''}`}>
       {/* Vehicle Image */}
-      <div className="relative h-56 w-full overflow-hidden">
+      <div className="relative h-40 sm:h-56 w-full overflow-hidden">
         <Image
           src={image || '/images/placeholder-tour.svg'}
           alt={`${model} rental - Nusa Penida`}
@@ -62,16 +62,16 @@ const RentalServiceCard: React.FC<RentalServiceCardProps> = ({
       </div>
 
       {/* Card Content */}
-      <div className="p-6">
+      <div className="p-4 sm:p-6">
         {/* Vehicle Model */}
-        <h3 className="text-xl font-bold text-brand-blue-800 mb-3">
+        <h3 className="text-base sm:text-xl font-bold text-brand-blue-800 mb-2 sm:mb-3">
           {model}
         </h3>
 
         {/* Pricing */}
         <div className="mb-5 pb-5 border-b border-gray-100">
           <div className="flex items-baseline gap-2">
-            <span className="text-3xl font-bold text-brand-blue-800">
+            <span className="text-xl sm:text-3xl font-bold text-brand-blue-800">
               {formatPriceByLang(pricePerDay, language).display}
             </span>
             <span className="text-sm font-semibold text-gray-500">{formatPriceByLang(pricePerDay, language).currencyLabel}</span>

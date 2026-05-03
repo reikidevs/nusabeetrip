@@ -110,7 +110,7 @@ export default function AboutPage() {
           <div className="absolute inset-0 bg-gradient-to-b from-brand-blue-900/85 via-brand-blue-800/75 to-brand-teal-900/85" />
         </div>
 
-        <div className="container mx-auto px-4 py-28 md:py-40 relative">
+        <div className="container mx-auto px-4 py-16 sm:py-28 md:py-40 relative">
           <div className="max-w-4xl mx-auto text-center">
             <span className="inline-flex items-center gap-2 bg-white/15 backdrop-blur-sm text-white/95 px-5 py-2 rounded-full text-sm font-semibold mb-8 border border-white/20">
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -119,10 +119,10 @@ export default function AboutPage() {
               </svg>
               Nusa Penida, Bali
             </span>
-            <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight tracking-tight">
+            <h1 className="text-3xl sm:text-5xl md:text-7xl font-bold mb-4 sm:mb-6 leading-tight tracking-tight">
               {language === 'id' ? 'Tentang NusaBeeTrip' : 'About NusaBeeTrip'}
             </h1>
-            <p className="text-xl md:text-2xl text-white/95 leading-relaxed max-w-2xl mx-auto">
+            <p className="text-base sm:text-xl md:text-2xl text-white/95 leading-relaxed max-w-2xl mx-auto">
               {language === 'id'
                 ? 'Partner terpercaya Anda untuk petualangan Nusa Penida yang tak terlupakan'
                 : 'Your trusted partner for unforgettable Nusa Penida adventures'}
@@ -137,8 +137,8 @@ export default function AboutPage() {
           <div className="max-w-5xl mx-auto bg-white rounded-2xl shadow-xl border border-gray-100 grid grid-cols-2 md:grid-cols-4 divide-x divide-gray-100">
             {stats.map((stat, i) => (
               <div key={i} className="text-center py-8 px-4">
-                <div className="text-3xl md:text-4xl font-bold text-brand-blue-800 mb-1">{stat.value}</div>
-                <div className="text-sm text-gray-500 font-medium">{stat.label}</div>
+                <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-brand-blue-800 mb-1">{stat.value}</div>
+                <div className="text-xs sm:text-sm text-gray-500 font-medium">{stat.label}</div>
               </div>
             ))}
           </div>
@@ -146,7 +146,7 @@ export default function AboutPage() {
       </section>
 
       {/* Our Story */}
-      <section className="py-24">
+      <section className="py-12 sm:py-24">
         <div className="container mx-auto px-4">
           <div className="max-w-7xl mx-auto">
             <div className="grid lg:grid-cols-2 gap-16 items-center">
@@ -172,16 +172,16 @@ export default function AboutPage() {
 
               {/* Right: Story Content */}
               <div>
-                <h2 className="text-4xl md:text-5xl font-bold text-brand-blue-800 mb-6 tracking-tight">
+                <h2 className="text-2xl sm:text-4xl md:text-5xl font-bold text-brand-blue-800 mb-4 sm:mb-6 tracking-tight">
                   {language === 'id' ? 'Cerita Kami' : 'Our Story'}
                 </h2>
                 <div className="space-y-6">
-                  <p className="text-gray-600 leading-relaxed text-lg">
+                  <p className="text-gray-600 leading-relaxed text-base sm:text-lg">
                     {language === 'id'
                       ? 'NusaBeeTrip adalah bisnis tur dan sewa kendaraan milik warga lokal yang berbasis di Nusa Penida, Bali. Kami lahir dan besar di pulau ini, mengenal setiap sudut, pantai tersembunyi, dan waktu terbaik untuk mengunjungi setiap tempat.'
                       : 'NusaBeeTrip is a locally-owned tour and vehicle rental business based in Nusa Penida, Bali. Born and raised on this island, we know every corner, hidden beach, and the best times to visit each location.'}
                   </p>
-                  <p className="text-gray-600 leading-relaxed text-lg">
+                  <p className="text-gray-600 leading-relaxed text-base sm:text-lg">
                     {language === 'id'
                       ? 'Misi kami sederhana: membagikan keindahan Nusa Penida dengan dunia sambil memberikan pengalaman wisata yang jujur, aman, dan berkesan. Kami percaya wisata yang baik dimulai dari pemandu yang baik.'
                       : 'Our mission is simple: share the beauty of Nusa Penida with the world while providing honest, safe, and memorable travel experiences. We believe great tourism starts with great guides.'}
@@ -233,14 +233,14 @@ export default function AboutPage() {
       </section>
 
       {/* Our Services */}
-      <section className="py-24 bg-white">
+      <section className="py-12 sm:py-24 bg-white">
         <div className="container mx-auto px-4">
           <div className="max-w-7xl mx-auto">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl md:text-5xl font-bold text-brand-blue-800 mb-4 tracking-tight">
+            <div className="text-center mb-8 sm:mb-16">
+              <h2 className="text-2xl sm:text-4xl md:text-5xl font-bold text-brand-blue-800 mb-3 sm:mb-4 tracking-tight">
                 {language === 'id' ? 'Layanan Kami' : 'Our Services'}
               </h2>
-              <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+              <p className="text-base sm:text-xl text-gray-600 max-w-2xl mx-auto">
                 {language === 'id'
                   ? 'Semua yang Anda butuhkan untuk petualangan Nusa Penida yang sempurna'
                   : 'Everything you need for the perfect Nusa Penida adventure'}
@@ -273,14 +273,14 @@ export default function AboutPage() {
       </section>
 
       {/* Photo Gallery */}
-      <section className="py-24 bg-gradient-to-b from-gray-50 to-white">
+      <section className="py-12 sm:py-24 bg-gradient-to-b from-gray-50 to-white">
         <div className="container mx-auto px-4">
           <div className="max-w-7xl mx-auto">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl md:text-5xl font-bold text-brand-blue-800 mb-4 tracking-tight">
+            <div className="text-center mb-8 sm:mb-16">
+              <h2 className="text-2xl sm:text-4xl md:text-5xl font-bold text-brand-blue-800 mb-3 sm:mb-4 tracking-tight">
                 {language === 'id' ? 'Galeri Nusa Penida' : 'Nusa Penida Gallery'}
               </h2>
-              <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+              <p className="text-base sm:text-xl text-gray-600 max-w-2xl mx-auto">
                 {language === 'id'
                   ? 'Sekilas keindahan yang menanti Anda'
                   : 'A glimpse of the beauty awaiting you'}
@@ -311,7 +311,7 @@ export default function AboutPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="relative text-white py-20 overflow-hidden">
+      <section className="relative text-white py-12 sm:py-20 overflow-hidden">
         <div className="absolute inset-0">
           <Image
             src="/images/East%20Trip/East%20Trip%20Diamond%20Beach%204.jpeg"
@@ -323,10 +323,10 @@ export default function AboutPage() {
         </div>
         <div className="container mx-auto px-4 relative">
           <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl md:text-5xl font-bold mb-4">
+            <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold mb-3 sm:mb-4">
               {language === 'id' ? 'Siap Berpetualang?' : 'Ready to Explore?'}
             </h2>
-            <p className="text-xl mb-10 text-white/90 max-w-2xl mx-auto">
+            <p className="text-base sm:text-xl mb-6 sm:mb-10 text-white/90 max-w-2xl mx-auto">
               {language === 'id'
                 ? 'Hubungi kami dan mulai rencanakan perjalanan Nusa Penida impian Anda'
                 : 'Contact us and start planning your dream Nusa Penida trip'}

@@ -57,7 +57,7 @@ export default function SouvenirsPage() {
           <div className="absolute inset-0 bg-gradient-to-b from-brand-blue-900/85 via-brand-blue-800/75 to-brand-teal-900/85" />
         </div>
 
-        <div className="container mx-auto px-4 py-28 md:py-40 relative">
+        <div className="container mx-auto px-4 py-16 sm:py-28 md:py-40 relative">
           <div className="max-w-4xl mx-auto text-center">
             <span className="inline-flex items-center gap-2 bg-white/15 backdrop-blur-sm text-white/95 px-5 py-2 rounded-full text-sm font-semibold mb-8 border border-white/20">
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -65,10 +65,10 @@ export default function SouvenirsPage() {
               </svg>
               {language === 'id' ? 'Oleh-oleh Khas Nusa Penida' : 'Authentic Nusa Penida Souvenirs'}
             </span>
-            <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight tracking-tight">
+            <h1 className="text-3xl sm:text-5xl md:text-7xl font-bold mb-4 sm:mb-6 leading-tight tracking-tight">
               {t.souvenirs.heading}
             </h1>
-            <p className="text-xl md:text-2xl text-white/95 leading-relaxed max-w-2xl mx-auto mb-10">
+            <p className="text-base sm:text-xl md:text-2xl text-white/95 leading-relaxed max-w-2xl mx-auto mb-6 sm:mb-10">
               {t.souvenirs.subheading}
             </p>
 
@@ -112,14 +112,14 @@ export default function SouvenirsPage() {
       </section>
 
       {/* Souvenirs Grid */}
-      <section className="py-24">
+      <section className="py-12 sm:py-24">
         <div className="container mx-auto px-4">
           <div className="max-w-7xl mx-auto">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl md:text-5xl font-bold text-brand-blue-800 mb-4 tracking-tight">
+            <div className="text-center mb-8 sm:mb-16">
+              <h2 className="text-2xl sm:text-4xl md:text-5xl font-bold text-brand-blue-800 mb-3 sm:mb-4 tracking-tight">
                 {language === 'id' ? 'Koleksi Souvenir' : 'Souvenir Collection'}
               </h2>
-              <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+              <p className="text-base sm:text-xl text-gray-600 max-w-2xl mx-auto">
                 {language === 'id'
                   ? 'Bawa pulang kenangan indah dari Nusa Penida'
                   : 'Take home beautiful memories from Nusa Penida'}
@@ -135,14 +135,14 @@ export default function SouvenirsPage() {
       </section>
 
       {/* How to Order */}
-      <section className="py-24 bg-white">
+      <section className="py-12 sm:py-24 bg-white">
         <div className="container mx-auto px-4">
           <div className="max-w-7xl mx-auto">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl md:text-5xl font-bold text-brand-blue-800 mb-4 tracking-tight">
+            <div className="text-center mb-8 sm:mb-16">
+              <h2 className="text-2xl sm:text-4xl md:text-5xl font-bold text-brand-blue-800 mb-3 sm:mb-4 tracking-tight">
                 {language === 'id' ? 'Cara Memesan' : 'How to Order'}
               </h2>
-              <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+              <p className="text-base sm:text-xl text-gray-600 max-w-2xl mx-auto">
                 {language === 'id'
                   ? 'Proses pemesanan yang mudah dan cepat'
                   : 'Quick and easy ordering process'}
@@ -208,7 +208,7 @@ export default function SouvenirsPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="relative text-white py-20 overflow-hidden">
+      <section className="relative text-white py-12 sm:py-20 overflow-hidden">
         <div className="absolute inset-0">
           <Image
             src="/images/West%20Trip/West%20trip%20CRYSTAL%20BAY%20BEACH.jpeg"
@@ -220,10 +220,10 @@ export default function SouvenirsPage() {
         </div>
         <div className="container mx-auto px-4 relative">
           <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl md:text-5xl font-bold mb-4">
+            <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold mb-3 sm:mb-4">
               {t.souvenirs.cantFind}
             </h2>
-            <p className="text-xl mb-10 text-white/90 max-w-2xl mx-auto">
+            <p className="text-base sm:text-xl mb-6 sm:mb-10 text-white/90 max-w-2xl mx-auto">
               {t.souvenirs.cantFindDesc}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
