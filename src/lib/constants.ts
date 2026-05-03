@@ -35,7 +35,7 @@ export const TOUR_PACKAGES: TourPackage[] = [
       'Professional Guide',
       'Transportation Included'
     ],
-    image: '/images/WhatsApp%20Image%202026-04-19%20at%2019.45.00.jpeg',
+    image: '/images/West%20Trip/West%20trip%20%20kelingking%20beach.jpeg',
     isActive: true,
   },
   {
@@ -48,14 +48,14 @@ export const TOUR_PACKAGES: TourPackage[] = [
     duration: 8,
     includesSnorkeling: false,
     features: [
-      'Atuh Beach',
       'Diamond Beach',
+      'Atuh Beach',
       'Tree House Viewpoint',
-      'Thousand Islands Viewpoint',
+      'View Thousand Island',
       'Professional Guide',
       'Transportation Included'
     ],
-    image: '/images/WhatsApp%20Image%202026-04-19%20at%2019.45.01.jpeg',
+    image: '/images/East%20Trip/East%20trip%20DIAMOND%20BEACH.jpeg',
     isActive: true,
   },
   {
@@ -71,13 +71,13 @@ export const TOUR_PACKAGES: TourPackage[] = [
       'Kelingking Beach',
       'Angel Billabong',
       'Broken Beach',
-      'Crystal Bay Snorkeling',
+      'Manta Snorkeling',
       'Snorkeling Equipment',
       'Underwater Guide',
       'Professional Guide',
       'Transportation Included'
     ],
-    image: '/images/WhatsApp%20Image%202026-04-19%20at%2019.45.13.jpeg',
+    image: '/images/West%20Trip/West%20Trip%20Kelingking%20Manta%20Snorkeling.png',
     isActive: true,
   },
   {
@@ -90,8 +90,8 @@ export const TOUR_PACKAGES: TourPackage[] = [
     duration: 10,
     includesSnorkeling: true,
     features: [
-      'Atuh Beach',
       'Diamond Beach',
+      'Atuh Beach',
       'Tree House Viewpoint',
       'Snorkeling at Best Spots',
       'Snorkeling Equipment',
@@ -99,7 +99,7 @@ export const TOUR_PACKAGES: TourPackage[] = [
       'Professional Guide',
       'Transportation Included'
     ],
-    image: '/images/WhatsApp%20Image%202026-04-19%20at%2020.25.14.jpeg',
+    image: '/images/East%20Trip/East%20Trip%20Diamond%20Beach%20Snorkeling.png',
     isActive: true,
   },
   {
@@ -109,7 +109,7 @@ export const TOUR_PACKAGES: TourPackage[] = [
     description: 'The ultimate Nusa Penida experience! Visit the most iconic spots from both western and eastern parts of the island in one comprehensive full-day adventure.',
     price: 500000,
     currency: 'IDR',
-    duration: 12,
+    duration: 8,
     includesSnorkeling: false,
     features: [
       'Kelingking Beach',
@@ -121,7 +121,7 @@ export const TOUR_PACKAGES: TourPackage[] = [
       'Professional Guide',
       'Transportation Included'
     ],
-    image: '/images/WhatsApp%20Image%202026-04-19%20at%2020.26.34.jpeg',
+    image: '/images/Mix%20Trip%20Diamond%20Kelingking.png',
     isActive: true,
   },
 ];

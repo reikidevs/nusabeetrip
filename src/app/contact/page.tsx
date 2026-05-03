@@ -13,8 +13,8 @@ export default function ContactPage() {
       <section className="relative text-white overflow-hidden">
         <div className="absolute inset-0">
           <Image
-            src="/images/WhatsApp%20Image%202026-04-19%20at%2019.45.00.jpeg"
-            alt="Nusa Penida - Contact Us"
+            src="/images/West%20Trip/West%20trip%20Kelingking%20Beach%202.jpeg"
+            alt="Kelingking Beach - Contact NusaBeeTrip"
             fill
             className="object-cover"
             priority
@@ -274,8 +274,8 @@ export default function ContactPage() {
       <section className="relative text-white py-20 overflow-hidden">
         <div className="absolute inset-0">
           <Image
-            src="/images/WhatsApp%20Image%202026-04-19%20at%2019.45.01%20(2).jpeg"
-            alt="Nusa Penida Beach"
+            src="/images/West%20Trip/West%20trip%20ANGEL%20BILABONG.jpeg"
+            alt="Angel Bilabong Nusa Penida"
             fill
             className="object-cover"
           />

@@ -19,7 +19,7 @@ const initialTourPackages = [
       'Transportation',
       'Entrance Fees'
     ],
-    imageUrl: '/images/Broken%20Beach/WhatsApp%20Image%202026-04-19%20at%2019.44.59.jpeg',
+    imageUrl: '/images/West%20Trip/West%20trip%20%20kelingking%20beach.jpeg',
     isActive: true,
   },
   {
@@ -30,21 +30,21 @@ const initialTourPackages = [
     durationHours: 8,
     includesSnorkeling: false,
     features: [
-      'Atuh Beach',
       'Diamond Beach',
+      'Atuh Beach',
       'Tree House',
-      'Thousand Islands Viewpoint',
+      'View Thousand Island',
       'Professional Guide',
       'Transportation',
       'Entrance Fees'
     ],
-    imageUrl: '/images/East%20Trip/WhatsApp%20Image%202026-04-19%20at%2020.32.36.jpeg',
+    imageUrl: '/images/East%20Trip/East%20trip%20DIAMOND%20BEACH.jpeg',
     isActive: true,
   },
   {
     name: 'West Trip + Snorkeling',
     slug: 'west-trip-snorkeling',
-    description: 'West trip combined with amazing snorkeling experience at Crystal Bay',
+    description: 'West trip combined with amazing Manta snorkeling experience',
     priceIdr: 550000,
     durationHours: 10,
     includesSnorkeling: true,
@@ -52,14 +52,14 @@ const initialTourPackages = [
       'Kelingking Beach',
       'Angel Billabong',
       'Broken Beach',
-      'Crystal Bay Snorkeling',
+      'Manta Snorkeling',
       'Snorkeling Equipment',
       'Underwater Guide',
       'Professional Guide',
       'Transportation',
       'Entrance Fees'
     ],
-    imageUrl: '/images/Crystal%20Bay%20Beach/WhatsApp%20Image%202026-04-19%20at%2019.45.14.jpeg',
+    imageUrl: '/images/West%20Trip/West%20Trip%20Kelingking%20Manta%20Snorkeling.png',
     isActive: true,
   },
   {
@@ -70,10 +70,10 @@ const initialTourPackages = [
     durationHours: 10,
     includesSnorkeling: true,
     features: [
-      'Atuh Beach',
       'Diamond Beach',
+      'Atuh Beach',
       'Tree House',
-      'Thousand Islands Viewpoint',
+      'View Thousand Island',
       'Snorkeling at Best Spots',
       'Snorkeling Equipment',
       'Underwater Guide',
@@ -81,7 +81,7 @@ const initialTourPackages = [
       'Transportation',
       'Entrance Fees'
     ],
-    imageUrl: '/images/Diamond%20Beach/WhatsApp%20Image%202026-04-19%20at%2019.45.15.jpeg',
+    imageUrl: '/images/East%20Trip/East%20Trip%20Diamond%20Beach%20Snorkeling.png',
     isActive: true,
   },
   {
@@ -89,17 +89,20 @@ const initialTourPackages = [
     slug: 'mix-trip',
     description: 'Combined west and east attractions tour for the complete Nusa Penida experience',
     priceIdr: 500000,
-    durationHours: 12,
+    durationHours: 8,
     includesSnorkeling: false,
     features: [
-      'Best of West Attractions',
-      'Best of East Attractions',
+      'Kelingking Beach',
+      'Broken Beach',
+      'Angel Billabong',
+      'Diamond Beach',
+      'Atuh Beach',
       'Full Island Experience',
       'Professional Guide',
       'Transportation',
       'Entrance Fees'
     ],
-    imageUrl: '/images/Atuh%20Beach/WhatsApp%20Image%202026-04-19%20at%2020.35.33.jpeg',
+    imageUrl: '/images/Mix%20Trip%20Diamond%20Kelingking.png',
     isActive: true,
   },
 ];

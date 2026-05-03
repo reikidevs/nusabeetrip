@@ -25,8 +25,8 @@ export default function ToursPageContent({ tourPackages }: ToursPageContentProps
       <section className="relative text-white overflow-hidden">
         <div className="absolute inset-0">
           <Image
-            src="/images/WhatsApp%20Image%202026-04-19%20at%2019.45.00%20(2).jpeg"
-            alt="Nusa Penida Tours - Broken Beach"
+            src="/images/West%20Trip/West%20trip%20%20kelingking%20beach.jpeg"
+            alt="Kelingking Beach - Nusa Penida Tours"
             fill
             className="object-cover"
             priority
@@ -236,8 +236,8 @@ export default function ToursPageContent({ tourPackages }: ToursPageContentProps
       <section className="relative text-white py-20 overflow-hidden">
         <div className="absolute inset-0">
           <Image
-            src="/images/WhatsApp%20Image%202026-04-19%20at%2019.45.01%20(1).jpeg"
-            alt="Nusa Penida"
+            src="/images/East%20Trip/East%20trip%20ATUH%20BEACH.jpeg"
+            alt="Atuh Beach Nusa Penida"
             fill
             className="object-cover"
           />

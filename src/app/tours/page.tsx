@@ -70,7 +70,7 @@ export default async function ToursPage() {
         currency: 'IDR',
         duration: 8,
         includesSnorkeling: false,
-        features: ['Atuh Beach', 'Diamond Beach', 'Tree House Viewpoint', 'Thousand Islands Viewpoint', 'Professional Guide', 'Transportation Included'],
+        features: ['Diamond Beach', 'Atuh Beach', 'Tree House Viewpoint', 'View Thousand Island', 'Professional Guide', 'Transportation Included'],
         isActive: true,
       },
       {
@@ -82,7 +82,7 @@ export default async function ToursPage() {
         currency: 'IDR',
         duration: 10,
         includesSnorkeling: true,
-        features: ['Kelingking Beach', 'Angel Billabong', 'Broken Beach', 'Crystal Bay Snorkeling', 'Snorkeling Equipment', 'Underwater Guide', 'Professional Guide', 'Transportation Included'],
+        features: ['Kelingking Beach', 'Angel Billabong', 'Broken Beach', 'Manta Snorkeling', 'Snorkeling Equipment', 'Underwater Guide', 'Professional Guide', 'Transportation Included'],
         isActive: true,
       },
       {
@@ -94,7 +94,7 @@ export default async function ToursPage() {
         currency: 'IDR',
         duration: 10,
         includesSnorkeling: true,
-        features: ['Atuh Beach', 'Diamond Beach', 'Tree House Viewpoint', 'Snorkeling at Best Spots', 'Snorkeling Equipment', 'Underwater Guide', 'Professional Guide', 'Transportation Included'],
+        features: ['Diamond Beach', 'Atuh Beach', 'Tree House Viewpoint', 'Snorkeling at Best Spots', 'Snorkeling Equipment', 'Underwater Guide', 'Professional Guide', 'Transportation Included'],
         isActive: true,
       },
       {
@@ -104,7 +104,7 @@ export default async function ToursPage() {
         description: 'The ultimate Nusa Penida experience! Visit the most iconic spots from both western and eastern parts of the island in one comprehensive full-day adventure.',
         price: 500000,
         currency: 'IDR',
-        duration: 12,
+        duration: 8,
         includesSnorkeling: false,
         features: ['Kelingking Beach', 'Broken Beach', 'Angel Billabong', 'Diamond Beach', 'Atuh Beach', 'Full Island Experience', 'Professional Guide', 'Transportation Included'],
         isActive: true,

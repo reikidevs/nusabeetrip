@@ -50,8 +50,8 @@ export default function AboutPage() {
       ),
       title: language === 'id' ? 'Snorkeling' : 'Snorkeling',
       desc: language === 'id'
-        ? 'Selam bersama pemandu underwater profesional di Crystal Bay dan spot terbaik lainnya'
-        : 'Dive with professional underwater guides at Crystal Bay and other top snorkeling spots',
+        ? 'Selam bersama pemandu underwater profesional di Manta Point dan spot terbaik lainnya'
+        : 'Dive with professional underwater guides at Manta Point and other top snorkeling spots',
       href: '/tours',
       color: 'from-teal-500 to-brand-teal-700',
       bgLight: 'bg-teal-50',
@@ -87,12 +87,12 @@ export default function AboutPage() {
   ];
 
   const gallery = [
-    '/images/WhatsApp%20Image%202026-04-19%20at%2019.45.00%20(2).jpeg',
-    '/images/WhatsApp%20Image%202026-04-19%20at%2019.45.01%20(2).jpeg',
-    '/images/WhatsApp%20Image%202026-04-19%20at%2020.25.14.jpeg',
-    '/images/WhatsApp%20Image%202026-04-19%20at%2019.45.03%20(2).jpeg',
-    '/images/WhatsApp%20Image%202026-04-19%20at%2019.45.01%20(1).jpeg',
-    '/images/WhatsApp%20Image%202026-04-19%20at%2020.27.05.jpeg',
+    '/images/West%20Trip/West%20trip%20%20kelingking%20beach.jpeg',
+    '/images/East%20Trip/East%20Trip%20Diamond%20Beach%205.jpeg',
+    '/images/West%20Trip/West%20Trip%20Broken%20Beach%203.jpeg',
+    '/images/West%20Trip/West%20Trip%20Crystal%20Bay%20Beach%203.jpeg',
+    '/images/West%20Trip/West%20Trip%20Kelingking%20Beach%206.jpeg',
+    '/images/West%20Trip/West%20Trip%20Crystal%20Bay%20Beach%205.jpeg',
   ];
 
   return (
@@ -101,8 +101,8 @@ export default function AboutPage() {
       <section className="relative text-white overflow-hidden">
         <div className="absolute inset-0">
           <Image
-            src="/images/WhatsApp%20Image%202026-04-19%20at%2019.45.01.jpeg"
-            alt="Nusa Penida Landscape"
+            src="/images/East%20Trip/East%20trip%20VIEW%20THOUSAND%20ISLAND.jpeg"
+            alt="Thousand Islands Viewpoint Nusa Penida"
             fill
             className="object-cover"
             priority
@@ -154,18 +154,18 @@ export default function AboutPage() {
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-4">
                   <div className="relative h-48 rounded-2xl overflow-hidden shadow-lg">
-                    <Image src="/images/WhatsApp%20Image%202026-04-19%20at%2019.45.02.jpeg" alt="Nusa Penida" fill className="object-cover" />
+                    <Image src="/images/West%20Trip/West%20Trip%20Crystal%20Bay%20Beach%204.jpeg" alt="Crystal Bay Beach" fill className="object-cover" />
                   </div>
                   <div className="relative h-64 rounded-2xl overflow-hidden shadow-lg">
-                    <Image src="/images/WhatsApp%20Image%202026-04-19%20at%2020.26.34.jpeg" alt="Nusa Penida" fill className="object-cover" />
+                    <Image src="/images/West%20Trip/West%20Trip%20Broken%20Beach%202.jpeg" alt="Broken Beach" fill className="object-cover" />
                   </div>
                 </div>
                 <div className="space-y-4 pt-8">
                   <div className="relative h-64 rounded-2xl overflow-hidden shadow-lg">
-                    <Image src="/images/WhatsApp%20Image%202026-04-19%20at%2019.45.00%20(1).jpeg" alt="Nusa Penida" fill className="object-cover" />
+                    <Image src="/images/West%20Trip/West%20trip%20Kelingking%20Beach%203.jpeg" alt="Kelingking Beach" fill className="object-cover" />
                   </div>
                   <div className="relative h-48 rounded-2xl overflow-hidden shadow-lg">
-                    <Image src="/images/WhatsApp%20Image%202026-04-19%20at%2019.45.13.jpeg" alt="Nusa Penida" fill className="object-cover" />
+                    <Image src="/images/East%20Trip/East%20trip%20TREE%20HOUSE.jpeg" alt="Tree House" fill className="object-cover" />
                   </div>
                 </div>
               </div>
@@ -314,8 +314,8 @@ export default function AboutPage() {
       <section className="relative text-white py-20 overflow-hidden">
         <div className="absolute inset-0">
           <Image
-            src="/images/WhatsApp%20Image%202026-04-19%20at%2019.45.02%20(2).jpeg"
-            alt="Nusa Penida"
+            src="/images/East%20Trip/East%20Trip%20Diamond%20Beach%204.jpeg"
+            alt="Diamond Beach Nusa Penida"
             fill
             className="object-cover"
           />

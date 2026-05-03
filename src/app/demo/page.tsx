@@ -26,7 +26,7 @@ const sampleTourPackages: TourPackage[] = [
     currency: 'IDR',
     duration: 8,
     includesSnorkeling: false,
-    features: ['Atuh Beach', 'Diamond Beach', 'Tree House', 'Thousand Islands Viewpoint', 'Professional Guide', 'Transportation'],
+    features: ['Diamond Beach', 'Atuh Beach', 'Tree House', 'View Thousand Island', 'Professional Guide', 'Transportation'],
     image: '/images/placeholder-tour.svg',
     isActive: true
   },
@@ -39,7 +39,7 @@ const sampleTourPackages: TourPackage[] = [
     currency: 'IDR',
     duration: 10,
     includesSnorkeling: true,
-    features: ['Kelingking Beach', 'Angel Billabong', 'Broken Beach', 'Crystal Bay', 'Snorkeling Equipment', 'Underwater Guide', 'Professional Guide', 'Transportation'],
+    features: ['Kelingking Beach', 'Angel Billabong', 'Broken Beach', 'Manta Snorkeling', 'Snorkeling Equipment', 'Underwater Guide', 'Professional Guide', 'Transportation'],
     image: '/images/placeholder-tour.svg',
     isActive: true
   }

@@ -211,8 +211,8 @@ export default function SouvenirsPage() {
       <section className="relative text-white py-20 overflow-hidden">
         <div className="absolute inset-0">
           <Image
-            src="/images/WhatsApp%20Image%202026-04-19%20at%2020.25.14.jpeg"
-            alt="Nusa Penida"
+            src="/images/West%20Trip/West%20trip%20CRYSTAL%20BAY%20BEACH.jpeg"
+            alt="Crystal Bay Beach Nusa Penida"
             fill
             className="object-cover"
           />

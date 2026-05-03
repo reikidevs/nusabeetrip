@@ -25,8 +25,8 @@ export default function RentalsPageContent({ rentalServices }: RentalsPageConten
       <section className="relative text-white overflow-hidden">
         <div className="absolute inset-0">
           <Image
-            src="/images/WhatsApp%20Image%202026-04-19%20at%2020.26.34.jpeg"
-            alt="Nusa Penida Road - Vehicle Rentals"
+            src="/images/West%20Trip/West%20trip%20BROKEN%20BEACH.jpeg"
+            alt="Broken Beach - Vehicle Rentals Nusa Penida"
             fill
             className="object-cover"
             priority
@@ -237,8 +237,8 @@ export default function RentalsPageContent({ rentalServices }: RentalsPageConten
       <section className="relative text-white py-20 overflow-hidden">
         <div className="absolute inset-0">
           <Image
-            src="/images/WhatsApp%20Image%202026-04-19%20at%2019.45.03%20(2).jpeg"
-            alt="Nusa Penida"
+            src="/images/West%20Trip/West%20Trip%20Crystal%20Bay%20Beach%202.jpeg"
+            alt="Crystal Bay Beach Nusa Penida"
             fill
             className="object-cover"
           />
