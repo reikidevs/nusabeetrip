@@ -68,6 +68,11 @@ const KEYWORD_IMAGE_MAP: Record<string, string[]> = {
     '/images/West%20Trip/West%20trip%20CRYSTAL%20BAY%20BEACH.jpeg',
   ],
   'snorkeling': [
+    '/images/Snorkeling%20%2B%20Manta%20Rays/snorkeling%201.jpeg',
+    '/images/Snorkeling%20%2B%20Manta%20Rays/snorkeling%202.jpeg',
+    '/images/Snorkeling%20%2B%20Manta%20Rays/snorkeling%203.jpeg',
+    '/images/Snorkeling%20%2B%20Manta%20Rays/snorkeling%204.jpeg',
+    '/images/Snorkeling%20%2B%20Manta%20Rays/snorkeling%205.jpeg',
     '/images/West%20Trip/West%20Trip%20Kelingking%20Manta%20Snorkeling.png',
     '/images/East%20Trip/East%20Trip%20Diamond%20Beach%20Snorkeling.png',
     '/images/West%20Trip/West%20trip%20CRYSTAL%20BAY%20BEACH.jpeg',
@@ -77,6 +82,23 @@ const KEYWORD_IMAGE_MAP: Record<string, string[]> = {
   ],
   'mix trip': [
     '/images/Mix%20Trip%20Diamond%20Kelingking.png',
+  ],
+  'manta bay': [
+    '/images/Snorkeling%20%2B%20Manta%20Rays/snorkeling%201.jpeg',
+    '/images/Snorkeling%20%2B%20Manta%20Rays/snorkeling%202.jpeg',
+  ],
+  'gamat bay': [
+    '/images/Snorkeling%20%2B%20Manta%20Rays/snorkeling%203.jpeg',
+  ],
+  'wall point': [
+    '/images/Snorkeling%20%2B%20Manta%20Rays/snorkeling%204.jpeg',
+  ],
+  'snorkeling manta': [
+    '/images/Snorkeling%20%2B%20Manta%20Rays/snorkeling%201.jpeg',
+    '/images/Snorkeling%20%2B%20Manta%20Rays/snorkeling%202.jpeg',
+    '/images/Snorkeling%20%2B%20Manta%20Rays/snorkeling%203.jpeg',
+    '/images/Snorkeling%20%2B%20Manta%20Rays/snorkeling%204.jpeg',
+    '/images/Snorkeling%20%2B%20Manta%20Rays/snorkeling%205.jpeg',
   ],
 };
 

@@ -192,6 +192,36 @@ export default function Home() {
                     </div>
                   </div>
                 </div>
+                <div className="bg-white p-4 sm:p-8 rounded-2xl shadow-lg border border-gray-100 hover:shadow-xl transition-shadow">
+                  <div className="flex items-start gap-4">
+                    <div className="flex-shrink-0 w-10 h-10 sm:w-16 sm:h-16 bg-cyan-100 rounded-xl flex items-center justify-center shadow-sm">
+                      <svg className="w-5 h-5 sm:w-8 sm:h-8 text-cyan-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 10l-2 1m0 0l-2-1m2 1v2.5M20 7l-2 1m2-1l-2-1m2 1v2.5M14 4l-2-1-2 1M4 7l2-1M4 7l2 1M4 7v2.5M12 21l-2-1m2 1l2-1m-2 1v-2.5M6 18l-2-1v-2.5M18 18l2-1v-2.5" />
+                      </svg>
+                    </div>
+                    <div className="flex-1">
+                      <div className="flex items-center gap-3 mb-2">
+                        <h3 className="text-lg sm:text-2xl font-bold text-brand-blue-800">{t.tours.snorkelingManta}</h3>
+                        <span className="bg-cyan-100 text-cyan-800 px-3 py-1 rounded-full text-sm font-semibold">4 {t.tours.hours}</span>
+                      </div>
+                      <p className="text-gray-600 mb-4 leading-relaxed">
+                        {t.tours.snorkelingMantaDesc}
+                      </p>
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <span className="text-xl sm:text-4xl font-bold text-brand-blue-800">{formatPriceByLang(200000, language).display}</span>
+                          <span className="text-gray-500 ml-2">{t.tours.perPerson}</span>
+                        </div>
+                        <Link
+                          href="/tours"
+                          className="bg-brand-blue-800 hover:bg-brand-blue-700 text-white px-4 py-2 sm:px-6 sm:py-3 rounded-xl font-semibold text-sm sm:text-base transition-all hover:shadow-lg"
+                        >
+                          {t.tours.viewDetails}
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
 
               {/* Right: Image Gallery/Carousel */}
@@ -224,14 +254,14 @@ export default function Home() {
                   </div>
                   <div className="relative h-48 rounded-xl overflow-hidden shadow-lg group">
                     <Image
-                      src="/images/East%20Trip/East%20Trip%20Diamond%20Beach%205.jpeg"
-                      alt="Diamond Beach"
+                      src="/images/Snorkeling%20%2B%20Manta%20Rays/snorkeling%202.jpeg"
+                      alt="Snorkeling with Manta Rays"
                       fill
                       className="object-cover group-hover:scale-105 transition-transform duration-700"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
                     <div className="absolute bottom-3 left-3 text-white">
-                      <p className="text-xs font-semibold">Diamond Beach</p>
+                      <p className="text-xs font-semibold">Manta Ray Snorkeling</p>
                     </div>
                   </div>
                 </div>

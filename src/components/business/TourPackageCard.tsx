@@ -89,9 +89,8 @@ const TourPackageCard: React.FC<TourPackageCardProps> = ({
 
         {/* Features List */}
         <div className="mb-6">
-          <h4 className="text-xs font-bold text-gray-700 mb-3 uppercase tracking-wide">{t.tours.whatsIncludedLabel}</h4>
           <ul className="space-y-2">
-            {features.slice(0, 4).map((feature, index) => (
+            {features.slice(0, 5).map((feature, index) => (
               <li key={index} className="flex items-start text-sm text-gray-600">
                 <svg className="w-4 h-4 text-green-500 mr-2 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
@@ -99,11 +98,6 @@ const TourPackageCard: React.FC<TourPackageCardProps> = ({
                 <span>{feature}</span>
               </li>
             ))}
-            {features.length > 4 && (
-              <li className="text-xs text-brand-blue-600 font-semibold ml-6">
-                + {features.length - 4} {t.tours.moreIncluded}
-              </li>
-            )}
           </ul>
         </div>
 
