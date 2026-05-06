@@ -97,6 +97,10 @@ const initialTourPackages = [
       'Angel Billabong',
       'Diamond Beach',
       'Atuh Beach',
+      'Full Island Experience',
+      'Professional Guide',
+      'Transportation',
+      'Entrance Fees'
     ],
     imageUrl: '/images/Mix%20Trip%20Diamond%20Kelingking.png',
     isActive: true,
@@ -136,7 +140,7 @@ const initialRentalServices = [
       'Full Tank',
       'Insurance Covered'
     ],
-    imageUrl: '/images/rentals/nmax.jpg',
+    imageUrl: '/images/Vehicle%20Rentals/Yamaha%20N-Max.webp',
     isAvailable: true,
   },
   {
@@ -153,7 +157,7 @@ const initialRentalServices = [
       'Full Tank',
       'Insurance Covered'
     ],
-    imageUrl: '/images/rentals/vario.jpg',
+    imageUrl: '/images/Vehicle%20Rentals/Honda%20Vario.png',
     isAvailable: true,
   },
   {
@@ -170,7 +174,7 @@ const initialRentalServices = [
       'Full Tank',
       'Insurance Covered'
     ],
-    imageUrl: '/images/rentals/scoopy.jpg',
+    imageUrl: '/images/Vehicle%20Rentals/Honda%20Scoopy.webp',
     isAvailable: true,
   },
   {
@@ -187,7 +191,7 @@ const initialRentalServices = [
       'Insurance Covered',
       'Local Driver Knowledge'
     ],
-    imageUrl: '/images/rentals/car.jpg',
+    imageUrl: '/images/Vehicle%20Rentals/Car%20with%20Driver.jpg',
     isAvailable: true,
   },
 ];
