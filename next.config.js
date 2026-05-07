@@ -16,8 +16,12 @@ const nextConfig = {
   generateEtags: false,
   env: {
     CUSTOM_KEY: process.env.CUSTOM_KEY,
-    IMAGE_CACHE_VERSION: '2',
+    IMAGE_CACHE_VERSION: '3',
+    BUILD_TIME: new Date().toISOString(),
   },
+  // Performance optimizations
+  swcMinify: true,
+  reactStrictMode: true,
   async headers() {
     return [
       {
@@ -34,6 +38,28 @@ const nextConfig = {
           {
             key: 'X-XSS-Protection',
             value: '1; mode=block',
+          },
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+      {
+        source: '/api/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'no-store, must-revalidate',
+          },
+        ],
+      },
+      {
+        source: '/_next/image',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
           },
         ],
       },

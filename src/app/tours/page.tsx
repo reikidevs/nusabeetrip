@@ -6,6 +6,7 @@ import ToursPageContent from './ToursPageContent';
 
 // Opt out of static generation — this page fetches from DB at runtime
 export const dynamic = 'force-dynamic';
+export const revalidate = 0; // Always fetch fresh data
 
 export const metadata: Metadata = {
   title: 'Tour Packages - Best Travel Nusa Penida | NusaBeeTrip',
