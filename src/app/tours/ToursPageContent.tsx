@@ -144,17 +144,31 @@ export default function ToursPageContent({ tourPackages }: ToursPageContentProps
                 <p className="text-gray-600 text-sm leading-relaxed">{t.tours.comfortableTransportDesc}</p>
               </div>
 
-              {/* Tax Island & Parking Ticket */}
+              {/* Tax Island */}
               <div className="group bg-gray-50 rounded-2xl p-6 border border-gray-100 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 text-center">
                 <div className="w-14 h-14 bg-green-100 rounded-xl flex items-center justify-center mx-auto mb-5 group-hover:scale-110 transition-transform duration-300">
                   <svg className="w-7 h-7 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                 </div>
-                <h3 className="text-lg font-bold text-brand-blue-800 mb-2">{language === 'id' ? 'Pajak Pulau & Parkir' : 'Tax Island & Parking'}</h3>
-                <p className="text-gray-600 text-sm leading-relaxed">{language === 'id' ? 'Semua biaya pajak pulau dan parkir di setiap spot sudah termasuk' : 'All island tax and parking fees at every spot included'}</p>
+                <h3 className="text-lg font-bold text-brand-blue-800 mb-2">{language === 'id' ? 'Pajak Pulau' : 'Tax Island'}</h3>
+                <p className="text-gray-600 text-sm leading-relaxed">{language === 'id' ? 'Semua biaya pajak pulau sudah termasuk' : 'All island tax fees included'}</p>
               </div>
 
+              {/* Parking Ticket */}
+              <div className="group bg-gray-50 rounded-2xl p-6 border border-gray-100 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 text-center">
+                <div className="w-14 h-14 bg-indigo-100 rounded-xl flex items-center justify-center mx-auto mb-5 group-hover:scale-110 transition-transform duration-300">
+                  <svg className="w-7 h-7 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" />
+                  </svg>
+                </div>
+                <h3 className="text-lg font-bold text-brand-blue-800 mb-2">{language === 'id' ? 'Parkir di Semua Spot' : 'Parking in Any Spot'}</h3>
+                <p className="text-gray-600 text-sm leading-relaxed">{language === 'id' ? 'Biaya parkir di setiap destinasi sudah termasuk' : 'Parking fees at every destination included'}</p>
+              </div>
+            </div>
+
+            {/* Second Row */}
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto mt-6">
               {/* Snorkeling Equipment */}
               <div className="group bg-gray-50 rounded-2xl p-6 border border-gray-100 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 text-center">
                 <div className="w-14 h-14 bg-orange-100 rounded-xl flex items-center justify-center mx-auto mb-5 group-hover:scale-110 transition-transform duration-300">
@@ -168,10 +182,7 @@ export default function ToursPageContent({ tourPackages }: ToursPageContentProps
                   {t.tours.snorkelingOnly}
                 </span>
               </div>
-            </div>
 
-            {/* Second Row */}
-            <div className="grid sm:grid-cols-2 lg:grid-cols-2 gap-6 max-w-3xl mx-auto mt-6">
               {/* Underwater Guide */}
               <div className="group bg-gray-50 rounded-2xl p-6 border border-gray-100 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 text-center">
                 <div className="w-14 h-14 bg-purple-100 rounded-xl flex items-center justify-center mx-auto mb-5 group-hover:scale-110 transition-transform duration-300">
