@@ -121,7 +121,7 @@ export default function ToursPageContent({ tourPackages }: ToursPageContentProps
               </p>
             </div>
 
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
               {/* Professional Guide */}
               <div className="group bg-gray-50 rounded-2xl p-6 border border-gray-100 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 text-center">
                 <div className="w-14 h-14 bg-blue-100 rounded-xl flex items-center justify-center mx-auto mb-5 group-hover:scale-110 transition-transform duration-300">
@@ -144,6 +144,17 @@ export default function ToursPageContent({ tourPackages }: ToursPageContentProps
                 <p className="text-gray-600 text-sm leading-relaxed">{t.tours.comfortableTransportDesc}</p>
               </div>
 
+              {/* Tax Island & Parking Ticket */}
+              <div className="group bg-gray-50 rounded-2xl p-6 border border-gray-100 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 text-center">
+                <div className="w-14 h-14 bg-green-100 rounded-xl flex items-center justify-center mx-auto mb-5 group-hover:scale-110 transition-transform duration-300">
+                  <svg className="w-7 h-7 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+                <h3 className="text-lg font-bold text-brand-blue-800 mb-2">{language === 'id' ? 'Pajak Pulau & Parkir' : 'Tax Island & Parking'}</h3>
+                <p className="text-gray-600 text-sm leading-relaxed">{language === 'id' ? 'Semua biaya pajak pulau dan parkir di setiap spot sudah termasuk' : 'All island tax and parking fees at every spot included'}</p>
+              </div>
+
               {/* Snorkeling Equipment */}
               <div className="group bg-gray-50 rounded-2xl p-6 border border-gray-100 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 text-center">
                 <div className="w-14 h-14 bg-orange-100 rounded-xl flex items-center justify-center mx-auto mb-5 group-hover:scale-110 transition-transform duration-300">
@@ -157,7 +168,10 @@ export default function ToursPageContent({ tourPackages }: ToursPageContentProps
                   {t.tours.snorkelingOnly}
                 </span>
               </div>
+            </div>
 
+            {/* Second Row */}
+            <div className="grid sm:grid-cols-2 lg:grid-cols-2 gap-6 max-w-3xl mx-auto mt-6">
               {/* Underwater Guide */}
               <div className="group bg-gray-50 rounded-2xl p-6 border border-gray-100 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 text-center">
                 <div className="w-14 h-14 bg-purple-100 rounded-xl flex items-center justify-center mx-auto mb-5 group-hover:scale-110 transition-transform duration-300">
@@ -169,6 +183,21 @@ export default function ToursPageContent({ tourPackages }: ToursPageContentProps
                 <p className="text-gray-600 text-sm leading-relaxed">{t.tours.underwaterGuideDesc}</p>
                 <span className="inline-block mt-3 text-xs bg-purple-100 text-purple-700 px-3 py-1 rounded-full font-semibold">
                   {t.tours.snorkelingOnly}
+                </span>
+              </div>
+
+              {/* Documentation */}
+              <div className="group bg-gray-50 rounded-2xl p-6 border border-gray-100 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 text-center">
+                <div className="w-14 h-14 bg-pink-100 rounded-xl flex items-center justify-center mx-auto mb-5 group-hover:scale-110 transition-transform duration-300">
+                  <svg className="w-7 h-7 text-pink-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                </div>
+                <h3 className="text-lg font-bold text-brand-blue-800 mb-2">{language === 'id' ? 'Dokumentasi' : 'Documentation'}</h3>
+                <p className="text-gray-600 text-sm leading-relaxed">{language === 'id' ? 'Foto dan video perjalanan Anda tersedia' : 'Photos and videos of your journey available'}</p>
+                <span className="inline-block mt-3 text-xs bg-pink-100 text-pink-700 px-3 py-1 rounded-full font-semibold">
+                  {language === 'id' ? 'Opsional' : 'Optional'}
                 </span>
               </div>
             </div>
