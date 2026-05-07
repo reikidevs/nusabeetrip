@@ -202,7 +202,7 @@ export default function Home() {
                     <div className="flex-1">
                       <div className="flex items-center gap-3 mb-2">
                         <h3 className="text-lg sm:text-2xl font-bold text-brand-blue-800">{t.tours.snorkelingManta}</h3>
-                        <span className="bg-cyan-100 text-cyan-800 px-3 py-1 rounded-full text-sm font-semibold">4 {t.tours.hours}</span>
+                        <span className="bg-cyan-100 text-cyan-800 px-3 py-1 rounded-full text-sm font-semibold">2 {t.tours.hours}</span>
                       </div>
                       <p className="text-gray-600 mb-4 leading-relaxed">
                         {t.tours.snorkelingMantaDesc}
