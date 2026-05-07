@@ -68,53 +68,56 @@ export default async function RentalsPage() {
   
   try {
     const dbServices = await getRentalServices();
+    console.log('✅ Successfully fetched', dbServices.length, 'rental services from database');
     rentalServices = dbServices.map(transformRentalService);
   } catch (error) {
-    console.error('Failed to fetch rental services:', error);
-    // Fallback to static data if database is not available
+    console.error('❌ Failed to fetch rental services from database:', error);
+    console.log('⚠️ Using fallback static data');
+    
+    // Fallback to static data with correct images matching database
     rentalServices = [
       {
         id: '1',
         vehicleType: 'motorcycle',
-        model: 'Yamaha N-Max',
+        model: 'N-Max',
         slug: 'nmax-motorcycle',
         pricePerDay: 125000,
         currency: 'IDR',
-        features: ['Automatic Transmission', 'Comfortable Seat', 'Storage Space', 'Helmet Included', 'Full Tank', '24/7 Support'],
+        features: ['Automatic Transmission', 'Comfortable Seat', 'Storage Space', 'Helmet Included', 'Full Tank', 'Insurance Covered'],
         image: '/images/Vehicle%20Rentals/Yamaha%20N-Max.webp',
         isAvailable: true
       },
       {
         id: '2',
         vehicleType: 'motorcycle',
-        model: 'Honda Vario',
+        model: 'Vario',
         slug: 'vario-motorcycle',
         pricePerDay: 100000,
         currency: 'IDR',
-        features: ['Automatic Transmission', 'Fuel Efficient', 'Easy Handling', 'Helmet Included', 'Full Tank', '24/7 Support'],
+        features: ['Automatic Transmission', 'Fuel Efficient', 'Easy Handling', 'Helmet Included', 'Full Tank', 'Insurance Covered'],
         image: '/images/Vehicle%20Rentals/Honda%20Vario.png',
         isAvailable: true
       },
       {
         id: '3',
         vehicleType: 'motorcycle',
-        model: 'Honda Scoopy',
+        model: 'Scoopy',
         slug: 'scoopy-motorcycle',
         pricePerDay: 100000,
         currency: 'IDR',
-        features: ['Automatic Transmission', 'Lightweight', 'Perfect for Beginners', 'Helmet Included', 'Full Tank', '24/7 Support'],
+        features: ['Automatic Transmission', 'Lightweight', 'Perfect for Beginners', 'Helmet Included', 'Full Tank', 'Insurance Covered'],
         image: '/images/Vehicle%20Rentals/Honda%20Scoopy.webp',
         isAvailable: true
       },
       {
         id: '4',
         vehicleType: 'car',
-        model: 'Car with Driver',
+        model: 'Car Rental',
         slug: 'car-rental',
         pricePerDay: 500000,
         pricePerHour: 125000,
         currency: 'IDR',
-        features: ['Air Conditioning', 'Professional Driver', 'Comfortable for 4-6 People', 'Full Insurance', 'Fuel Included', 'Flexible Routes'],
+        features: ['Air Conditioning', 'Driver Included', 'Comfortable for 4-6 People', 'Full Tank', 'Insurance Covered', 'Local Driver Knowledge'],
         image: '/images/Vehicle%20Rentals/Car%20with%20Driver.jpg',
         isAvailable: true
       }

@@ -44,82 +44,91 @@ export default async function ToursPage() {
   
   try {
     const dbPackages = await getTourPackages();
+    console.log('✅ Successfully fetched', dbPackages.length, 'tour packages from database');
     tourPackages = dbPackages.map(transformTourPackage);
   } catch (error) {
-    console.error('Failed to fetch tour packages:', error);
-    // Fallback static data — images resolved via content matching
+    console.error('❌ Failed to fetch tour packages from database:', error);
+    console.log('⚠️ Using fallback static data');
+    
+    // Fallback static data with correct images matching database
     const fallbackData = [
       {
         id: '1',
         name: 'West Trip',
         slug: 'west-trip',
-        description: 'Explore the iconic western attractions of Nusa Penida including the world-famous Kelingking Beach, the natural infinity pool at Angel Billabong, and the stunning Broken Beach.',
+        description: 'Explore the western attractions of Nusa Penida including the famous Kelingking Beach',
         price: 390000,
         currency: 'IDR',
         duration: 8,
         includesSnorkeling: false,
-        features: ['Kelingking Beach', 'Angel Billabong', 'Broken Beach', 'Crystal Bay Beach', 'Professional Guide', 'Transportation Included'],
+        features: ['Kelingking Beach', 'Angel Billabong', 'Broken Beach', 'Crystal Bay', 'Professional Guide', 'Transportation', 'Tax Island', 'Parking Ticket'],
         isActive: true,
+        imageUrl: '/images/West%20Trip/West%20trip%20%20kelingking%20beach.jpeg',
       },
       {
         id: '2',
         name: 'East Trip',
         slug: 'east-trip',
-        description: 'Discover the hidden gems of eastern Nusa Penida with pristine white sand beaches, dramatic cliffs, and the famous Tree House viewpoint.',
+        description: 'Discover the eastern wonders of Nusa Penida with breathtaking viewpoints',
         price: 430000,
         currency: 'IDR',
         duration: 8,
         includesSnorkeling: false,
-        features: ['Diamond Beach', 'Atuh Beach', 'Tree House Viewpoint', 'View Thousand Island', 'Professional Guide', 'Transportation Included'],
+        features: ['Diamond Beach', 'Atuh Beach', 'Tree House', 'View Thousand Island', 'Professional Guide', 'Transportation', 'Tax Island', 'Parking Ticket'],
         isActive: true,
+        imageUrl: '/images/East%20Trip/East%20trip%20DIAMOND%20BEACH.jpeg',
       },
       {
         id: '3',
         name: 'West Trip + Snorkeling',
         slug: 'west-trip-snorkeling',
-        description: 'Experience the best of both worlds - explore stunning western landmarks and dive into crystal-clear waters to discover vibrant marine life and coral reefs.',
+        description: 'West trip combined with amazing Manta snorkeling experience',
         price: 550000,
         currency: 'IDR',
         duration: 10,
         includesSnorkeling: true,
-        features: ['Kelingking Beach', 'Angel Billabong', 'Broken Beach', 'Manta Snorkeling', 'Snorkeling Equipment', 'Underwater Guide', 'Professional Guide', 'Transportation Included'],
+        features: ['Kelingking Beach', 'Angel Billabong', 'Broken Beach', 'Manta Snorkeling', 'Snorkeling Equipment', 'Underwater Guide', 'Professional Guide', 'Transportation', 'Tax Island', 'Parking Ticket'],
         isActive: true,
+        imageUrl: '/images/West%20Trip/West%20Trip%20Kelingking%20Manta%20Snorkeling.png',
       },
       {
         id: '4',
         name: 'East Trip + Snorkeling',
         slug: 'east-trip-snorkeling',
-        description: 'Combine the breathtaking eastern beaches with an unforgettable underwater adventure. Perfect for beach lovers and snorkeling enthusiasts.',
+        description: 'East trip with snorkeling adventure at the best spots',
         price: 550000,
         currency: 'IDR',
         duration: 10,
         includesSnorkeling: true,
-        features: ['Diamond Beach', 'Atuh Beach', 'Tree House Viewpoint', 'Snorkeling at Best Spots', 'Snorkeling Equipment', 'Underwater Guide', 'Professional Guide', 'Transportation Included'],
+        features: ['Diamond Beach', 'Atuh Beach', 'Tree House', 'View Thousand Island', 'Snorkeling at Best Spots', 'Snorkeling Equipment', 'Underwater Guide', 'Professional Guide', 'Transportation', 'Tax Island', 'Parking Ticket'],
         isActive: true,
+        imageUrl: '/images/East%20Trip/East%20Trip%20Diamond%20Beach%20Snorkeling.png',
       },
       {
         id: '5',
         name: 'Mix Trip (West & East)',
         slug: 'mix-trip',
-        description: 'The ultimate Nusa Penida experience! Visit the most iconic spots from both western and eastern parts of the island in one comprehensive full-day adventure.',
+        description: 'Combined west and east attractions tour for the complete Nusa Penida experience',
         price: 500000,
         currency: 'IDR',
         duration: 8,
         includesSnorkeling: false,
-        features: ['Kelingking Beach', 'Broken Beach', 'Angel Billabong', 'Diamond Beach', 'Atuh Beach'],
+        features: ['Kelingking Beach', 'Broken Beach', 'Angel Billabong', 'Diamond Beach', 'Atuh Beach', 'Full Island Experience', 'Professional Guide', 'Transportation', 'Tax Island', 'Parking Ticket'],
         isActive: true,
+        imageUrl: '/images/Mix%20Trip%20Diamond%20Kelingking.png',
       },
       {
         id: '6',
         name: "Snorkeling with Manta Ray's",
         slug: 'snorkeling-manta',
-        description: 'Dive into the crystal-clear waters of Nusa Penida and swim alongside majestic Manta Rays. Visit 4 incredible snorkeling spots for an unforgettable underwater adventure.',
+        description: 'Swim alongside majestic Manta Rays and explore 4 incredible snorkeling spots',
         price: 200000,
         currency: 'IDR',
-        duration: 4,
+        duration: 2,
         includesSnorkeling: true,
-        features: ['Manta Bay', 'Crystal Bay', 'Gamat Bay', 'Wall Point', 'Snorkeling Equipment'],
+        features: ['Manta Bay', 'Crystal Bay', 'Gamat Bay', 'Wall Point', 'Snorkeling Equipment', 'Professional Guide', 'Transportation', 'Tax Island', 'Parking Ticket'],
         isActive: true,
+        imageUrl: '/images/Snorkeling%20%2B%20Manta%20Rays/snorkeling%201.jpeg',
       },
     ];
 
@@ -130,7 +139,7 @@ export default async function ToursPage() {
         features: pkg.features,
         description: pkg.description,
         slug: pkg.slug,
-        imageUrl: null,
+        imageUrl: pkg.imageUrl,
       }),
     }));
   }
