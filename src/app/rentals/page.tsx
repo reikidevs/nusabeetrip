@@ -2,8 +2,6 @@ import { Metadata } from 'next';
 import { getRentalServices } from '@/lib/db/queries';
 import { RentalService } from '@/types';
 import RentalsPageContent from './RentalsPageContent';
-import fs from 'fs';
-import path from 'path';
 
 // Opt out of static generation — this page fetches from DB at runtime
 export const dynamic = 'force-dynamic';
@@ -29,31 +27,21 @@ const VEHICLE_IMAGE_MAP: Record<string, string> = {
 
 /**
  * Resolve a valid image path for a rental vehicle.
- * 1. Check if DB imageUrl actually exists on disk → use it
+ * 1. ALWAYS use DB imageUrl if provided (prioritize database)
  * 2. Otherwise match model name to known vehicle image
  * 3. Fallback to placeholder
  */
 function resolveRentalImage(model: string, dbImageUrl: string | null): string {
-  const publicDir = path.join(process.cwd(), 'public');
-
-  // 1. Check DB path
-  if (dbImageUrl) {
-    const decodedPath = decodeURIComponent(dbImageUrl);
-    const fullPath = path.join(publicDir, decodedPath);
-    if (fs.existsSync(fullPath)) {
-      return dbImageUrl;
-    }
+  // 1. ALWAYS prioritize DB imageUrl if it exists and is not a placeholder
+  if (dbImageUrl && !dbImageUrl.includes('placeholder')) {
+    return dbImageUrl;
   }
 
   // 2. Match model name to known vehicle images
   const modelLower = model.toLowerCase().trim();
   for (const [keyword, imagePath] of Object.entries(VEHICLE_IMAGE_MAP)) {
     if (modelLower.includes(keyword)) {
-      const decodedPath = decodeURIComponent(imagePath);
-      const fullPath = path.join(publicDir, decodedPath);
-      if (fs.existsSync(fullPath)) {
-        return imagePath;
-      }
+      return imagePath;
     }
   }
 

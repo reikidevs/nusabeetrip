@@ -166,7 +166,7 @@ function seededIndex(seed: string, max: number): number {
  * Resolve the best image for a tour package based on its content.
  * 
  * Priority:
- * 1. If the existing imageUrl points to a real file on disk, use it
+ * 1. ALWAYS use imageUrl from database if provided (even if file doesn't exist yet)
  * 2. Match tour name, features, or description against keyword map
  * 3. Fall back to a deterministic "random" scenic image
  * 
@@ -182,12 +182,9 @@ export function resolveTourImage(context: {
 }): string {
   const { name, features, description, slug, imageUrl } = context;
 
-  // 1. If imageUrl exists, is not a placeholder, AND the file actually exists → use it
-  if (
-    imageUrl &&
-    !imageUrl.includes('placeholder') &&
-    imageFileExists(imageUrl)
-  ) {
+  // 1. ALWAYS prioritize imageUrl from database if it exists and is not a placeholder
+  // This ensures database values are always respected
+  if (imageUrl && !imageUrl.includes('placeholder')) {
     return imageUrl;
   }
 
