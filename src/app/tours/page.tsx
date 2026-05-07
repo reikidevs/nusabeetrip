@@ -8,11 +8,18 @@ import ToursPageContent from './ToursPageContent';
 export const dynamic = 'force-dynamic';
 export const revalidate = 0; // Always fetch fresh data
 export const fetchCache = 'force-no-store'; // Disable fetch cache
+export const runtime = 'nodejs'; // Use Node.js runtime
+
+// Generate unique cache buster
+const CACHE_BUSTER = Date.now();
 
 export const metadata: Metadata = {
   title: 'Tour Packages - Best Travel Nusa Penida | NusaBeeTrip',
   description: 'Discover amazing tour packages in Nusa Penida. West trip, East trip, Mix trip with snorkeling options. Starting from 390,000 IDR.',
   keywords: ['nusa penida tour', 'best travel nusa penida', 'west trip', 'east trip', 'snorkeling tour'],
+  other: {
+    'cache-buster': CACHE_BUSTER.toString(),
+  },
 };
 
 // Transform database tour package to component format
@@ -47,7 +54,20 @@ export default async function ToursPage() {
   try {
     const dbPackages = await getTourPackages();
     console.log('✅ Successfully fetched', dbPackages.length, 'tour packages from database');
+    
+    // Log Snorkeling duration specifically
+    const snorkeling = dbPackages.find(pkg => pkg.slug === 'snorkeling-manta');
+    if (snorkeling) {
+      console.log('🏊 Snorkeling duration from DB:', snorkeling.durationHours, 'hours');
+    }
+    
     tourPackages = dbPackages.map(transformTourPackage);
+    
+    // Log transformed Snorkeling
+    const transformedSnorkeling = tourPackages.find(pkg => pkg.slug === 'snorkeling-manta');
+    if (transformedSnorkeling) {
+      console.log('🏊 Snorkeling duration after transform:', transformedSnorkeling.duration, 'hours');
+    }
   } catch (error) {
     console.error('❌ Failed to fetch tour packages from database:', error);
     console.log('⚠️ Using fallback static data');
