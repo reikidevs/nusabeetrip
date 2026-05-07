@@ -5,6 +5,8 @@ const nextConfig = {
     formats: ['image/webp', 'image/avif'],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+    unoptimized: false,
+    minimumCacheTTL: 60,
   },
   experimental: {
     // optimizeCss: true, // Disabled due to critters module issue
@@ -14,6 +16,7 @@ const nextConfig = {
   generateEtags: false,
   env: {
     CUSTOM_KEY: process.env.CUSTOM_KEY,
+    IMAGE_CACHE_VERSION: '2',
   },
   async headers() {
     return [
