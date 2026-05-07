@@ -111,6 +111,84 @@ Target Metrics:
 
 ## 🐛 Troubleshooting
 
+### Issue: Deployment berhasil tapi perubahan belum muncul
+
+**Gejala:**
+- ✅ Build berhasil di Vercel (no errors)
+- ❌ Perubahan data belum terlihat di website
+- ❌ Masih menampilkan data lama
+
+**Penyebab:** Cache di multiple layers (Browser, CDN, Vercel)
+
+**Solusi (coba berurutan):**
+
+**1. Hard Refresh Browser**
+```
+Windows: Ctrl + Shift + R atau Ctrl + F5
+Mac: Cmd + Shift + R
+```
+
+**2. Clear Browser Cache Completely**
+```
+Chrome/Edge:
+1. F12 (DevTools)
+2. Right-click refresh button
+3. "Empty Cache and Hard Reload"
+
+Or:
+1. Ctrl + Shift + Delete
+2. Select "Cached images and files"
+3. Clear data
+```
+
+**3. Test in Incognito/Private Mode**
+```
+Chrome: Ctrl + Shift + N
+Firefox: Ctrl + Shift + P
+Safari: Cmd + Shift + N
+```
+Ini akan bypass semua browser cache
+
+**4. Force Vercel Redeploy (NO CACHE)**
+```
+1. Buka https://vercel.com/dashboard
+2. Pilih project "nusabeetrip"
+3. Tab "Deployments"
+4. Klik "..." di deployment terakhir
+5. Klik "Redeploy"
+6. ⚠️ PENTING: UNCHECK "Use existing Build Cache"
+7. Klik "Redeploy"
+```
+
+**5. Verifikasi Database Production**
+```bash
+npx tsx scripts/verify-combined-features.ts
+```
+Pastikan database sudah benar (✅ semua package)
+
+**6. Check Vercel Function Logs**
+```
+1. Vercel Dashboard > Deployments
+2. Klik deployment terakhir
+3. Tab "Functions"
+4. Cari log: "Successfully fetched X tour packages"
+5. Jika ada "Using fallback", berarti database tidak terkoneksi
+```
+
+**7. Trigger Cache Bust (sudah otomatis)**
+```
+IMAGE_CACHE_VERSION sudah di-bump ke 4
+Setiap push akan force rebuild
+```
+
+**Catatan Penting:**
+- ⏱️ Tunggu 2-3 menit setelah deployment selesai
+- 🌍 CDN propagation bisa butuh waktu
+- 🔄 Jika masih belum muncul setelah 5 menit, lakukan step 4 (Force Redeploy NO CACHE)
+- ✅ Database production sudah benar, masalahnya di cache layer
+
+---
+
 ### Issue: Old data still showing
 
 **Solution 1: Force Browser Refresh**
