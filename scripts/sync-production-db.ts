@@ -26,6 +26,7 @@ async function syncProductionData() {
     // 1. West Trip
     await sql`
       UPDATE tour_packages SET
+        features = '["Kelingking Beach","Angel Billabong","Broken Beach","Crystal Bay","Professional Guide","Transportation","Tax Island","Parking Ticket"]'::jsonb,
         image_url = '/images/West%20Trip/West%20trip%20%20kelingking%20beach.jpeg'
       WHERE slug = 'west-trip'
     `;
@@ -34,7 +35,7 @@ async function syncProductionData() {
     // 2. East Trip
     await sql`
       UPDATE tour_packages SET
-        features = '["Diamond Beach","Atuh Beach","Tree House","View Thousand Island","Professional Guide","Transportation","Entrance Fees"]'::jsonb,
+        features = '["Diamond Beach","Atuh Beach","Tree House","View Thousand Island","Professional Guide","Transportation","Tax Island","Parking Ticket"]'::jsonb,
         image_url = '/images/East%20Trip/East%20trip%20DIAMOND%20BEACH.jpeg'
       WHERE slug = 'east-trip'
     `;
@@ -43,7 +44,7 @@ async function syncProductionData() {
     // 3. West Trip + Snorkeling
     await sql`
       UPDATE tour_packages SET
-        features = '["Kelingking Beach","Angel Billabong","Broken Beach","Manta Snorkeling","Snorkeling Equipment","Underwater Guide","Professional Guide","Transportation","Entrance Fees"]'::jsonb,
+        features = '["Kelingking Beach","Angel Billabong","Broken Beach","Manta Snorkeling","Snorkeling Equipment","Underwater Guide","Professional Guide","Transportation","Tax Island","Parking Ticket"]'::jsonb,
         description = 'West trip combined with amazing Manta snorkeling experience',
         image_url = '/images/West%20Trip/West%20Trip%20Kelingking%20Manta%20Snorkeling.png'
       WHERE slug = 'west-trip-snorkeling'
@@ -53,7 +54,7 @@ async function syncProductionData() {
     // 4. East Trip + Snorkeling
     await sql`
       UPDATE tour_packages SET
-        features = '["Diamond Beach","Atuh Beach","Tree House","View Thousand Island","Snorkeling at Best Spots","Snorkeling Equipment","Underwater Guide","Professional Guide","Transportation","Entrance Fees"]'::jsonb,
+        features = '["Diamond Beach","Atuh Beach","Tree House","View Thousand Island","Snorkeling at Best Spots","Snorkeling Equipment","Underwater Guide","Professional Guide","Transportation","Tax Island","Parking Ticket"]'::jsonb,
         image_url = '/images/East%20Trip/East%20Trip%20Diamond%20Beach%20Snorkeling.png'
       WHERE slug = 'east-trip-snorkeling'
     `;
@@ -63,20 +64,21 @@ async function syncProductionData() {
     await sql`
       UPDATE tour_packages SET
         duration_hours = 8,
-        features = '["Kelingking Beach","Broken Beach","Angel Billabong","Diamond Beach","Atuh Beach","Full Island Experience","Professional Guide","Transportation","Entrance Fees"]'::jsonb,
+        features = '["Kelingking Beach","Broken Beach","Angel Billabong","Diamond Beach","Atuh Beach","Full Island Experience","Professional Guide","Transportation","Tax Island","Parking Ticket"]'::jsonb,
         image_url = '/images/Mix%20Trip%20Diamond%20Kelingking.png'
       WHERE slug = 'mix-trip'
     `;
     console.log('✅ mix-trip updated');
 
-    // 6. Snorkeling with Manta Rays
+    // 6. Snorkeling with Manta Rays - UPDATED: 2 hours duration
     await sql`
       UPDATE tour_packages SET
-        features = '["Manta Bay","Crystal Bay","Gamat Bay","Wall Point","Snorkeling Equipment","Professional Guide","Transportation"]'::jsonb,
+        duration_hours = 2,
+        features = '["Manta Bay","Crystal Bay","Gamat Bay","Wall Point","Snorkeling Equipment","Professional Guide","Transportation","Tax Island","Parking Ticket"]'::jsonb,
         image_url = '/images/Snorkeling%20%2B%20Manta%20Rays/snorkeling%201.jpeg'
       WHERE slug = 'snorkeling-manta'
     `;
-    console.log('✅ snorkeling-manta updated');
+    console.log('✅ snorkeling-manta updated (2 hours duration)');
 
     // Update Rental Services
     console.log('\n🚗 Updating rental services...');
@@ -118,7 +120,8 @@ async function syncProductionData() {
     console.log('   - 6 tour packages updated');
     console.log('   - 4 rental services updated');
     console.log('   - All images paths corrected');
-    console.log('   - All features updated');
+    console.log('   - All features updated with Tax Island & Parking Ticket');
+    console.log('   - Snorkeling trip duration changed to 2 hours');
     
   } catch (error) {
     console.error('❌ Error syncing database:', error);

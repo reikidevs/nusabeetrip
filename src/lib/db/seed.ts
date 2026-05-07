@@ -17,7 +17,8 @@ const initialTourPackages = [
       'Crystal Bay',
       'Professional Guide',
       'Transportation',
-      'Entrance Fees'
+      'Tax Island',
+      'Parking Ticket'
     ],
     imageUrl: '/images/West%20Trip/West%20trip%20%20kelingking%20beach.jpeg',
     isActive: true,
@@ -36,7 +37,8 @@ const initialTourPackages = [
       'View Thousand Island',
       'Professional Guide',
       'Transportation',
-      'Entrance Fees'
+      'Tax Island',
+      'Parking Ticket'
     ],
     imageUrl: '/images/East%20Trip/East%20trip%20DIAMOND%20BEACH.jpeg',
     isActive: true,
@@ -57,7 +59,8 @@ const initialTourPackages = [
       'Underwater Guide',
       'Professional Guide',
       'Transportation',
-      'Entrance Fees'
+      'Tax Island',
+      'Parking Ticket'
     ],
     imageUrl: '/images/West%20Trip/West%20Trip%20Kelingking%20Manta%20Snorkeling.png',
     isActive: true,
@@ -79,7 +82,8 @@ const initialTourPackages = [
       'Underwater Guide',
       'Professional Guide',
       'Transportation',
-      'Entrance Fees'
+      'Tax Island',
+      'Parking Ticket'
     ],
     imageUrl: '/images/East%20Trip/East%20Trip%20Diamond%20Beach%20Snorkeling.png',
     isActive: true,
@@ -100,7 +104,8 @@ const initialTourPackages = [
       'Full Island Experience',
       'Professional Guide',
       'Transportation',
-      'Entrance Fees'
+      'Tax Island',
+      'Parking Ticket'
     ],
     imageUrl: '/images/Mix%20Trip%20Diamond%20Kelingking.png',
     isActive: true,
@@ -110,7 +115,7 @@ const initialTourPackages = [
     slug: 'snorkeling-manta',
     description: 'Swim alongside majestic Manta Rays and explore 4 incredible snorkeling spots',
     priceIdr: 200000,
-    durationHours: 4,
+    durationHours: 2,
     includesSnorkeling: true,
     features: [
       'Manta Bay',
@@ -118,6 +123,10 @@ const initialTourPackages = [
       'Gamat Bay',
       'Wall Point',
       'Snorkeling Equipment',
+      'Professional Guide',
+      'Transportation',
+      'Tax Island',
+      'Parking Ticket'
     ],
     imageUrl: '/images/Snorkeling%20%2B%20Manta%20Rays/snorkeling%201.jpeg',
     isActive: true,
