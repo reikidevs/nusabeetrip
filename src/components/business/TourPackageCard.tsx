@@ -90,13 +90,56 @@ const TourPackageCard: React.FC<TourPackageCardProps> = ({
         {/* Features List */}
         <div className="mb-6">
           <ul className="space-y-2">
-            {/* Always show these 4 important features first */}
+            {/* Show all destinations/features first (excluding service items) */}
+            {features
+              .filter(f => 
+                f !== 'Professional Guide' && 
+                f !== 'Tax Island' && 
+                f !== 'Parking Ticket in Any Spot' && 
+                f !== 'Transportation' &&
+                f !== 'Snorkeling Equipment' &&
+                f !== 'Underwater Guide'
+              )
+              .map((feature, index) => (
+                <li key={`dest-${index}`} className="flex items-start text-sm text-gray-600">
+                  <svg className="w-4 h-4 text-green-500 mr-2 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span>{feature}</span>
+                </li>
+              ))}
+            
+            {/* Then show service items */}
             {features.includes('Professional Guide') && (
               <li className="flex items-start text-sm text-gray-600">
                 <svg className="w-4 h-4 text-green-500 mr-2 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
                 </svg>
                 <span>Professional Guide</span>
+              </li>
+            )}
+            {features.includes('Snorkeling Equipment') && (
+              <li className="flex items-start text-sm text-gray-600">
+                <svg className="w-4 h-4 text-green-500 mr-2 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+                </svg>
+                <span>Snorkeling Equipment</span>
+              </li>
+            )}
+            {features.includes('Underwater Guide') && (
+              <li className="flex items-start text-sm text-gray-600">
+                <svg className="w-4 h-4 text-green-500 mr-2 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+                </svg>
+                <span>Underwater Guide</span>
+              </li>
+            )}
+            {features.includes('Transportation') && (
+              <li className="flex items-start text-sm text-gray-600">
+                <svg className="w-4 h-4 text-green-500 mr-2 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+                </svg>
+                <span>Transportation</span>
               </li>
             )}
             {features.includes('Tax Island') && (
@@ -115,26 +158,6 @@ const TourPackageCard: React.FC<TourPackageCardProps> = ({
                 <span>Parking Ticket in Any Spot</span>
               </li>
             )}
-            {features.includes('Transportation') && (
-              <li className="flex items-start text-sm text-gray-600">
-                <svg className="w-4 h-4 text-green-500 mr-2 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
-                </svg>
-                <span>Transportation</span>
-              </li>
-            )}
-            {/* Show other features (excluding the 4 above) */}
-            {features
-              .filter(f => f !== 'Professional Guide' && f !== 'Tax Island' && f !== 'Parking Ticket in Any Spot' && f !== 'Transportation')
-              .slice(0, 2)
-              .map((feature, index) => (
-                <li key={index} className="flex items-start text-sm text-gray-600">
-                  <svg className="w-4 h-4 text-green-500 mr-2 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
-                  </svg>
-                  <span>{feature}</span>
-                </li>
-              ))}
           </ul>
         </div>
 
