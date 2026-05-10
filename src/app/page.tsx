@@ -321,12 +321,12 @@ export default function Home() {
               <div className="group relative rounded-2xl overflow-hidden aspect-square shadow-md hover:shadow-xl transition-all duration-300">
                 <Image
                   src="/images/West%20Trip/West%20trip%20ANGEL%20BILABONG.jpeg"
-                  alt="Angel Bilabong"
+                  alt="Angel Billabong"
                   fill
                   className="object-cover group-hover:scale-110 transition-transform duration-500"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                <span className="absolute bottom-4 left-4 text-white font-semibold drop-shadow-md">Angel Bilabong</span>
+                <span className="absolute bottom-4 left-4 text-white font-semibold drop-shadow-md">Angel Billabong</span>
               </div>
 
               <div className="group relative rounded-2xl overflow-hidden aspect-square shadow-md hover:shadow-xl transition-all duration-300">

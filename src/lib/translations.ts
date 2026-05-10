@@ -199,7 +199,7 @@ export const translations = {
       heading: 'Paket Tur',
       subheading: 'Tur seharian dengan transportasi, pemandu, dan tiket masuk sudah termasuk',
       westTrip: 'West Trip',
-      westTripDesc: 'Pantai Kelingking, Angel Bilabong, Broken Beach, dan Crystal Bay',
+      westTripDesc: 'Pantai Kelingking, Angel Billabong, Broken Beach, dan Crystal Bay',
       eastTrip: 'East Trip',
       eastTripDesc: 'Diamond Beach, Pantai Atuh, Tree House, dan View Thousand Island',
       mixTrip: 'Mix Trip (Barat & Timur)',

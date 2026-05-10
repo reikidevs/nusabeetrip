@@ -275,7 +275,7 @@ export default function ContactPage() {
         <div className="absolute inset-0">
           <Image
             src="/images/West%20Trip/West%20trip%20ANGEL%20BILABONG.jpeg"
-            alt="Angel Bilabong Nusa Penida"
+            alt="Angel Billabong Nusa Penida"
             fill
             className="object-cover"
           />

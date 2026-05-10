@@ -10,7 +10,7 @@ const WHATSAPP_NUMBER = '6289631281234';
 
 const DESTINATIONS = [
   'Kelingking Beach',
-  'Angel Bilabong',
+  'Angel Billabong',
   'Broken Beach',
   'Crystal Bay',
   'Diamond Beach',

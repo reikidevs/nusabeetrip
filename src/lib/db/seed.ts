@@ -52,7 +52,7 @@ const initialTourPackages = [
     includesSnorkeling: true,
     features: [
       'Kelingking Beach',
-      'Angel Bilabong',
+      'Angel Billabong',
       'Broken Beach',
       'Manta Snorkeling',
       'Snorkeling Equipment',
@@ -98,7 +98,7 @@ const initialTourPackages = [
     features: [
       'Kelingking Beach',
       'Broken Beach',
-      'Angel Bilabong',
+      'Angel Billabong',
       'Diamond Beach',
       'Atuh Beach',
       'Full Island Experience',
