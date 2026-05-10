@@ -14,13 +14,13 @@ const initialTourPackages = [
       'Kelingking Beach',
       'Angel Billabong',
       'Broken Beach',
-      'Crystal Bay',
+      'Crystal Bay Beach',
       'Professional Guide',
       'Transportation',
       'Tax Island',
       'Parking Ticket in Any Spot'
     ],
-    imageUrl: '/images/West%20Trip/West%20trip%20%20kelingking%20beach.jpeg',
+    imageUrl: '/images/West%20Trip/West%20trip%20BROKEN%20BEACH.jpeg',
     isActive: true,
   },
   {
@@ -40,7 +40,7 @@ const initialTourPackages = [
       'Tax Island',
       'Parking Ticket in Any Spot'
     ],
-    imageUrl: '/images/East%20Trip/East%20trip%20DIAMOND%20BEACH.jpeg',
+    imageUrl: '/images/East%20Trip/East%20trip%20TREE%20HOUSE.jpeg',
     isActive: true,
   },
   {
@@ -52,7 +52,7 @@ const initialTourPackages = [
     includesSnorkeling: true,
     features: [
       'Kelingking Beach',
-      'Angel Billabong',
+      'Angel Bilabong',
       'Broken Beach',
       'Manta Snorkeling',
       'Snorkeling Equipment',
@@ -85,7 +85,7 @@ const initialTourPackages = [
       'Tax Island',
       'Parking Ticket in Any Spot'
     ],
-    imageUrl: '/images/East%20Trip/East%20Trip%20Diamond%20Beach%20Snorkeling.png',
+    imageUrl: '/images/East%20Trip/East%20trip%20TREE%20HOUSE.jpeg',
     isActive: true,
   },
   {
@@ -98,7 +98,7 @@ const initialTourPackages = [
     features: [
       'Kelingking Beach',
       'Broken Beach',
-      'Angel Billabong',
+      'Angel Bilabong',
       'Diamond Beach',
       'Atuh Beach',
       'Full Island Experience',
@@ -120,8 +120,7 @@ const initialTourPackages = [
     features: [
       'Manta Bay',
       'Crystal Bay',
-      'Gamat Bay',
-      'Wall Point',
+      'Gamat Bay / Wall Point',
       'Snorkeling Equipment',
       'Professional Guide',
       'Transportation',
