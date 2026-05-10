@@ -16,7 +16,7 @@ const nextConfig = {
   generateEtags: false,
   env: {
     CUSTOM_KEY: process.env.CUSTOM_KEY,
-    IMAGE_CACHE_VERSION: '5',
+    IMAGE_CACHE_VERSION: '6',
     BUILD_TIME: new Date().toISOString(),
     FORCE_REVALIDATE: 'true',
     CACHE_BUST: Date.now().toString(),
