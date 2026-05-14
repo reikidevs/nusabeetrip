@@ -99,7 +99,7 @@ export const TOUR_PACKAGES: TourPackage[] = [
       'Professional Guide',
       'Transportation Included'
     ],
-    image: '/images/East%20Trip/East%20Trip%20Diamond%20Beach%20Snorkeling.png',
+    image: '/images/East%20Trip/treehouse_snorkeling_combo_1778802144095.png',
     isActive: true,
   },
   {
