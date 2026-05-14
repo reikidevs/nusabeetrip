@@ -124,11 +124,11 @@ const TourPackageDetail: React.FC<TourPackageDetailProps> = ({
 
           {/* Price */}
           <div className="bg-gray-50 p-6 rounded-lg">
+            <span className="text-gray-600 block mb-1">{t.tours.perPerson}</span>
             <div className="flex items-baseline gap-2 mb-2">
               <span className="text-3xl font-bold text-brand-orange-800">
                 {formatPriceByLang(price, language).display} {formatPriceByLang(price, language).currencyLabel}
               </span>
-              <span className="text-gray-600">{t.tours.perPerson}</span>
             </div>
             <p className="text-sm text-gray-600">
               {language === 'id' ? 'Harga terbaik • Tanpa biaya tersembunyi' : 'Best price guaranteed • No hidden fees'}

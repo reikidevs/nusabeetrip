@@ -42,7 +42,7 @@ export const translations = {
       viewDetails: 'View Details',
       viewAll: 'View All Tour Packages',
       hours: 'Hours',
-      perPerson: 'per person',
+      perPerson: 'Start From',
       // Tours page specific
       heroTitle: 'Explore Paradise with Our Tour Packages',
       heroSubtitle: 'Discover the breathtaking beauty of Nusa Penida with expertly curated tours',
@@ -209,7 +209,7 @@ export const translations = {
       viewDetails: 'Lihat Detail',
       viewAll: 'Lihat Semua Paket Tur',
       hours: 'Jam',
-      perPerson: 'per orang',
+      perPerson: 'Mulai Dari',
       // Tours page specific
       heroTitle: 'Jelajahi Surga dengan Paket Tur Kami',
       heroSubtitle: 'Temukan keindahan menakjubkan Nusa Penida dengan tur yang dikurasi secara profesional',

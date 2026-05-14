@@ -117,8 +117,8 @@ export default function Home() {
                       </p>
                       <div className="flex items-center justify-between">
                         <div>
+                          <span className="text-gray-500 block text-sm">{t.tours.perPerson}</span>
                           <span className="text-xl sm:text-4xl font-bold text-brand-blue-800">{formatPriceByLang(390000, language).display}</span>
-                          <span className="text-gray-500 ml-2">{t.tours.perPerson}</span>
                         </div>
                         <Link
                           href="/tours"
@@ -148,8 +148,8 @@ export default function Home() {
                       </p>
                       <div className="flex items-center justify-between">
                         <div>
+                          <span className="text-gray-500 block text-sm">{t.tours.perPerson}</span>
                           <span className="text-xl sm:text-4xl font-bold text-brand-blue-800">{formatPriceByLang(430000, language).display}</span>
-                          <span className="text-gray-500 ml-2">{t.tours.perPerson}</span>
                         </div>
                         <Link
                           href="/tours"
@@ -179,8 +179,8 @@ export default function Home() {
                       </p>
                       <div className="flex items-center justify-between">
                         <div>
+                          <span className="text-gray-500 block text-sm">{t.tours.perPerson}</span>
                           <span className="text-xl sm:text-4xl font-bold text-brand-blue-800">{formatPriceByLang(500000, language).display}</span>
-                          <span className="text-gray-500 ml-2">{t.tours.perPerson}</span>
                         </div>
                         <Link
                           href="/tours"
@@ -209,8 +209,8 @@ export default function Home() {
                       </p>
                       <div className="flex items-center justify-between">
                         <div>
+                          <span className="text-gray-500 block text-sm">{t.tours.perPerson}</span>
                           <span className="text-xl sm:text-4xl font-bold text-brand-blue-800">{formatPriceByLang(200000, language).display}</span>
-                          <span className="text-gray-500 ml-2">{t.tours.perPerson}</span>
                         </div>
                         <Link
                           href="/tours"

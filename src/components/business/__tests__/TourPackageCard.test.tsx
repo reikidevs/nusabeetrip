@@ -60,7 +60,7 @@ describe('TourPackageCard', () => {
     expect(screen.getByText('West Trip')).toBeInTheDocument();
     expect(screen.getByText('Explore the western attractions of Nusa Penida')).toBeInTheDocument();
     expect(screen.getByText('390.000 IDR')).toBeInTheDocument();
-    expect(screen.getByText('per person')).toBeInTheDocument();
+    expect(screen.getByText('Start From')).toBeInTheDocument();
     expect(screen.getByText('8 hours')).toBeInTheDocument();
   });
 

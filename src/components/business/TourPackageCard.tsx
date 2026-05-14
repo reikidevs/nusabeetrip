@@ -78,13 +78,13 @@ const TourPackageCard: React.FC<TourPackageCardProps> = ({
 
         {/* Price */}
         <div className="mb-5 pb-5 border-b border-gray-100">
+          <span className="text-xs text-gray-500 block mb-1">{t.tours.perPerson}</span>
           <div className="flex items-baseline gap-2">
             <span className="text-xl sm:text-3xl font-bold text-brand-blue-800">
               {formatPriceByLang(price, language).display}
             </span>
             <span className="text-sm font-semibold text-gray-500">{formatPriceByLang(price, language).currencyLabel}</span>
           </div>
-          <span className="text-xs text-gray-500">{t.tours.perPerson}</span>
         </div>
 
         {/* Features List */}
