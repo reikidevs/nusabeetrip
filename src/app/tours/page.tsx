@@ -107,7 +107,7 @@ export default async function ToursPage() {
         includesSnorkeling: false,
         features: ['Diamond Beach', 'Atuh Beach', 'Tree House', 'View Thousand Island', 'Professional Guide', 'Transportation', 'Tax Island', 'Parking Ticket in Any Spot'],
         isActive: true,
-        imageUrl: '/images/East%20Trip/East%20Trip%20Diamond%20Beach%205.jpeg',
+        imageUrl: '/images/East%20Trip/East%20trip%20DIAMOND%20BEACH.jpeg',
       },
       {
         id: '3',

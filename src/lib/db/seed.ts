@@ -40,7 +40,7 @@ const initialTourPackages = [
       'Tax Island',
       'Parking Ticket in Any Spot'
     ],
-    imageUrl: '/images/East%20Trip/East%20Trip%20Diamond%20Beach%205.jpeg',
+    imageUrl: '/images/East%20Trip/East%20trip%20DIAMOND%20BEACH.jpeg',
     isActive: true,
   },
   {

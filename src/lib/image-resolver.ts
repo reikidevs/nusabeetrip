@@ -143,9 +143,9 @@ const SLUG_IMAGE_OVERRIDES: Record<string, string> = {
   // Combo packages — must show the half-snorkeling composite image
   'west-trip-snorkeling': '/images/West%20Trip/West%20Trip%20Kelingking%20Manta%20Snorkeling.png',
   'east-trip-snorkeling': '/images/East%20Trip/East%20Trip%20Diamond%20Beach%20Snorkeling.png',
-  // Regular East Trip — woman in pink at Diamond Beach (different from Tree House
+  // Regular East Trip — Diamond Beach (different from Tree House
   // used by east-trip-snorkeling above)
-  'east-trip': '/images/East%20Trip/East%20Trip%20Diamond%20Beach%205.jpeg',
+  'east-trip': '/images/East%20Trip/East%20trip%20DIAMOND%20BEACH.jpeg',
 };
 
 /**
