@@ -133,6 +133,22 @@ const SCENIC_IMAGE_POOL: string[] = [
 ];
 
 /**
+ * Hard slug → image overrides. These ALWAYS win over DB imageUrl and keyword
+ * matching, so we can correct image assignments without re-seeding the DB.
+ *
+ * Use this when an image must be locked in (e.g. combo packages where the
+ * marketing-approved image differs from any single attraction).
+ */
+const SLUG_IMAGE_OVERRIDES: Record<string, string> = {
+  // Combo packages — must show the half-snorkeling composite image
+  'west-trip-snorkeling': '/images/West%20Trip/West%20Trip%20Kelingking%20Manta%20Snorkeling.png',
+  'east-trip-snorkeling': '/images/East%20Trip/East%20Trip%20Diamond%20Beach%20Snorkeling.png',
+  // Regular East Trip — woman in pink at Diamond Beach (different from Tree House
+  // used by east-trip-snorkeling above)
+  'east-trip': '/images/East%20Trip/East%20Trip%20Diamond%20Beach%205.jpeg',
+};
+
+/**
  * Check if a public image file actually exists on disk.
  * Handles URL-encoded paths (e.g. `%20` → space).
  */
@@ -181,6 +197,12 @@ export function resolveTourImage(context: {
   imageUrl?: string | null;
 }): string {
   const { name, features, description, slug, imageUrl } = context;
+
+  // 0. Slug-based hard override — always wins, even over DB imageUrl.
+  //    Edit SLUG_IMAGE_OVERRIDES at top of file to lock specific assignments.
+  if (slug && SLUG_IMAGE_OVERRIDES[slug]) {
+    return SLUG_IMAGE_OVERRIDES[slug];
+  }
 
   // 1. ALWAYS prioritize imageUrl from database if it exists and is not a placeholder
   // This ensures database values are always respected

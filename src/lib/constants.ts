@@ -55,7 +55,7 @@ export const TOUR_PACKAGES: TourPackage[] = [
       'Professional Guide',
       'Transportation Included'
     ],
-    image: '/images/East%20Trip/East%20trip%20DIAMOND%20BEACH.jpeg',
+    image: '/images/East%20Trip/East%20Trip%20Diamond%20Beach%205.jpeg',
     isActive: true,
   },
   {
