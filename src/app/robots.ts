@@ -1,14 +1,16 @@
-import { MetadataRoute } from 'next'
+import { MetadataRoute } from 'next';
+import { SITE } from '@/lib/site-config';
 
 export default function robots(): MetadataRoute.Robots {
-  const baseUrl = process.env.NEXTAUTH_URL || 'https://nusabeetrip.com';
-  
   return {
-    rules: {
-      userAgent: '*',
-      allow: '/',
-      disallow: ['/api/', '/_next/', '/admin/'],
-    },
-    sitemap: `${baseUrl}/sitemap.xml`,
-  }
+    rules: [
+      {
+        userAgent: '*',
+        allow: '/',
+        disallow: ['/api/', '/admin/', '/_next/', '/demo'],
+      },
+    ],
+    sitemap: `${SITE.url}/sitemap.xml`,
+    host: SITE.url,
+  };
 }

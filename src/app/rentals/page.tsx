@@ -1,16 +1,30 @@
 import { Metadata } from 'next';
 import { getRentalServices } from '@/lib/db/queries';
 import { RentalService } from '@/types';
+import { JsonLd } from '@/components/seo';
+import { breadcrumbJsonLd, buildMetadata, rentalProductsJsonLd } from '@/lib/seo';
 import RentalsPageContent from './RentalsPageContent';
 
 // Opt out of static generation — this page fetches from DB at runtime
 export const dynamic = 'force-dynamic';
 
-export const metadata: Metadata = {
-  title: 'Vehicle Rentals - Motorcycle & Car Rental | NusaBeeTrip',
-  description: 'Rent motorcycles and cars in Nusa Penida. N-Max, Vario, Scoopy motorcycles and car rentals available. Starting from 100,000 IDR per day.',
-  keywords: ['nusa penida rental', 'motorcycle rental', 'car rental', 'nmax rental', 'vario rental'],
-};
+export const metadata: Metadata = buildMetadata({
+  title: 'Nusa Penida Vehicle Rentals — Motorcycle & Car with Driver',
+  description:
+    'Rent Yamaha N-Max, Honda Vario, Honda Scoopy or hire a car with driver in Nusa Penida. Well-maintained vehicles, helmet & insurance included. From 100K IDR/day.',
+  path: '/rentals',
+  keywords: [
+    'sewa motor nusa penida',
+    'nusa penida motorcycle rental',
+    'nusa penida car rental',
+    'nmax rental nusa penida',
+    'honda vario nusa penida',
+    'scoopy nusa penida',
+    'car with driver nusa penida',
+  ],
+  image: '/images/Vehicle%20Rentals/Yamaha%20N-Max.webp',
+  imageAlt: 'Vehicle Rentals in Nusa Penida',
+});
 
 /** Model-name → image-file mapping for reliable image resolution */
 const VEHICLE_IMAGE_MAP: Record<string, string> = {
@@ -124,5 +138,17 @@ export default async function RentalsPage() {
     ];
   }
 
-  return <RentalsPageContent rentalServices={rentalServices} />;
+  return (
+    <>
+      <JsonLd
+        id="ld-breadcrumbs-rentals"
+        data={breadcrumbJsonLd([
+          { name: 'Home', path: '/' },
+          { name: 'Rentals', path: '/rentals' },
+        ])}
+      />
+      <JsonLd id="ld-rental-products" data={rentalProductsJsonLd()} />
+      <RentalsPageContent rentalServices={rentalServices} />
+    </>
+  );
 }

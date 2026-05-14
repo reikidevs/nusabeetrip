@@ -1,24 +1,33 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
 import { Layout } from '@/components'
 import { LanguageProvider } from '@/lib/LanguageContext'
 import ExchangeRateProvider from '@/components/ExchangeRateProvider'
+import { JsonLd } from '@/components/seo'
+import { buildMetadata, organizationJsonLd, travelAgencyJsonLd, websiteJsonLd } from '@/lib/seo'
+import { SITE } from '@/lib/site-config'
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ['latin'], display: 'swap' })
 
-export const metadata: Metadata = {
-  title: 'Best Travel Nusa Penida | NusaBeeTrip - Tours & Rentals',
-  description: 'Discover the best travel experience in Nusa Penida with NusaBeeTrip. Professional tour packages and vehicle rentals for your perfect Bali island adventure.',
-  keywords: ['best travel nusa penida', 'nusa penida tour', 'nusa penida rental', 'bali island tour'],
-  authors: [{ name: 'NusaBeeTrip' }],
-  creator: 'NusaBeeTrip',
-  publisher: 'NusaBeeTrip',
-  formatDetection: {
-    email: false,
-    address: false,
-    telephone: false,
-  },
+export const metadata: Metadata = buildMetadata({
+  title: 'Nusa Penida Tours, Snorkeling & Vehicle Rentals',
+  description: SITE.description,
+  path: '/',
+  keywords: [
+    'nusa penida',
+    'best travel nusa penida',
+    'tour package nusa penida',
+    'sewa motor nusa penida',
+    'snorkeling manta ray',
+  ],
+})
+
+export const viewport: Viewport = {
+  themeColor: '#1e3a8a',
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
 }
 
 export default function RootLayout({
@@ -27,8 +36,18 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
+    <html lang="en" dir="ltr">
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="//wa.me" />
+      </head>
       <body className={inter.className}>
+        {/* Site-wide JSON-LD: identifies the organization & site to Google */}
+        <JsonLd id="ld-website" data={websiteJsonLd()} />
+        <JsonLd id="ld-organization" data={organizationJsonLd()} />
+        <JsonLd id="ld-business" data={travelAgencyJsonLd()} />
+
         <LanguageProvider>
           <ExchangeRateProvider />
           <Layout>

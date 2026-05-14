@@ -2,6 +2,8 @@ import { Metadata } from 'next';
 import { getTourPackages } from '@/lib/db/queries';
 import { TourPackage } from '@/types';
 import { resolveTourImage } from '@/lib/image-resolver';
+import { JsonLd } from '@/components/seo';
+import { breadcrumbJsonLd, buildMetadata, tourPackagesJsonLd } from '@/lib/seo';
 import ToursPageContent from './ToursPageContent';
 
 // Opt out of static generation — this page fetches from DB at runtime
@@ -10,17 +12,24 @@ export const revalidate = 0; // Always fetch fresh data
 export const fetchCache = 'force-no-store'; // Disable fetch cache
 export const runtime = 'nodejs'; // Use Node.js runtime
 
-// Generate unique cache buster
-const CACHE_BUSTER = Date.now();
-
-export const metadata: Metadata = {
-  title: 'Tour Packages - Best Travel Nusa Penida | NusaBeeTrip',
-  description: 'Discover amazing tour packages in Nusa Penida. West trip, East trip, Mix trip with snorkeling options. Starting from 390,000 IDR.',
-  keywords: ['nusa penida tour', 'best travel nusa penida', 'west trip', 'east trip', 'snorkeling tour'],
-  other: {
-    'cache-buster': CACHE_BUSTER.toString(),
-  },
-};
+export const metadata: Metadata = buildMetadata({
+  title: 'Nusa Penida Tour Packages — West, East, Mix & Snorkeling',
+  description:
+    'Full-day Nusa Penida tours: West Trip (Kelingking, Broken Beach), East Trip (Diamond, Atuh), Mix Trip, and Manta Snorkeling. Transport, guide & entrance included. From 200K IDR.',
+  path: '/tours',
+  keywords: [
+    'nusa penida tour package',
+    'west trip nusa penida',
+    'east trip nusa penida',
+    'mix trip nusa penida',
+    'snorkeling manta ray nusa penida',
+    'kelingking beach tour',
+    'diamond beach tour',
+    'paket tur nusa penida',
+  ],
+  image: '/images/West%20Trip/West%20trip%20%20kelingking%20beach.jpeg',
+  imageAlt: 'Kelingking Beach Nusa Penida Tour',
+});
 
 // Transform database tour package to component format
 const transformTourPackage = (dbPackage: any): TourPackage => {
@@ -166,5 +175,17 @@ export default async function ToursPage() {
     }));
   }
 
-  return <ToursPageContent tourPackages={tourPackages} />;
+  return (
+    <>
+      <JsonLd
+        id="ld-breadcrumbs-tours"
+        data={breadcrumbJsonLd([
+          { name: 'Home', path: '/' },
+          { name: 'Tours', path: '/tours' },
+        ])}
+      />
+      <JsonLd id="ld-tour-products" data={tourPackagesJsonLd()} />
+      <ToursPageContent tourPackages={tourPackages} />
+    </>
+  );
 }

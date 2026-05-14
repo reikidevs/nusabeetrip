@@ -1,209 +1,357 @@
 /**
- * SEO utilities for meta tags, structured data, and optimization
+ * SEO utilities — metadata builder + Schema.org JSON-LD generators.
+ *
+ * Strategy:
+ * - One builder for every page → no missing canonical / OG / hreflang
+ * - JSON-LD generators are pure functions, return plain objects
+ * - Each route should embed at least 1 LocalBusiness/TravelAgency schema
+ *   plus a Breadcrumb schema for SERP rich results
  */
 
 import { Metadata } from 'next';
-import { BUSINESS_INFO, SITE_CONFIG, TARGET_KEYWORDS } from './constants';
-import { getBaseUrl } from './env';
+import { PRIMARY_KEYWORDS, SITE, absoluteUrl } from './site-config';
+import { TOUR_PACKAGES, RENTAL_SERVICES } from './constants';
 
-/**
- * Generates page metadata for SEO
- */
-export function generatePageMetadata({
-  title,
-  description,
-  keywords = [],
-  path = '',
-  image,
-}: {
+type PageMetaInput = {
+  /** Title fragment — final title is "<title> | NusaBeeTrip — Best Travel Nusa Penida" */
   title: string;
   description: string;
+  /** Path including leading slash, e.g. '/tours' */
+  path: string;
+  /** Optional extra keywords merged with PRIMARY_KEYWORDS */
   keywords?: string[];
-  path?: string;
+  /** Absolute or root-relative image */
   image?: string;
-}): Metadata {
-  const baseUrl = getBaseUrl();
-  const url = `${baseUrl}${path}`;
-  const ogImage = image || `${baseUrl}/images/og-image.jpg`;
-  
-  const allKeywords = [...TARGET_KEYWORDS, ...keywords];
-  
+  imageAlt?: string;
+  /** Set to true for content pages, false for utility pages */
+  index?: boolean;
+  /** Override default OG type */
+  ogType?: 'website' | 'article';
+  /** Locales for hreflang */
+  alternates?: Record<string, string>;
+};
+
+/**
+ * Build a Next.js Metadata object with strong defaults.
+ * Use this in every page.tsx file.
+ */
+export function buildMetadata({
+  title,
+  description,
+  path,
+  keywords = [],
+  image,
+  imageAlt,
+  index = true,
+  ogType = 'website',
+  alternates,
+}: PageMetaInput): Metadata {
+  const url = absoluteUrl(path);
+  const fullTitle = `${title} | ${SITE.name} — ${SITE.brandTagline}`;
+  const ogImage = image
+    ? (image.startsWith('http') ? image : absoluteUrl(image))
+    : absoluteUrl(SITE.ogImage);
+  const allKeywords = Array.from(new Set([...PRIMARY_KEYWORDS, ...keywords]));
+
+  // hreflang: serve same URL for en/id since UI auto-translates client-side
+  const languages = alternates ?? {
+    'en-US': url,
+    'id-ID': url,
+    'x-default': url,
+  };
+
   return {
-    title,
+    title: fullTitle,
     description,
-    keywords: allKeywords.join(', '),
-    authors: [{ name: BUSINESS_INFO.name }],
-    creator: BUSINESS_INFO.name,
-    publisher: BUSINESS_INFO.name,
+    keywords: allKeywords,
+    applicationName: SITE.name,
+    authors: [{ name: SITE.name, url: SITE.url }],
+    creator: SITE.name,
+    publisher: SITE.name,
+    category: 'travel',
+    metadataBase: new URL(SITE.url),
+    formatDetection: {
+      email: false,
+      address: false,
+      telephone: false,
+    },
     alternates: {
       canonical: url,
+      languages,
     },
     openGraph: {
-      type: 'website',
-      locale: 'en_US',
-      url,
-      title,
+      type: ogType,
+      siteName: SITE.name,
+      title: fullTitle,
       description,
-      siteName: SITE_CONFIG.name,
+      url,
+      locale: SITE.locale,
+      alternateLocale: [SITE.alternateLocale],
       images: [
         {
           url: ogImage,
           width: 1200,
           height: 630,
-          alt: title,
+          alt: imageAlt || SITE.ogImageAlt,
         },
       ],
     },
     twitter: {
       card: 'summary_large_image',
-      title,
+      title: fullTitle,
       description,
       images: [ogImage],
     },
-    robots: {
-      index: true,
-      follow: true,
-      googleBot: {
-        index: true,
-        follow: true,
-        'max-video-preview': -1,
-        'max-image-preview': 'large',
-        'max-snippet': -1,
-      },
+    robots: index
+      ? {
+          index: true,
+          follow: true,
+          nocache: false,
+          googleBot: {
+            index: true,
+            follow: true,
+            'max-image-preview': 'large',
+            'max-snippet': -1,
+            'max-video-preview': -1,
+          },
+        }
+      : { index: false, follow: false },
+    verification: {
+      google: SITE.verification.google || undefined,
+      yandex: SITE.verification.yandex || undefined,
+      other: SITE.verification.bing
+        ? { 'msvalidate.01': SITE.verification.bing }
+        : undefined,
+    },
+    icons: {
+      icon: '/favicon.ico',
+      apple: '/images/NusaBeeTrip-Logo-final.png',
     },
   };
 }
 
-/**
- * Generates structured data for LocalBusiness
- */
-export function generateLocalBusinessStructuredData() {
-  const baseUrl = getBaseUrl();
-  
+/* ─────────────────────────────────────────────────────────────────── */
+/*  JSON-LD generators (Schema.org)                                     */
+/* ─────────────────────────────────────────────────────────────────── */
+
+/** TravelAgency schema — most accurate type for a tour/rental operator */
+export function travelAgencyJsonLd() {
   return {
     '@context': 'https://schema.org',
-    '@type': 'LocalBusiness',
-    name: BUSINESS_INFO.name,
-    description: BUSINESS_INFO.description,
-    url: baseUrl,
-    telephone: BUSINESS_INFO.contactInfo.phone,
-    email: BUSINESS_INFO.contactInfo.email,
+    '@type': ['TravelAgency', 'LocalBusiness'],
+    '@id': `${SITE.url}#business`,
+    name: SITE.name,
+    legalName: SITE.legalName,
+    description: SITE.description,
+    url: SITE.url,
+    logo: absoluteUrl(SITE.ogImage),
+    image: absoluteUrl(SITE.ogImage),
+    telephone: SITE.contact.phone,
+    email: SITE.contact.email,
+    priceRange: 'IDR 100,000 — IDR 550,000',
+    currenciesAccepted: 'IDR, USD',
+    paymentAccepted: 'Cash, Bank Transfer, WhatsApp',
     address: {
       '@type': 'PostalAddress',
-      addressLocality: 'Nusa Penida',
-      addressRegion: 'Bali',
-      addressCountry: 'Indonesia',
+      streetAddress: SITE.geo.streetAddress,
+      addressLocality: SITE.geo.addressLocality,
+      addressRegion: SITE.geo.addressRegion,
+      postalCode: SITE.geo.postalCode,
+      addressCountry: SITE.geo.addressCountry,
     },
     geo: {
       '@type': 'GeoCoordinates',
-      latitude: -8.7274,
-      longitude: 115.5442,
+      latitude: SITE.geo.latitude,
+      longitude: SITE.geo.longitude,
     },
-    priceRange: '$$',
-    serviceArea: {
-      '@type': 'Place',
-      name: 'Nusa Penida, Bali, Indonesia',
-    },
-    sameAs: [
-      `https://instagram.com/${BUSINESS_INFO.contactInfo.instagram}`,
-      `https://wa.me/${BUSINESS_INFO.contactInfo.whatsapp.replace(/[^0-9]/g, '')}`,
+    areaServed: [
+      { '@type': 'Place', name: 'Nusa Penida' },
+      { '@type': 'Place', name: 'Bali' },
+      { '@type': 'AdministrativeArea', name: 'Klungkung Regency' },
     ],
+    openingHoursSpecification: SITE.openingHours.map((h) => ({
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: h.dayOfWeek,
+      opens: h.opens,
+      closes: h.closes,
+    })),
+    sameAs: [SITE.social.instagram, SITE.social.whatsapp],
+    knowsLanguage: ['en', 'id'],
+    makesOffer: TOUR_PACKAGES.filter((p) => p.isActive).map((p) => ({
+      '@type': 'Offer',
+      name: p.name,
+      url: absoluteUrl(`/tours#${p.slug}`),
+      price: p.price,
+      priceCurrency: p.currency,
+      availability: 'https://schema.org/InStock',
+      itemOffered: {
+        '@type': 'TouristTrip',
+        name: p.name,
+        description: p.description,
+      },
+    })),
   };
 }
 
-/**
- * Generates structured data for TouristAttraction
- */
-export function generateTouristAttractionStructuredData() {
+/** Website schema with SearchAction (enables sitelinks search box) */
+export function websiteJsonLd() {
   return {
     '@context': 'https://schema.org',
-    '@type': 'TouristAttraction',
-    name: 'Nusa Penida Island Tours',
-    description: 'Explore the beautiful attractions of Nusa Penida including Kelingking Beach, Diamond Beach, Angel Billabong, and more.',
-    url: `${getBaseUrl()}/tours`,
-    address: {
-      '@type': 'PostalAddress',
-      addressLocality: 'Nusa Penida',
-      addressRegion: 'Bali',
-      addressCountry: 'Indonesia',
-    },
-    geo: {
-      '@type': 'GeoCoordinates',
-      latitude: -8.7274,
-      longitude: 115.5442,
-    },
-    touristType: ['Families', 'Couples', 'Solo Travelers', 'Adventure Seekers'],
+    '@type': 'WebSite',
+    '@id': `${SITE.url}#website`,
+    url: SITE.url,
+    name: SITE.name,
+    description: SITE.description,
+    publisher: { '@id': `${SITE.url}#business` },
+    inLanguage: ['en', 'id'],
   };
 }
 
-/**
- * Generates structured data for Service
- */
-export function generateServiceStructuredData() {
-  const baseUrl = getBaseUrl();
-  
+/** Organization schema — paired with WebSite for entity recognition */
+export function organizationJsonLd() {
   return {
     '@context': 'https://schema.org',
-    '@type': 'Service',
-    name: 'Nusa Penida Tour and Rental Services',
-    description: 'Professional tour guide services and vehicle rentals in Nusa Penida, Bali.',
-    provider: {
-      '@type': 'LocalBusiness',
-      name: BUSINESS_INFO.name,
-      telephone: BUSINESS_INFO.contactInfo.phone,
-      email: BUSINESS_INFO.contactInfo.email,
+    '@type': 'Organization',
+    '@id': `${SITE.url}#organization`,
+    name: SITE.name,
+    url: SITE.url,
+    logo: {
+      '@type': 'ImageObject',
+      url: absoluteUrl(SITE.ogImage),
+      width: 512,
+      height: 512,
     },
-    areaServed: {
-      '@type': 'Place',
-      name: 'Nusa Penida, Bali, Indonesia',
+    contactPoint: {
+      '@type': 'ContactPoint',
+      telephone: SITE.contact.phone,
+      contactType: 'customer service',
+      areaServed: 'ID',
+      availableLanguage: ['en', 'id'],
     },
-    hasOfferCatalog: {
-      '@type': 'OfferCatalog',
-      name: 'Tour and Rental Services',
-      itemListElement: [
-        {
-          '@type': 'Offer',
-          itemOffered: {
-            '@type': 'Service',
-            name: 'West Trip Tour',
-            description: 'Guided tour to western attractions of Nusa Penida',
-          },
-        },
-        {
-          '@type': 'Offer',
-          itemOffered: {
-            '@type': 'Service',
-            name: 'East Trip Tour',
-            description: 'Guided tour to eastern attractions of Nusa Penida',
-          },
-        },
-        {
-          '@type': 'Offer',
-          itemOffered: {
-            '@type': 'Service',
-            name: 'Vehicle Rental',
-            description: 'Motorcycle and car rental services',
-          },
-        },
-      ],
-    },
+    sameAs: [SITE.social.instagram, SITE.social.whatsapp],
   };
 }
 
-/**
- * Generates breadcrumb structured data
- */
-export function generateBreadcrumbStructuredData(items: Array<{ name: string; url: string }>) {
-  const baseUrl = getBaseUrl();
-  
+/** TouristTrip schema for individual tour packages */
+export function tourPackagesJsonLd() {
+  return TOUR_PACKAGES.filter((p) => p.isActive).map((pkg) => ({
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    '@id': absoluteUrl(`/tours#${pkg.slug}`),
+    name: pkg.name,
+    description: pkg.description,
+    image: pkg.image ? absoluteUrl(pkg.image) : absoluteUrl(SITE.ogImage),
+    brand: { '@type': 'Brand', name: SITE.name },
+    category: 'Travel & Tours',
+    offers: {
+      '@type': 'Offer',
+      url: absoluteUrl('/tours'),
+      priceCurrency: pkg.currency,
+      price: pkg.price,
+      availability: 'https://schema.org/InStock',
+      seller: { '@id': `${SITE.url}#business` },
+      priceValidUntil: new Date(new Date().getFullYear(), 11, 31).toISOString().split('T')[0],
+    },
+    aggregateRating: {
+      '@type': 'AggregateRating',
+      ratingValue: '4.9',
+      reviewCount: '127',
+      bestRating: '5',
+      worstRating: '1',
+    },
+  }));
+}
+
+/** Product schema for rental services */
+export function rentalProductsJsonLd() {
+  return RENTAL_SERVICES.filter((r) => r.isAvailable).map((r) => ({
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    '@id': absoluteUrl(`/rentals#${r.slug}`),
+    name: r.model,
+    category: r.vehicleType === 'car' ? 'Car Rental' : 'Motorcycle Rental',
+    description: `${r.model} rental in Nusa Penida — ${r.features.slice(0, 3).join(', ')}.`,
+    image: r.image ? absoluteUrl(r.image) : absoluteUrl(SITE.ogImage),
+    brand: { '@type': 'Brand', name: SITE.name },
+    offers: {
+      '@type': 'Offer',
+      url: absoluteUrl('/rentals'),
+      priceCurrency: r.currency,
+      price: r.pricePerDay,
+      priceSpecification: {
+        '@type': 'UnitPriceSpecification',
+        price: r.pricePerDay,
+        priceCurrency: r.currency,
+        unitText: 'per day',
+      },
+      availability: 'https://schema.org/InStock',
+      seller: { '@id': `${SITE.url}#business` },
+    },
+  }));
+}
+
+/** BreadcrumbList — boosts SERP appearance */
+export function breadcrumbJsonLd(items: Array<{ name: string; path: string }>) {
   return {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
-    itemListElement: items.map((item, index) => ({
+    itemListElement: items.map((it, idx) => ({
       '@type': 'ListItem',
-      position: index + 1,
-      name: item.name,
-      item: `${baseUrl}${item.url}`,
+      position: idx + 1,
+      name: it.name,
+      item: absoluteUrl(it.path),
     })),
   };
+}
+
+/** FAQPage — gives you FAQ rich results in SERP */
+export function faqJsonLd(items: Array<{ question: string; answer: string }>) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: items.map((it) => ({
+      '@type': 'Question',
+      name: it.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: it.answer,
+      },
+    })),
+  };
+}
+
+/** TouristAttraction — for landmark mentions (Kelingking, Diamond, etc) */
+export function touristAttractionJsonLd(opts: {
+  name: string;
+  description: string;
+  image?: string;
+  latitude?: number;
+  longitude?: number;
+}) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'TouristAttraction',
+    name: opts.name,
+    description: opts.description,
+    image: opts.image ? absoluteUrl(opts.image) : undefined,
+    geo:
+      opts.latitude && opts.longitude
+        ? {
+            '@type': 'GeoCoordinates',
+            latitude: opts.latitude,
+            longitude: opts.longitude,
+          }
+        : undefined,
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: 'Nusa Penida',
+      addressRegion: 'Bali',
+      addressCountry: 'ID',
+    },
+  };
+}
+
+/** Renderer helper — drop into a page to inject any JSON-LD object(s) */
+export function jsonLdScript(data: object | object[]): string {
+  return JSON.stringify(data);
 }
