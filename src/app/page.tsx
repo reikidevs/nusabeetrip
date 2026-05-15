@@ -242,14 +242,14 @@ export default function Home() {
                 <div className="grid grid-cols-2 gap-4">
                   <div className="relative h-48 rounded-xl overflow-hidden shadow-lg group">
                     <Image
-                      src="/images/East%20Trip/East%20Trip%20Diamond%20Beach%204.jpeg"
-                      alt="Diamond Beach - East Trip"
+                      src="/images/West%20Trip/West%20Trip%20Kelingking%20Beach%205.jpeg"
+                      alt="Kelingking Beach - West Trip"
                       fill
                       className="object-cover group-hover:scale-105 transition-transform duration-700"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
                     <div className="absolute bottom-3 left-3 text-white">
-                      <p className="text-xs font-semibold">Diamond Beach</p>
+                      <p className="text-xs font-semibold">Kelingking Beach</p>
                     </div>
                   </div>
                   <div className="relative h-48 rounded-xl overflow-hidden shadow-lg group">
