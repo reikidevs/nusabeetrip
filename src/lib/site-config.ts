@@ -16,7 +16,7 @@ export const SITE = {
 
   /** ~155 chars max — used as default <meta description> */
   description:
-    'Local-owned Nusa Penida tours, snorkeling with Manta Rays, and motorcycle/car rentals. West Trip, East Trip & Mix Trip from 390K IDR. Book via WhatsApp.',
+    'Local-owned Nusa Penida tours, snorkeling with Manta Rays, and motorcycle/car rentals. West Trip, East Trip & Mix Trip from 390K IDR. Book instantly via WhatsApp — best prices guaranteed.',
 
   /** Default Open Graph image — must exist in /public */
   ogImage: '/images/NusaBeeTrip-Logo-final.png',
@@ -63,19 +63,38 @@ export const SITE = {
 
 /** Primary keywords — keep tight, Google ignores keyword bloat */
 export const PRIMARY_KEYWORDS = [
+  // English — high intent
   'nusa penida tour',
   'best travel nusa penida',
   'tour nusa penida',
   'nusa penida trip',
-  'paket tur nusa penida',
+  'nusa penida day trip',
+  'nusa penida tour package',
+  'nusa penida island tour',
   'kelingking beach tour',
   'diamond beach tour',
+  'broken beach nusa penida',
   'snorkeling manta ray nusa penida',
+  'swim with manta rays bali',
+  'nusa penida snorkeling tour',
   'sewa motor nusa penida',
   'nusa penida motorcycle rental',
   'nusa penida car rental',
+  'nusa penida scooter rental',
   'west trip nusa penida',
   'east trip nusa penida',
+  'nusa penida from bali',
+  'things to do nusa penida',
+  'nusa penida travel guide',
+  // Indonesian — local SEO
+  'paket tur nusa penida',
+  'wisata nusa penida',
+  'tour nusa penida murah',
+  'sewa motor nusa penida murah',
+  'rental motor nusa penida',
+  'paket snorkeling nusa penida',
+  'trip nusa penida',
+  'liburan nusa penida',
 ];
 
 /** Build absolute URL for a given path */

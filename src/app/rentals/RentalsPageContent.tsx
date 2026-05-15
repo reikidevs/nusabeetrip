@@ -4,6 +4,7 @@ import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { RentalServiceGrid } from '@/components/business';
+import { BreadcrumbNav } from '@/components/seo';
 import { RentalService } from '@/types';
 import { useLanguage } from '@/lib/LanguageContext';
 import { getWhatsAppLink } from '@/lib/whatsapp';
@@ -21,6 +22,16 @@ export default function RentalsPageContent({ rentalServices }: RentalsPageConten
 
   return (
     <div className="min-h-screen bg-gray-50">
+      {/* Visual Breadcrumb */}
+      <div className="container mx-auto px-4 pt-4">
+        <BreadcrumbNav
+          items={[
+            { label: 'Home', labelId: 'Beranda', href: '/' },
+            { label: 'Rentals', labelId: 'Sewa', href: '/rentals' },
+          ]}
+        />
+      </div>
+
       {/* Hero Section */}
       <section className="relative text-white overflow-hidden">
         <div className="absolute inset-0">

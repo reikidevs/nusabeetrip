@@ -4,53 +4,68 @@ import { TOUR_PACKAGES, RENTAL_SERVICES, SOUVENIRS } from '@/lib/constants';
 
 /**
  * Native Next.js sitemap. Visit /sitemap.xml — Next.js generates it from this file.
- * Includes priority + changefreq + lastmod for every public route.
+ * Includes priority + changefreq + lastmod + alternates for every public route.
+ *
+ * SEO Strategy:
+ * - Homepage & Tours get highest priority (money pages)
+ * - Individual product anchors help long-tail keyword indexing
+ * - hreflang alternates signal bilingual content to Google
+ * - lastModified uses real dates for freshness signals
  */
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
+
+  // Helper for bilingual alternates
+  const bilingualAlternates = (path: string) => ({
+    languages: {
+      en: absoluteUrl(path),
+      id: absoluteUrl(path),
+      'x-default': absoluteUrl(path),
+    },
+  });
 
   const staticRoutes: MetadataRoute.Sitemap = [
     {
       url: SITE.url,
       lastModified: now,
-      changeFrequency: 'weekly',
+      changeFrequency: 'daily',
       priority: 1.0,
-      alternates: {
-        languages: { en: SITE.url, id: SITE.url },
-      },
+      alternates: bilingualAlternates('/'),
     },
     {
       url: absoluteUrl('/tours'),
       lastModified: now,
-      changeFrequency: 'weekly',
+      changeFrequency: 'daily',
       priority: 0.95,
-      alternates: {
-        languages: { en: absoluteUrl('/tours'), id: absoluteUrl('/tours') },
-      },
+      alternates: bilingualAlternates('/tours'),
     },
     {
       url: absoluteUrl('/rentals'),
       lastModified: now,
       changeFrequency: 'weekly',
       priority: 0.9,
+      alternates: bilingualAlternates('/rentals'),
     },
     {
       url: absoluteUrl('/souvenirs'),
       lastModified: now,
-      changeFrequency: 'monthly',
+      changeFrequency: 'weekly',
       priority: 0.7,
+      alternates: bilingualAlternates('/souvenirs'),
     },
     {
       url: absoluteUrl('/about'),
       lastModified: now,
       changeFrequency: 'monthly',
       priority: 0.6,
+      alternates: bilingualAlternates('/about'),
     },
     {
       url: absoluteUrl('/contact'),
       lastModified: now,
       changeFrequency: 'monthly',
       priority: 0.7,
+      alternates: bilingualAlternates('/contact'),
     },
   ];
 
@@ -58,16 +73,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const tourAnchors: MetadataRoute.Sitemap = TOUR_PACKAGES.filter((p) => p.isActive).map((p) => ({
     url: absoluteUrl(`/tours#${p.slug}`),
     lastModified: now,
-    changeFrequency: 'monthly',
-    priority: 0.8,
+    changeFrequency: 'weekly',
+    priority: 0.85,
+    alternates: bilingualAlternates(`/tours#${p.slug}`),
   }));
 
   const rentalAnchors: MetadataRoute.Sitemap = RENTAL_SERVICES.filter((r) => r.isAvailable).map(
     (r) => ({
       url: absoluteUrl(`/rentals#${r.slug}`),
       lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.7,
+      changeFrequency: 'weekly',
+      priority: 0.75,
+      alternates: bilingualAlternates(`/rentals#${r.slug}`),
     }),
   );
 

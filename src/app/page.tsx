@@ -5,21 +5,26 @@ import Image from 'next/image'
 import { useLanguage } from '@/lib/LanguageContext'
 import { formatPriceByLang, formatUsdPriceByLang } from '@/lib/currency'
 import { getWhatsAppLink, getWhatsAppRentalLink, getWhatsAppItemLink } from '@/lib/whatsapp'
+import HomepageSEO from '@/components/seo/HomepageSEO'
 
 export default function Home() {
   const { t, language } = useLanguage();
   return (
     <main className="min-h-screen">
+      {/* Homepage-specific structured data for rich snippets */}
+      <HomepageSEO />
+
       {/* Hero Section */}
-      <section className="relative text-white overflow-hidden">
+      <section className="relative text-white overflow-hidden" aria-label="Hero - Nusa Penida Tours">
         {/* Real photo background */}
         <div className="absolute inset-0">
           <Image
             src="/images/West%20Trip/West%20Trip%20Kelingking%20Beach%204.jpeg"
-            alt="Kelingking Beach Nusa Penida"
+            alt="Kelingking Beach Nusa Penida - Best Tour Destination in Bali"
             fill
             className="object-cover"
             priority
+            sizes="100vw"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-brand-blue-900/80 via-brand-blue-800/70 to-brand-teal-900/80" />
         </div>
@@ -27,7 +32,7 @@ export default function Home() {
         <div className="container mx-auto px-4 sm:px-6 py-14 sm:py-28 md:py-40 relative">
           <div className="max-w-4xl mx-auto text-center">
             <span className="inline-flex items-center gap-2 bg-white/15 backdrop-blur-sm text-white/95 px-4 sm:px-5 py-2 rounded-full text-xs sm:text-sm font-semibold mb-6 sm:mb-8 border border-white/20">
-              <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
               </svg>
@@ -37,7 +42,7 @@ export default function Home() {
               {t.hero.title}
             </h1>
 
-            <p className="text-sm sm:text-lg md:text-xl lg:text-2xl mb-6 sm:mb-12 text-white/95 leading-relaxed max-w-2xl mx-auto">
+            <p className="hero-description text-sm sm:text-lg md:text-xl lg:text-2xl mb-6 sm:mb-12 text-white/95 leading-relaxed max-w-2xl mx-auto">
               {t.hero.subtitle}
             </p>
 
@@ -83,7 +88,7 @@ export default function Home() {
       </section>
 
       {/* Tour Packages Preview - 2 Column Layout */}
-      <section className="py-12 sm:py-24 bg-gradient-to-b from-gray-50 to-white">
+      <section className="py-12 sm:py-24 bg-gradient-to-b from-gray-50 to-white" aria-label="Tour Packages" id="tours-preview">
         <div className="container mx-auto px-4">
           {/* Section Header */}
           <div className="text-center mb-8 sm:mb-16">
@@ -285,7 +290,7 @@ export default function Home() {
       </section>
 
       {/* Destinations Gallery Section - Balanced Masonry Grid */}
-      <section className="py-12 sm:py-24 bg-white">
+      <section className="py-12 sm:py-24 bg-white" aria-label="Popular Destinations in Nusa Penida" id="destinations">
         <div className="container mx-auto px-4">
           <div className="text-center mb-8 sm:mb-16">
             <h2 className="text-2xl sm:text-4xl md:text-5xl font-bold text-brand-blue-800 mb-3 sm:mb-4 tracking-tight">
@@ -379,7 +384,7 @@ export default function Home() {
       </section>
 
       {/* Why Choose Us Section - Horizontal Layout */}
-      <section className="py-12 sm:py-24 bg-gradient-to-b from-gray-50 to-white">
+      <section className="py-12 sm:py-24 bg-gradient-to-b from-gray-50 to-white" aria-label="Why Choose NusaBeeTrip" id="why-us">
         <div className="container mx-auto px-4">
           <div className="text-center mb-8 sm:mb-16">
             <h2 className="text-2xl sm:text-4xl md:text-5xl font-bold text-brand-blue-800 mb-3 sm:mb-4 tracking-tight">
@@ -425,7 +430,7 @@ export default function Home() {
       </section>
 
       {/* Vehicle Rentals Section - Horizontal Scroll/Carousel Style */}
-      <section className="py-12 sm:py-24 bg-white">
+      <section className="py-12 sm:py-24 bg-white" aria-label="Vehicle Rentals Nusa Penida" id="rentals-preview">
         <div className="container mx-auto px-4">
           <div className="text-center mb-8 sm:mb-16">
             <h2 className="text-2xl sm:text-4xl md:text-5xl font-bold text-brand-blue-800 mb-3 sm:mb-4 tracking-tight">
