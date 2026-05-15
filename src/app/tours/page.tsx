@@ -146,7 +146,7 @@ export default async function ToursPage() {
         includesSnorkeling: false,
         features: ['Kelingking Beach', 'Broken Beach', 'Angel Billabong', 'Diamond Beach', 'Atuh Beach', 'Full Island Experience', 'Professional Guide', 'Transportation', 'Tax Island', 'Parking Ticket in Any Spot'],
         isActive: true,
-        imageUrl: '/images/Mix%20Trip%20Diamond%20Kelingking.png',
+        imageUrl: '/images/Mix%20Trip%20View%20Thoussand%20Island%20and%20Crystal%20bay%20Beach.png',
       },
       {
         id: '6',

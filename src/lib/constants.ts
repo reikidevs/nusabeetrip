@@ -118,7 +118,7 @@ export const TOUR_PACKAGES: TourPackage[] = [
       'Diamond Beach',
       'Atuh Beach',
     ],
-    image: '/images/Mix%20Trip%20Diamond%20Kelingking.png',
+    image: '/images/Mix%20Trip%20View%20Thoussand%20Island%20and%20Crystal%20bay%20Beach.png',
     isActive: true,
   },
   {

@@ -81,7 +81,7 @@ const KEYWORD_IMAGE_MAP: Record<string, string[]> = {
     '/images/West%20Trip/West%20Trip%20Kelingking%20Manta%20Snorkeling.png',
   ],
   'mix trip': [
-    '/images/Mix%20Trip%20Diamond%20Kelingking.png',
+    '/images/Mix%20Trip%20View%20Thoussand%20Island%20and%20Crystal%20bay%20Beach.png',
   ],
   'manta bay': [
     '/images/Snorkeling%20%2B%20Manta%20Rays/snorkeling%201.jpeg',
@@ -146,6 +146,8 @@ const SLUG_IMAGE_OVERRIDES: Record<string, string> = {
   // Regular East Trip — Diamond Beach (different from Tree House
   // used by east-trip-snorkeling above)
   'east-trip': '/images/East%20Trip/East%20trip%20DIAMOND%20BEACH.jpeg',
+  // Mix Trip — Thousand Island + Crystal Bay composite
+  'mix-trip': '/images/Mix%20Trip%20View%20Thoussand%20Island%20and%20Crystal%20bay%20Beach.png',
 };
 
 /**
