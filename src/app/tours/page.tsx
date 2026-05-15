@@ -133,7 +133,7 @@ export default async function ToursPage() {
         includesSnorkeling: true,
         features: ['Diamond Beach', 'Atuh Beach', 'Tree House', 'View Thousand Island', 'Snorkeling at Best Spots', 'Snorkeling Equipment', 'Underwater Guide', 'Professional Guide', 'Transportation', 'Tax Island', 'Parking Ticket in Any Spot'],
         isActive: true,
-        imageUrl: '/images/East%20Trip/treehouse_snorkeling_combo_1778802144095.png',
+        imageUrl: '/images/East%20Trip/East%20Trip%20Diamond%20Beach%20Snorkeling.png',
       },
       {
         id: '5',
