@@ -242,7 +242,7 @@ export default function Home() {
                 <div className="grid grid-cols-2 gap-4">
                   <div className="relative h-48 rounded-xl overflow-hidden shadow-lg group">
                     <Image
-                      src="/images/West%20Trip/West%20Trip%20Kelingking%20Beach%205.jpeg"
+                      src="/images/West%20Trip/West%20Trip%20Kelingking%20Beach%207.jpeg"
                       alt="Kelingking Beach - West Trip"
                       fill
                       className="object-cover group-hover:scale-105 transition-transform duration-700"
