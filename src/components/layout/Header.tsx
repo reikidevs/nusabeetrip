@@ -17,6 +17,7 @@ const NAV_ITEMS = [
   { key: 'tours' as const, href: '/tours' },
   { key: 'rentals' as const, href: '/rentals' },
   { key: 'destinations' as const, href: '/destinations' },
+  { key: 'guides' as const, href: '/guides' },
   { key: 'souvenirs' as const, href: '/souvenirs' },
   { key: 'reviews' as const, href: '/#testimonials' },
   { key: 'about' as const, href: '/about' },

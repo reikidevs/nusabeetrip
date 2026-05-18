@@ -1,0 +1,105 @@
+import type { Metadata } from 'next';
+import { notFound } from 'next/navigation';
+import { JsonLd } from '@/components/seo';
+import { breadcrumbJsonLd, buildMetadata } from '@/lib/seo';
+import { absoluteUrl, SITE } from '@/lib/site-config';
+import {
+  getGuideBySlug,
+  getAllGuides,
+  getGuidesBySlugs,
+} from '@/lib/guides';
+import GuideContent from './GuideContent';
+
+export const dynamicParams = false;
+
+export function generateStaticParams() {
+  return getAllGuides().map((g) => ({ slug: g.slug }));
+}
+
+export function generateMetadata({
+  params,
+}: {
+  params: { slug: string };
+}): Metadata {
+  const g = getGuideBySlug(params.slug);
+  if (!g) {
+    return buildMetadata({
+      title: 'Guide not found',
+      description: 'Browse our other Nusa Penida travel guides.',
+      path: `/guides/${params.slug}`,
+      index: false,
+    });
+  }
+  return buildMetadata({
+    title: g.title,
+    description: g.excerpt,
+    path: `/guides/${g.slug}`,
+    keywords: g.keywords,
+    image: g.heroImage,
+    imageAlt: `${g.title} — Nusa Penida travel guide`,
+    ogType: 'article',
+    datePublished: g.datePublished,
+    dateModified: g.dateModified,
+  });
+}
+
+export default function GuideDetailPage({
+  params,
+}: {
+  params: { slug: string };
+}) {
+  const g = getGuideBySlug(params.slug);
+  if (!g) notFound();
+
+  const related = getGuidesBySlugs(g.relatedGuideSlugs);
+
+  return (
+    <>
+      <JsonLd
+        id={`ld-breadcrumbs-${g.slug}`}
+        data={breadcrumbJsonLd([
+          { name: 'Home', path: '/' },
+          { name: 'Guides', path: '/guides' },
+          { name: g.title, path: `/guides/${g.slug}` },
+        ])}
+      />
+      <JsonLd
+        id={`ld-article-${g.slug}`}
+        data={{
+          '@context': 'https://schema.org',
+          '@type': 'Article',
+          headline: g.title,
+          description: g.excerpt,
+          image: absoluteUrl(g.heroImage),
+          author: {
+            '@type': 'Organization',
+            '@id': `${SITE.url}#organization`,
+            name: SITE.name,
+            url: SITE.url,
+          },
+          publisher: {
+            '@type': 'Organization',
+            '@id': `${SITE.url}#organization`,
+            name: SITE.name,
+            logo: {
+              '@type': 'ImageObject',
+              url: absoluteUrl(SITE.ogImage),
+            },
+          },
+          datePublished: g.datePublished,
+          dateModified: g.dateModified,
+          mainEntityOfPage: {
+            '@type': 'WebPage',
+            '@id': absoluteUrl(`/guides/${g.slug}`),
+          },
+          articleSection: g.category,
+          keywords: g.keywords.join(', '),
+          inLanguage: 'en',
+          isAccessibleForFree: true,
+        }}
+      />
+
+      <GuideContent guide={g} relatedGuides={related} />
+    </>
+  );
+}

@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { absoluteUrl } from '@/lib/site-config';
 import { TOUR_PACKAGES, RENTAL_SERVICES, SOUVENIRS } from '@/lib/constants';
 import { DESTINATIONS } from '@/lib/destinations';
+import { getAllGuides } from '@/lib/guides';
 
 /**
  * Image sitemap (Google Image search).
@@ -142,6 +143,20 @@ function buildEntries(): UrlEntry[] {
         caption: `${s.name} — Nusa Penida souvenir`,
         title: s.name,
       })),
+  });
+
+  // Travel guides
+  getAllGuides().forEach((g) => {
+    entries.push({
+      pageUrl: absoluteUrl(`/guides/${g.slug}`),
+      images: [
+        {
+          loc: absoluteUrl(g.heroImage),
+          caption: g.excerpt,
+          title: g.title,
+        },
+      ],
+    });
   });
 
   return entries;

@@ -2,6 +2,7 @@ import { MetadataRoute } from 'next';
 import { SITE, absoluteUrl } from '@/lib/site-config';
 import { TOUR_PACKAGES, RENTAL_SERVICES, SOUVENIRS } from '@/lib/constants';
 import { DESTINATIONS } from '@/lib/destinations';
+import { getAllGuides } from '@/lib/guides';
 
 /**
  * Native Next.js sitemap. Visit /sitemap.xml — Next.js generates it from this file.
@@ -51,6 +52,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly',
       priority: 0.85,
       alternates: bilingualAlternates('/destinations'),
+    },
+    {
+      url: absoluteUrl('/guides'),
+      lastModified: now,
+      changeFrequency: 'weekly',
+      priority: 0.8,
+      alternates: bilingualAlternates('/guides'),
     },
     {
       url: absoluteUrl('/souvenirs'),
@@ -103,6 +111,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     alternates: bilingualAlternates(`/destinations/${d.slug}`),
   }));
 
+  const guideRoutes: MetadataRoute.Sitemap = getAllGuides().map((g) => ({
+    url: absoluteUrl(`/guides/${g.slug}`),
+    lastModified: new Date(g.dateModified),
+    changeFrequency: 'monthly',
+    priority: 0.75,
+    alternates: bilingualAlternates(`/guides/${g.slug}`),
+  }));
+
   const souvenirAnchors: MetadataRoute.Sitemap = SOUVENIRS.filter(
     (s) => s.isAvailable,
   ).map((s) => ({
@@ -117,6 +133,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...tourDetailRoutes,
     ...rentalDetailRoutes,
     ...destinationRoutes,
+    ...guideRoutes,
     ...souvenirAnchors,
   ];
 }
