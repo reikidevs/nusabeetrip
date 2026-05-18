@@ -2,6 +2,7 @@
 
 import { useLanguage } from '@/lib/LanguageContext';
 import { getWhatsAppLink } from '@/lib/whatsapp';
+import { BreadcrumbNav } from '@/components/seo';
 import Image from 'next/image';
 
 export default function ContactPage() {
@@ -9,6 +10,9 @@ export default function ContactPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      {/* Breadcrumb */}
+      <BreadcrumbNav items={[{ label: 'Contact', labelId: 'Kontak', href: '/contact' }]} />
+
       {/* Hero Section with Background Image */}
       <section className="relative text-white overflow-hidden">
         <div className="absolute inset-0">

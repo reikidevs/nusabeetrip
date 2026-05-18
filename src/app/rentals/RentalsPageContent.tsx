@@ -22,15 +22,8 @@ export default function RentalsPageContent({ rentalServices }: RentalsPageConten
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Visual Breadcrumb */}
-      <div className="container mx-auto px-4 pt-4">
-        <BreadcrumbNav
-          items={[
-            { label: 'Home', labelId: 'Beranda', href: '/' },
-            { label: 'Rentals', labelId: 'Sewa', href: '/rentals' },
-          ]}
-        />
-      </div>
+      {/* Breadcrumb */}
+      <BreadcrumbNav items={[{ label: 'Rentals', labelId: 'Sewa', href: '/rentals' }]} />
 
       {/* Hero Section */}
       <section className="relative text-white overflow-hidden">

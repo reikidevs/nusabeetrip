@@ -2,6 +2,7 @@
 
 import { useLanguage } from '@/lib/LanguageContext';
 import { getWhatsAppLink } from '@/lib/whatsapp';
+import { BreadcrumbNav } from '@/components/seo';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -97,6 +98,9 @@ export default function AboutPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      {/* Breadcrumb */}
+      <BreadcrumbNav items={[{ label: 'About', labelId: 'Tentang', href: '/about' }]} />
+
       {/* Hero Section with Background Image */}
       <section className="relative text-white overflow-hidden">
         <div className="absolute inset-0">

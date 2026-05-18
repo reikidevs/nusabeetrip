@@ -4,6 +4,7 @@ import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { SouvenirGrid } from '@/components/business';
+import { BreadcrumbNav } from '@/components/seo';
 import { SOUVENIRS } from '@/lib/constants';
 import { useLanguage } from '@/lib/LanguageContext';
 import { getWhatsAppLink } from '@/lib/whatsapp';
@@ -44,6 +45,9 @@ export default function SouvenirsPage() {
 
   return (
     <main className="min-h-screen bg-gray-50">
+      {/* Breadcrumb */}
+      <BreadcrumbNav items={[{ label: 'Souvenirs', labelId: 'Souvenir', href: '/souvenirs' }]} />
+
       {/* Hero Section with Background Image */}
       <section className="relative text-white overflow-hidden">
         <div className="absolute inset-0">
