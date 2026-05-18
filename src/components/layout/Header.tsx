@@ -7,6 +7,7 @@ import { usePathname } from 'next/navigation';
 import { useLanguage } from '@/lib/LanguageContext';
 import type { Language } from '@/lib/translations';
 import { getWhatsAppLink } from '@/lib/whatsapp';
+import { useActiveSection } from '@/lib/hooks/useActiveSection';
 
 /* ------------------------------------------------------------------ */
 /*  Nav items                                                          */
@@ -171,11 +172,24 @@ const Header: React.FC = () => {
     name: t.nav[item.key],
   }));
 
-  // Anchor links (e.g. /#testimonials) are jump-to-section shortcuts, not real
-  // pages, so they never show as the active page.
+  // Track which homepage section the user is currently looking at, so anchor
+  // links (e.g. /#testimonials) can highlight as the user scrolls.
+  const activeSection = useActiveSection(['testimonials']);
+
   const isActive = (href: string) => {
-    if (href.includes('#')) return false;
-    return href === '/' ? pathname === '/' : pathname.startsWith(href);
+    // Anchor links (e.g. /#testimonials) only highlight when their target
+    // section is the one currently in view on the homepage.
+    if (href.includes('#')) {
+      const hash = href.split('#')[1];
+      return pathname === '/' && activeSection === hash;
+    }
+    // For the home link itself, only highlight when no tracked section is
+    // active — that way Reviews can take over while the user is scrolled to
+    // the testimonials section.
+    if (href === '/') {
+      return pathname === '/' && activeSection === null;
+    }
+    return pathname.startsWith(href);
   };
 
   return (
