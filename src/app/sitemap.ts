@@ -1,15 +1,16 @@
 import { MetadataRoute } from 'next';
 import { SITE, absoluteUrl } from '@/lib/site-config';
 import { TOUR_PACKAGES, RENTAL_SERVICES, SOUVENIRS } from '@/lib/constants';
+import { DESTINATIONS } from '@/lib/destinations';
 
 /**
  * Native Next.js sitemap. Visit /sitemap.xml — Next.js generates it from this file.
- * Includes priority + changefreq + lastmod + alternates for every public route.
  *
- * Strategy:
- * - Money pages (home, tours list, individual tours, rentals list, individual rentals)
- *   get high priority and weekly+ change frequency.
- * - hreflang alternates signal the bilingual UI (same URL serves both languages).
+ * Note on images: Next 14.2's MetadataRoute.Sitemap type does not yet expose
+ * an `images` field, but Google's image sitemap protocol allows it. We emit
+ * image references through the dedicated `/image-sitemap.xml` route instead
+ * (see /src/app/image-sitemap.xml/route.ts), and reference both sitemaps from
+ * robots.txt so crawlers find them.
  */
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
@@ -22,7 +23,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   });
 
-  // Static top-level routes
   const staticRoutes: MetadataRoute.Sitemap = [
     {
       url: SITE.url,
@@ -44,6 +44,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'weekly',
       priority: 0.9,
       alternates: bilingualAlternates('/rentals'),
+    },
+    {
+      url: absoluteUrl('/destinations'),
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.85,
+      alternates: bilingualAlternates('/destinations'),
     },
     {
       url: absoluteUrl('/souvenirs'),
@@ -68,18 +75,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   ];
 
-  // Individual tour detail pages — high SEO value (long-tail keywords)
-  const tourDetailRoutes: MetadataRoute.Sitemap = TOUR_PACKAGES.filter((p) => p.isActive).map(
-    (p) => ({
-      url: absoluteUrl(`/tours/${p.slug}`),
-      lastModified: now,
-      changeFrequency: 'weekly',
-      priority: 0.9,
-      alternates: bilingualAlternates(`/tours/${p.slug}`),
-    }),
-  );
+  const tourDetailRoutes: MetadataRoute.Sitemap = TOUR_PACKAGES.filter(
+    (p) => p.isActive,
+  ).map((p) => ({
+    url: absoluteUrl(`/tours/${p.slug}`),
+    lastModified: now,
+    changeFrequency: 'weekly',
+    priority: 0.9,
+    alternates: bilingualAlternates(`/tours/${p.slug}`),
+  }));
 
-  // Individual rental detail pages
   const rentalDetailRoutes: MetadataRoute.Sitemap = RENTAL_SERVICES.filter(
     (r) => r.isAvailable,
   ).map((r) => ({
@@ -90,20 +95,28 @@ export default function sitemap(): MetadataRoute.Sitemap {
     alternates: bilingualAlternates(`/rentals/${r.slug}`),
   }));
 
-  // Anchor links for souvenirs (no individual pages yet)
-  const souvenirAnchors: MetadataRoute.Sitemap = SOUVENIRS.filter((s) => s.isAvailable).map(
-    (s) => ({
-      url: absoluteUrl(`/souvenirs#${s.slug}`),
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.45,
-    }),
-  );
+  const destinationRoutes: MetadataRoute.Sitemap = DESTINATIONS.map((d) => ({
+    url: absoluteUrl(`/destinations/${d.slug}`),
+    lastModified: now,
+    changeFrequency: 'monthly',
+    priority: 0.8,
+    alternates: bilingualAlternates(`/destinations/${d.slug}`),
+  }));
+
+  const souvenirAnchors: MetadataRoute.Sitemap = SOUVENIRS.filter(
+    (s) => s.isAvailable,
+  ).map((s) => ({
+    url: absoluteUrl(`/souvenirs#${s.slug}`),
+    lastModified: now,
+    changeFrequency: 'monthly',
+    priority: 0.45,
+  }));
 
   return [
     ...staticRoutes,
     ...tourDetailRoutes,
     ...rentalDetailRoutes,
+    ...destinationRoutes,
     ...souvenirAnchors,
   ];
 }
