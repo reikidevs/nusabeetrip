@@ -6,6 +6,7 @@ import { useLanguage } from '@/lib/LanguageContext'
 import { formatPriceByLang, formatUsdPriceByLang } from '@/lib/currency'
 import { getWhatsAppLink, getWhatsAppRentalLink, getWhatsAppItemLink } from '@/lib/whatsapp'
 import HomepageSEO from '@/components/seo/HomepageSEO'
+import { Testimonials } from '@/components/business'
 
 export default function Home() {
   const { t, language } = useLanguage();
@@ -428,6 +429,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* Customer Testimonials & Reviews */}
+      <Testimonials />
 
       {/* Vehicle Rentals Section - Horizontal Scroll/Carousel Style */}
       <section className="py-12 sm:py-24 bg-white" aria-label="Vehicle Rentals Nusa Penida" id="rentals-preview">

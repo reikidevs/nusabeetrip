@@ -7,6 +7,7 @@ import {
   aggregateRatingJsonLd,
 } from '@/lib/seo';
 import { absoluteUrl } from '@/lib/site-config';
+import { getAggregateRating } from '@/lib/testimonials';
 
 /**
  * Homepage-specific SEO schemas.
@@ -61,6 +62,7 @@ const HOMEPAGE_FAQ = [
 ];
 
 export default function HomepageSEO() {
+  const { ratingValue, reviewCount } = getAggregateRating();
   const tourItems = [
     { name: 'West Trip Nusa Penida', url: absoluteUrl('/tours#west-trip'), image: '/images/West%20Trip/West%20trip%20%20kelingking%20beach.jpeg' },
     { name: 'East Trip Nusa Penida', url: absoluteUrl('/tours#east-trip'), image: '/images/East%20Trip/East%20trip%20DIAMOND%20BEACH.jpeg' },
@@ -87,8 +89,8 @@ export default function HomepageSEO() {
         data={aggregateRatingJsonLd({
           itemName: 'NusaBeeTrip',
           itemType: 'TravelAgency',
-          ratingValue: 4.9,
-          reviewCount: 156,
+          ratingValue,
+          reviewCount,
         })}
       />
     </>

@@ -9,5 +9,7 @@ export { default as RentalServiceGrid } from './RentalServiceGrid';
 export { default as RentalServiceDetail } from './RentalServiceDetail';
 export { default as SouvenirCard } from './SouvenirCard';
 export { default as SouvenirGrid } from './SouvenirGrid';
+export { default as Testimonials } from './Testimonials';
+export { default as ReviewForm } from './ReviewForm';
 // export { default as ContactInfo } from './ContactInfo';
 // export { default as HeroSection } from './HeroSection';

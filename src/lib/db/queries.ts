@@ -1,4 +1,4 @@
-import { eq, desc } from 'drizzle-orm';
+import { eq, desc, and, sql as drizzleSql } from 'drizzle-orm';
 import { db } from './config';
 import { 
   tourPackages, 
@@ -6,9 +6,12 @@ import {
   contactInquiries, 
   seoData,
   pageViews,
+  reviews,
   type NewContactInquiry,
   type NewPageView,
-  type NewSeoData
+  type NewSeoData,
+  type NewReview,
+  type Review
 } from './schema';
 
 // Tour Package Queries
@@ -120,4 +123,150 @@ export const getPageViewStats = async (pagePath?: string, days = 30) => {
   }
   
   return await query.limit(1000);
+};
+
+
+/* ─────────────────────────────────────────────────────────────────── */
+/*  Reviews / Testimonials Queries                                      */
+/* ─────────────────────────────────────────────────────────────────── */
+
+/** Get all approved reviews for public display (homepage, etc.) */
+export const getApprovedReviews = async (limit = 50): Promise<Review[]> => {
+  return await db
+    .select()
+    .from(reviews)
+    .where(eq(reviews.status, 'approved'))
+    .orderBy(desc(reviews.isFeatured), desc(reviews.createdAt))
+    .limit(limit);
+};
+
+/** Get reviews filtered by language (for UI filter) */
+export const getApprovedReviewsByLanguage = async (
+  language: 'en' | 'id',
+  limit = 50,
+): Promise<Review[]> => {
+  return await db
+    .select()
+    .from(reviews)
+    .where(and(eq(reviews.status, 'approved'), eq(reviews.language, language)))
+    .orderBy(desc(reviews.isFeatured), desc(reviews.createdAt))
+    .limit(limit);
+};
+
+/** Get reviews for a specific tour/service */
+export const getReviewsByTourSlug = async (tourSlug: string): Promise<Review[]> => {
+  return await db
+    .select()
+    .from(reviews)
+    .where(and(eq(reviews.status, 'approved'), eq(reviews.tourSlug, tourSlug)))
+    .orderBy(desc(reviews.createdAt));
+};
+
+/** Submit a new review (defaults to 'pending' status for moderation) */
+export const createReview = async (review: NewReview): Promise<Review> => {
+  const result = await db
+    .insert(reviews)
+    .values({
+      ...review,
+      status: review.status || 'pending',
+    })
+    .returning();
+  return result[0];
+};
+
+/** Get pending reviews (admin moderation queue) */
+export const getPendingReviews = async (limit = 50): Promise<Review[]> => {
+  return await db
+    .select()
+    .from(reviews)
+    .where(eq(reviews.status, 'pending'))
+    .orderBy(desc(reviews.createdAt))
+    .limit(limit);
+};
+
+/** Approve or reject a review (admin action) */
+export const moderateReview = async (
+  id: number,
+  status: 'approved' | 'rejected' | 'spam',
+  moderatedBy: string,
+  rejectionReason?: string,
+): Promise<Review> => {
+  const result = await db
+    .update(reviews)
+    .set({
+      status,
+      moderatedAt: new Date(),
+      moderatedBy,
+      rejectionReason,
+      updatedAt: new Date(),
+    })
+    .where(eq(reviews.id, id))
+    .returning();
+  return result[0];
+};
+
+/** Add owner response to a review */
+export const respondToReview = async (
+  id: number,
+  ownerResponse: string,
+): Promise<Review> => {
+  const result = await db
+    .update(reviews)
+    .set({
+      ownerResponse,
+      ownerRespondedAt: new Date(),
+      updatedAt: new Date(),
+    })
+    .where(eq(reviews.id, id))
+    .returning();
+  return result[0];
+};
+
+/** Pin/unpin a review to top */
+export const setReviewFeatured = async (id: number, isFeatured: boolean): Promise<Review> => {
+  const result = await db
+    .update(reviews)
+    .set({ isFeatured, updatedAt: new Date() })
+    .where(eq(reviews.id, id))
+    .returning();
+  return result[0];
+};
+
+/** Get aggregate rating stats for SEO schema */
+export const getReviewStats = async (): Promise<{
+  ratingValue: number;
+  reviewCount: number;
+  ratingDistribution: Record<number, number>;
+}> => {
+  const allApproved = await db
+    .select()
+    .from(reviews)
+    .where(eq(reviews.status, 'approved'));
+
+  if (allApproved.length === 0) {
+    return { ratingValue: 5, reviewCount: 0, ratingDistribution: { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 } };
+  }
+
+  const sum = allApproved.reduce((acc, r) => acc + r.rating, 0);
+  const avg = sum / allApproved.length;
+  const distribution: Record<number, number> = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
+  allApproved.forEach((r) => {
+    distribution[r.rating] = (distribution[r.rating] || 0) + 1;
+  });
+
+  return {
+    ratingValue: Math.round(avg * 10) / 10,
+    reviewCount: allApproved.length,
+    ratingDistribution: distribution,
+  };
+};
+
+/** Mark review as helpful (increment counter) */
+export const incrementReviewHelpful = async (id: number): Promise<Review> => {
+  const result = await db
+    .update(reviews)
+    .set({ helpfulCount: drizzleSql`${reviews.helpfulCount} + 1` })
+    .where(eq(reviews.id, id))
+    .returning();
+  return result[0];
 };

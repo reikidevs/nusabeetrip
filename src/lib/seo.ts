@@ -14,6 +14,7 @@
 import { Metadata } from 'next';
 import { PRIMARY_KEYWORDS, SITE, absoluteUrl } from './site-config';
 import { TOUR_PACKAGES, RENTAL_SERVICES } from './constants';
+import { TESTIMONIALS, getAggregateRating } from './testimonials';
 
 type PageMetaInput = {
   /** Title fragment — final title is "<title> | NusaBeeTrip — Best Travel Nusa Penida" */
@@ -624,6 +625,8 @@ export function homepageJsonLd() {
 
 /** LocalBusiness with enhanced local SEO signals */
 export function localBusinessEnhancedJsonLd() {
+  const { ratingValue, reviewCount } = getAggregateRating();
+
   return {
     '@context': 'https://schema.org',
     '@type': 'TravelAgency',
@@ -688,36 +691,29 @@ export function localBusinessEnhancedJsonLd() {
       minValue: 5,
       maxValue: 10,
     },
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: '4.9',
-      reviewCount: '156',
-      bestRating: '5',
-      worstRating: '1',
-    },
-    review: [
-      {
-        '@type': 'Review',
-        author: { '@type': 'Person', name: 'Sarah M.' },
-        datePublished: '2025-12-15',
-        reviewBody: 'Amazing tour experience! Our guide was knowledgeable and friendly. The West Trip was absolutely breathtaking.',
-        reviewRating: { '@type': 'Rating', ratingValue: '5', bestRating: '5' },
+    aggregateRating:
+      reviewCount > 0
+        ? {
+            '@type': 'AggregateRating',
+            ratingValue: ratingValue.toString(),
+            reviewCount: reviewCount.toString(),
+            bestRating: '5',
+            worstRating: '1',
+          }
+        : undefined,
+    review: TESTIMONIALS.slice(0, 6).map((r) => ({
+      '@type': 'Review',
+      author: { '@type': 'Person', name: r.name },
+      datePublished: r.date,
+      name: r.title,
+      reviewBody: r.body,
+      reviewRating: {
+        '@type': 'Rating',
+        ratingValue: r.rating.toString(),
+        bestRating: '5',
+        worstRating: '1',
       },
-      {
-        '@type': 'Review',
-        author: { '@type': 'Person', name: 'James K.' },
-        datePublished: '2025-11-20',
-        reviewBody: 'Best snorkeling experience in Bali! Saw manta rays up close. Highly recommend NusaBeeTrip.',
-        reviewRating: { '@type': 'Rating', ratingValue: '5', bestRating: '5' },
-      },
-      {
-        '@type': 'Review',
-        author: { '@type': 'Person', name: 'Rina W.' },
-        datePublished: '2026-01-08',
-        reviewBody: 'Harga terjangkau, pemandu ramah, dan spot-spotnya luar biasa. Pasti akan pakai NusaBeeTrip lagi!',
-        reviewRating: { '@type': 'Rating', ratingValue: '5', bestRating: '5' },
-      },
-    ],
+    })),
     makesOffer: TOUR_PACKAGES.filter((p) => p.isActive).map((p) => ({
       '@type': 'Offer',
       name: p.name,
