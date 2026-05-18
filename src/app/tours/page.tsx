@@ -62,24 +62,10 @@ export default async function ToursPage() {
   
   try {
     const dbPackages = await getTourPackages();
-    console.log('✅ Successfully fetched', dbPackages.length, 'tour packages from database');
-    
-    // Log Snorkeling duration specifically
-    const snorkeling = dbPackages.find(pkg => pkg.slug === 'snorkeling-manta');
-    if (snorkeling) {
-      console.log('🏊 Snorkeling duration from DB:', snorkeling.durationHours, 'hours');
-    }
-    
     tourPackages = dbPackages.map(transformTourPackage);
-    
-    // Log transformed Snorkeling
-    const transformedSnorkeling = tourPackages.find(pkg => pkg.slug === 'snorkeling-manta');
-    if (transformedSnorkeling) {
-      console.log('🏊 Snorkeling duration after transform:', transformedSnorkeling.duration, 'hours');
-    }
   } catch (error) {
-    console.error('❌ Failed to fetch tour packages from database:', error);
-    console.log('⚠️ Using fallback static data');
+    console.error('Failed to fetch tour packages from database:', error);
+    console.log('Using fallback static data');
     
     // Fallback static data with correct images matching database
     const fallbackData = [
@@ -116,7 +102,7 @@ export default async function ToursPage() {
         description: 'West trip combined with amazing Manta snorkeling experience',
         price: 550000,
         currency: 'IDR',
-        duration: 10,
+        duration: 8,
         includesSnorkeling: true,
         features: ['Kelingking Beach', 'Angel Billabong', 'Broken Beach', 'Manta Snorkeling', 'Snorkeling Equipment', 'Underwater Guide', 'Professional Guide', 'Transportation', 'Tax Island', 'Parking Ticket in Any Spot'],
         isActive: true,
@@ -129,7 +115,7 @@ export default async function ToursPage() {
         description: 'East trip with snorkeling adventure at the best spots',
         price: 550000,
         currency: 'IDR',
-        duration: 10,
+        duration: 8,
         includesSnorkeling: true,
         features: ['Diamond Beach', 'Atuh Beach', 'Tree House', 'View Thousand Island', 'Snorkeling at Best Spots', 'Snorkeling Equipment', 'Underwater Guide', 'Professional Guide', 'Transportation', 'Tax Island', 'Parking Ticket in Any Spot'],
         isActive: true,

@@ -48,7 +48,7 @@ const initialTourPackages = [
     slug: 'west-trip-snorkeling',
     description: 'West trip combined with amazing Manta snorkeling experience',
     priceIdr: 550000,
-    durationHours: 10,
+    durationHours: 8,
     includesSnorkeling: true,
     features: [
       'Kelingking Beach',
@@ -70,7 +70,7 @@ const initialTourPackages = [
     slug: 'east-trip-snorkeling',
     description: 'East trip with snorkeling adventure at the best spots',
     priceIdr: 550000,
-    durationHours: 10,
+    durationHours: 8,
     includesSnorkeling: true,
     features: [
       'Diamond Beach',

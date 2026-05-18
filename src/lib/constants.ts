@@ -65,7 +65,7 @@ export const TOUR_PACKAGES: TourPackage[] = [
     description: 'Experience the best of both worlds - explore stunning western landmarks and dive into crystal-clear waters to discover vibrant marine life and coral reefs.',
     price: 550000,
     currency: 'IDR',
-    duration: 10,
+    duration: 8,
     includesSnorkeling: true,
     features: [
       'Kelingking Beach',
@@ -87,7 +87,7 @@ export const TOUR_PACKAGES: TourPackage[] = [
     description: 'Combine the breathtaking eastern beaches with an unforgettable underwater adventure. Perfect for beach lovers and snorkeling enthusiasts.',
     price: 550000,
     currency: 'IDR',
-    duration: 10,
+    duration: 8,
     includesSnorkeling: true,
     features: [
       'Diamond Beach',

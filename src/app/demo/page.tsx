@@ -37,7 +37,7 @@ const sampleTourPackages: TourPackage[] = [
     description: 'West trip combined with amazing snorkeling experience in crystal clear waters.',
     price: 550000,
     currency: 'IDR',
-    duration: 10,
+    duration: 8,
     includesSnorkeling: true,
     features: ['Kelingking Beach', 'Angel Billabong', 'Broken Beach', 'Manta Snorkeling', 'Snorkeling Equipment', 'Underwater Guide', 'Professional Guide', 'Transportation'],
     image: '/images/placeholder-tour.svg',
