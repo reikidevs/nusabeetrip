@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { useLanguage } from '@/lib/LanguageContext';
 import { TESTIMONIALS, countryFlag, getAggregateRating, type Testimonial } from '@/lib/testimonials';
 import ReviewForm from './ReviewForm';
@@ -11,27 +11,28 @@ type ReviewItem = Testimonial & {
   ownerResponse?: string;
 };
 
+const REVIEWS_PER_PAGE = 6;
+
 /**
- * Testimonials section — Google-style review display.
- * - Loads from /api/reviews (DB) and falls back to static TESTIMONIALS
- * - Includes ReviewForm modal triggered by "Write a Review" button
- * - Schema.org Review microdata for SEO rich snippets
+ * Premium Testimonials section.
+ * - Hero summary with rating distribution histogram (TripAdvisor / Booking.com style)
+ * - Filterable, paginated review cards
+ * - Connected to /api/reviews with static fallback
+ * - Schema.org Review microdata for rich snippets
  */
 export default function Testimonials() {
   const { language } = useLanguage();
-  const [filter, setFilter] = useState<'all' | 'en' | 'id'>('all');
+  const [filter, setFilter] = useState<'all' | 'en' | 'id' | number>('all');
   const [showForm, setShowForm] = useState(false);
   const [reviews, setReviews] = useState<ReviewItem[]>(TESTIMONIALS as ReviewItem[]);
-  const [loading, setLoading] = useState(true);
+  const [visible, setVisible] = useState(REVIEWS_PER_PAGE);
 
-  // Fetch from API on mount, fall back to static if API fails or empty
   const fetchReviews = useCallback(async () => {
     try {
       const res = await fetch('/api/reviews?limit=50', { cache: 'no-store' });
       if (!res.ok) throw new Error('Fetch failed');
       const data = await res.json();
       if (data.success && Array.isArray(data.reviews) && data.reviews.length > 0) {
-        // Map DB shape to display shape
         const mapped: ReviewItem[] = data.reviews.map((r: any) => ({
           id: `db-${r.id}`,
           name: r.authorName,
@@ -51,11 +52,8 @@ export default function Testimonials() {
         }));
         setReviews(mapped);
       }
-      // If empty, keep static TESTIMONIALS as starter content
     } catch (err) {
       console.warn('[Testimonials] Using static fallback:', err);
-    } finally {
-      setLoading(false);
     }
   }, []);
 
@@ -63,144 +61,226 @@ export default function Testimonials() {
     fetchReviews();
   }, [fetchReviews]);
 
-  const filtered =
-    filter === 'all' ? reviews : reviews.filter((t) => t.language === filter);
-
-  // Compute live aggregate from current dataset
-  const liveAgg = (() => {
-    if (reviews.length === 0) return getAggregateRating();
+  // Compute aggregate stats with distribution
+  const stats = useMemo(() => {
+    if (reviews.length === 0) {
+      return { ratingValue: 5, reviewCount: 0, distribution: [0, 0, 0, 0, 0] };
+    }
     const sum = reviews.reduce((acc, r) => acc + r.rating, 0);
+    const dist = [0, 0, 0, 0, 0];
+    reviews.forEach((r) => {
+      if (r.rating >= 1 && r.rating <= 5) dist[r.rating - 1]++;
+    });
     return {
       ratingValue: Math.round((sum / reviews.length) * 10) / 10,
       reviewCount: reviews.length,
+      distribution: dist,
     };
-  })();
+  }, [reviews]);
+
+  // Apply filter
+  const filtered = useMemo(() => {
+    if (filter === 'all') return reviews;
+    if (typeof filter === 'number') return reviews.filter((r) => r.rating === filter);
+    return reviews.filter((r) => r.language === filter);
+  }, [filter, reviews]);
+
+  // Reset visible count when filter changes
+  useEffect(() => {
+    setVisible(REVIEWS_PER_PAGE);
+  }, [filter]);
 
   const labels = {
     en: {
-      heading: 'Reviews from Our Guests',
-      subheading: 'Real experiences from real travelers',
+      heading: 'Reviews from Real Travelers',
+      subheading: 'Honest experiences from guests we have hosted across Nusa Penida',
       writeReview: 'Write a review',
-      verified: 'Verified Guest',
+      verified: 'Verified guest',
       basedOn: 'Based on',
-      reviews: 'reviews',
-      filterAll: 'All',
+      reviews: 'verified reviews',
+      excellent: 'Excellent',
+      filterAll: 'All reviews',
       filterEn: 'English',
       filterId: 'Bahasa',
-      noReviews: 'No reviews yet in this language. Be the first!',
-      shareYour: 'Loved your trip? Share your experience',
-      shareDesc: 'Help fellow travelers and support our small local business. Takes just 1 minute.',
-      tookTour: 'Took the',
-      tour: 'tour',
-      ownerResponseLabel: 'Response from the owner',
-      helpful: 'Helpful',
-      googleStyle: 'Reviews shown here will sync with Google Business Profile when available',
+      stars: 'stars',
+      noReviews: 'No reviews match this filter yet.',
+      shareYour: 'Have a story to share?',
+      shareDesc: 'Leave a review and help fellow travelers discover the magic of Nusa Penida.',
+      tookTour: 'Booked',
+      ownerResponseLabel: 'Reply from NusaBeeTrip',
+      showMore: 'Show more reviews',
+      readMore: 'Read more',
+      readLess: 'Show less',
+      trustNote: 'Reviews are moderated and verified before publication',
     },
     id: {
-      heading: 'Ulasan Tamu Kami',
-      subheading: 'Pengalaman asli dari wisatawan asli',
+      heading: 'Ulasan dari Wisatawan Asli',
+      subheading: 'Pengalaman jujur dari tamu yang telah berkunjung ke Nusa Penida bersama kami',
       writeReview: 'Tulis ulasan',
-      verified: 'Tamu Terverifikasi',
+      verified: 'Tamu terverifikasi',
       basedOn: 'Berdasarkan',
-      reviews: 'ulasan',
-      filterAll: 'Semua',
+      reviews: 'ulasan terverifikasi',
+      excellent: 'Sangat Memuaskan',
+      filterAll: 'Semua ulasan',
       filterEn: 'English',
       filterId: 'Bahasa',
-      noReviews: 'Belum ada ulasan dalam bahasa ini. Jadilah yang pertama!',
-      shareYour: 'Senang dengan trip Anda? Bagikan pengalaman',
-      shareDesc: 'Bantu wisatawan lain dan dukung bisnis lokal kami. Hanya 1 menit.',
-      tookTour: 'Mengambil paket',
-      tour: '',
-      ownerResponseLabel: 'Tanggapan dari pemilik',
-      helpful: 'Bermanfaat',
-      googleStyle: 'Ulasan di sini akan disinkronkan dengan Google Business Profile saat tersedia',
+      stars: 'bintang',
+      noReviews: 'Belum ada ulasan yang cocok dengan filter ini.',
+      shareYour: 'Punya cerita untuk dibagikan?',
+      shareDesc: 'Tulis ulasan dan bantu wisatawan lain menemukan keindahan Nusa Penida.',
+      tookTour: 'Memesan',
+      ownerResponseLabel: 'Balasan dari NusaBeeTrip',
+      showMore: 'Tampilkan ulasan lainnya',
+      readMore: 'Baca lainnya',
+      readLess: 'Sembunyikan',
+      trustNote: 'Ulasan dimoderasi dan diverifikasi sebelum dipublikasikan',
     },
   };
   const L = labels[language];
 
+  // Rating quality label
+  const qualityLabel = (() => {
+    if (stats.ratingValue >= 4.5) return L.excellent;
+    if (stats.ratingValue >= 4.0) return language === 'id' ? 'Sangat Baik' : 'Very Good';
+    if (stats.ratingValue >= 3.5) return language === 'id' ? 'Baik' : 'Good';
+    return language === 'id' ? 'Cukup' : 'Average';
+  })();
+
   return (
     <section
-      className="py-12 sm:py-24 bg-gradient-to-b from-white to-gray-50"
+      className="relative py-14 sm:py-24 bg-gradient-to-b from-white via-gray-50/50 to-white overflow-hidden"
       aria-label="Customer Testimonials"
       id="testimonials"
     >
-      <div className="container mx-auto px-4">
-        {/* Header — Google-style summary card */}
-        <div className="text-center mb-10 sm:mb-14">
-          <h2 className="text-2xl sm:text-4xl md:text-5xl font-bold text-brand-blue-800 mb-3 sm:mb-4 tracking-tight">
+      {/* Decorative background pattern */}
+      <div className="absolute inset-0 pointer-events-none opacity-[0.03]" aria-hidden="true">
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage: 'radial-gradient(circle at 1px 1px, rgb(30 58 138) 1px, transparent 0)',
+            backgroundSize: '32px 32px',
+          }}
+        />
+      </div>
+
+      <div className="container mx-auto px-4 relative">
+        {/* Section header */}
+        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-50 border border-amber-200/60 mb-5">
+            <svg className="w-3.5 h-3.5 text-amber-500" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+            </svg>
+            <span className="text-xs font-semibold text-amber-800 tracking-wide uppercase">
+              {qualityLabel} · {stats.ratingValue.toFixed(1)} / 5
+            </span>
+          </div>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-3 sm:mb-4 tracking-tight">
             {L.heading}
           </h2>
-          <p className="text-base sm:text-xl text-gray-600 max-w-2xl mx-auto mb-8">
-            {L.subheading}
-          </p>
+          <p className="text-base sm:text-lg text-gray-600 leading-relaxed">{L.subheading}</p>
+        </div>
 
-          {/* Google-style aggregate rating card */}
-          <div className="inline-flex flex-col sm:flex-row items-center gap-4 sm:gap-6 bg-white rounded-2xl px-6 py-5 shadow-md border border-gray-100">
-            {/* Big rating number */}
-            <div className="text-center sm:text-left sm:pr-6 sm:border-r border-gray-200">
-              <div className="text-5xl font-bold text-gray-900 leading-none">
-                {liveAgg.ratingValue.toFixed(1)}
-              </div>
-              <div className="flex items-center justify-center sm:justify-start gap-0.5 mt-1.5">
-                {[1, 2, 3, 4, 5].map((i) => (
-                  <svg
-                    key={i}
-                    className={`w-4 h-4 ${i <= Math.round(liveAgg.ratingValue) ? 'text-yellow-400' : 'text-gray-300'}`}
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                    aria-hidden="true"
-                  >
-                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                  </svg>
-                ))}
-              </div>
-              <div className="text-xs text-gray-500 mt-1">
-                {L.basedOn} {liveAgg.reviewCount} {L.reviews}
-              </div>
-            </div>
-
-            {/* Google-style "G" badge */}
-            <div className="flex items-center gap-2">
-              <svg viewBox="0 0 24 24" className="w-6 h-6" aria-hidden="true">
-                <path
-                  fill="#4285F4"
-                  d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
-                />
-                <path
-                  fill="#34A853"
-                  d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
-                />
-                <path
-                  fill="#FBBC05"
-                  d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
-                />
-                <path
-                  fill="#EA4335"
-                  d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
-                />
-              </svg>
-              <div className="text-left">
-                <div className="text-xs font-semibold text-gray-700">Google-style reviews</div>
-                <div className="text-[10px] text-gray-500 max-w-[200px] leading-tight">
-                  {L.googleStyle}
+        {/* Premium aggregate panel — Booking/TripAdvisor style */}
+        <div className="max-w-5xl mx-auto mb-10 sm:mb-14">
+          <div className="bg-white rounded-3xl shadow-[0_8px_30px_rgba(0,0,0,0.06)] border border-gray-100 overflow-hidden">
+            <div className="grid md:grid-cols-[auto_1fr_auto] gap-0 divide-y md:divide-y-0 md:divide-x divide-gray-100">
+              {/* Left — Big rating */}
+              <div className="px-8 py-7 sm:py-8 flex flex-col items-center justify-center text-center">
+                <div className="text-6xl sm:text-7xl font-bold text-gray-900 leading-none tracking-tight">
+                  {stats.ratingValue.toFixed(1)}
+                </div>
+                <div className="flex items-center gap-0.5 mt-3" aria-label={`${stats.ratingValue} out of 5 stars`}>
+                  {[1, 2, 3, 4, 5].map((i) => {
+                    const filled = i <= Math.floor(stats.ratingValue);
+                    const half = !filled && i - 0.5 <= stats.ratingValue;
+                    return (
+                      <div key={i} className="relative w-5 h-5">
+                        <svg
+                          className="w-5 h-5 text-gray-200 absolute inset-0"
+                          fill="currentColor"
+                          viewBox="0 0 20 20"
+                          aria-hidden="true"
+                        >
+                          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                        {(filled || half) && (
+                          <svg
+                            className="w-5 h-5 text-amber-400 absolute inset-0"
+                            fill="currentColor"
+                            viewBox="0 0 20 20"
+                            aria-hidden="true"
+                            style={half ? { clipPath: 'inset(0 50% 0 0)' } : undefined}
+                          >
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                          </svg>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+                <div className="mt-2 text-sm text-gray-500">
+                  {L.basedOn} <span className="font-semibold text-gray-700">{stats.reviewCount}</span> {L.reviews}
                 </div>
               </div>
-            </div>
 
-            {/* Write review CTA */}
-            <button
-              onClick={() => setShowForm(true)}
-              className="inline-flex items-center gap-2 bg-brand-blue-800 hover:bg-brand-blue-700 text-white px-5 py-2.5 rounded-lg font-semibold transition-all hover:shadow-lg text-sm"
-            >
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-              </svg>
-              {L.writeReview}
-            </button>
+              {/* Middle — Distribution histogram */}
+              <div className="px-6 sm:px-8 py-6 sm:py-8 flex flex-col justify-center gap-2">
+                {[5, 4, 3, 2, 1].map((star) => {
+                  const count = stats.distribution[star - 1];
+                  const pct = stats.reviewCount > 0 ? (count / stats.reviewCount) * 100 : 0;
+                  const isActive = filter === star;
+                  return (
+                    <button
+                      key={star}
+                      onClick={() => setFilter(filter === star ? 'all' : star)}
+                      className={`group flex items-center gap-3 text-left rounded-md px-2 py-1 -mx-2 transition-colors ${
+                        isActive ? 'bg-amber-50' : 'hover:bg-gray-50'
+                      }`}
+                      aria-label={`Filter by ${star} ${L.stars}`}
+                    >
+                      <span className="text-xs font-medium text-gray-600 w-12 flex items-center gap-1">
+                        {star}
+                        <svg className="w-3 h-3 text-amber-400" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+                          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                      </span>
+                      <div className="flex-1 h-2 bg-gray-100 rounded-full overflow-hidden">
+                        <div
+                          className={`h-full rounded-full transition-all duration-700 ${
+                            isActive ? 'bg-amber-500' : 'bg-amber-400 group-hover:bg-amber-500'
+                          }`}
+                          style={{ width: `${pct}%` }}
+                        />
+                      </div>
+                      <span className="text-xs text-gray-500 w-8 text-right tabular-nums">{count}</span>
+                    </button>
+                  );
+                })}
+              </div>
+
+              {/* Right — CTA */}
+              <div className="px-6 sm:px-8 py-6 sm:py-8 flex flex-col items-center justify-center gap-3 bg-gradient-to-br from-gray-50 to-white">
+                <button
+                  onClick={() => setShowForm(true)}
+                  className="inline-flex items-center justify-center gap-2 bg-brand-blue-800 hover:bg-brand-blue-700 text-white px-5 py-3 rounded-xl font-semibold transition-all hover:shadow-lg hover:scale-[1.02] text-sm whitespace-nowrap w-full sm:w-auto"
+                >
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                  </svg>
+                  {L.writeReview}
+                </button>
+                <p className="text-[11px] text-gray-500 text-center max-w-[180px] leading-snug">
+                  <svg className="w-3 h-3 inline-block mr-0.5 -mt-0.5 text-emerald-500" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+                    <path fillRule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                  </svg>
+                  {L.trustNote}
+                </p>
+              </div>
+            </div>
           </div>
         </div>
 
-        {/* Filter chips */}
+        {/* Language filter chips */}
         <div className="flex justify-center gap-2 mb-8 flex-wrap">
           {(['all', 'en', 'id'] as const).map((f) => (
             <button
@@ -219,154 +299,78 @@ export default function Testimonials() {
 
         {/* Reviews Grid */}
         {filtered.length > 0 ? (
-          <div
-            className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 max-w-7xl mx-auto"
-            itemScope
-            itemType="https://schema.org/ItemList"
-          >
-            {filtered.map((review, idx) => (
-              <article
-                key={review.id}
-                className="bg-white rounded-2xl p-5 sm:p-6 shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-100 flex flex-col"
-                itemProp="itemListElement"
-                itemScope
-                itemType="https://schema.org/Review"
-              >
-                <meta itemProp="position" content={String(idx + 1)} />
+          <>
+            <div
+              className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 max-w-7xl mx-auto"
+              itemScope
+              itemType="https://schema.org/ItemList"
+            >
+              {filtered.slice(0, visible).map((review, idx) => (
+                <ReviewCard
+                  key={review.id}
+                  review={review}
+                  position={idx + 1}
+                  language={language}
+                  labels={L}
+                />
+              ))}
+            </div>
 
-                {/* Author header — Google-style */}
-                <div className="flex items-start gap-3 mb-3">
-                  <div
-                    className="w-10 h-10 rounded-full bg-gradient-to-br from-brand-blue-700 to-brand-teal-600 flex items-center justify-center text-white font-bold text-sm flex-shrink-0"
-                    aria-hidden="true"
-                  >
-                    {review.name.charAt(0).toUpperCase()}
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <div
-                      className="font-semibold text-gray-900 text-sm flex items-center gap-1 truncate"
-                      itemProp="author"
-                      itemScope
-                      itemType="https://schema.org/Person"
-                    >
-                      <span itemProp="name">{review.name}</span>
-                      {review.verified && (
-                        <span title={L.verified} className="text-blue-500 flex-shrink-0">
-                          <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
-                            <path
-                              fillRule="evenodd"
-                              d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                              clipRule="evenodd"
-                            />
-                          </svg>
-                        </span>
-                      )}
-                    </div>
-                    <div className="text-xs text-gray-500 flex items-center gap-1.5">
-                      {review.countryCode && <span aria-hidden="true">{countryFlag(review.countryCode)}</span>}
-                      <span className="truncate">{review.country}</span>
-                      {review.country && <span className="text-gray-300">·</span>}
-                      <time
-                        className="text-xs text-gray-500"
-                        dateTime={review.date}
-                        itemProp="datePublished"
-                      >
-                        {new Date(review.date).toLocaleDateString(
-                          language === 'id' ? 'id-ID' : 'en-US',
-                          { year: 'numeric', month: 'short' },
-                        )}
-                      </time>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Stars */}
-                <div
-                  className="flex items-center gap-0.5 mb-2"
-                  itemProp="reviewRating"
-                  itemScope
-                  itemType="https://schema.org/Rating"
+            {/* Show more button */}
+            {visible < filtered.length && (
+              <div className="text-center mt-10">
+                <button
+                  onClick={() => setVisible((v) => v + REVIEWS_PER_PAGE)}
+                  className="inline-flex items-center gap-2 bg-white hover:bg-gray-50 text-gray-700 hover:text-brand-blue-800 border border-gray-200 px-6 py-3 rounded-xl font-semibold transition-all hover:shadow-md text-sm"
                 >
-                  <meta itemProp="ratingValue" content={String(review.rating)} />
-                  <meta itemProp="bestRating" content="5" />
-                  {[1, 2, 3, 4, 5].map((i) => (
-                    <svg
-                      key={i}
-                      className={`w-4 h-4 ${i <= review.rating ? 'text-yellow-400' : 'text-gray-200'}`}
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                      aria-hidden="true"
-                    >
-                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                    </svg>
-                  ))}
-                </div>
-
-                {/* Title */}
-                {review.title && (
-                  <h3
-                    className="font-semibold text-gray-900 mb-1.5 text-sm sm:text-base"
-                    itemProp="name"
-                  >
-                    {review.title}
-                  </h3>
-                )}
-
-                {/* Body */}
-                <p
-                  className="text-gray-700 text-sm leading-relaxed mb-3 flex-grow"
-                  itemProp="reviewBody"
-                >
-                  {review.body}
-                </p>
-
-                {/* Tour package taken */}
-                {review.tour && (
-                  <div className="text-xs text-brand-teal-700 font-medium mb-3 inline-flex items-center gap-1.5">
-                    <svg className="w-3.5 h-3.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-                    </svg>
-                    <span className="truncate">
-                      {L.tookTour} {review.tour} {L.tour}
-                    </span>
-                  </div>
-                )}
-
-                {/* Owner response */}
-                {review.ownerResponse && (
-                  <div className="mt-2 bg-gray-50 rounded-lg p-3 border-l-2 border-brand-blue-700">
-                    <div className="flex items-center gap-1.5 mb-1">
-                      <svg className="w-3.5 h-3.5 text-brand-blue-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6" />
-                      </svg>
-                      <span className="text-xs font-semibold text-gray-700">{L.ownerResponseLabel}</span>
-                    </div>
-                    <p className="text-xs text-gray-600 leading-relaxed">{review.ownerResponse}</p>
-                  </div>
-                )}
-              </article>
-            ))}
-          </div>
+                  {L.showMore}
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                  <span className="text-xs text-gray-400 font-normal">
+                    ({filtered.length - visible})
+                  </span>
+                </button>
+              </div>
+            )}
+          </>
         ) : (
-          <div className="text-center py-12 text-gray-500">{L.noReviews}</div>
+          <div className="text-center py-16">
+            <svg className="w-12 h-12 mx-auto text-gray-300 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+            </svg>
+            <p className="text-gray-500">{L.noReviews}</p>
+          </div>
         )}
 
-        {/* CTA — Write a Review */}
-        <div className="mt-12 sm:mt-16 max-w-2xl mx-auto bg-gradient-to-r from-brand-blue-800 to-brand-teal-700 rounded-2xl p-8 sm:p-10 text-center text-white shadow-xl">
-          <svg className="w-12 h-12 mx-auto mb-4 text-white/90" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z" />
-          </svg>
-          <h3 className="text-xl sm:text-2xl font-bold mb-2">{L.shareYour}</h3>
-          <p className="text-white/90 mb-6 text-sm sm:text-base">{L.shareDesc}</p>
-          <button
-            onClick={() => setShowForm(true)}
-            className="inline-flex items-center gap-2 bg-white text-brand-blue-800 hover:bg-gray-50 px-6 py-3 rounded-xl font-semibold transition-all hover:shadow-lg hover:scale-105"
-          >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+        {/* Bottom CTA */}
+        <div className="mt-14 sm:mt-20 max-w-3xl mx-auto">
+          <div className="relative bg-gradient-to-br from-brand-blue-800 via-brand-blue-700 to-brand-teal-700 rounded-3xl p-8 sm:p-12 text-center text-white shadow-xl overflow-hidden">
+            {/* Decorative quote */}
+            <svg
+              className="absolute -top-4 -left-2 w-24 h-24 text-white/[0.08]"
+              fill="currentColor"
+              viewBox="0 0 32 32"
+              aria-hidden="true"
+            >
+              <path d="M9.352 4C4.456 7.456 1 13.12 1 19.36c0 5.088 3.072 8.064 6.624 8.064 3.36 0 5.856-2.688 5.856-5.856 0-3.168-2.208-5.472-5.088-5.472-.576 0-1.344.096-1.536.192.48-3.264 3.552-7.104 6.624-9.024L9.352 4zm16.512 0c-4.8 3.456-8.256 9.12-8.256 15.36 0 5.088 3.072 8.064 6.624 8.064 3.264 0 5.856-2.688 5.856-5.856 0-3.168-2.304-5.472-5.184-5.472-.576 0-1.248.096-1.44.192.48-3.264 3.456-7.104 6.528-9.024L25.864 4z" />
             </svg>
-            {L.writeReview}
-          </button>
+            <div className="relative">
+              <h3 className="text-2xl sm:text-3xl font-bold mb-3">{L.shareYour}</h3>
+              <p className="text-white/85 mb-7 text-sm sm:text-base max-w-xl mx-auto leading-relaxed">
+                {L.shareDesc}
+              </p>
+              <button
+                onClick={() => setShowForm(true)}
+                className="inline-flex items-center gap-2 bg-white text-brand-blue-800 hover:bg-amber-50 px-7 py-3.5 rounded-xl font-semibold transition-all hover:shadow-2xl hover:scale-105 text-sm sm:text-base"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                </svg>
+                {L.writeReview}
+              </button>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -375,10 +379,194 @@ export default function Testimonials() {
         isOpen={showForm}
         onClose={() => setShowForm(false)}
         onSuccess={() => {
-          // Refetch reviews after submission (will show pending if approved)
           setTimeout(() => fetchReviews(), 1000);
         }}
       />
     </section>
+  );
+}
+
+/* ─────────────────────────────────────────────────────────────────── */
+/*  ReviewCard — individual review with read more, owner reply, etc.    */
+/* ─────────────────────────────────────────────────────────────────── */
+
+interface ReviewCardProps {
+  review: ReviewItem;
+  position: number;
+  language: 'en' | 'id';
+  labels: {
+    verified: string;
+    tookTour: string;
+    ownerResponseLabel: string;
+    readMore: string;
+    readLess: string;
+  };
+}
+
+function ReviewCard({ review, position, language, labels }: ReviewCardProps) {
+  const [expanded, setExpanded] = useState(false);
+  const isLong = review.body.length > 240;
+  const displayBody = expanded || !isLong ? review.body : review.body.slice(0, 220) + '…';
+
+  // Avatar gradient based on first letter — consistent per name
+  const avatarGradient = useMemo(() => {
+    const gradients = [
+      'from-blue-500 to-indigo-600',
+      'from-emerald-500 to-teal-600',
+      'from-amber-500 to-orange-600',
+      'from-rose-500 to-pink-600',
+      'from-violet-500 to-purple-600',
+      'from-cyan-500 to-blue-600',
+    ];
+    const idx = review.name.charCodeAt(0) % gradients.length;
+    return gradients[idx];
+  }, [review.name]);
+
+  return (
+    <article
+      className="group relative bg-white rounded-2xl p-5 sm:p-6 border border-gray-100 hover:border-gray-200 hover:shadow-[0_12px_40px_rgba(0,0,0,0.08)] transition-all duration-300 flex flex-col"
+      itemProp="itemListElement"
+      itemScope
+      itemType="https://schema.org/Review"
+    >
+      <meta itemProp="position" content={String(position)} />
+
+      {/* Author header */}
+      <div className="flex items-start gap-3 mb-4">
+        <div
+          className={`w-11 h-11 rounded-full bg-gradient-to-br ${avatarGradient} flex items-center justify-center text-white font-semibold text-base flex-shrink-0 shadow-sm ring-2 ring-white`}
+          aria-hidden="true"
+        >
+          {review.name.charAt(0).toUpperCase()}
+        </div>
+        <div className="flex-1 min-w-0">
+          <div
+            className="font-semibold text-gray-900 text-sm flex items-center gap-1.5"
+            itemProp="author"
+            itemScope
+            itemType="https://schema.org/Person"
+          >
+            <span itemProp="name" className="truncate">
+              {review.name}
+            </span>
+            {review.verified && (
+              <span title={labels.verified} className="text-blue-500 flex-shrink-0" aria-label={labels.verified}>
+                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+                  <path
+                    fillRule="evenodd"
+                    d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </span>
+            )}
+          </div>
+          <div className="text-xs text-gray-500 flex items-center gap-1.5 mt-0.5">
+            {review.countryCode && (
+              <span aria-hidden="true" className="text-sm leading-none">
+                {countryFlag(review.countryCode)}
+              </span>
+            )}
+            <span className="truncate">{review.country}</span>
+            {review.country && <span className="text-gray-300" aria-hidden="true">·</span>}
+            <time dateTime={review.date} itemProp="datePublished">
+              {new Date(review.date).toLocaleDateString(
+                language === 'id' ? 'id-ID' : 'en-US',
+                { year: 'numeric', month: 'short' },
+              )}
+            </time>
+          </div>
+        </div>
+      </div>
+
+      {/* Stars */}
+      <div
+        className="flex items-center gap-0.5 mb-2.5"
+        itemProp="reviewRating"
+        itemScope
+        itemType="https://schema.org/Rating"
+        aria-label={`${review.rating} out of 5 stars`}
+      >
+        <meta itemProp="ratingValue" content={String(review.rating)} />
+        <meta itemProp="bestRating" content="5" />
+        {[1, 2, 3, 4, 5].map((i) => (
+          <svg
+            key={i}
+            className={`w-4 h-4 ${i <= review.rating ? 'text-amber-400' : 'text-gray-200'}`}
+            fill="currentColor"
+            viewBox="0 0 20 20"
+            aria-hidden="true"
+          >
+            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+          </svg>
+        ))}
+      </div>
+
+      {/* Title */}
+      {review.title && (
+        <h3
+          className="font-semibold text-gray-900 mb-1.5 text-sm sm:text-base leading-snug"
+          itemProp="name"
+        >
+          {review.title}
+        </h3>
+      )}
+
+      {/* Body */}
+      <p
+        className="text-gray-700 text-sm leading-relaxed mb-3 flex-grow"
+        itemProp="reviewBody"
+      >
+        {displayBody}
+        {isLong && (
+          <button
+            onClick={() => setExpanded(!expanded)}
+            className="ml-1 text-brand-blue-700 hover:text-brand-blue-900 font-medium underline-offset-2 hover:underline"
+          >
+            {expanded ? labels.readLess : labels.readMore}
+          </button>
+        )}
+      </p>
+
+      {/* Tour package taken */}
+      {review.tour && (
+        <div className="inline-flex items-center gap-1.5 self-start text-xs text-brand-teal-700 font-medium mt-1 bg-brand-teal-50/50 px-2.5 py-1 rounded-md">
+          <svg
+            className="w-3.5 h-3.5 flex-shrink-0"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
+            />
+          </svg>
+          <span className="truncate">
+            {labels.tookTour} {review.tour}
+          </span>
+        </div>
+      )}
+
+      {/* Owner response */}
+      {review.ownerResponse && (
+        <div className="mt-4 bg-gradient-to-br from-blue-50/50 to-teal-50/30 rounded-xl p-3.5 border border-blue-100/60">
+          <div className="flex items-center gap-2 mb-1.5">
+            <div className="w-6 h-6 rounded-full bg-brand-blue-800 flex items-center justify-center text-white text-[10px] font-bold flex-shrink-0">
+              N
+            </div>
+            <span className="text-xs font-semibold text-gray-800">
+              {labels.ownerResponseLabel}
+            </span>
+          </div>
+          <p className="text-xs text-gray-600 leading-relaxed pl-8">
+            {review.ownerResponse}
+          </p>
+        </div>
+      )}
+    </article>
   );
 }
