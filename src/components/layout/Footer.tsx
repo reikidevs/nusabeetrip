@@ -28,6 +28,7 @@ const Footer: React.FC = () => {
     { name: t.nav.tours, href: '/tours' },
     { name: t.nav.rentals, href: '/rentals' },
     { name: t.nav.souvenirs, href: '/souvenirs' },
+    { name: t.nav.reviews, href: '/#testimonials' },
     { name: t.nav.about, href: '/about' },
     { name: t.nav.contact, href: '/contact' },
   ];

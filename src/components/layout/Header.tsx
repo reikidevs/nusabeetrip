@@ -16,6 +16,7 @@ const NAV_ITEMS = [
   { key: 'tours' as const, href: '/tours' },
   { key: 'rentals' as const, href: '/rentals' },
   { key: 'souvenirs' as const, href: '/souvenirs' },
+  { key: 'reviews' as const, href: '/#testimonials' },
   { key: 'about' as const, href: '/about' },
   { key: 'contact' as const, href: '/contact' },
 ];
@@ -52,11 +53,11 @@ const MOBILE_TABS = [
     ),
   },
   {
-    key: 'souvenirs' as const,
-    href: '/souvenirs',
+    key: 'reviews' as const,
+    href: '/#testimonials',
     icon: (active: boolean) => (
       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={active ? 2.2 : 1.5} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={active ? 2.2 : 1.5} d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.887a1 1 0 00-1.176 0l-3.976 2.887c-.783.57-1.838-.196-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118L2.05 9.1c-.783-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.673z" />
       </svg>
     ),
   },
@@ -170,8 +171,12 @@ const Header: React.FC = () => {
     name: t.nav[item.key],
   }));
 
-  const isActive = (href: string) =>
-    href === '/' ? pathname === '/' : pathname.startsWith(href);
+  // Anchor links (e.g. /#testimonials) are jump-to-section shortcuts, not real
+  // pages, so they never show as the active page.
+  const isActive = (href: string) => {
+    if (href.includes('#')) return false;
+    return href === '/' ? pathname === '/' : pathname.startsWith(href);
+  };
 
   return (
     <>

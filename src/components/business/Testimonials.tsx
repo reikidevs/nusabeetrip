@@ -148,7 +148,7 @@ export default function Testimonials() {
 
   return (
     <section
-      className="relative py-14 sm:py-24 bg-gradient-to-b from-white via-gray-50/50 to-white overflow-hidden"
+      className="relative py-14 sm:py-24 bg-gradient-to-b from-white via-gray-50/50 to-white overflow-hidden scroll-mt-20 lg:scroll-mt-28"
       aria-label="Customer Testimonials"
       id="testimonials"
     >
