@@ -12,8 +12,9 @@ import { getWhatsAppLink } from '@/lib/whatsapp';
 export default function SouvenirsPage() {
   const { t, language } = useLanguage();
 
-  const handleBookingClick = (souvenirName: string, price: number) => {
-    console.log(`Booking clicked for ${souvenirName} at ${price} USD`);
+  const handleBookingClick = () => {
+    // No-op — booking handled by WhatsApp link in SouvenirGrid.
+    // Kept here for the SouvenirGrid prop signature.
   };
 
   const highlights = [

@@ -1,12 +1,28 @@
 'use client';
 
+import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import Image from 'next/image'
 import { useLanguage } from '@/lib/LanguageContext'
 import { formatPriceByLang, formatUsdPriceByLang } from '@/lib/currency'
 import { getWhatsAppLink, getWhatsAppRentalLink, getWhatsAppItemLink } from '@/lib/whatsapp'
 import HomepageSEO from '@/components/seo/HomepageSEO'
-import { Testimonials } from '@/components/business'
+
+// Testimonials section sits below the fold and pulls reviews from the DB.
+// Defer it so the hero ships smaller and renders faster.
+const Testimonials = dynamic(
+  () => import('@/components/business').then((mod) => mod.Testimonials),
+  {
+    ssr: true,
+    loading: () => (
+      <div className="py-16" aria-hidden="true">
+        <div className="container mx-auto px-4">
+          <div className="h-8 w-64 mx-auto bg-gray-100 rounded animate-pulse" />
+        </div>
+      </div>
+    ),
+  },
+)
 
 export default function Home() {
   const { t, language } = useLanguage();

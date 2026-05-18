@@ -2,18 +2,27 @@
 const nextConfig = {
   images: {
     domains: ['localhost'],
-    formats: ['image/webp', 'image/avif'],
+    formats: ['image/avif', 'image/webp'],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
     unoptimized: false,
-    minimumCacheTTL: 60,
+    minimumCacheTTL: 60 * 60 * 24 * 30, // 30 days — public images change rarely
+    dangerouslyAllowSVG: true,
+    contentDispositionType: 'attachment',
+    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
   experimental: {
-    // optimizeCss: true, // Disabled due to critters module issue
+    // Inline critical CSS, defer the rest. Big LCP win on slow connections.
+    optimizeCss: true,
+    // Tree-shake heavy icon libraries.
+    optimizePackageImports: ['@heroicons/react'],
+    // Better client/server boundary tree-shaking.
+    serverComponentsExternalPackages: ['@neondatabase/serverless', 'drizzle-orm'],
   },
   compress: true,
   poweredByHeader: false,
   generateEtags: true,
+  productionBrowserSourceMaps: false,
   env: {
     CUSTOM_KEY: process.env.CUSTOM_KEY,
     IMAGE_CACHE_VERSION: '6',
@@ -26,15 +35,21 @@ const nextConfig = {
   trailingSlash: false,
   async redirects() {
     return [
-      // Redirect common misspellings and old URLs
+      // Common misspellings and old URLs
       { source: '/tour', destination: '/tours', permanent: true },
       { source: '/rental', destination: '/rentals', permanent: true },
       { source: '/souvenir', destination: '/souvenirs', permanent: true },
+      { source: '/destination', destination: '/destinations', permanent: true },
+      { source: '/guide', destination: '/guides', permanent: true },
+      { source: '/blog', destination: '/guides', permanent: true },
+      { source: '/articles', destination: '/guides', permanent: true },
       { source: '/book', destination: '/contact', permanent: true },
       { source: '/booking', destination: '/contact', permanent: true },
-      // Redirect trailing slashes (belt-and-suspenders with trailingSlash: false)
+      // Trailing slashes (belt-and-suspenders with trailingSlash: false)
       { source: '/tours/', destination: '/tours', permanent: true },
       { source: '/rentals/', destination: '/rentals', permanent: true },
+      { source: '/destinations/', destination: '/destinations', permanent: true },
+      { source: '/guides/', destination: '/guides', permanent: true },
       { source: '/about/', destination: '/about', permanent: true },
       { source: '/contact/', destination: '/contact', permanent: true },
       { source: '/souvenirs/', destination: '/souvenirs', permanent: true },
@@ -58,16 +73,23 @@ const nextConfig = {
             key: 'Strict-Transport-Security',
             value: 'max-age=63072000; includeSubDomains; preload',
           },
-          // Content-Security-Policy for SEO crawlers trust
           {
             key: 'X-Robots-Tag',
             value: 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
           },
         ],
       },
-      // SEO surface: must always be fresh so Googlebot sees latest changes
+      // Sitemaps — fresh for crawlers
       {
         source: '/sitemap.xml',
+        headers: [
+          { key: 'Content-Type', value: 'application/xml; charset=utf-8' },
+          { key: 'Cache-Control', value: 'public, max-age=3600, must-revalidate' },
+          { key: 'X-Robots-Tag', value: 'noindex' },
+        ],
+      },
+      {
+        source: '/image-sitemap.xml',
         headers: [
           { key: 'Content-Type', value: 'application/xml; charset=utf-8' },
           { key: 'Cache-Control', value: 'public, max-age=3600, must-revalidate' },
@@ -111,9 +133,9 @@ const nextConfig = {
           { key: 'Cache-Control', value: 'public, max-age=2592000, stale-while-revalidate=86400' },
         ],
       },
-      // HTML pages — short cache for freshness
+      // HTML pages — short cache for freshness with edge SWR
       {
-        source: '/:path((?!api|_next|images|sitemap|robots).*)',
+        source: '/:path((?!api|_next|images|sitemap|robots|image-sitemap).*)',
         headers: [
           { key: 'Cache-Control', value: 'public, max-age=0, s-maxage=3600, stale-while-revalidate=86400' },
         ],

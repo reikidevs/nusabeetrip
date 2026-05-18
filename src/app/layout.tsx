@@ -16,7 +16,24 @@ import {
 } from '@/lib/seo'
 import { SITE } from '@/lib/site-config'
 
-const inter = Inter({ subsets: ['latin'], display: 'swap' })
+const inter = Inter({
+  subsets: ['latin'],
+  display: 'swap',
+  // Use a variable for the body, smaller weight set for faster TBT.
+  variable: '--font-inter',
+  // We only ship the weights actually used in the design.
+  weight: ['400', '500', '600', '700', '800'],
+  preload: true,
+  fallback: [
+    'system-ui',
+    '-apple-system',
+    'BlinkMacSystemFont',
+    'Segoe UI',
+    'Roboto',
+    'sans-serif',
+  ],
+  adjustFontFallback: true,
+})
 
 export const metadata: Metadata = buildMetadata({
   title: 'Nusa Penida Tours, Snorkeling & Vehicle Rentals',
@@ -53,19 +70,18 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" dir="ltr">
+    <html lang="en" dir="ltr" className={inter.variable}>
       <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="//wa.me" />
         <link rel="dns-prefetch" href="//www.google-analytics.com" />
-        <link rel="dns-prefetch" href="//www.googletagmanager.com" />
-        {/* Preload critical hero image for LCP */}
+        {/* Preload critical hero image for LCP — homepage only.
+            Other routes will swap their own LCP image via next/image priority. */}
         <link
           rel="preload"
           as="image"
           href="/images/West%20Trip/West%20Trip%20Kelingking%20Beach%204.jpeg"
           type="image/jpeg"
+          fetchPriority="high"
         />
       </head>
       <body className={inter.className}>

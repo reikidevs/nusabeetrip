@@ -82,11 +82,9 @@ export default async function RentalsPage() {
   
   try {
     const dbServices = await getRentalServices();
-    console.log('✅ Successfully fetched', dbServices.length, 'rental services from database');
     rentalServices = dbServices.map(transformRentalService);
   } catch (error) {
-    console.error('❌ Failed to fetch rental services from database:', error);
-    console.log('⚠️ Using fallback static data');
+    console.error('Failed to fetch rental services from database:', error);
     
     // Fallback to static data with correct images matching database
     rentalServices = [
