@@ -22,7 +22,7 @@ const REVIEWS_PER_PAGE = 6;
  */
 export default function Testimonials() {
   const { language } = useLanguage();
-  const [filter, setFilter] = useState<'all' | 'en' | 'id' | number>('all');
+  const [filter, setFilter] = useState<'all' | number>('all');
   const [showForm, setShowForm] = useState(false);
   const [reviews, setReviews] = useState<ReviewItem[]>(TESTIMONIALS as ReviewItem[]);
   const [visible, setVisible] = useState(REVIEWS_PER_PAGE);
@@ -82,7 +82,7 @@ export default function Testimonials() {
   const filtered = useMemo(() => {
     if (filter === 'all') return reviews;
     if (typeof filter === 'number') return reviews.filter((r) => r.rating === filter);
-    return reviews.filter((r) => r.language === filter);
+    return reviews;
   }, [filter, reviews]);
 
   // Reset visible count when filter changes
@@ -99,9 +99,6 @@ export default function Testimonials() {
       basedOn: 'from',
       reviews: 'verified reviews',
       excellent: 'Excellent',
-      filterAll: 'All reviews',
-      filterEn: 'English',
-      filterId: 'Bahasa',
       stars: 'stars',
       noReviews: 'No reviews match this filter yet.',
       shareYour: 'Travelled with us recently?',
@@ -114,6 +111,7 @@ export default function Testimonials() {
       reviewsOn: 'Reviews on',
       poweredBy: 'Also on Google',
       ratingLabel: 'rating',
+      clearFilter: 'Show all reviews',
     },
     id: {
       heading: 'Apa Kata Tamu Kami',
@@ -123,9 +121,6 @@ export default function Testimonials() {
       basedOn: 'dari',
       reviews: 'ulasan terverifikasi',
       excellent: 'Sangat Memuaskan',
-      filterAll: 'Semua ulasan',
-      filterEn: 'English',
-      filterId: 'Bahasa',
       stars: 'bintang',
       noReviews: 'Belum ada ulasan yang cocok dengan filter ini.',
       shareYour: 'Baru saja trip bersama kami?',
@@ -138,6 +133,7 @@ export default function Testimonials() {
       reviewsOn: 'Ulasan di',
       poweredBy: 'Juga di Google',
       ratingLabel: 'rating',
+      clearFilter: 'Tampilkan semua ulasan',
     },
   };
   const L = labels[language];
@@ -346,22 +342,28 @@ export default function Testimonials() {
           </div>
         </div>
 
-        {/* Language filter chips */}
-        <div className="flex justify-center gap-2 mb-8 flex-wrap">
-          {(['all', 'en', 'id'] as const).map((f) => (
+        {/* Active filter indicator (shows when user clicks a star bar) */}
+        {typeof filter === 'number' && (
+          <div className="flex justify-center mb-6">
             <button
-              key={f}
-              onClick={() => setFilter(f)}
-              className={`px-4 py-1.5 rounded-full text-sm font-semibold transition-all ${
-                filter === f
-                  ? 'bg-brand-blue-800 text-white shadow-md'
-                  : 'bg-white text-gray-600 hover:bg-gray-100 border border-gray-200'
-              }`}
+              onClick={() => setFilter('all')}
+              className="inline-flex items-center gap-2 bg-amber-50 hover:bg-amber-100 text-amber-800 border border-amber-200 px-4 py-1.5 rounded-full text-sm font-medium transition-colors"
             >
-              {f === 'all' ? L.filterAll : f === 'en' ? L.filterEn : L.filterId}
+              <span className="flex items-center gap-1">
+                {filter}
+                <svg className="w-3.5 h-3.5 text-amber-500" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                </svg>
+                {L.stars}
+              </span>
+              <span className="text-amber-300">·</span>
+              <span className="text-xs">{L.clearFilter}</span>
+              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
             </button>
-          ))}
-        </div>
+          </div>
+        )}
 
         {/* Reviews Grid */}
         {filtered.length > 0 ? (
