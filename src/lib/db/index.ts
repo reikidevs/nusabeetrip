@@ -1,12 +1,6 @@
-// Database configuration and connection
-export { db, sql } from './config';
+// Re-export the runtime DB pieces used by app code.
+// Operational scripts (seed, list-tables, migrations) live in /scripts/db/.
 
-// Database schema and types
+export { db, sql, getDb, getSql } from './config';
 export * from './schema';
-
-// Database queries and operations
 export * from './queries';
-
-// Database utilities
-export { testDatabaseConnection, checkTablesExist } from './test-connection';
-export { seedDatabase } from './seed';

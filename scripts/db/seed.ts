@@ -1,5 +1,5 @@
-import { db } from './config';
-import { tourPackages, rentalServices, seoData } from './schema';
+import { db } from '../../src/lib/db/config';
+import { tourPackages, rentalServices, seoData } from '../../src/lib/db/schema';
 
 // Initial tour packages data
 const initialTourPackages = [

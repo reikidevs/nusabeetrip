@@ -1,11 +1,11 @@
 /**
- * Seed script — load static testimonials into the reviews table.
+ * Seed script: load static testimonials into the reviews table.
  *
  * Run:
- *   npm run db:seed-reviews              (uses DATABASE_URL = dev)
- *   npm run db:seed-reviews:prod         (uses DATABASE_URL_PROD)
+ *   npm run db:seed-reviews            (uses DATABASE_URL = dev)
+ *   npm run db:seed-reviews:prod       (uses DATABASE_URL_PROD)
  *
- * Idempotent: skips duplicates based on author_name + body.
+ * Idempotent: skips duplicates by author_name + body.
  */
 
 import { config } from 'dotenv';
@@ -15,9 +15,9 @@ import { neon } from '@neondatabase/serverless';
 import { drizzle } from 'drizzle-orm/neon-http';
 import { eq, and } from 'drizzle-orm';
 import * as readline from 'readline';
-import * as schema from './schema';
-import { reviews } from './schema';
-import { TESTIMONIALS } from '../testimonials';
+import * as schema from '../../src/lib/db/schema';
+import { reviews } from '../../src/lib/db/schema';
+import { TESTIMONIALS } from '../../src/lib/testimonials';
 
 async function main() {
   const arg = process.argv[2];
@@ -33,13 +33,13 @@ async function main() {
   }
 
   if (!databaseUrl) {
-    console.error(`❌ Missing connection URL for ${label}`);
+    console.error(`Missing connection URL for ${label}`);
     process.exit(1);
   }
 
   console.log('');
-  console.log(`🎯 Target: ${label}`);
-  console.log(`🔌 Host:   ${databaseUrl.replace(/:[^@]+@/, ':***@').slice(0, 100)}...`);
+  console.log(`Target: ${label}`);
+  console.log(`Host:   ${databaseUrl.replace(/:[^@]+@/, ':***@').slice(0, 100)}...`);
   console.log('');
 
   // Confirmation for prod
@@ -50,7 +50,7 @@ async function main() {
     });
     rl.close();
     if (answer.trim().toLowerCase() !== 'yes') {
-      console.log('❌ Cancelled.');
+      console.log('Cancelled.');
       process.exit(0);
     }
   }
@@ -58,12 +58,11 @@ async function main() {
   const sql = neon(databaseUrl);
   const db = drizzle(sql, { schema });
 
-  console.log('🌱 Seeding reviews from static testimonials...');
+  console.log('Seeding reviews from static testimonials...');
   let inserted = 0;
   let skipped = 0;
 
   for (const t of TESTIMONIALS) {
-    // Check if already exists (by author + body match)
     const existing = await db
       .select()
       .from(reviews)
@@ -71,7 +70,7 @@ async function main() {
       .limit(1);
 
     if (existing.length > 0) {
-      console.log(`   ⏭️  Skipped: ${t.name} (already exists)`);
+      console.log(`   skipped: ${t.name} (already exists)`);
       skipped++;
       continue;
     }
@@ -93,16 +92,16 @@ async function main() {
       createdAt: new Date(t.date),
       updatedAt: new Date(t.date),
     });
-    console.log(`   ✅ Inserted: ${t.name} (${t.rating}★) - "${t.title}"`);
+    console.log(`   inserted: ${t.name} (${t.rating} stars) - "${t.title}"`);
     inserted++;
   }
 
   console.log('');
-  console.log(`✅ Done. Inserted: ${inserted}, Skipped: ${skipped}`);
+  console.log(`Done. Inserted: ${inserted}, Skipped: ${skipped}`);
   process.exit(0);
 }
 
 main().catch((err) => {
-  console.error('❌ Seed failed:', err);
+  console.error('Seed failed:', err);
   process.exit(1);
 });
