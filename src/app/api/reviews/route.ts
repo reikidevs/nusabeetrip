@@ -21,7 +21,8 @@ export async function GET(request: NextRequest) {
       {
         status: 200,
         headers: {
-          'Cache-Control': 'public, s-maxage=300, stale-while-revalidate=600',
+          // No cache — reviews must be fresh, especially after a new submission
+          'Cache-Control': 'no-store, must-revalidate',
         },
       },
     );
@@ -107,6 +108,17 @@ export async function POST(request: NextRequest) {
       null;
     const userAgent = request.headers.get('user-agent') || null;
 
+    // Auto-approve unless spam or low rating (low ratings get reviewed first)
+    // - Spam → 'spam' (hidden)
+    // - Rating ≤ 2 → 'pending' (manual review required)
+    // - Otherwise → 'approved' (instant publish)
+    const ratingNum = Math.round(body.rating);
+    const autoStatus: 'approved' | 'pending' | 'spam' = isSpam
+      ? 'spam'
+      : ratingNum <= 2
+      ? 'pending'
+      : 'approved';
+
     // Build review record
     const reviewData: NewReview = {
       authorName: body.authorName.trim(),
@@ -115,7 +127,7 @@ export async function POST(request: NextRequest) {
       authorCountry: body.authorCountry?.trim() || null,
       authorCountryCode: body.authorCountryCode?.toUpperCase().slice(0, 2) || null,
       authorPhotoUrl: body.authorPhotoUrl || null,
-      rating: Math.round(body.rating),
+      rating: ratingNum,
       title: body.title?.trim() || null,
       body: body.body.trim(),
       language: body.language === 'id' ? 'id' : 'en',
@@ -126,20 +138,35 @@ export async function POST(request: NextRequest) {
       source: 'website',
       ipAddress,
       userAgent,
-      status: isSpam ? 'spam' : 'pending',
+      status: autoStatus,
       isVerified: false,
       isFeatured: false,
     };
 
     const newReview = await createReview(reviewData);
 
+    // Build response message based on status
+    let message: string;
+    if (autoStatus === 'approved') {
+      message = body.language === 'id'
+        ? 'Terima kasih! Ulasan Anda sudah dipublikasikan.'
+        : 'Thank you! Your review has been published.';
+    } else if (autoStatus === 'pending') {
+      message = body.language === 'id'
+        ? 'Terima kasih atas masukan Anda. Tim kami akan meninjau dalam 24 jam.'
+        : 'Thank you for your feedback. Our team will review it within 24 hours.';
+    } else {
+      message = body.language === 'id'
+        ? 'Terima kasih. Ulasan Anda sedang ditinjau.'
+        : 'Thank you. Your review is being reviewed.';
+    }
+
     return NextResponse.json(
       {
         success: true,
-        message: isSpam
-          ? 'Thank you. Your review is being reviewed.'
-          : 'Thank you! Your review has been submitted and will appear after moderation.',
+        message,
         reviewId: newReview.id,
+        published: autoStatus === 'approved',
       },
       { status: 201 },
     );

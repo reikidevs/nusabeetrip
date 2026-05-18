@@ -58,6 +58,7 @@ export default function ReviewForm({ isOpen, onClose, onSuccess, defaultTour }: 
   const [body, setBody] = useState('');
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [published, setPublished] = useState(false);
   const [error, setError] = useState('');
 
   const labels = {
@@ -85,7 +86,8 @@ export default function ReviewForm({ isOpen, onClose, onSuccess, defaultTour }: 
       submitting: 'Posting...',
       cancel: 'Cancel',
       successTitle: 'Thank you!',
-      successMessage: 'Your review has been submitted and will appear after moderation. We appreciate your feedback!',
+      successPublished: 'Your review is now live on our website. We appreciate your feedback!',
+      successPending: 'Thank you for your honest feedback. Our team will review and respond within 24 hours.',
       done: 'Done',
       errorRequired: 'Please fill in all required fields',
       errorMinChars: 'Review must be at least 20 characters',
@@ -116,7 +118,8 @@ export default function ReviewForm({ isOpen, onClose, onSuccess, defaultTour }: 
       submitting: 'Mengirim...',
       cancel: 'Batal',
       successTitle: 'Terima kasih!',
-      successMessage: 'Ulasan Anda telah dikirim dan akan tampil setelah dimoderasi. Terima kasih atas masukan Anda!',
+      successPublished: 'Ulasan Anda sudah tampil di website kami. Terima kasih atas masukannya!',
+      successPending: 'Terima kasih atas masukan Anda. Tim kami akan meninjau dan merespon dalam 24 jam.',
       done: 'Selesai',
       errorRequired: 'Mohon lengkapi semua field yang wajib diisi',
       errorMinChars: 'Ulasan minimal 20 karakter',
@@ -131,6 +134,7 @@ export default function ReviewForm({ isOpen, onClose, onSuccess, defaultTour }: 
     if (!isOpen) {
       setTimeout(() => {
         setSuccess(false);
+        setPublished(false);
         setError('');
       }, 300);
     }
@@ -190,6 +194,7 @@ export default function ReviewForm({ isOpen, onClose, onSuccess, defaultTour }: 
       }
 
       setSuccess(true);
+      setPublished(data.published === true);
       // Reset form
       setRating(0);
       setAuthorName('');
@@ -257,7 +262,9 @@ export default function ReviewForm({ isOpen, onClose, onSuccess, defaultTour }: 
               </svg>
             </div>
             <h3 className="text-xl font-bold text-gray-900 mb-2">{L.successTitle}</h3>
-            <p className="text-gray-600 mb-6 text-sm leading-relaxed">{L.successMessage}</p>
+            <p className="text-gray-600 mb-6 text-sm leading-relaxed">
+              {published ? L.successPublished : L.successPending}
+            </p>
             <button
               onClick={onClose}
               className="px-6 py-2.5 bg-brand-blue-800 hover:bg-brand-blue-700 text-white rounded-lg font-semibold transition-colors"
