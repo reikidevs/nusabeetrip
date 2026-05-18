@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Link from 'next/link';
 import { RentalService } from '@/types';
 import WhatsAppBookingButton from './WhatsAppBookingButton';
 import Image from 'next/image';
@@ -22,6 +23,7 @@ const RentalServiceCard: React.FC<RentalServiceCardProps> = ({
   const {
     vehicleType,
     model,
+    slug,
     pricePerDay,
     pricePerHour,
     currency,
@@ -29,6 +31,8 @@ const RentalServiceCard: React.FC<RentalServiceCardProps> = ({
     image,
     isAvailable
   } = rentalService;
+
+  const detailHref = `/rentals/${slug}`;
 
   const handleBookingClick = () => {
     if (onBookingClick) {
@@ -38,8 +42,8 @@ const RentalServiceCard: React.FC<RentalServiceCardProps> = ({
 
   return (
     <div className={`group bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 border border-gray-100 ${className} ${!isAvailable ? 'opacity-75' : ''}`}>
-      {/* Vehicle Image */}
-      <div className="relative h-40 sm:h-56 w-full overflow-hidden">
+      {/* Vehicle Image (linked to detail page) */}
+      <Link href={detailHref} className="block relative h-40 sm:h-56 w-full overflow-hidden">
         <Image
           src={image || '/images/placeholder-tour.svg'}
           alt={`${model} rental - Nusa Penida`}
@@ -59,14 +63,16 @@ const RentalServiceCard: React.FC<RentalServiceCardProps> = ({
         <div className="absolute bottom-4 left-4 bg-white/95 backdrop-blur-sm px-3 py-1.5 rounded-full shadow-lg">
           <span className="text-sm font-semibold text-brand-blue-800 capitalize">{vehicleType}</span>
         </div>
-      </div>
+      </Link>
 
       {/* Card Content */}
       <div className="p-4 sm:p-6">
-        {/* Vehicle Model */}
-        <h3 className="text-base sm:text-xl font-bold text-brand-blue-800 mb-2 sm:mb-3">
-          {model}
-        </h3>
+        {/* Vehicle Model (linked to detail page) */}
+        <Link href={detailHref} className="block group/title">
+          <h3 className="text-base sm:text-xl font-bold text-brand-blue-800 mb-2 sm:mb-3 group-hover/title:text-brand-blue-700 transition-colors">
+            {model}
+          </h3>
+        </Link>
 
         {/* Pricing */}
         <div className="mb-5 pb-5 border-b border-gray-100">
@@ -101,18 +107,29 @@ const RentalServiceCard: React.FC<RentalServiceCardProps> = ({
           </ul>
         </div>
 
-        {/* Booking Button */}
-        <WhatsAppBookingButton
-          phoneNumber="+62 896-3128-1234"
-          serviceType="rental"
-          serviceName={model}
-          price={pricePerDay}
-          currency={currency}
-          className="w-full"
-          disabled={!isAvailable}
-          onClick={isAvailable ? handleBookingClick : undefined}
-        />
-        
+        {/* Booking Buttons */}
+        <div className="space-y-2">
+          <Link
+            href={detailHref}
+            className="flex items-center justify-center gap-2 w-full bg-white border border-brand-blue-200 hover:border-brand-blue-700 hover:bg-brand-blue-50 text-brand-blue-800 px-4 py-2.5 rounded-xl font-semibold text-sm transition-all"
+          >
+            {language === 'id' ? 'Lihat Detail' : 'View Details'}
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+          </Link>
+          <WhatsAppBookingButton
+            phoneNumber="+62 896-3128-1234"
+            serviceType="rental"
+            serviceName={model}
+            price={pricePerDay}
+            currency={currency}
+            className="w-full"
+            disabled={!isAvailable}
+            onClick={isAvailable ? handleBookingClick : undefined}
+          />
+        </div>
+
         {!isAvailable && (
           <p className="text-center text-red-500 text-xs mt-2">
             {t.rentals.currentlyUnavailable}

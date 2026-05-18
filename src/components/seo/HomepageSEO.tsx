@@ -64,12 +64,12 @@ const HOMEPAGE_FAQ = [
 export default function HomepageSEO() {
   const { ratingValue, reviewCount } = getAggregateRating();
   const tourItems = [
-    { name: 'West Trip Nusa Penida', url: absoluteUrl('/tours#west-trip'), image: '/images/West%20Trip/West%20trip%20%20kelingking%20beach.jpeg' },
-    { name: 'East Trip Nusa Penida', url: absoluteUrl('/tours#east-trip'), image: '/images/East%20Trip/East%20trip%20DIAMOND%20BEACH.jpeg' },
-    { name: 'Mix Trip (West & East)', url: absoluteUrl('/tours#mix-trip'), image: '/images/Mix%20Trip%20View%20Thoussand%20Island%20and%20Crystal%20bay%20Beach.png' },
-    { name: 'Snorkeling with Manta Rays', url: absoluteUrl('/tours#snorkeling-manta'), image: '/images/Snorkeling%20%2B%20Manta%20Rays/snorkeling%201.jpeg' },
-    { name: 'Yamaha N-Max Rental', url: absoluteUrl('/rentals#nmax-motorcycle'), image: '/images/Vehicle%20Rentals/Yamaha%20N-Max.webp' },
-    { name: 'Car with Driver', url: absoluteUrl('/rentals#car-rental'), image: '/images/Vehicle%20Rentals/Car%20with%20Driver.jpg' },
+    { name: 'West Trip Nusa Penida', url: absoluteUrl('/tours/west-trip'), image: '/images/West%20Trip/West%20trip%20%20kelingking%20beach.jpeg' },
+    { name: 'East Trip Nusa Penida', url: absoluteUrl('/tours/east-trip'), image: '/images/East%20Trip/East%20trip%20DIAMOND%20BEACH.jpeg' },
+    { name: 'Mix Trip (West & East)', url: absoluteUrl('/tours/mix-trip'), image: '/images/Mix%20Trip%20View%20Thoussand%20Island%20and%20Crystal%20bay%20Beach.png' },
+    { name: 'Snorkeling with Manta Rays', url: absoluteUrl('/tours/snorkeling-manta'), image: '/images/Snorkeling%20%2B%20Manta%20Rays/snorkeling%201.jpeg' },
+    { name: 'Yamaha N-Max Rental', url: absoluteUrl('/rentals/nmax-motorcycle'), image: '/images/Vehicle%20Rentals/Yamaha%20N-Max.webp' },
+    { name: 'Car with Driver', url: absoluteUrl('/rentals/car-rental'), image: '/images/Vehicle%20Rentals/Car%20with%20Driver.jpg' },
   ];
 
   return (

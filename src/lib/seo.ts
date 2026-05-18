@@ -205,7 +205,7 @@ export function travelAgencyJsonLd() {
     makesOffer: TOUR_PACKAGES.filter((p) => p.isActive).map((p) => ({
       '@type': 'Offer',
       name: p.name,
-      url: absoluteUrl(`/tours#${p.slug}`),
+      url: absoluteUrl(`/tours/${p.slug}`),
       price: p.price,
       priceCurrency: p.currency,
       availability: 'https://schema.org/InStock',
@@ -262,7 +262,7 @@ export function tourPackagesJsonLd() {
   return TOUR_PACKAGES.filter((p) => p.isActive).map((pkg) => ({
     '@context': 'https://schema.org',
     '@type': 'Product',
-    '@id': absoluteUrl(`/tours#${pkg.slug}`),
+    '@id': absoluteUrl(`/tours/${pkg.slug}`),
     name: pkg.name,
     description: pkg.description,
     image: pkg.image ? absoluteUrl(pkg.image) : absoluteUrl(SITE.ogImage),
@@ -292,7 +292,7 @@ export function rentalProductsJsonLd() {
   return RENTAL_SERVICES.filter((r) => r.isAvailable).map((r) => ({
     '@context': 'https://schema.org',
     '@type': 'Product',
-    '@id': absoluteUrl(`/rentals#${r.slug}`),
+    '@id': absoluteUrl(`/rentals/${r.slug}`),
     name: r.model,
     category: r.vehicleType === 'car' ? 'Car Rental' : 'Motorcycle Rental',
     description: `${r.model} rental in Nusa Penida — ${r.features.slice(0, 3).join(', ')}.`,
@@ -717,7 +717,7 @@ export function localBusinessEnhancedJsonLd() {
     makesOffer: TOUR_PACKAGES.filter((p) => p.isActive).map((p) => ({
       '@type': 'Offer',
       name: p.name,
-      url: absoluteUrl(`/tours#${p.slug}`),
+      url: absoluteUrl(`/tours/${p.slug}`),
       price: p.price,
       priceCurrency: p.currency,
       availability: 'https://schema.org/InStock',

@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Link from 'next/link';
 import { TourPackage } from '@/types';
 import WhatsAppBookingButton from './WhatsAppBookingButton';
 import Image from 'next/image';
@@ -21,6 +22,7 @@ const TourPackageCard: React.FC<TourPackageCardProps> = ({
   const { t, language } = useLanguage();
   const {
     name,
+    slug,
     description,
     price,
     currency,
@@ -30,6 +32,8 @@ const TourPackageCard: React.FC<TourPackageCardProps> = ({
     image
   } = tourPackage;
 
+  const detailHref = `/tours/${slug}`;
+
   const handleBookingClick = () => {
     if (onBookingClick) {
       onBookingClick(name, price);
@@ -38,8 +42,8 @@ const TourPackageCard: React.FC<TourPackageCardProps> = ({
 
   return (
     <div className={`group bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 border border-gray-100 ${className}`}>
-      {/* Tour Image */}
-      <div className="relative h-40 sm:h-56 w-full overflow-hidden">
+      {/* Tour Image (linked to detail page) */}
+      <Link href={detailHref} className="block relative h-40 sm:h-56 w-full overflow-hidden">
         <Image
           src={image || '/images/placeholder-tour.svg'}
           alt={`${name} - Best Travel Nusa Penida`}
@@ -62,14 +66,16 @@ const TourPackageCard: React.FC<TourPackageCardProps> = ({
           </svg>
           <span className="text-sm font-semibold text-brand-blue-800">{duration} {t.tours.hours.toLowerCase()}</span>
         </div>
-      </div>
+      </Link>
 
       {/* Card Content */}
       <div className="p-4 sm:p-6">
-        {/* Tour Name */}
-        <h3 className="text-base sm:text-xl font-bold text-brand-blue-800 mb-2 sm:mb-3">
-          {name}
-        </h3>
+        {/* Tour Name (linked to detail page) */}
+        <Link href={detailHref} className="block group/title">
+          <h3 className="text-base sm:text-xl font-bold text-brand-blue-800 mb-2 sm:mb-3 group-hover/title:text-brand-blue-700 transition-colors">
+            {name}
+          </h3>
+        </Link>
 
         {/* Description */}
         <p className="text-gray-600 mb-3 sm:mb-4 text-xs sm:text-sm leading-relaxed line-clamp-2">
@@ -161,16 +167,27 @@ const TourPackageCard: React.FC<TourPackageCardProps> = ({
           </ul>
         </div>
 
-        {/* Booking Button */}
-        <WhatsAppBookingButton
-          phoneNumber="+62 896-3128-1234"
-          serviceType="tour"
-          serviceName={name}
-          price={price}
-          currency={currency}
-          className="w-full"
-          onClick={handleBookingClick}
-        />
+        {/* Booking Buttons */}
+        <div className="space-y-2">
+          <Link
+            href={detailHref}
+            className="flex items-center justify-center gap-2 w-full bg-white border border-brand-blue-200 hover:border-brand-blue-700 hover:bg-brand-blue-50 text-brand-blue-800 px-4 py-2.5 rounded-xl font-semibold text-sm transition-all"
+          >
+            {language === 'id' ? 'Lihat Detail' : 'View Details'}
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+          </Link>
+          <WhatsAppBookingButton
+            phoneNumber="+62 896-3128-1234"
+            serviceType="tour"
+            serviceName={name}
+            price={price}
+            currency={currency}
+            className="w-full"
+            onClick={handleBookingClick}
+          />
+        </div>
       </div>
     </div>
   );
