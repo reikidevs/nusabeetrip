@@ -270,3 +270,85 @@ export const incrementReviewHelpful = async (id: number): Promise<Review> => {
     .returning();
   return result[0];
 };
+
+
+/* ─────────────────────────────────────────────────────────────────── */
+/*  Admin-only review queries                                           */
+/* ─────────────────────────────────────────────────────────────────── */
+
+/** Get every review regardless of status (admin moderation view). */
+export const getAllReviews = async (limit = 200): Promise<Review[]> => {
+  return await db
+    .select()
+    .from(reviews)
+    .orderBy(desc(reviews.createdAt))
+    .limit(limit);
+};
+
+/** Permanently delete a review. */
+export const deleteReview = async (id: number): Promise<void> => {
+  await db.delete(reviews).where(eq(reviews.id, id));
+};
+
+/** Counts grouped by status — used by the admin overview cards. */
+export const getReviewStatusCounts = async (): Promise<Record<string, number>> => {
+  const rows = await db.select().from(reviews);
+  const counts: Record<string, number> = {
+    pending: 0,
+    approved: 0,
+    rejected: 0,
+    spam: 0,
+    total: rows.length,
+  };
+  rows.forEach((r) => {
+    const s = r.status || 'pending';
+    counts[s] = (counts[s] || 0) + 1;
+  });
+  return counts;
+};
+
+
+/* ─────────────────────────────────────────────────────────────────── */
+/*  Admin: tour & rental edits                                          */
+/* ─────────────────────────────────────────────────────────────────── */
+
+export interface TourUpdateInput {
+  priceIdr?: number;
+  durationHours?: number;
+  description?: string;
+  isActive?: boolean;
+  features?: string[];
+}
+
+/** Update editable fields of a tour package by slug. */
+export const updateTourPackage = async (
+  slug: string,
+  input: TourUpdateInput,
+) => {
+  const result = await db
+    .update(tourPackages)
+    .set({ ...input, updatedAt: new Date() })
+    .where(eq(tourPackages.slug, slug))
+    .returning();
+  return result[0] || null;
+};
+
+export interface RentalUpdateInput {
+  pricePerDayIdr?: number;
+  pricePerHourIdr?: number | null;
+  isAvailable?: boolean;
+  features?: string[];
+}
+
+/** Update editable fields of a rental service by slug. */
+export const updateRentalService = async (
+  slug: string,
+  input: RentalUpdateInput,
+) => {
+  const result = await db
+    .update(rentalServices)
+    .set({ ...input, updatedAt: new Date() })
+    .where(eq(rentalServices.slug, slug))
+    .returning();
+  return result[0] || null;
+};
