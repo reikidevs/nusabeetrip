@@ -352,3 +352,88 @@ export const updateRentalService = async (
     .returning();
   return result[0] || null;
 };
+
+
+/* ─────────────────────────────────────────────────────────────────── */
+/*  Admin: analytics aggregation                                        */
+/* ─────────────────────────────────────────────────────────────────── */
+
+export interface AnalyticsSummary {
+  totalViews: number;
+  viewsLast7: number;
+  viewsLast30: number;
+  topPages: { path: string; views: number }[];
+  topReferrers: { referrer: string; views: number }[];
+  dailySeries: { date: string; views: number }[];
+}
+
+/** Aggregate page-view analytics for the admin dashboard. */
+export const getAnalyticsSummary = async (): Promise<AnalyticsSummary> => {
+  const rows = await db.select().from(pageViews).orderBy(desc(pageViews.createdAt)).limit(20000);
+
+  const now = Date.now();
+  const DAY = 24 * 60 * 60 * 1000;
+  const since7 = now - 7 * DAY;
+  const since30 = now - 30 * DAY;
+
+  let viewsLast7 = 0;
+  let viewsLast30 = 0;
+  const pageCounts = new Map<string, number>();
+  const refCounts = new Map<string, number>();
+  const dailyCounts = new Map<string, number>();
+
+  // Seed the last 30 day buckets so the chart has continuous days.
+  for (let i = 29; i >= 0; i--) {
+    const d = new Date(now - i * DAY);
+    dailyCounts.set(d.toISOString().split('T')[0], 0);
+  }
+
+  for (const row of rows) {
+    const ts = row.createdAt ? new Date(row.createdAt).getTime() : 0;
+    if (ts >= since30) viewsLast30 += 1;
+    if (ts >= since7) viewsLast7 += 1;
+
+    const path = row.pagePath || '/';
+    pageCounts.set(path, (pageCounts.get(path) || 0) + 1);
+
+    // Normalize referrer to its hostname; treat empty as "Direct".
+    let ref = 'Direct';
+    if (row.referrer) {
+      try {
+        ref = new URL(row.referrer).hostname.replace(/^www\./, '') || 'Direct';
+      } catch {
+        ref = 'Direct';
+      }
+    }
+    refCounts.set(ref, (refCounts.get(ref) || 0) + 1);
+
+    if (ts >= since30) {
+      const key = new Date(ts).toISOString().split('T')[0];
+      if (dailyCounts.has(key)) dailyCounts.set(key, (dailyCounts.get(key) || 0) + 1);
+    }
+  }
+
+  const topPages = Array.from(pageCounts.entries())
+    .map(([path, views]) => ({ path, views }))
+    .sort((a, b) => b.views - a.views)
+    .slice(0, 12);
+
+  const topReferrers = Array.from(refCounts.entries())
+    .map(([referrer, views]) => ({ referrer, views }))
+    .sort((a, b) => b.views - a.views)
+    .slice(0, 8);
+
+  const dailySeries = Array.from(dailyCounts.entries()).map(([date, views]) => ({
+    date,
+    views,
+  }));
+
+  return {
+    totalViews: rows.length,
+    viewsLast7,
+    viewsLast30,
+    topPages,
+    topReferrers,
+    dailySeries,
+  };
+};

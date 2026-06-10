@@ -4,6 +4,7 @@ import './globals.css'
 import { Layout } from '@/components'
 import { LanguageProvider } from '@/lib/LanguageContext'
 import ExchangeRateProvider from '@/components/ExchangeRateProvider'
+import PageViewTracker from '@/components/PageViewTracker'
 import { JsonLd } from '@/components/seo'
 import {
   buildMetadata,
@@ -94,6 +95,7 @@ export default function RootLayout({
 
         <LanguageProvider>
           <ExchangeRateProvider />
+          <PageViewTracker />
           <Layout>
             {children}
           </Layout>

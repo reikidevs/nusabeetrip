@@ -41,6 +41,7 @@ export default function ReviewsManager() {
   const [replyingId, setReplyingId] = useState<number | null>(null);
   const [replyText, setReplyText] = useState('');
   const [error, setError] = useState('');
+  const [showAdd, setShowAdd] = useState(false);
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -119,24 +120,35 @@ export default function ReviewsManager() {
 
   return (
     <div>
-      {/* Filter tabs */}
-      <div className="flex flex-wrap gap-2 mb-5">
-        {tabs.map((t) => (
-          <button
-            key={t.key}
-            onClick={() => setFilter(t.key)}
-            className={`px-3.5 py-1.5 rounded-full text-sm font-semibold transition-colors ${
-              filter === t.key
-                ? 'bg-brand-blue-800 text-white'
-                : 'bg-white text-gray-600 border border-gray-200 hover:bg-gray-50'
-            }`}
-          >
-            {t.label}
-            <span className={`ml-1.5 ${filter === t.key ? 'text-white/70' : 'text-gray-400'}`}>
-              {counts[t.key]}
-            </span>
-          </button>
-        ))}
+      {/* Toolbar: filter tabs + add button */}
+      <div className="flex flex-wrap items-center justify-between gap-3 mb-5">
+        <div className="flex flex-wrap gap-2">
+          {tabs.map((t) => (
+            <button
+              key={t.key}
+              onClick={() => setFilter(t.key)}
+              className={`px-3.5 py-1.5 rounded-full text-sm font-semibold transition-colors ${
+                filter === t.key
+                  ? 'bg-brand-blue-800 text-white'
+                  : 'bg-white text-gray-600 border border-gray-200 hover:bg-gray-50'
+              }`}
+            >
+              {t.label}
+              <span className={`ml-1.5 ${filter === t.key ? 'text-white/70' : 'text-gray-400'}`}>
+                {counts[t.key]}
+              </span>
+            </button>
+          ))}
+        </div>
+        <button
+          onClick={() => setShowAdd(true)}
+          className="inline-flex items-center gap-1.5 bg-green-600 hover:bg-green-700 text-white text-sm font-semibold px-4 py-2 rounded-lg"
+        >
+          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+          </svg>
+          Add review
+        </button>
       </div>
 
       {error && (
@@ -310,6 +322,259 @@ export default function ReviewsManager() {
           ))}
         </div>
       )}
+
+      {showAdd && (
+        <AddReviewModal
+          onClose={() => setShowAdd(false)}
+          onSaved={() => {
+            setShowAdd(false);
+            load();
+          }}
+        />
+      )}
+    </div>
+  );
+}
+
+/* ─────────────────────────────────────────────────────────────────── */
+/*  Add review modal — for testimonials received via WhatsApp           */
+/* ─────────────────────────────────────────────────────────────────── */
+
+const COUNTRIES = [
+  { name: 'Indonesia', code: 'ID' },
+  { name: 'Australia', code: 'AU' },
+  { name: 'United States', code: 'US' },
+  { name: 'United Kingdom', code: 'GB' },
+  { name: 'Germany', code: 'DE' },
+  { name: 'France', code: 'FR' },
+  { name: 'Netherlands', code: 'NL' },
+  { name: 'Japan', code: 'JP' },
+  { name: 'South Korea', code: 'KR' },
+  { name: 'Singapore', code: 'SG' },
+  { name: 'Malaysia', code: 'MY' },
+  { name: 'China', code: 'CN' },
+  { name: 'Other', code: 'XX' },
+];
+
+const TOURS = [
+  'West Trip',
+  'East Trip',
+  'Mix Trip (West & East)',
+  'West Trip + Snorkeling',
+  'East Trip + Snorkeling',
+  "Snorkeling with Manta Ray's",
+  'Yamaha N-Max Rental',
+  'Honda Vario Rental',
+  'Honda Scoopy Rental',
+  'Car with Driver',
+];
+
+function AddReviewModal({
+  onClose,
+  onSaved,
+}: {
+  onClose: () => void;
+  onSaved: () => void;
+}) {
+  const [rating, setRating] = useState(5);
+  const [name, setName] = useState('');
+  const [countryCode, setCountryCode] = useState('');
+  const [country, setCountry] = useState('');
+  const [tour, setTour] = useState('');
+  const [title, setTitle] = useState('');
+  const [body, setBody] = useState('');
+  const [language, setLanguage] = useState<'en' | 'id'>('en');
+  const [featured, setFeatured] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const [err, setErr] = useState('');
+
+  const submit = async () => {
+    setErr('');
+    if (!name.trim() || body.trim().length < 10) {
+      setErr('Name and a review of at least 10 characters are required.');
+      return;
+    }
+    setSaving(true);
+    try {
+      const res = await fetch('/api/admin/reviews', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          authorName: name,
+          authorCountry: country || undefined,
+          authorCountryCode: countryCode || undefined,
+          rating,
+          title: title || undefined,
+          body,
+          language,
+          tourName: tour || undefined,
+          source: 'whatsapp',
+          isFeatured: featured,
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.errors?.join(', ') || data.error || 'Save failed');
+      }
+      onSaved();
+    } catch (e) {
+      setErr(e instanceof Error ? e.message : 'Save failed');
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  return (
+    <div
+      className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/50 overflow-y-auto"
+      onClick={onClose}
+    >
+      <div
+        className="bg-white rounded-2xl shadow-2xl w-full max-w-lg my-8 max-h-[calc(100vh-4rem)] overflow-y-auto"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="sticky top-0 bg-white border-b border-gray-100 px-5 py-4 flex items-center justify-between rounded-t-2xl">
+          <h2 className="font-bold text-gray-900">Add a review</h2>
+          <button onClick={onClose} className="text-gray-400 hover:text-gray-600 w-8 h-8 rounded-full hover:bg-gray-100 flex items-center justify-center">
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+
+        <div className="p-5 space-y-4">
+          <p className="text-xs text-gray-500 bg-gray-50 rounded-lg p-3">
+            Use this to add testimonials guests sent you over WhatsApp. They are
+            published and verified immediately, and count toward the star rating
+            shown in Google.
+          </p>
+
+          {/* Rating */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1.5">Rating</label>
+            <div className="flex gap-1">
+              {[1, 2, 3, 4, 5].map((s) => (
+                <button
+                  key={s}
+                  type="button"
+                  onClick={() => setRating(s)}
+                  className={`w-9 h-9 text-2xl ${s <= rating ? 'text-amber-400' : 'text-gray-200'}`}
+                >
+                  ★
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div className="grid sm:grid-cols-2 gap-3">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1.5">Name *</label>
+              <input
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder="e.g. Sarah M."
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-brand-blue-500 focus:border-brand-blue-500 outline-none"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1.5">Country</label>
+              <select
+                value={countryCode}
+                onChange={(e) => {
+                  setCountryCode(e.target.value);
+                  setCountry(COUNTRIES.find((c) => c.code === e.target.value)?.name || '');
+                }}
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm bg-white focus:ring-2 focus:ring-brand-blue-500 focus:border-brand-blue-500 outline-none"
+              >
+                <option value="">Select…</option>
+                {COUNTRIES.map((c) => (
+                  <option key={c.code} value={c.code}>{c.name}</option>
+                ))}
+              </select>
+            </div>
+          </div>
+
+          <div className="grid sm:grid-cols-2 gap-3">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1.5">Tour / service</label>
+              <select
+                value={tour}
+                onChange={(e) => setTour(e.target.value)}
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm bg-white focus:ring-2 focus:ring-brand-blue-500 focus:border-brand-blue-500 outline-none"
+              >
+                <option value="">Select…</option>
+                {TOURS.map((t) => (
+                  <option key={t} value={t}>{t}</option>
+                ))}
+              </select>
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1.5">Language</label>
+              <select
+                value={language}
+                onChange={(e) => setLanguage(e.target.value as 'en' | 'id')}
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm bg-white focus:ring-2 focus:ring-brand-blue-500 focus:border-brand-blue-500 outline-none"
+              >
+                <option value="en">English</option>
+                <option value="id">Bahasa Indonesia</option>
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1.5">Title (optional)</label>
+            <input
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              placeholder="Short summary"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-brand-blue-500 focus:border-brand-blue-500 outline-none"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1.5">Review *</label>
+            <textarea
+              value={body}
+              onChange={(e) => setBody(e.target.value)}
+              rows={4}
+              placeholder="Paste the guest's words here…"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-brand-blue-500 focus:border-brand-blue-500 outline-none resize-y"
+            />
+          </div>
+
+          <label className="flex items-center gap-2 text-sm text-gray-700">
+            <input
+              type="checkbox"
+              checked={featured}
+              onChange={(e) => setFeatured(e.target.checked)}
+              className="rounded border-gray-300"
+            />
+            Pin to top of reviews
+          </label>
+
+          {err && (
+            <div className="bg-red-50 border border-red-200 text-red-700 px-3 py-2 rounded-lg text-sm">
+              {err}
+            </div>
+          )}
+
+          <div className="flex gap-2 pt-2">
+            <button
+              onClick={onClose}
+              className="px-4 py-2 text-sm font-medium text-gray-600 border border-gray-300 rounded-lg hover:bg-gray-50"
+            >
+              Cancel
+            </button>
+            <button
+              onClick={submit}
+              disabled={saving}
+              className="flex-1 bg-brand-blue-800 hover:bg-brand-blue-700 text-white text-sm font-semibold py-2 rounded-lg disabled:opacity-50"
+            >
+              {saving ? 'Saving…' : 'Publish review'}
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
