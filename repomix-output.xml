@@ -1,0 +1,5332 @@
+This file is a merged representation of the entire codebase, combined into a single document by Repomix.
+The content has been processed where content has been compressed (code blocks are separated by ⋮---- delimiter).
+
+<file_summary>
+This section contains a summary of this file.
+
+<purpose>
+This file contains a packed representation of the entire repository's contents.
+It is designed to be easily consumable by AI systems for analysis, code review,
+or other automated processes.
+</purpose>
+
+<file_format>
+The content is organized as follows:
+1. This summary section
+2. Repository information
+3. Directory structure
+4. Repository files (if enabled)
+5. Multiple file entries, each consisting of:
+  - File path as an attribute
+  - Full contents of the file
+</file_format>
+
+<usage_guidelines>
+- This file should be treated as read-only. Any changes should be made to the
+  original repository files, not this packed version.
+- When processing this file, use the file path to distinguish
+  between different files in the repository.
+- Be aware that this file may contain sensitive information. Handle it with
+  the same level of security as you would the original repository.
+</usage_guidelines>
+
+<notes>
+- Some files may have been excluded based on .gitignore rules and Repomix's configuration
+- Binary files are not included in this packed representation. Please refer to the Repository Structure section for a complete list of file paths, including binary files
+- Files matching patterns in .gitignore are excluded
+- Files matching default ignore patterns are excluded
+- Content has been compressed - code blocks are separated by ⋮---- delimiter
+- Files are sorted by Git change count (files with more changes are at the bottom)
+</notes>
+
+</file_summary>
+
+<directory_structure>
+.env.example
+.eslintrc.json
+.gitignore
+drizzle.config.ts
+drizzle/0001_add_reviews_table.sql
+jest.config.js
+jest.setup.js
+next.config.js
+package.json
+postcss.config.js
+public/images/East Trip/East trip ATUH BEACH.jpeg
+public/images/East Trip/East Trip Diamond Beach 2.jpeg
+public/images/East Trip/East Trip Diamond Beach 3.jpeg
+public/images/East Trip/East Trip Diamond Beach 5.jpeg
+public/images/East Trip/East Trip Diamond Beach Snorkeling.png
+public/images/East Trip/East trip DIAMOND BEACH.jpeg
+public/images/East Trip/East trip TREE HOUSE.jpeg
+public/images/East Trip/East trip VIEW THOUSAND ISLAND.jpeg
+public/images/Mix Trip View Thoussand Island and Crystal bay Beach.png
+public/images/NusaBeeTrip-Logo-final.png
+public/images/NusaBeeTrip-Logo.png
+public/images/placeholder-tour.svg
+public/images/Snorkeling + Manta Rays/snorkeling 1.jpeg
+public/images/Snorkeling + Manta Rays/snorkeling 2.jpeg
+public/images/Snorkeling + Manta Rays/snorkeling 3.jpeg
+public/images/Snorkeling + Manta Rays/snorkeling 4.jpeg
+public/images/Snorkeling + Manta Rays/snorkeling 5.jpeg
+public/images/Souvenir Nusa Penida/WhatsApp Image 2026-04-24 at 18.36.37.jpeg
+public/images/Souvenir Nusa Penida/WhatsApp Image 2026-04-24 at 18.36.39.jpeg
+public/images/Souvenir Nusa Penida/WhatsApp Image 2026-04-24 at 18.36.40 (1).jpeg
+public/images/Souvenir Nusa Penida/WhatsApp Image 2026-04-24 at 18.36.40.jpeg
+public/images/Souvenir Nusa Penida/WhatsApp Image 2026-04-24 at 18.36.41 (1).jpeg
+public/images/Souvenir Nusa Penida/WhatsApp Image 2026-04-24 at 18.36.41.jpeg
+public/images/Souvenir Nusa Penida/WhatsApp Image 2026-04-24 at 18.36.42.jpeg
+public/images/Souvenir Nusa Penida/WhatsApp Image 2026-04-24 at 18.36.43 (1).jpeg
+public/images/Souvenir Nusa Penida/WhatsApp Image 2026-04-24 at 18.36.43.jpeg
+public/images/Vehicle Rentals/Car with Driver.jpg
+public/images/Vehicle Rentals/Honda Scoopy.webp
+public/images/Vehicle Rentals/Honda Vario.png
+public/images/Vehicle Rentals/Yamaha N-Max.webp
+public/images/West Trip/West trip  kelingking beach.jpeg
+public/images/West Trip/West trip ANGEL BILABONG.jpeg
+public/images/West Trip/West Trip Broken Beach 2.jpeg
+public/images/West Trip/West Trip Broken Beach 3.jpeg
+public/images/West Trip/West Trip Broken Beach 4.jpeg
+public/images/West Trip/West trip BROKEN BEACH.jpeg
+public/images/West Trip/West Trip Crystal Bay Beach 2.jpeg
+public/images/West Trip/West Trip Crystal Bay Beach 3.jpeg
+public/images/West Trip/West Trip Crystal Bay Beach 4.jpeg
+public/images/West Trip/West Trip Crystal Bay Beach 5.jpeg
+public/images/West Trip/West trip CRYSTAL BAY BEACH.jpeg
+public/images/West Trip/West trip Kelingking Beach 2.jpeg
+public/images/West Trip/West trip Kelingking Beach 3.jpeg
+public/images/West Trip/West Trip Kelingking Beach 4.jpeg
+public/images/West Trip/West Trip Kelingking Beach 5.jpeg
+public/images/West Trip/West Trip Kelingking Beach 6.jpeg
+public/images/West Trip/West Trip Kelingking Beach 7.jpeg
+public/images/West Trip/West Trip Kelingking Manta Snorkeling.png
+README.md
+scripts/db/check-reviews.ts
+scripts/db/check-tours.ts
+scripts/db/fix-snorkel-tour-duration.ts
+scripts/db/list-tables.ts
+scripts/db/migrate-missing-tables.ts
+scripts/db/moderate-review.ts
+scripts/db/push-prod.ts
+scripts/db/README.md
+scripts/db/seed-reviews.ts
+scripts/db/seed.ts
+src/app/about/AboutPageContent.tsx
+src/app/about/page.tsx
+src/app/admin/AdminShell.tsx
+src/app/admin/analytics/page.tsx
+src/app/admin/inquiries/page.tsx
+src/app/admin/layout.tsx
+src/app/admin/login/LoginForm.tsx
+src/app/admin/login/page.tsx
+src/app/admin/page.tsx
+src/app/admin/rentals/page.tsx
+src/app/admin/rentals/RentalsManager.tsx
+src/app/admin/reviews/page.tsx
+src/app/admin/reviews/ReviewsManager.tsx
+src/app/admin/seo/page.tsx
+src/app/admin/tours/page.tsx
+src/app/admin/tours/ToursManager.tsx
+src/app/api/admin/login/route.ts
+src/app/api/admin/logout/route.ts
+src/app/api/admin/rentals/route.ts
+src/app/api/admin/reviews/route.ts
+src/app/api/admin/tours/route.ts
+src/app/api/contact/route.ts
+src/app/api/reviews/route.ts
+src/app/api/track/route.ts
+src/app/contact/ContactPageContent.tsx
+src/app/contact/page.tsx
+src/app/demo/page.tsx
+src/app/destinations/[slug]/DestinationContent.tsx
+src/app/destinations/[slug]/opengraph-image.tsx
+src/app/destinations/[slug]/page.tsx
+src/app/destinations/page.tsx
+src/app/globals.css
+src/app/guides/[slug]/GuideContent.tsx
+src/app/guides/[slug]/page.tsx
+src/app/guides/page.tsx
+src/app/image-sitemap.xml/route.ts
+src/app/layout.tsx
+src/app/manifest.ts
+src/app/not-found.tsx
+src/app/opengraph-image.tsx
+src/app/page.tsx
+src/app/rentals/[slug]/page.tsx
+src/app/rentals/[slug]/RentalDetailContent.tsx
+src/app/rentals/page.tsx
+src/app/rentals/RentalsPageContent.tsx
+src/app/robots.ts
+src/app/sitemap.ts
+src/app/souvenirs/page.tsx
+src/app/souvenirs/SouvenirsPageContent.tsx
+src/app/tours/[slug]/opengraph-image.tsx
+src/app/tours/[slug]/page.tsx
+src/app/tours/[slug]/TourDetailContent.tsx
+src/app/tours/page.tsx
+src/app/tours/ToursPageContent.tsx
+src/components/business/__tests__/RentalServiceCard.test.tsx
+src/components/business/__tests__/RentalServiceGrid.test.tsx
+src/components/business/__tests__/TourPackageCard.test.tsx
+src/components/business/__tests__/TourPackageGrid.test.tsx
+src/components/business/__tests__/WhatsAppBookingButton.test.tsx
+src/components/business/index.ts
+src/components/business/RentalServiceCard.tsx
+src/components/business/RentalServiceDetail.tsx
+src/components/business/RentalServiceGrid.tsx
+src/components/business/ReviewForm.tsx
+src/components/business/SouvenirCard.tsx
+src/components/business/SouvenirGrid.tsx
+src/components/business/Testimonials.tsx
+src/components/business/TourImage.tsx
+src/components/business/TourPackageCard.tsx
+src/components/business/TourPackageDetail.tsx
+src/components/business/TourPackageGrid.tsx
+src/components/business/WhatsAppBookingButton.tsx
+src/components/ExchangeRateProvider.tsx
+src/components/forms/index.ts
+src/components/index.ts
+src/components/layout/__tests__/Footer.test.tsx
+src/components/layout/__tests__/Header.test.tsx
+src/components/layout/__tests__/Layout.test.tsx
+src/components/layout/__tests__/Navigation.test.tsx
+src/components/layout/Footer.tsx
+src/components/layout/Header.tsx
+src/components/layout/index.ts
+src/components/layout/Layout.tsx
+src/components/layout/Navigation.tsx
+src/components/PageViewTracker.tsx
+src/components/README.md
+src/components/seo/BreadcrumbNav.tsx
+src/components/seo/HomepageSEO.tsx
+src/components/seo/index.ts
+src/components/seo/JsonLd.tsx
+src/components/ui/index.ts
+src/lib/__tests__/whatsapp.test.ts
+src/lib/admin/auth.ts
+src/lib/analytics.ts
+src/lib/constants.ts
+src/lib/currency.ts
+src/lib/db/config.ts
+src/lib/db/index.ts
+src/lib/db/queries.ts
+src/lib/db/schema.ts
+src/lib/destinations.ts
+src/lib/env.ts
+src/lib/exchange-rate.ts
+src/lib/guides.ts
+src/lib/hooks/useActiveSection.ts
+src/lib/image-resolver.ts
+src/lib/LanguageContext.tsx
+src/lib/reviews-server.ts
+src/lib/seo.ts
+src/lib/site-config.ts
+src/lib/testimonials.ts
+src/lib/translations.ts
+src/lib/utils.ts
+src/lib/whatsapp.ts
+src/middleware.ts
+src/styles/__tests__/brand-colors.test.ts
+src/styles/components.css
+src/styles/README.md
+src/styles/utilities.css
+src/styles/variables.css
+src/types/index.ts
+tailwind.config.js
+tsconfig.json
+vercel.json
+</directory_structure>
+
+<files>
+This section contains the contents of the repository's files.
+
+<file path=".eslintrc.json">
+{
+  "extends": ["next/core-web-vitals"]
+}
+</file>
+
+<file path="drizzle.config.ts">
+import type { Config } from 'drizzle-kit';
+import { config } from 'dotenv';
+⋮----
+// Load environment variables
+</file>
+
+<file path="drizzle/0001_add_reviews_table.sql">
+-- Reviews / Testimonials table — Google-style guest reviews
+-- Run this on your existing Neon database.
+-- Safe to run multiple times (uses IF NOT EXISTS).
+
+CREATE TABLE IF NOT EXISTS "reviews" (
+	"id" serial PRIMARY KEY NOT NULL,
+
+	-- Reviewer info
+	"author_name" varchar(255) NOT NULL,
+	"author_email" varchar(255),
+	"author_phone" varchar(50),
+	"author_country" varchar(100),
+	"author_country_code" varchar(2),
+	"author_photo_url" varchar(500),
+
+	-- Review content
+	"rating" integer NOT NULL,
+	"title" varchar(255),
+	"body" text NOT NULL,
+	"language" varchar(5) DEFAULT 'en',
+
+	-- Tour reference
+	"tour_slug" varchar(255),
+	"tour_name" varchar(255),
+	"service_type" varchar(50),
+
+	-- Photos (JSON array)
+	"photos" jsonb DEFAULT '[]'::jsonb,
+
+	-- Moderation
+	"status" varchar(20) DEFAULT 'pending' NOT NULL,
+	"moderated_at" timestamp,
+	"moderated_by" varchar(100),
+	"rejection_reason" text,
+
+	-- Source tracking
+	"source" varchar(50) DEFAULT 'website',
+	"ip_address" inet,
+	"user_agent" text,
+
+	-- Google integration (for future sync)
+	"google_review_id" varchar(255),
+	"google_review_url" varchar(500),
+	"synced_to_google" boolean DEFAULT false,
+
+	-- Engagement
+	"helpful_count" integer DEFAULT 0,
+	"is_featured" boolean DEFAULT false,
+	"is_verified" boolean DEFAULT false,
+
+	-- Owner response
+	"owner_response" text,
+	"owner_responded_at" timestamp,
+
+	-- Timestamps
+	"created_at" timestamp DEFAULT now(),
+	"updated_at" timestamp DEFAULT now(),
+
+	-- Rating must be between 1 and 5
+	CONSTRAINT "reviews_rating_check" CHECK (rating >= 1 AND rating <= 5),
+	CONSTRAINT "reviews_status_check" CHECK (status IN ('pending', 'approved', 'rejected', 'spam'))
+);
+
+-- Indexes for fast queries
+CREATE INDEX IF NOT EXISTS "idx_reviews_status" ON "reviews"("status");
+CREATE INDEX IF NOT EXISTS "idx_reviews_language" ON "reviews"("language");
+CREATE INDEX IF NOT EXISTS "idx_reviews_tour_slug" ON "reviews"("tour_slug");
+CREATE INDEX IF NOT EXISTS "idx_reviews_created_at" ON "reviews"("created_at" DESC);
+CREATE INDEX IF NOT EXISTS "idx_reviews_featured" ON "reviews"("is_featured") WHERE "is_featured" = true;
+
+-- Comment for documentation
+COMMENT ON TABLE "reviews" IS 'Customer reviews and testimonials. Style mirrors Google Business Profile reviews. The google_review_id column is reserved for future Google API sync.';
+</file>
+
+<file path="jest.config.js">
+// Provide the path to your Next.js app to load next.config.js and .env files
+⋮----
+// Add any custom config to be passed to Jest
+⋮----
+// createJestConfig is exported this way to ensure that next/jest can load the Next.js config which is async
+</file>
+
+<file path="jest.setup.js">
+// Mock IntersectionObserver
+global.IntersectionObserver = class IntersectionObserver {
+⋮----
+disconnect()
+observe()
+unobserve()
+⋮----
+// Mock ResizeObserver
+global.ResizeObserver = class ResizeObserver {
+⋮----
+// Mock matchMedia
+⋮----
+addListener: jest.fn(), // deprecated
+removeListener: jest.fn(), // deprecated
+</file>
+
+<file path="postcss.config.js">
+
+</file>
+
+<file path="public/images/placeholder-tour.svg">
+<svg width="400" height="300" viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="400" height="300" fill="#F3F4F6"/>
+  <rect x="150" y="100" width="100" height="80" rx="8" fill="#D1D5DB"/>
+  <circle cx="175" cy="125" r="15" fill="#9CA3AF"/>
+  <path d="M160 160L175 145L190 160V170H160V160Z" fill="#9CA3AF"/>
+  <text x="200" y="200" font-family="Arial, sans-serif" font-size="16" fill="#6B7280" text-anchor="middle">Nusa Penida Tour</text>
+  <text x="200" y="220" font-family="Arial, sans-serif" font-size="12" fill="#9CA3AF" text-anchor="middle">Image Coming Soon</text>
+</svg>
+</file>
+
+<file path="scripts/db/check-reviews.ts">
+/**
+ * Quick check — list all reviews in DB by status.
+ *
+ * Run:
+ *   npx tsx src/lib/db/check-reviews.ts          (dev)
+ *   npx tsx src/lib/db/check-reviews.ts prod     (prod)
+ */
+⋮----
+import { config } from 'dotenv';
+⋮----
+import { neon } from '@neondatabase/serverless';
+⋮----
+async function main()
+⋮----
+// Group by status
+</file>
+
+<file path="scripts/db/check-tours.ts">
+/**
+ * Print all tour packages in a database with their canonical fields.
+ * Run: npx tsx scripts/db/check-tours.ts [prod|dev]
+ */
+⋮----
+import { config } from 'dotenv';
+⋮----
+import { neon } from '@neondatabase/serverless';
+⋮----
+async function main()
+</file>
+
+<file path="scripts/db/fix-snorkel-tour-duration.ts">
+/**
+ * Fix duration for West/East Trip + Snorkeling: 10 -> 8 hours.
+ *
+ * Reason: tours that combine a single direction trip plus a manta snorkeling
+ * stop fit within a normal 8-hour day. The 10-hour value did not match the
+ * actual operations and was confusing guests.
+ *
+ * Run:
+ *   npx tsx scripts/db/fix-snorkel-tour-duration.ts            (dev)
+ *   npx tsx scripts/db/fix-snorkel-tour-duration.ts prod       (prod, asks confirm)
+ */
+⋮----
+import { config } from 'dotenv';
+⋮----
+import { neon } from '@neondatabase/serverless';
+⋮----
+async function main()
+⋮----
+// Show current values
+</file>
+
+<file path="scripts/db/list-tables.ts">
+/**
+ * Quick utility to list all tables in a database.
+ * Run: npx tsx src/lib/db/list-tables.ts
+ *      npx tsx src/lib/db/list-tables.ts prod   (uses DATABASE_URL_PROD)
+ *      npx tsx src/lib/db/list-tables.ts <CONNECTION_STRING>
+ */
+⋮----
+import { config } from 'dotenv';
+⋮----
+import { neon } from '@neondatabase/serverless';
+⋮----
+async function listTables()
+⋮----
+// Use tagged template literal — sql.unsafe() doesn't auto-execute
+</file>
+
+<file path="scripts/db/migrate-missing-tables.ts">
+/**
+ * Safe migration: ONLY adds missing tables, never touches existing data.
+ *
+ * Use this when:
+ * - You have an existing prod database with old schema
+ * - You want to add new tables (reviews, page_views, contact_inquiries) without
+ *   risking data loss from drizzle-kit's interactive prompts
+ *
+ * Run:
+ *   npm run db:migrate-missing          (uses DATABASE_URL = dev)
+ *   npm run db:migrate-missing:prod     (uses DATABASE_URL_PROD)
+ */
+⋮----
+import { config } from 'dotenv';
+⋮----
+import { neon, NeonQueryFunction } from '@neondatabase/serverless';
+⋮----
+/**
+ * Execute a raw SQL string via the Neon driver.
+ * The Neon serverless driver's tagged template literal evaluates immediately,
+ * but `sql.unsafe()` only returns a wrapper. We use the tagged template
+ * with a single-element array workaround.
+ */
+async function execRaw(sql: NeonQueryFunction<false, false>, query: string): Promise<unknown[]>
+⋮----
+// Build a TemplateStringsArray-like object so the tagged template path is taken
+⋮----
+async function main()
+⋮----
+// Check what's missing
+⋮----
+// Confirmation for prod
+⋮----
+// Execute migrations
+⋮----
+// Add reviews indexes if reviews was just created
+⋮----
+// Verify
+</file>
+
+<file path="scripts/db/moderate-review.ts">
+/**
+ * Quick moderation tool — approve, reject, feature, or delete a review.
+ *
+ * Usage:
+ *   npx tsx src/lib/db/moderate-review.ts <action> <id> [target]
+ *
+ *   action: approve | reject | spam | feature | unfeature | delete
+ *   id: review ID (number)
+ *   target: 'prod' or 'dev' (default: dev)
+ *
+ * Examples:
+ *   npx tsx src/lib/db/moderate-review.ts approve 7 prod
+ *   npx tsx src/lib/db/moderate-review.ts feature 1
+ *   npx tsx src/lib/db/moderate-review.ts reject 12 prod
+ *   npx tsx src/lib/db/moderate-review.ts delete 13 prod
+ */
+⋮----
+import { config } from 'dotenv';
+⋮----
+import { neon } from '@neondatabase/serverless';
+⋮----
+async function main()
+⋮----
+// Fetch current review
+</file>
+
+<file path="scripts/db/push-prod.ts">
+/**
+ * Push schema to PRODUCTION database safely.
+ *
+ * - Reads DATABASE_URL_PROD from .env.local
+ * - Sets DATABASE_URL = DATABASE_URL_PROD before invoking drizzle-kit
+ * - Asks for confirmation before destructive changes
+ *
+ * Run: npm run db:push:prod
+ */
+⋮----
+import { config } from 'dotenv';
+⋮----
+import { spawn } from 'child_process';
+⋮----
+async function main()
+⋮----
+// Mask password for logging
+⋮----
+// Confirmation prompt
+⋮----
+// Spawn drizzle-kit push with DATABASE_URL set to PROD
+</file>
+
+<file path="scripts/db/README.md">
+# Database operations
+
+CLI scripts for inspecting and maintaining the Neon database. They are not bundled with the app — only run them locally with `tsx`.
+
+All scripts read connection details from `.env.local`:
+
+- `DATABASE_URL` — development branch (default target)
+- `DATABASE_URL_PROD` — production branch (used when you pass `prod` as an argument)
+
+## Inspection
+
+`list-tables.ts` — show tables and row counts on a branch.
+
+```bash
+npm run db:list-tables          # dev
+npm run db:list-tables:prod     # prod
+```
+
+`check-reviews.ts` — list every review grouped by status (`pending`, `approved`, `rejected`, `spam`).
+
+```bash
+npm run db:check-reviews
+npm run db:check-reviews:prod
+```
+
+## Migration
+
+`migrate-missing-tables.ts` — safely add any missing tables (`reviews`, `page_views`, `contact_inquiries`) without touching existing data. Useful for older databases that were created before those tables existed.
+
+```bash
+npm run db:migrate-missing            # dev
+npm run db:migrate-missing:prod       # prod (asks for confirmation)
+```
+
+`push-prod.ts` — wraps `drizzle-kit push` against the production URL with an extra confirmation step. Prefer `migrate-missing-tables.ts` for additive changes.
+
+```bash
+npm run db:push:prod
+```
+
+For day-to-day dev schema changes, use `npm run db:push` (Drizzle's standard command).
+
+## Seeding
+
+`seed.ts` — populate `tour_packages`, `rental_services`, and `seo_data` with the canonical content set. Idempotent (uses `onConflictDoNothing`).
+
+```bash
+npm run db:seed
+```
+
+`seed-reviews.ts` — load the static testimonials from `src/lib/testimonials.ts` into the `reviews` table with status `approved`. Skips duplicates by name + body.
+
+```bash
+npm run db:seed-reviews
+npm run db:seed-reviews:prod
+```
+
+## Review moderation
+
+`moderate-review.ts` — approve, reject, feature, unfeature, mark as spam, or delete a review by ID.
+
+```bash
+# Format: <action> <id> [prod|dev]
+npx tsx scripts/db/moderate-review.ts approve 12 prod
+npx tsx scripts/db/moderate-review.ts reject 13 prod "off-topic"
+npx tsx scripts/db/moderate-review.ts feature 1
+npx tsx scripts/db/moderate-review.ts delete 99 prod
+```
+
+Approving sets `status = 'approved'`, stamps `moderated_at`, and flags `is_verified = true`.
+
+## Notes
+
+- These scripts use the Neon HTTP driver. Some PostgreSQL DDL needs the tagged template form (`sql\`CREATE TABLE ...\``) rather than `sql.unsafe()`, which only returns a wrapper object. The migration script uses a small helper to handle this.
+- Production scripts always print which host they target and require typed confirmation before running.
+- If something looks wrong, run the matching `*list-tables*` or `*check-reviews*` script — they are read-only.
+</file>
+
+<file path="scripts/db/seed-reviews.ts">
+/**
+ * Seed script: load static testimonials into the reviews table.
+ *
+ * Run:
+ *   npm run db:seed-reviews            (uses DATABASE_URL = dev)
+ *   npm run db:seed-reviews:prod       (uses DATABASE_URL_PROD)
+ *
+ * Idempotent: skips duplicates by author_name + body.
+ */
+⋮----
+import { config } from 'dotenv';
+⋮----
+import { neon } from '@neondatabase/serverless';
+import { drizzle } from 'drizzle-orm/neon-http';
+import { eq, and } from 'drizzle-orm';
+⋮----
+import { reviews } from '../../src/lib/db/schema';
+import { TESTIMONIALS } from '../../src/lib/testimonials';
+⋮----
+async function main()
+⋮----
+// Confirmation for prod
+</file>
+
+<file path="src/app/admin/analytics/page.tsx">
+import { getAnalyticsSummary, type AnalyticsSummary } from '@/lib/db/queries';
+⋮----
+{/* Stat cards */}
+⋮----
+{/* Daily chart */}
+⋮----
+{/* Top pages */}
+⋮----
+{/* Referrers */}
+</file>
+
+<file path="src/app/admin/inquiries/page.tsx">
+import { getContactInquiries } from '@/lib/db/queries';
+⋮----
+export default async function AdminInquiriesPage()
+</file>
+
+<file path="src/app/admin/layout.tsx">
+import type { Metadata } from 'next';
+import AdminShell from './AdminShell';
+⋮----
+/**
+ * Admin layout. The login page renders without the shell (it checks the
+ * pathname inside AdminShell), every other admin route gets the sidebar.
+ */
+export default function AdminLayout(
+</file>
+
+<file path="src/app/admin/login/LoginForm.tsx">
+import { useState, FormEvent } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
+⋮----
+const handleSubmit = async (e: FormEvent) =>
+⋮----
+// Full navigation so the middleware re-evaluates with the new cookie.
+</file>
+
+<file path="src/app/admin/login/page.tsx">
+import type { Metadata } from 'next';
+import { Suspense } from 'react';
+import LoginForm from './LoginForm';
+</file>
+
+<file path="src/app/admin/page.tsx">
+import Link from 'next/link';
+import {
+  getReviewStatusCounts,
+  getReviewStats,
+  getContactInquiries,
+  getAllReviews,
+} from '@/lib/db/queries';
+import { TOUR_PACKAGES, RENTAL_SERVICES } from '@/lib/constants';
+import { DESTINATIONS } from '@/lib/destinations';
+import { getAllGuides } from '@/lib/guides';
+⋮----
+async function loadData()
+⋮----
+7 + // static pages
+⋮----
+{/* Stat cards */}
+⋮----
+{/* Recent reviews */}
+⋮----
+{/* Quick links */}
+</file>
+
+<file path="src/app/admin/rentals/page.tsx">
+import RentalsManager from './RentalsManager';
+⋮----
+export default function AdminRentalsPage()
+</file>
+
+<file path="src/app/admin/rentals/RentalsManager.tsx">
+import { useState, useEffect, useCallback } from 'react';
+⋮----
+interface Rental {
+  id: number;
+  slug: string;
+  model: string;
+  vehicleType: string;
+  pricePerDayIdr: number;
+  pricePerHourIdr: number | null;
+  isAvailable: boolean | null;
+}
+⋮----
+setSavedSlug(r.slug);
+setTimeout(()
+load();
+⋮----
+const save = async () =>
+</file>
+
+<file path="src/app/admin/reviews/page.tsx">
+import { Suspense } from 'react';
+import ReviewsManager from './ReviewsManager';
+</file>
+
+<file path="src/app/admin/seo/page.tsx">
+import Link from 'next/link';
+import { SITE, absoluteUrl } from '@/lib/site-config';
+import { TOUR_PACKAGES, RENTAL_SERVICES } from '@/lib/constants';
+import { DESTINATIONS } from '@/lib/destinations';
+import { getAllGuides } from '@/lib/guides';
+import { getReviewStats } from '@/lib/db/queries';
+⋮----
+interface PageRow {
+  path: string;
+  type: string;
+  hasSchema: boolean;
+  note: string;
+}
+⋮----
+// DB unreachable — show zeros
+⋮----
+// Build the page inventory grouped by type.
+⋮----
+{/* Top metrics */}
+⋮----
+{/* Checklist */}
+⋮----
+{/* Page inventory */}
+⋮----
+href=
+</file>
+
+<file path="src/app/admin/tours/page.tsx">
+import ToursManager from './ToursManager';
+⋮----
+export default function AdminToursPage()
+</file>
+
+<file path="src/app/admin/tours/ToursManager.tsx">
+import { useState, useEffect, useCallback } from 'react';
+⋮----
+interface Tour {
+  id: number;
+  slug: string;
+  name: string;
+  description: string | null;
+  priceIdr: number;
+  durationHours: number | null;
+  isActive: boolean | null;
+  features: unknown;
+}
+⋮----
+setSavedSlug(t.slug);
+setTimeout(()
+load();
+</file>
+
+<file path="src/app/api/admin/login/route.ts">
+import { NextRequest, NextResponse } from 'next/server';
+import { checkPassword, createSession } from '@/lib/admin/auth';
+⋮----
+/** Simple rate-limit memory store (per server instance). */
+⋮----
+const WINDOW_MS = 15 * 60 * 1000; // 15 minutes
+⋮----
+function rateLimited(ip: string): boolean
+⋮----
+export async function POST(request: NextRequest)
+⋮----
+// Reset rate-limit on success.
+</file>
+
+<file path="src/app/api/admin/logout/route.ts">
+import { NextResponse } from 'next/server';
+import { destroySession } from '@/lib/admin/auth';
+⋮----
+export async function POST()
+</file>
+
+<file path="src/app/api/admin/rentals/route.ts">
+import { NextRequest, NextResponse } from 'next/server';
+import { isAuthenticated } from '@/lib/admin/auth';
+import { getRentalServices, updateRentalService } from '@/lib/db/queries';
+⋮----
+function guard(): NextResponse | null
+⋮----
+export async function GET()
+⋮----
+export async function PATCH(request: NextRequest)
+</file>
+
+<file path="src/app/api/admin/tours/route.ts">
+import { NextRequest, NextResponse } from 'next/server';
+import { isAuthenticated } from '@/lib/admin/auth';
+import { getTourPackages, updateTourPackage } from '@/lib/db/queries';
+⋮----
+function guard(): NextResponse | null
+⋮----
+export async function GET()
+⋮----
+export async function PATCH(request: NextRequest)
+</file>
+
+<file path="src/app/api/contact/route.ts">
+import { NextRequest, NextResponse } from 'next/server';
+⋮----
+export async function POST(request: NextRequest)
+⋮----
+// Validate required fields
+⋮----
+// Email validation
+⋮----
+// TODO: Implement email sending and database storage in later tasks
+</file>
+
+<file path="src/app/api/track/route.ts">
+import { NextRequest, NextResponse } from 'next/server';
+import { trackPageView } from '@/lib/db/queries';
+⋮----
+/**
+ * First-party, cookieless page-view tracking.
+ *
+ * The client sends a tiny beacon on navigation. We store the path, a coarse
+ * referrer, and user-agent so the admin analytics page can show which pages
+ * get traffic — without Google Analytics or any third-party cookie.
+ *
+ * Bots and admin paths are filtered out. Failures are swallowed so tracking
+ * never affects the user experience.
+ */
+⋮----
+export async function POST(request: NextRequest)
+⋮----
+// Fire and forget — do not block the response on the DB write.
+</file>
+
+<file path="src/app/destinations/[slug]/DestinationContent.tsx">
+import React from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useLanguage } from '@/lib/LanguageContext';
+import { formatPriceByLang } from '@/lib/currency';
+import { getWhatsAppLink } from '@/lib/whatsapp';
+import { BreadcrumbNav } from '@/components/seo';
+import type { Destination } from '@/lib/destinations';
+import type { TourPackage } from '@/types';
+⋮----
+interface Props {
+  destination: Destination;
+  relatedTours: TourPackage[];
+  relatedDestinations: Destination[];
+}
+⋮----
+{/* Hero */}
+⋮----
+{/* Long-form description */}
+⋮----
+{/* Tips */}
+⋮----
+{/* Map */}
+⋮----
+{/* Gallery */}
+⋮----
+{/* Sidebar */}
+⋮----
+{/* Quick facts */}
+⋮----
+{/* Booking CTA */}
+⋮----
+{/* Related tours */}
+⋮----
+{/* Related destinations */}
+</file>
+
+<file path="src/app/destinations/[slug]/opengraph-image.tsx">
+import { ImageResponse } from 'next/og';
+import { getDestinationBySlug } from '@/lib/destinations';
+import { SITE } from '@/lib/site-config';
+⋮----
+{/* eslint-disable-next-line @next/next/no-img-element */}
+⋮----
+{/* Top */}
+⋮----
+{/* Bottom block */}
+</file>
+
+<file path="src/app/destinations/[slug]/page.tsx">
+import type { Metadata } from 'next';
+import { notFound } from 'next/navigation';
+import { JsonLd } from '@/components/seo';
+import {
+  buildMetadata,
+  breadcrumbJsonLd,
+  touristAttractionJsonLd,
+} from '@/lib/seo';
+import { absoluteUrl } from '@/lib/site-config';
+import { DESTINATIONS, getDestinationBySlug } from '@/lib/destinations';
+import { TOUR_PACKAGES } from '@/lib/constants';
+import DestinationContent from './DestinationContent';
+⋮----
+export function generateStaticParams()
+⋮----
+export function generateMetadata({
+  params,
+}: {
+  params: { slug: string };
+}): Metadata
+⋮----
+// Find related tours
+⋮----
+// Find related destinations (same region, excluding self)
+⋮----
+data=
+</file>
+
+<file path="src/app/destinations/page.tsx">
+import type { Metadata } from 'next';
+import Image from 'next/image';
+import Link from 'next/link';
+import { JsonLd, BreadcrumbNav } from '@/components/seo';
+import { breadcrumbJsonLd, buildMetadata, itemListJsonLd } from '@/lib/seo';
+import { absoluteUrl } from '@/lib/site-config';
+import { DESTINATIONS } from '@/lib/destinations';
+⋮----
+{/* Hero */}
+</file>
+
+<file path="src/app/guides/[slug]/GuideContent.tsx">
+import React from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useLanguage } from '@/lib/LanguageContext';
+import { getWhatsAppLink } from '@/lib/whatsapp';
+import { BreadcrumbNav } from '@/components/seo';
+import { GUIDE_CATEGORIES, type Guide } from '@/lib/guides';
+⋮----
+interface Props {
+  guide: Guide;
+  relatedGuides: Guide[];
+}
+⋮----
+{/* Article header */}
+⋮----
+{/* Hero image */}
+⋮----
+{/* Body */}
+⋮----
+{/* CTA card after body */}
+⋮----
+{/* Related guides */}
+</file>
+
+<file path="src/app/guides/[slug]/page.tsx">
+import type { Metadata } from 'next';
+import { notFound } from 'next/navigation';
+import { JsonLd } from '@/components/seo';
+import { breadcrumbJsonLd, buildMetadata } from '@/lib/seo';
+import { absoluteUrl, SITE } from '@/lib/site-config';
+import {
+  getGuideBySlug,
+  getAllGuides,
+  getGuidesBySlugs,
+} from '@/lib/guides';
+import GuideContent from './GuideContent';
+⋮----
+export function generateStaticParams()
+⋮----
+export function generateMetadata({
+  params,
+}: {
+  params: { slug: string };
+}): Metadata
+⋮----
+export default function GuideDetailPage({
+  params,
+}: {
+  params: { slug: string };
+})
+⋮----
+data=
+</file>
+
+<file path="src/app/guides/page.tsx">
+import type { Metadata } from 'next';
+import Image from 'next/image';
+import Link from 'next/link';
+import { JsonLd, BreadcrumbNav } from '@/components/seo';
+import { breadcrumbJsonLd, buildMetadata, itemListJsonLd } from '@/lib/seo';
+import { absoluteUrl } from '@/lib/site-config';
+import { getAllGuides, GUIDE_CATEGORIES } from '@/lib/guides';
+⋮----
+{/* Hero */}
+</file>
+
+<file path="src/app/not-found.tsx">
+import type { Metadata } from 'next';
+import Link from 'next/link';
+import Image from 'next/image';
+import { buildMetadata } from '@/lib/seo';
+⋮----
+{/* Hero image */}
+</file>
+
+<file path="src/app/opengraph-image.tsx">
+import { ImageResponse } from 'next/og';
+import { SITE } from '@/lib/site-config';
+⋮----
+/**
+ * Default Open Graph image for the homepage and any route that does not
+ * override it. Generated on-the-fly using @vercel/og under the hood.
+ *
+ * 1200×630 is the size both Facebook and Twitter prefer.
+ */
+⋮----
+{/* Top — brand mark */}
+⋮----
+{/* Middle — headline */}
+⋮----
+{/* Bottom — accents */}
+</file>
+
+<file path="src/app/rentals/[slug]/page.tsx">
+import type { Metadata } from 'next';
+import { notFound } from 'next/navigation';
+import { getRentalServiceBySlug, getRentalServices } from '@/lib/db/queries';
+import { RENTAL_SERVICES } from '@/lib/constants';
+import { JsonLd } from '@/components/seo';
+import { buildMetadata, breadcrumbJsonLd, faqJsonLd } from '@/lib/seo';
+import { absoluteUrl, SITE } from '@/lib/site-config';
+import type { RentalService } from '@/types';
+import RentalDetailContent from './RentalDetailContent';
+⋮----
+function resolveImage(model: string, dbImageUrl?: string | null)
+⋮----
+export async function generateStaticParams()
+⋮----
+async function loadRental(slug: string): Promise<RentalService | null>
+⋮----
+// fall back to static
+⋮----
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string };
+}): Promise<Metadata>
+⋮----
+export default async function RentalDetailPage({
+  params,
+}: {
+  params: { slug: string };
+})
+⋮----
+// related rentals
+⋮----
+data=
+</file>
+
+<file path="src/app/rentals/[slug]/RentalDetailContent.tsx">
+import React from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useLanguage } from '@/lib/LanguageContext';
+import { formatPriceByLang } from '@/lib/currency';
+import { getWhatsAppRentalLink } from '@/lib/whatsapp';
+import { BreadcrumbNav } from '@/components/seo';
+import type { RentalService } from '@/types';
+⋮----
+interface FaqItem {
+  question: string;
+  answer: string;
+}
+⋮----
+interface Props {
+  rental: RentalService;
+  relatedRentals: RentalService[];
+  faqItems: FaqItem[];
+}
+⋮----
+{/* Hero */}
+⋮----
+href=
+⋮----
+{/* Body */}
+⋮----
+{/* FAQ */}
+⋮----
+</file>
+
+<file path="src/app/tours/[slug]/opengraph-image.tsx">
+import { ImageResponse } from 'next/og';
+import { TOUR_PACKAGES } from '@/lib/constants';
+import { SITE } from '@/lib/site-config';
+import { getTourPackageBySlug } from '@/lib/db/queries';
+import { resolveTourImage } from '@/lib/image-resolver';
+⋮----
+async function loadTour(slug: string)
+⋮----
+// Fall back to static list when the DB is unreachable so OG image generation
+// never breaks a deployment.
+⋮----
+// ignore
+⋮----
+// Generic fallback
+⋮----
+{/* Background image with dark overlay */}
+{/* eslint-disable-next-line @next/next/no-img-element */}
+⋮----
+{/* Foreground content */}
+⋮----
+{/* Top bar — brand + duration badge */}
+⋮----
+{/* Middle — name + price */}
+⋮----
+{/* Bottom — URL */}
+</file>
+
+<file path="src/app/tours/[slug]/page.tsx">
+import type { Metadata } from 'next';
+import { notFound } from 'next/navigation';
+import { getTourPackages, getTourPackageBySlug } from '@/lib/db/queries';
+import { TOUR_PACKAGES } from '@/lib/constants';
+import { resolveTourImage } from '@/lib/image-resolver';
+import { JsonLd } from '@/components/seo';
+import {
+  buildMetadata,
+  breadcrumbJsonLd,
+  serviceJsonLd,
+  faqJsonLd,
+} from '@/lib/seo';
+import { absoluteUrl, SITE } from '@/lib/site-config';
+import type { TourPackage } from '@/types';
+import TourDetailContent from './TourDetailContent';
+⋮----
+/**
+ * Pre-generate static slugs from the canonical tour list. Even though the
+ * page is force-dynamic at request time, generateStaticParams gives Next.js
+ * (and Google) a hint about which slugs are valid.
+ */
+export async function generateStaticParams()
+⋮----
+async function loadTour(slug: string): Promise<TourPackage | null>
+⋮----
+// Try DB first, fall back to static list if DB is unreachable.
+⋮----
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string };
+}): Promise<Metadata>
+⋮----
+// Pull two extra tours for the "Other tours you may like" section
+⋮----
+// Tour-specific FAQ — boosts long-tail SEO and gives FAQ rich result
+⋮----
+{/* Breadcrumb JSON-LD for the tour detail page */}
+⋮----
+{/* Service schema for this specific tour */}
+⋮----
+{/* Product schema with price + offer */}
+</file>
+
+<file path="src/app/tours/[slug]/TourDetailContent.tsx">
+import React from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useLanguage } from '@/lib/LanguageContext';
+import { formatPriceByLang } from '@/lib/currency';
+import { getWhatsAppLink, getWhatsAppItemLink } from '@/lib/whatsapp';
+import { BreadcrumbNav } from '@/components/seo';
+import type { TourPackage } from '@/types';
+⋮----
+interface FaqItem {
+  question: string;
+  answer: string;
+}
+⋮----
+interface Props {
+  tour: TourPackage;
+  relatedTours: TourPackage[];
+  faqItems: FaqItem[];
+}
+⋮----
+{/* Breadcrumb */}
+⋮----
+{/* Hero */}
+⋮----
+href=
+⋮----
+{/* Body */}
+⋮----
+{/* Left column — content */}
+⋮----
+{/* Destinations */}
+⋮----
+{/* What is included */}
+⋮----
+{/* Important info */}
+⋮----
+{/* FAQ */}
+⋮----
+{/* Right column — sticky booking card */}
+⋮----
+{/* Related tours */}
+</file>
+
+<file path="src/components/business/__tests__/RentalServiceCard.test.tsx">
+import React from 'react';
+import { render, screen, fireEvent } from '@testing-library/react';
+⋮----
+import RentalServiceCard from '../RentalServiceCard';
+import { RentalService } from '@/types';
+⋮----
+// Mock the TourImage component
+⋮----
+// Mock the WhatsAppBookingButton component
+⋮----
+// Check that the main container has opacity styling
+</file>
+
+<file path="src/components/business/__tests__/RentalServiceGrid.test.tsx">
+import React from 'react';
+import { render, screen, fireEvent } from '@testing-library/react';
+⋮----
+import RentalServiceGrid from '../RentalServiceGrid';
+import { RentalService } from '@/types';
+⋮----
+// Mock the RentalServiceCard component
+⋮----
+// Should render 3 available services (excluding unavailable Scoopy)
+⋮----
+// Should only show first 2 available services
+⋮----
+// Check that motorcycle section appears before car section in DOM
+⋮----
+// Should only render available services
+</file>
+
+<file path="src/components/business/__tests__/TourPackageGrid.test.tsx">
+import React from 'react';
+import { render, screen } from '@testing-library/react';
+⋮----
+import TourPackageGrid from '../TourPackageGrid';
+import { TourPackage } from '@/types';
+⋮----
+// Mock the child components
+</file>
+
+<file path="src/components/business/__tests__/WhatsAppBookingButton.test.tsx">
+import React from 'react';
+import { render, screen, fireEvent } from '@testing-library/react';
+⋮----
+import WhatsAppBookingButton from '../WhatsAppBookingButton';
+⋮----
+// Mock the utility functions
+⋮----
+// Mock window.open
+</file>
+
+<file path="src/components/business/TourImage.tsx">
+import React, { useState } from 'react';
+import Image from 'next/image';
+⋮----
+interface TourImageProps {
+  src: string;
+  alt: string;
+  className?: string;
+  priority?: boolean;
+  sizes?: string;
+  fill?: boolean;
+  width?: number;
+  height?: number;
+  onLoad?: () => void;
+  onError?: () => void;
+}
+⋮----
+const handleImageLoad = () =>
+⋮----
+const handleImageError = () =>
+⋮----
+// Fallback placeholder image
+⋮----
+{/* Loading skeleton */}
+⋮----
+{/* Main image */}
+⋮----
+{/* Error state overlay */}
+</file>
+
+<file path="src/components/forms/index.ts">
+// Form components exports
+// Components will be implemented in later tasks
+// export { default as ContactForm } from './ContactForm';
+// export { default as BookingInquiryForm } from './BookingInquiryForm';
+</file>
+
+<file path="src/components/index.ts">
+// Main components export file
+⋮----
+// export * from './ui';
+// export * from './forms';
+// export * from './seo';
+</file>
+
+<file path="src/components/layout/__tests__/Footer.test.tsx">
+import React from 'react';
+import { render, screen, fireEvent } from '@testing-library/react';
+⋮----
+import Footer from '../Footer';
+⋮----
+// Mock Next.js components
+⋮----
+const MockLink = ({ children, href }: { children: React.ReactNode; href: string }) => (
+    <a href={href}>{children}</a>
+  );
+⋮----
+const MockImage = ({ src, alt, ...props }: any) => (
+    <img src={src} alt={alt} {...props} />
+  );
+⋮----
+// Mock window.open
+</file>
+
+<file path="src/components/layout/__tests__/Header.test.tsx">
+import React from 'react';
+import { render, screen, fireEvent } from '@testing-library/react';
+⋮----
+import Header from '../Header';
+⋮----
+// Mock Next.js components
+⋮----
+const MockLink = ({ children, href }: { children: React.ReactNode; href: string }) => (
+    <a href={href}>{children}</a>
+  );
+⋮----
+const MockImage = ({ src, alt, ...props }: any) => (
+    <img src={src} alt={alt} {...props} />
+  );
+⋮----
+// Mock window.open
+⋮----
+// Check if mobile navigation appears
+⋮----
+expect(mobileNavLinks.length).toBeGreaterThan(1); // Desktop + Mobile
+⋮----
+// Mock window.open for tel: links
+</file>
+
+<file path="src/components/layout/__tests__/Layout.test.tsx">
+import React from 'react';
+import { render, screen } from '@testing-library/react';
+⋮----
+import Layout from '../Layout';
+⋮----
+// Mock the Header and Footer components
+</file>
+
+<file path="src/components/layout/__tests__/Navigation.test.tsx">
+import React from 'react';
+import { render, screen, fireEvent } from '@testing-library/react';
+⋮----
+import Navigation from '../Navigation';
+⋮----
+// Mock Next.js usePathname hook
+⋮----
+// Mock Next.js Link component
+⋮----
+const MockLink = ({ children, href }: { children: React.ReactNode; href: string }) => (
+    <a href={href}>{children}</a>
+  );
+⋮----
+// Mock usePathname to return '/'
+⋮----
+// Mock usePathname to return '/tours'
+</file>
+
+<file path="src/components/layout/index.ts">
+// Layout components exports
+</file>
+
+<file path="src/components/PageViewTracker.tsx">
+import { useEffect } from 'react';
+import { usePathname } from 'next/navigation';
+⋮----
+/**
+ * Sends a cookieless page-view beacon on every route change.
+ *
+ * Uses navigator.sendBeacon when available so the request does not block
+ * navigation or get cancelled on unload. Only runs in production to keep the
+ * dev database clean.
+ */
+export default function PageViewTracker()
+⋮----
+// Never let tracking break the page.
+</file>
+
+<file path="src/components/README.md">
+# Components Directory
+
+This directory contains all React components organized by category:
+
+## Structure
+- `layout/` - Layout components (Header, Footer, Navigation)
+- `ui/` - Reusable UI components (Button, Card, Input, etc.)
+- `business/` - Business-specific components (TourPackageCard, RentalServiceCard, etc.)
+- `forms/` - Form components (ContactForm, BookingForm, etc.)
+- `seo/` - SEO-related components (SEOHead, StructuredData, etc.)
+
+## Naming Convention
+- Use PascalCase for component names
+- Use descriptive names that indicate the component's purpose
+- Include component type in name when helpful (e.g., TourPackageCard, ContactForm)
+</file>
+
+<file path="src/components/seo/JsonLd.tsx">
+import React from 'react';
+⋮----
+interface JsonLdProps {
+  /** Single Schema.org object or array of objects */
+  data: object | object[];
+  /** Optional id for the script tag (helps debugging) */
+  id?: string;
+}
+⋮----
+/** Single Schema.org object or array of objects */
+⋮----
+/** Optional id for the script tag (helps debugging) */
+⋮----
+/**
+ * Renders JSON-LD structured data inside a <script type="application/ld+json">.
+ * Uses dangerouslySetInnerHTML which is the recommended pattern from Next.js docs.
+ */
+export default function JsonLd(
+⋮----
+// eslint-disable-next-line react/no-danger
+</file>
+
+<file path="src/components/ui/index.ts">
+// UI components exports
+// Components will be implemented in later tasks
+// export { default as Button } from './Button';
+// export { default as Card } from './Card';
+// export { default as Input } from './Input';
+// export { default as Textarea } from './Textarea';
+// export { default as Badge } from './Badge';
+// export { default as Modal } from './Modal';
+</file>
+
+<file path="src/lib/__tests__/whatsapp.test.ts">
+import {
+  generateWhatsAppURL,
+  openWhatsAppBooking,
+  validateWhatsAppParams,
+  generateWhatsAppContactURL,
+  openWhatsAppContact,
+} from '../whatsapp';
+⋮----
+import { WhatsAppBookingParams } from '@/types';
+⋮----
+// Mock analytics
+⋮----
+// Mock constants
+⋮----
+// Mock window.open
+⋮----
+// Decode the message to check content
+⋮----
+// Check that the phone number part is correctly formatted
+⋮----
+// Verify phone number doesn't have special characters
+⋮----
+// Check for all required tour information
+⋮----
+// Check for all required rental information
+</file>
+
+<file path="src/lib/admin/auth.ts">
+import { cookies } from 'next/headers';
+import { createHmac, timingSafeEqual } from 'crypto';
+⋮----
+/**
+ * Lightweight single-admin auth.
+ *
+ * - No external auth provider; one shared password set via ADMIN_PASSWORD.
+ * - On login we issue a signed, HTTP-only cookie (HMAC over an expiry stamp).
+ * - The cookie cannot be forged without ADMIN_SESSION_SECRET, and it expires.
+ *
+ * This is intentionally minimal — it fits a one-person admin panel without the
+ * weight of NextAuth. For multi-user needs, swap this out later.
+ */
+⋮----
+function getSecret(): string
+⋮----
+// Fall back to the admin password as the signing key if a dedicated secret
+// is not set, so the panel still works with a single env var.
+⋮----
+function sign(value: string): string
+⋮----
+/** Build a signed token of the form "<expiryMs>.<signature>". */
+function createToken(): string
+⋮----
+/** Validate a token's signature and expiry. */
+function verifyToken(token: string | undefined): boolean
+⋮----
+// Constant-time compare to avoid timing attacks.
+⋮----
+/** Compare a submitted password against ADMIN_PASSWORD in constant time. */
+export function checkPassword(submitted: string): boolean
+⋮----
+/** Issue the session cookie after a successful login. */
+export function createSession(): void
+⋮----
+/** Clear the session cookie (logout). */
+export function destroySession(): void
+⋮----
+/** Read the current request's cookie and tell us if the admin is logged in. */
+export function isAuthenticated(): boolean
+⋮----
+/** Used by middleware (edge) — verify a raw token string. */
+export function verifyTokenEdge(token: string | undefined, secret: string): boolean
+⋮----
+// Edge runtime version is in middleware.ts (uses Web Crypto). This export
+// documents the token shape; actual edge verification lives in middleware.
+</file>
+
+<file path="src/lib/destinations.ts">
+/**
+ * Destination landing pages.
+ *
+ * Each destination is a popular Nusa Penida spot that we can rank for in Google
+ * with its own informational page. Each page links back to the relevant tour
+ * package(s) so it doubles as an SEO landing page and a conversion funnel.
+ */
+⋮----
+export interface Destination {
+  slug: string;
+  /** Display name (e.g. "Kelingking Beach") */
+  name: string;
+  /** Indonesian name override if different */
+  nameId?: string;
+  /** Region within Nusa Penida */
+  region: 'west' | 'east' | 'south' | 'central';
+  /** GPS coordinates for LocalBusiness/Place schema */
+  geo?: { lat: number; lng: number };
+  /** ~155 char description for meta + on-page intro */
+  description: { en: string; id: string };
+  /** Long-form content for the page body — paragraphs */
+  body: {
+    en: string[];
+    id: string[];
+  };
+  /** Practical info shown as bullets */
+  highlights: { en: string[]; id: string[] };
+  /** Tips for visitors */
+  tips: { en: string[]; id: string[] };
+  /** Best time to visit — short phrase */
+  bestTime: { en: string; id: string };
+  /** Difficulty / accessibility note */
+  accessibility: { en: string; id: string };
+  /** Hero image (must exist in /public) */
+  heroImage: string;
+  /** Additional images for the gallery */
+  images: string[];
+  /** Slugs of tour packages that include this destination */
+  relatedTourSlugs: string[];
+}
+⋮----
+/** Display name (e.g. "Kelingking Beach") */
+⋮----
+/** Indonesian name override if different */
+⋮----
+/** Region within Nusa Penida */
+⋮----
+/** GPS coordinates for LocalBusiness/Place schema */
+⋮----
+/** ~155 char description for meta + on-page intro */
+⋮----
+/** Long-form content for the page body — paragraphs */
+⋮----
+/** Practical info shown as bullets */
+⋮----
+/** Tips for visitors */
+⋮----
+/** Best time to visit — short phrase */
+⋮----
+/** Difficulty / accessibility note */
+⋮----
+/** Hero image (must exist in /public) */
+⋮----
+/** Additional images for the gallery */
+⋮----
+/** Slugs of tour packages that include this destination */
+⋮----
+export function getDestinationBySlug(slug: string): Destination | null
+</file>
+
+<file path="src/lib/env.ts">
+/**
+ * Environment variables configuration and validation
+ */
+⋮----
+// Database configuration
+⋮----
+// Email service configuration
+⋮----
+// Next.js configuration
+⋮----
+// Analytics configuration
+⋮----
+// Business configuration
+⋮----
+/**
+ * Validates that required environment variables are set
+ */
+export function validateEnv()
+⋮----
+/**
+ * Gets the base URL for the application
+ */
+export function getBaseUrl(): string
+</file>
+
+<file path="src/lib/guides.ts">
+/**
+ * Travel guides — evergreen long-form articles that target informational
+ * search queries (how-to, best-time-to-visit, comparison, packing list, etc).
+ *
+ * Each guide is a standalone landing page with Article / BlogPosting schema
+ * and is designed to rank for long-tail keywords without daily content output.
+ */
+⋮----
+export interface GuideSection {
+  /** Heading of the section (rendered as <h2>) */
+  heading: string;
+  /** One or more paragraphs of body content */
+  paragraphs: string[];
+  /** Optional bullet list shown after the paragraphs */
+  bullets?: string[];
+}
+⋮----
+/** Heading of the section (rendered as <h2>) */
+⋮----
+/** One or more paragraphs of body content */
+⋮----
+/** Optional bullet list shown after the paragraphs */
+⋮----
+export interface Guide {
+  slug: string;
+  /** Search-optimized H1 / page title */
+  title: string;
+  /** ~155-char meta description */
+  excerpt: string;
+  /** Hero image — must exist in /public */
+  heroImage: string;
+  /** Estimated reading time in minutes */
+  readingMinutes: number;
+  /** ISO date the article was first published */
+  datePublished: string;
+  /** ISO date of the last meaningful edit */
+  dateModified: string;
+  /** Top-level category (used for grouping) */
+  category: 'planning' | 'getting-around' | 'comparison' | 'tips';
+  /** Keywords associated with this article — used for meta keywords */
+  keywords: string[];
+  /** Body sections rendered in order */
+  sections: GuideSection[];
+  /** Slugs of related guides shown at the bottom */
+  relatedGuideSlugs: string[];
+}
+⋮----
+/** Search-optimized H1 / page title */
+⋮----
+/** ~155-char meta description */
+⋮----
+/** Hero image — must exist in /public */
+⋮----
+/** Estimated reading time in minutes */
+⋮----
+/** ISO date the article was first published */
+⋮----
+/** ISO date of the last meaningful edit */
+⋮----
+/** Top-level category (used for grouping) */
+⋮----
+/** Keywords associated with this article — used for meta keywords */
+⋮----
+/** Body sections rendered in order */
+⋮----
+/** Slugs of related guides shown at the bottom */
+⋮----
+/* ─────────────────────────────────────────────────────────────────── */
+⋮----
+export function getAllGuides(): Guide[]
+⋮----
+export function getGuideBySlug(slug: string): Guide | null
+⋮----
+export function getGuidesBySlugs(slugs: string[]): Guide[]
+</file>
+
+<file path="src/lib/hooks/useActiveSection.ts">
+import { useEffect, useState } from 'react';
+import { usePathname } from 'next/navigation';
+⋮----
+/**
+ * Watch the homepage and report the id of the section currently anchored
+ * under the sticky header. Used to highlight scroll-anchored nav links
+ * (e.g. /#testimonials) when the user actually reaches that section.
+ *
+ * Returns null on every other page or when no tracked section is in view.
+ *
+ * @param sectionIds DOM ids to track, in any order.
+ * @param onlyOnPath Only run on this pathname (default: '/').
+ */
+export function useActiveSection(
+  sectionIds: string[],
+  onlyOnPath: string = '/',
+): string | null
+⋮----
+// Trigger zone: just below the sticky header. A section is "active"
+// while its top lives inside this slim band near the top of the viewport.
+⋮----
+// Pick the one whose top is closest to the trigger band's top.
+⋮----
+// No tracked section in the trigger band — clear so the fallback
+// (e.g. Home) takes over.
+⋮----
+// Top margin matches header height so the section "activates"
+// right when its title slides under the header.
+// Bottom margin keeps the band thin so we do not light up the link
+// until the user has actually scrolled into the section.
+⋮----
+}, [pathname, onlyOnPath, sectionIds.join('|')]); // eslint-disable-line react-hooks/exhaustive-deps
+</file>
+
+<file path="src/lib/LanguageContext.tsx">
+import React, { createContext, useContext, useState, useEffect } from 'react';
+import { Language, translations, TranslationKeys } from '@/lib/translations';
+⋮----
+interface LanguageContextType {
+  language: Language;
+  setLanguage: (lang: Language) => void;
+  t: TranslationKeys;
+}
+⋮----
+export const LanguageProvider: React.FC<
+⋮----
+// Load saved language preference on mount
+⋮----
+const setLanguage = (lang: Language) =>
+⋮----
+/**
+ * Hook to access language context.
+ * Must be used inside LanguageProvider.
+ */
+export const useLanguage = (): LanguageContextType =>
+</file>
+
+<file path="src/lib/reviews-server.ts">
+/**
+ * Server-only review utilities.
+ * Used by server components / page metadata to embed real DB reviews into JSON-LD.
+ *
+ * Falls back to static TESTIMONIALS if DB is unavailable (build time, no DB connection).
+ */
+⋮----
+import { TESTIMONIALS, getAggregateRating, type Testimonial } from './testimonials';
+⋮----
+export type ServerReview = {
+  authorName: string;
+  authorCountry?: string | null;
+  rating: number;
+  title?: string | null;
+  body: string;
+  language?: string | null;
+  tourName?: string | null;
+  date: string;
+};
+⋮----
+/**
+ * Get reviews from DB for use in JSON-LD schema (server-side).
+ * Returns at most `limit` approved reviews, falls back to static if DB fails.
+ */
+export async function getReviewsForSeo(limit = 6): Promise<ServerReview[]>
+⋮----
+// Fallback to static testimonials
+⋮----
+/**
+ * Get aggregate rating for SEO schema, with DB fallback to static.
+ */
+export async function getAggregateRatingForSeo(): Promise<
+</file>
+
+<file path="src/lib/testimonials.ts">
+/**
+ * Testimoni / Review data — easy to edit, no database needed.
+ *
+ * Cara menambah testimoni baru:
+ * 1. Tambahkan object baru di array TESTIMONIALS
+ * 2. Save → refresh website
+ * 3. Otomatis tampil di section reviews + masuk JSON-LD untuk SEO
+ *
+ * Field guide:
+ * - id: unique identifier (e.g. 'review-001')
+ * - name: nama tamu (boleh inisial, e.g. "Sarah M.")
+ * - country: untuk flag/origin signal (e.g. "Australia", "Indonesia")
+ * - rating: 1-5 (gunakan integer)
+ * - tour: nama paket yg diambil (cocokkan dengan TOUR_PACKAGES.name)
+ * - date: ISO date string (YYYY-MM-DD)
+ * - title: ringkasan singkat (optional)
+ * - body: isi review (60-300 karakter ideal untuk SEO)
+ * - language: 'en' | 'id' — untuk filter UI
+ * - verified: true kalau dari tamu real (akan tampil badge ✓)
+ * - photo: URL foto tamu (optional)
+ * - source: 'whatsapp' | 'google' | 'instagram' | 'website' | 'tripadvisor'
+ */
+⋮----
+export type Testimonial = {
+  id: string;
+  name: string;
+  country?: string;
+  countryCode?: string; // ISO 3166-1 alpha-2 (e.g. 'AU', 'ID')
+  rating: 1 | 2 | 3 | 4 | 5;
+  tour: string;
+  date: string;
+  title?: string;
+  body: string;
+  language: 'en' | 'id';
+  verified?: boolean;
+  photo?: string;
+  source?: 'whatsapp' | 'google' | 'instagram' | 'website' | 'tripadvisor' | 'direct';
+};
+⋮----
+countryCode?: string; // ISO 3166-1 alpha-2 (e.g. 'AU', 'ID')
+⋮----
+/**
+ * Sample testimonials — REPLACE with real reviews from your guests.
+ * To start, ask 3-5 happy customers to write a short review on WhatsApp,
+ * then paste their words here (with permission).
+ */
+⋮----
+/** Compute aggregate rating for SEO schema */
+export function getAggregateRating()
+⋮----
+/** Pre-built WhatsApp link to leave a review */
+export function getReviewWhatsAppLink(language: 'en' | 'id' = 'en'): string
+⋮----
+/** Country flag emoji from ISO code (no external lib needed) */
+export function countryFlag(code?: string): string
+</file>
+
+<file path="src/lib/utils.ts">
+import { type ClassValue, clsx } from 'clsx';
+import { twMerge } from 'tailwind-merge';
+⋮----
+/**
+ * Utility function to merge Tailwind CSS classes
+ */
+export function cn(...inputs: ClassValue[])
+⋮----
+/**
+ * Formats price in Indonesian Rupiah
+ */
+export function formatPrice(price: number, currency: string = 'IDR'): string
+⋮----
+/**
+ * Formats phone number for display
+ */
+export function formatPhoneNumber(phone: string): string
+⋮----
+// Remove all non-digit characters except +
+⋮----
+// Format Indonesian phone number
+⋮----
+/**
+ * Generates SEO-friendly slug from text
+ */
+export function generateSlug(text: string): string
+⋮----
+.replace(/[^\w\s-]/g, '') // Remove special characters
+.replace(/\s+/g, '-') // Replace spaces with hyphens
+.replace(/-+/g, '-') // Replace multiple hyphens with single
+⋮----
+/**
+ * Truncates text to specified length with ellipsis
+ */
+export function truncateText(text: string, maxLength: number): string
+⋮----
+/**
+ * Validates email format
+ */
+export function isValidEmail(email: string): boolean
+⋮----
+/**
+ * Validates Indonesian phone number
+ */
+export function isValidPhoneNumber(phone: string): boolean
+⋮----
+// Indonesian phone number patterns
+⋮----
+/**
+ * Debounce function for search and form inputs
+ */
+export function debounce<T extends (...args: any[]) => any>(
+  func: T,
+  wait: number
+): (...args: Parameters<T>) => void
+⋮----
+/**
+ * Scroll to element smoothly
+ */
+export function scrollToElement(elementId: string, offset: number = 0): void
+</file>
+
+<file path="src/middleware.ts">
+import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
+⋮----
+/**
+ * Protects all /admin routes (except the login page) behind the session cookie.
+ *
+ * Runs on the edge, so it uses Web Crypto (subtle) for HMAC verification rather
+ * than Node's crypto module. The token shape matches src/lib/admin/auth.ts:
+ *   "<expiryMs>.<hex-hmac-sha256(expiryMs)>"
+ */
+⋮----
+function getSecret(): string
+⋮----
+async function hmacHex(message: string, secret: string): Promise<string>
+⋮----
+async function verifyToken(token: string | undefined): Promise<boolean>
+⋮----
+// Constant-time-ish compare.
+⋮----
+export async function middleware(request: NextRequest)
+⋮----
+// Only guard /admin/* — the login page itself stays public.
+</file>
+
+<file path="src/styles/__tests__/brand-colors.test.ts">
+/**
+ * Brand Colors Implementation Test
+ * 
+ * This test verifies that the NusaBeeTrip brand colors extracted from the logo
+ * are properly implemented throughout the design system.
+ */
+⋮----
+import { JSDOM } from 'jsdom';
+⋮----
+// Mock DOM environment for testing CSS variables
+⋮----
+// Create a style element with our CSS variables
+⋮----
+expect(info).toBe('#0EA5E9'); // Uses brand teal
+⋮----
+// Test color contrast ratios (simplified test)
+⋮----
+// These colors should provide sufficient contrast on white backgrounds
+// Blue: 8.59:1 (AAA), Orange: 3.05:1 (AA), Teal: 4.56:1 (AA)
+⋮----
+// Check that all brand colors follow the naming pattern
+⋮----
+expect(value).toMatch(/^#[0-9A-F]{6}$/i); // Valid hex color
+⋮----
+// Ocean blue should be deep and professional
+⋮----
+expect(oceanBlue).toBe('#1E40AF'); // Deep ocean blue
+⋮----
+// Orange should be warm and tropical
+⋮----
+expect(tropicalOrange).toBe('#FFB800'); // Tropical sunset orange
+⋮----
+// Teal should be clear and refreshing
+⋮----
+expect(crystalTeal).toBe('#0EA5E9'); // Crystal water teal
+⋮----
+// Test that the color system provides full range of shades
+⋮----
+// This would be tested in actual Tailwind config
+expect(expectedShades.length).toBe(11); // Full color range
+⋮----
+// WhatsApp colors should be available as Tailwind utilities
+⋮----
+// These utilities should be defined in the CSS
+⋮----
+// CSS custom properties allow for theme switching and better performance
+⋮----
+// Custom properties should be accessible at runtime
+⋮----
+// The color system should be comprehensive but not excessive
+⋮----
+// Count defined color variables (simplified)
+⋮----
+// Should have essential colors without bloat
+</file>
+
+<file path="src/styles/components.css">
+/* Component-specific styles that can't be handled by Tailwind */
+⋮----
+/* Logo component styles */
+.logo {
+⋮----
+.logo-full {
+⋮----
+.logo-horizontal {
+⋮----
+.logo-icon {
+⋮----
+.logo:hover {
+⋮----
+/* Responsive logo sizing */
+⋮----
+/* Navigation styles */
+.nav-link {
+⋮----
+.nav-link::after {
+⋮----
+.nav-link:hover::after,
+⋮----
+/* Mobile menu animation */
+.mobile-menu {
+⋮----
+.mobile-menu.open {
+⋮----
+/* Card component styles */
+.tour-card,
+⋮----
+.tour-card:hover,
+⋮----
+/* Price tag styles */
+.price-tag {
+⋮----
+/* Feature list styles */
+.feature-list {
+⋮----
+.feature-check {
+⋮----
+/* Form styles */
+.form-input {
+⋮----
+.form-input:focus {
+⋮----
+.form-input.error {
+⋮----
+.form-label {
+⋮----
+/* Hero section styles */
+.hero-section {
+⋮----
+/* Section backgrounds */
+.section-light {
+⋮----
+.section-accent {
+⋮----
+/* Accessibility improvements */
+⋮----
+*,
+⋮----
+/* High contrast mode support */
+⋮----
+.btn-whatsapp,
+</file>
+
+<file path="src/styles/utilities.css">
+/* Custom utility classes for NusaBeeTrip brand colors */
+⋮----
+/* Brand gradient backgrounds */
+.bg-hero-gradient {
+⋮----
+.bg-section-gradient {
+⋮----
+.bg-brand-gradient {
+⋮----
+.bg-sunset-gradient {
+⋮----
+.bg-ocean-gradient {
+⋮----
+/* Brand color backgrounds */
+.bg-brand-blue {
+⋮----
+.bg-brand-orange {
+⋮----
+.bg-brand-teal {
+⋮----
+.bg-brand-green {
+⋮----
+/* Brand color text */
+.text-brand-blue {
+⋮----
+.text-brand-orange {
+⋮----
+.text-brand-teal {
+⋮----
+.text-brand-green {
+⋮----
+/* WhatsApp button styles */
+.btn-whatsapp {
+⋮----
+.btn-whatsapp:hover {
+⋮----
+.btn-whatsapp:active {
+⋮----
+/* Brand button styles */
+.btn-brand-primary {
+⋮----
+.btn-brand-primary:hover {
+⋮----
+.btn-brand-secondary {
+⋮----
+.btn-brand-secondary:hover {
+⋮----
+.btn-brand-teal {
+⋮----
+.btn-brand-teal:hover {
+⋮----
+/* Outline button variants */
+.btn-outline-brand {
+⋮----
+.btn-outline-brand:hover {
+⋮----
+.btn-outline-orange {
+⋮----
+.btn-outline-orange:hover {
+⋮----
+/* Card hover effects with brand colors */
+.card-hover {
+⋮----
+.card-hover:hover {
+⋮----
+.card-brand-blue:hover {
+⋮----
+.card-brand-orange:hover {
+⋮----
+.card-brand-teal:hover {
+⋮----
+/* Text gradients */
+.text-brand-gradient {
+⋮----
+.text-sunset-gradient {
+⋮----
+.text-ocean-gradient {
+⋮----
+/* Focus styles for accessibility */
+.focus-brand {
+⋮----
+.focus-brand-blue {
+⋮----
+.focus-brand-orange {
+⋮----
+/* Loading spinner with brand colors */
+.spinner {
+⋮----
+.spinner-orange {
+⋮----
+.spinner-teal {
+⋮----
+/* Brand-specific badges */
+.badge-brand {
+⋮----
+.badge-orange {
+⋮----
+.badge-teal {
+⋮----
+.badge-success {
+⋮----
+/* Responsive text sizes with brand styling */
+.text-responsive-xl {
+⋮----
+.text-responsive-lg {
+⋮----
+/* Container with brand padding */
+.container-brand {
+⋮----
+/* Brand-specific dividers */
+.divider-brand {
+⋮----
+.divider-orange {
+⋮----
+/* Brand color overlays for images */
+.overlay-brand {
+⋮----
+.overlay-brand::before {
+⋮----
+.overlay-sunset {
+⋮----
+.overlay-sunset::before {
+</file>
+
+<file path="src/styles/variables.css">
+/* CSS Custom Properties for NusaBeeTrip Brand Colors */
+:root {
+⋮----
+/* Primary brand colors extracted from NusaBeeTrip logo */
+--color-brand-blue-primary: #1E40AF;      /* Deep ocean blue - primary brand color */
+--color-brand-orange-primary: #FFB800;    /* Tropical sunset orange - primary accent */
+--color-brand-teal-accent: #0EA5E9;       /* Crystal water teal - secondary accent */
+⋮----
+/* Supporting brand color variations */
+--color-brand-blue-light: #3B82F6;        /* Lighter blue for hover states */
+--color-brand-blue-dark: #1E3A8A;         /* Darker blue for depth */
+--color-brand-orange-light: #FB923C;      /* Lighter orange for hover states */
+--color-brand-orange-dark: #EA580C;       /* Darker orange for contrast */
+--color-brand-teal-light: #38BDF8;        /* Lighter teal for backgrounds */
+--color-brand-teal-dark: #0369A1;         /* Darker teal for text */
+⋮----
+/* Brand green for nature/eco elements */
+--color-brand-green: #22C55E;             /* Tropical nature green */
+--color-brand-green-light: #4ADE80;       /* Light green for accents */
+--color-brand-green-dark: #15803D;        /* Dark green for text */
+⋮----
+/* Neutral colors optimized for tourism content */
+⋮----
+/* Semantic colors for UI feedback */
+--color-success: #10B981;                 /* Success green */
+--color-warning: #F59E0B;                 /* Warning amber */
+--color-error: #EF4444;                   /* Error red */
+--color-info: var(--color-brand-teal-accent); /* Info uses brand teal */
+⋮----
+/* WhatsApp brand colors */
+--color-whatsapp: #25D366;                /* Official WhatsApp green */
+--color-whatsapp-dark: #128C7E;           /* Darker WhatsApp green for hover */
+--color-whatsapp-light: #4ADE80;          /* Lighter green for backgrounds */
+⋮----
+/* Typography scale */
+⋮----
+/* Spacing scale for consistent layouts */
+--spacing-xs: 0.25rem;    /* 4px */
+--spacing-sm: 0.5rem;     /* 8px */
+--spacing-md: 1rem;       /* 16px */
+--spacing-lg: 1.5rem;     /* 24px */
+--spacing-xl: 2rem;       /* 32px */
+--spacing-2xl: 3rem;      /* 48px */
+--spacing-3xl: 4rem;      /* 64px */
+--spacing-4xl: 6rem;      /* 96px */
+⋮----
+/* Border radius scale */
+--radius-sm: 0.25rem;     /* 4px */
+--radius-md: 0.5rem;      /* 8px */
+--radius-lg: 0.75rem;     /* 12px */
+--radius-xl: 1rem;        /* 16px */
+--radius-2xl: 1.5rem;     /* 24px */
+--radius-full: 9999px;    /* Full rounded */
+⋮----
+/* Shadow scale for depth */
+⋮----
+/* Brand-specific shadows with color tints */
+⋮----
+/* Transition timing for smooth animations */
+</file>
+
+<file path="tailwind.config.js">
+/** @type {import('tailwindcss').Config} */
+⋮----
+// Brand colors extracted from NusaBeeTrip logo
+⋮----
+// Primary blue - ocean/sky theme for Nusa Penida
+⋮----
+800: '#1E40AF', // Primary blue from logo
+⋮----
+// Primary orange - tropical sunset/bee theme
+⋮----
+800: '#FFB800', // Primary orange from logo
+⋮----
+// Accent teal - tropical water theme
+⋮----
+500: '#0EA5E9', // Accent teal from logo
+⋮----
+// Secondary green - tropical nature theme
+⋮----
+// WhatsApp green for booking buttons
+⋮----
+500: '#25D366', // WhatsApp brand color
+⋮----
+800: '#128C7E', // Darker WhatsApp green
+⋮----
+// Semantic colors
+</file>
+
+<file path=".gitignore">
+# Dependencies
+/node_modules
+/.pnp
+.pnp.js
+.yarn/install-state.gz
+
+# Testing
+/coverage
+
+# Next.js
+/.next/
+/out/
+
+# Production builds
+/build
+
+# OS files
+.DS_Store
+Thumbs.db
+*.pem
+
+# IDE & tooling
+.vscode/
+.kiro/
+.swc/
+.idea/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.log
+
+# Environment files — never commit secrets
+.env
+.env.local
+.env.*.local
+.env.production
+.env.development
+
+# Vercel
+.vercel
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
+
+# Local notes / scratch files (kept private)
+NOTES.md
+TODO.md
+*.scratch.md
+
+# Drizzle generated migrations metadata (regenerated on demand)
+/drizzle/meta/
+</file>
+
+<file path="scripts/db/seed.ts">
+import { db } from '../../src/lib/db/config';
+import { tourPackages, rentalServices, seoData } from '../../src/lib/db/schema';
+⋮----
+// Initial tour packages data
+⋮----
+// Initial rental services data
+⋮----
+// Initial SEO data
+⋮----
+export async function seedDatabase()
+⋮----
+// Insert tour packages
+⋮----
+// Insert rental services
+⋮----
+// Insert SEO data
+⋮----
+// Run seeding if this file is executed directly
+</file>
+
+<file path="src/app/about/AboutPageContent.tsx">
+import { useLanguage } from '@/lib/LanguageContext';
+import { getWhatsAppLink } from '@/lib/whatsapp';
+import { BreadcrumbNav } from '@/components/seo';
+import Image from 'next/image';
+import Link from 'next/link';
+⋮----
+{/* Breadcrumb */}
+⋮----
+{/* Hero Section with Background Image */}
+⋮----
+{/* Stats Bar */}
+⋮----
+{/* Left: Photo Collage */}
+⋮----
+{/* Right: Story Content */}
+⋮----
+{/* Values */}
+⋮----
+{/* Our Services */}
+⋮----
+{/* Photo Gallery */}
+⋮----
+{/* CTA Section */}
+⋮----
+href=
+</file>
+
+<file path="src/app/admin/AdminShell.tsx">
+import { useState } from 'react';
+import Link from 'next/link';
+import { usePathname, useRouter } from 'next/navigation';
+⋮----
+// Login page renders bare — no shell.
+⋮----
+const isActive = (href: string)
+⋮----
+{/* Sidebar — desktop */}
+⋮----
+{/* Mobile top bar */}
+⋮----
+{/* Mobile drawer */}
+⋮----
+onClick=
+⋮----
+{/* Main content */}
+</file>
+
+<file path="src/app/admin/reviews/ReviewsManager.tsx">
+import { useState, useEffect, useCallback } from 'react';
+import { useSearchParams } from 'next/navigation';
+⋮----
+interface AdminReview {
+  id: number;
+  authorName: string;
+  authorCountry: string | null;
+  authorCountryCode: string | null;
+  rating: number;
+  title: string | null;
+  body: string;
+  language: string | null;
+  tourName: string | null;
+  status: string;
+  source: string | null;
+  isFeatured: boolean | null;
+  isVerified: boolean | null;
+  ownerResponse: string | null;
+  createdAt: string;
+}
+⋮----
+type Filter = 'all' | 'pending' | 'approved' | 'rejected' | 'spam';
+⋮----
+const act = async (id: number, action: string, extra?: Record<string, unknown>) =>
+⋮----
+const remove = async (id: number) =>
+⋮----
+{/* Toolbar: filter tabs + add button */}
+⋮----
+{/* Reply input */}
+⋮----
+onClick=
+⋮----
+{/* Action bar */}
+⋮----
+onClose=
+⋮----
+setShowAdd(false);
+load();
+⋮----
+/* ─────────────────────────────────────────────────────────────────── */
+/*  Add review modal — for testimonials received via WhatsApp           */
+/* ─────────────────────────────────────────────────────────────────── */
+⋮----
+setErr('');
+⋮----
+{/* Rating */}
+</file>
+
+<file path="src/app/api/admin/reviews/route.ts">
+import { NextRequest, NextResponse } from 'next/server';
+import { isAuthenticated } from '@/lib/admin/auth';
+import {
+  getAllReviews,
+  moderateReview,
+  respondToReview,
+  setReviewFeatured,
+  deleteReview,
+  createReview,
+} from '@/lib/db/queries';
+import type { NewReview } from '@/lib/db/schema';
+⋮----
+function guard(): NextResponse | null
+⋮----
+/**
+ * POST — manually add a review (e.g. one a guest sent over WhatsApp).
+ * Admin-entered reviews are approved + verified immediately.
+ */
+export async function POST(request: NextRequest)
+⋮----
+/** GET — list all reviews for the moderation table. */
+export async function GET()
+⋮----
+/**
+ * PATCH — perform a moderation action on a review.
+ * Body: { id: number, action: 'approve'|'reject'|'spam'|'feature'|'unfeature'|'reply', reply?: string }
+ */
+export async function PATCH(request: NextRequest)
+⋮----
+/** DELETE — remove a review permanently. Body: { id: number } */
+export async function DELETE(request: NextRequest)
+</file>
+
+<file path="src/app/api/reviews/route.ts">
+import { NextRequest, NextResponse } from 'next/server';
+import { createReview, getApprovedReviews } from '@/lib/db/queries';
+import type { NewReview } from '@/lib/db/schema';
+⋮----
+/**
+ * GET /api/reviews — fetch approved reviews (public)
+ * Query params:
+ *   - language: 'en' | 'id' (optional)
+ *   - limit: number (default 50)
+ */
+export async function GET(request: NextRequest)
+⋮----
+// No cache — reviews must be fresh, especially after a new submission
+⋮----
+/**
+ * POST /api/reviews — submit a new review (goes to moderation queue)
+ * Body:
+ * {
+ *   authorName: string (required),
+ *   authorEmail?: string,
+ *   authorCountry?: string,
+ *   authorCountryCode?: string,
+ *   rating: number (1-5, required),
+ *   title?: string,
+ *   body: string (required, min 20 chars),
+ *   language?: 'en' | 'id',
+ *   tourSlug?: string,
+ *   tourName?: string,
+ *   serviceType?: 'tour' | 'rental' | 'general',
+ * }
+ */
+export async function POST(request: NextRequest)
+⋮----
+// Validate required fields
+⋮----
+// Email validation if provided
+⋮----
+// Spam check — simple heuristics
+⋮----
+/\bhttps?:\/\//i, // any URL in body = spam
+/<[^>]+>/, // HTML tags
+/\b(viagra|casino|porn|xxx)\b/i, // keyword spam
+⋮----
+// Capture IP & user agent for spam tracking
+⋮----
+// Auto-approve unless spam or low rating (low ratings get reviewed first)
+// - Spam → 'spam' (hidden)
+// - Rating ≤ 2 → 'pending' (manual review required)
+// - Otherwise → 'approved' (instant publish)
+⋮----
+// Build review record
+⋮----
+// Build response message based on status
+</file>
+
+<file path="src/app/contact/ContactPageContent.tsx">
+import { useLanguage } from '@/lib/LanguageContext';
+import { getWhatsAppLink } from '@/lib/whatsapp';
+import { BreadcrumbNav } from '@/components/seo';
+import Image from 'next/image';
+⋮----
+{/* Breadcrumb */}
+⋮----
+{/* Hero Section with Background Image */}
+⋮----
+{/* Primary CTA — WhatsApp */}
+⋮----
+href=
+⋮----
+{/* Contact Methods Grid */}
+⋮----
+{/* Phone */}
+⋮----
+{/* Email */}
+⋮----
+{/* Instagram */}
+⋮----
+{/* Info Section: Hours + Location + FAQ */}
+⋮----
+{/* Left: Location & Hours */}
+⋮----
+{/* Operating Hours */}
+⋮----
+{/* Location */}
+⋮----
+{/* Right: FAQ */}
+</file>
+
+<file path="src/app/image-sitemap.xml/route.ts">
+import { NextResponse } from 'next/server';
+import { absoluteUrl } from '@/lib/site-config';
+import { TOUR_PACKAGES, RENTAL_SERVICES, SOUVENIRS } from '@/lib/constants';
+import { DESTINATIONS } from '@/lib/destinations';
+import { getAllGuides } from '@/lib/guides';
+⋮----
+/**
+ * Image sitemap (Google Image search).
+ *
+ * Format follows the official Google image sitemap extension:
+ * https://developers.google.com/search/docs/crawling-indexing/sitemaps/image-sitemaps
+ *
+ * Each <url> entry can contain multiple <image:image> children. The page URL
+ * gives Google context; the image URLs feed Google Image search.
+ */
+⋮----
+export const revalidate = 3600; // refresh hourly
+⋮----
+interface ImageEntry {
+  loc: string;
+  caption?: string;
+  title?: string;
+}
+⋮----
+interface UrlEntry {
+  pageUrl: string;
+  images: ImageEntry[];
+}
+⋮----
+function escapeXml(str: string): string
+⋮----
+function buildEntries(): UrlEntry[]
+⋮----
+// Homepage hero + featured destinations gallery
+⋮----
+// Tour listing + per-tour images
+⋮----
+// Rental listing + per-rental images
+⋮----
+// Destination pages — multiple images each
+⋮----
+// Souvenirs listing
+⋮----
+// Travel guides
+⋮----
+export async function GET(): Promise<NextResponse>
+</file>
+
+<file path="src/app/manifest.ts">
+import { MetadataRoute } from 'next';
+import { SITE } from '@/lib/site-config';
+⋮----
+export default function manifest(): MetadataRoute.Manifest
+</file>
+
+<file path="src/components/business/__tests__/TourPackageCard.test.tsx">
+import React from 'react';
+import { render, screen, fireEvent } from '@testing-library/react';
+⋮----
+import TourPackageCard from '../TourPackageCard';
+import { TourPackage } from '@/types';
+⋮----
+// Mock Next.js Image component
+⋮----
+// eslint-disable-next-line @next/next/no-img-element
+⋮----
+// Mock WhatsAppBookingButton
+⋮----
+// Mock TourImage
+⋮----
+// eslint-disable-next-line @next/next/no-img-element
+</file>
+
+<file path="src/components/business/RentalServiceDetail.tsx">
+import React from 'react';
+import { RentalService } from '@/types';
+import WhatsAppBookingButton from './WhatsAppBookingButton';
+import TourImage from './TourImage';
+import { useLanguage } from '@/lib/LanguageContext';
+import { formatPriceByLang } from '@/lib/currency';
+⋮----
+interface RentalServiceDetailProps {
+  rentalService: RentalService;
+  onBookingClick?: (vehicleModel: string, price: number) => void;
+  className?: string;
+}
+⋮----
+const handleBookingClick = () =>
+⋮----
+const formatVehicleType = (type: string) =>
+⋮----
+// Sample rental terms and conditions
+⋮----
+{/* Left Column - Image and Basic Info */}
+⋮----
+{/* Vehicle Image */}
+⋮----
+{/* Vehicle Info */}
+⋮----
+{/* Pricing */}
+⋮----
+
+⋮----
+{/* Booking Button */}
+⋮----
+{/* Right Column - Details and Features */}
+⋮----
+{/* Features */}
+⋮----
+{/* Specifications */}
+⋮----
+{/* Rental Terms */}
+⋮----
+{/* Contact Info */}
+</file>
+
+<file path="src/components/business/RentalServiceGrid.tsx">
+import React from 'react';
+import { RentalService } from '@/types';
+import RentalServiceCard from './RentalServiceCard';
+import { useLanguage } from '@/lib/LanguageContext';
+⋮----
+interface RentalServiceGridProps {
+  rentalServices: RentalService[];
+  onBookingClick?: (vehicleModel: string, price: number) => void;
+  className?: string;
+  showTitle?: boolean;
+  title?: string;
+  maxItems?: number;
+}
+⋮----
+// Filter available services and limit if maxItems is specified
+⋮----
+// Group services by vehicle type for better organization
+⋮----
+const handleBookingClick = (vehicleModel: string, price: number) =>
+⋮----
+{/* Render services grouped by vehicle type */}
+⋮----
+{/* Vehicle Type Section Header */}
+⋮----
+{/* Services Grid */}
+⋮----
+{/* Show more link if maxItems is set and there are more services */}
+</file>
+
+<file path="src/components/business/SouvenirGrid.tsx">
+import React from 'react';
+import { Souvenir } from '@/types';
+import { SouvenirCard } from './SouvenirCard';
+import { useLanguage } from '@/lib/LanguageContext';
+⋮----
+export interface SouvenirGridProps {
+  souvenirs: Souvenir[];
+  onBookingClick?: (souvenirName: string, price: number) => void;
+  className?: string;
+}
+</file>
+
+<file path="src/components/business/TourPackageGrid.tsx">
+import React from 'react';
+import { TourPackage } from '@/types';
+import TourPackageCard from './TourPackageCard';
+import { useLanguage } from '@/lib/LanguageContext';
+⋮----
+interface TourPackageGridProps {
+  tourPackages: TourPackage[];
+  onBookingClick?: (packageName: string, price: number) => void;
+  className?: string;
+  showTitle?: boolean;
+  title?: string;
+  maxItems?: number;
+}
+⋮----
+// Filter active packages and limit if maxItems is specified
+⋮----
+{/* Grid Layout */}
+⋮----
+{/* Show More Link if there are more packages */}
+</file>
+
+<file path="src/components/ExchangeRateProvider.tsx">
+import { useEffect } from 'react';
+import { getUsdToIdrRate } from '@/lib/exchange-rate';
+⋮----
+/**
+ * Fetches and caches the USD to IDR exchange rate on mount.
+ *
+ * Performance:
+ * - Wraps the initial fetch in `requestIdleCallback` (or a `setTimeout`
+ *   fallback) so it never competes with hero rendering for main-thread time.
+ * - Hourly refresh continues in the background.
+ * - Dev-only console output to keep production logs clean.
+ */
+export default function ExchangeRateProvider()
+⋮----
+const safeFetch = () =>
+⋮----
+// Defer past first paint.
+type RIC = (cb: () => void, opts?: { timeout?: number }) => number;
+</file>
+
+<file path="src/components/layout/Layout.tsx">
+import React from 'react';
+import Header from './Header';
+import Footer from './Footer';
+⋮----
+interface LayoutProps {
+  children: React.ReactNode;
+  className?: string;
+  showHeader?: boolean;
+  showFooter?: boolean;
+}
+⋮----
+const Layout: React.FC<LayoutProps> = ({
+  children,
+  className = '',
+  showHeader = true,
+  showFooter = true
+}) =>
+⋮----
+{/* Extra bottom space on mobile so content isn't hidden behind the bottom tab bar */}
+</file>
+
+<file path="src/components/layout/Navigation.tsx">
+import React from 'react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+⋮----
+interface NavigationItem {
+  name: string;
+  href: string;
+  description?: string;
+}
+⋮----
+interface NavigationProps {
+  items: NavigationItem[];
+  className?: string;
+  orientation?: 'horizontal' | 'vertical';
+  showActiveState?: boolean;
+  onItemClick?: (item: NavigationItem) => void;
+}
+⋮----
+const isActive = (href: string) =>
+⋮----
+const linkClasses = (href: string) =>
+⋮----
+className=
+</file>
+
+<file path="src/components/seo/BreadcrumbNav.tsx">
+import Link from 'next/link';
+import { useLanguage } from '@/lib/LanguageContext';
+⋮----
+export interface BreadcrumbItem {
+  /** Default (English) label */
+  label: string;
+  /** Optional Indonesian label override */
+  labelId?: string;
+  /** Route path. Use the same path for the current page; the last item becomes
+   *  the active page automatically. */
+  href: string;
+}
+⋮----
+/** Default (English) label */
+⋮----
+/** Optional Indonesian label override */
+⋮----
+/** Route path. Use the same path for the current page; the last item becomes
+   *  the active page automatically. */
+⋮----
+interface BreadcrumbNavProps {
+  items: BreadcrumbItem[];
+  /** Container variant. `bar` adds a subtle band background, `inline` strips it. */
+  variant?: 'bar' | 'inline';
+  className?: string;
+}
+⋮----
+/** Container variant. `bar` adds a subtle band background, `inline` strips it. */
+⋮----
+/**
+ * Visual breadcrumb navigation.
+ *
+ * - The `Home` step is added automatically — pages only need to pass their own
+ *   trail ([{ label: 'Tours', labelId: 'Tur', href: '/tours' }]).
+ * - Renders Schema.org BreadcrumbList microdata; pair with the JSON-LD
+ *   `breadcrumbJsonLd` helper in `lib/seo.ts` for full SEO coverage.
+ * - The `bar` variant gives the breadcrumb its own band so it feels intentional
+ *   on top of hero sections and doesn't visually fight the page title.
+ */
+⋮----
+// Always start with Home, then the page-provided trail.
+⋮----
+{/* Separator before every item except the first */}
+</file>
+
+<file path="src/lib/analytics.ts">
+/**
+ * Analytics tracking utilities for Google Analytics and custom events
+ */
+⋮----
+interface Window {
+    gtag: (...args: any[]) => void;
+  }
+⋮----
+/**
+ * Google Analytics tracking events
+ */
+export const trackEvent = (
+  action: string,
+  category: string,
+  label?: string,
+  value?: number
+) =>
+⋮----
+/**
+ * Track booking clicks for analytics
+ */
+export const trackBookingClick = (params: {
+  serviceType: 'tour' | 'rental' | 'souvenir';
+  serviceName: string;
+  price: number;
+  method: 'whatsapp' | 'contact_form';
+}) =>
+⋮----
+// Custom analytics for business insights
+⋮----
+/**
+ * Track contact form submissions
+ */
+export const trackContactSubmission = (serviceType?: string) =>
+⋮----
+/**
+ * Track page views
+ */
+export const trackPageView = (url: string) =>
+⋮----
+/**
+ * Track WhatsApp clicks
+ */
+export const trackWhatsAppClick = (context: string) =>
+⋮----
+/**
+ * Track phone clicks
+ */
+export const trackPhoneClick = () =>
+⋮----
+/**
+ * Track email clicks
+ */
+export const trackEmailClick = () =>
+⋮----
+/**
+ * Track Instagram clicks
+ */
+export const trackInstagramClick = () =>
+</file>
+
+<file path="src/lib/currency.ts">
+/**
+ * Currency Formatting Utility
+ * 
+ * Converts and formats prices based on active language:
+ * - 'id' → Rupiah (IDR): Rp 390.000
+ * - 'en' → US Dollar (USD): $24
+ * 
+ * All source prices in the system are stored in IDR.
+ * Souvenir prices are stored in USD.
+ * 
+ * Exchange rate is fetched in real-time from external API.
+ */
+⋮----
+import type { Language } from './translations';
+import { getCachedRate } from './exchange-rate';
+⋮----
+// Default fallback rate if API fails: 1 USD = 16,000 IDR
+⋮----
+/**
+ * Get current exchange rate (cached or default)
+ */
+function getCurrentRate(): number
+⋮----
+/**
+ * Format a price in IDR according to the active language.
+ * 
+ * - `id` → "Rp 390.000"
+ * - `en` → "$24" (converted using real-time rate)
+ */
+export function formatPriceByLang(
+  amountIdr: number,
+  language: Language
+):
+⋮----
+/**
+ * Format a price originally stored in USD according to the active language.
+ * Used for souvenirs which have USD as base currency.
+ * 
+ * - `id` → "Rp 80.000" (converted using real-time rate)
+ * - `en` → "$5"
+ */
+export function formatUsdPriceByLang(
+  amountUsd: number,
+  language: Language
+):
+</file>
+
+<file path="src/lib/db/index.ts">
+// Re-export the runtime DB pieces used by app code.
+// Operational scripts (seed, list-tables, migrations) live in /scripts/db/.
+</file>
+
+<file path="src/lib/db/schema.ts">
+import { 
+  pgTable, 
+  serial, 
+  varchar, 
+  text, 
+  integer, 
+  boolean, 
+  timestamp, 
+  jsonb,
+  inet 
+} from 'drizzle-orm/pg-core';
+⋮----
+// Tour packages table
+⋮----
+// Rental services table
+⋮----
+vehicleType: varchar('vehicle_type', { length: 100 }).notNull(), // 'motorcycle' or 'car'
+⋮----
+// Contact inquiries table
+⋮----
+// SEO data table
+⋮----
+// Reviews / Testimonials table — Google-style guest reviews
+⋮----
+// Reviewer info
+⋮----
+authorEmail: varchar('author_email', { length: 255 }), // for verification & spam prevention
+⋮----
+authorCountryCode: varchar('author_country_code', { length: 2 }), // ISO 3166-1 alpha-2
+⋮----
+// Review content
+rating: integer('rating').notNull(), // 1-5
+⋮----
+language: varchar('language', { length: 5 }).default('en'), // 'en' | 'id'
+⋮----
+// Tour reference (optional — links to tour package or rental)
+⋮----
+serviceType: varchar('service_type', { length: 50 }), // 'tour' | 'rental' | 'general'
+⋮----
+// Photos (JSON array of image URLs)
+⋮----
+// Moderation
+status: varchar('status', { length: 20 }).notNull().default('pending'), // 'pending' | 'approved' | 'rejected' | 'spam'
+⋮----
+// Source tracking
+source: varchar('source', { length: 50 }).default('website'), // 'website' | 'whatsapp' | 'google' | 'instagram' | 'tripadvisor'
+⋮----
+// Google integration (future — for syncing with Google Business Profile)
+googleReviewId: varchar('google_review_id', { length: 255 }), // populate when synced to Google
+⋮----
+// Engagement
+⋮----
+isFeatured: boolean('is_featured').default(false), // pin to top
+isVerified: boolean('is_verified').default(false), // confirmed real customer
+⋮----
+// Owner response (you can reply to reviews)
+⋮----
+// Analytics tracking table
+⋮----
+// Export types for TypeScript
+export type TourPackage = typeof tourPackages.$inferSelect;
+export type NewTourPackage = typeof tourPackages.$inferInsert;
+⋮----
+export type RentalService = typeof rentalServices.$inferSelect;
+export type NewRentalService = typeof rentalServices.$inferInsert;
+⋮----
+export type ContactInquiry = typeof contactInquiries.$inferSelect;
+export type NewContactInquiry = typeof contactInquiries.$inferInsert;
+⋮----
+export type SeoData = typeof seoData.$inferSelect;
+export type NewSeoData = typeof seoData.$inferInsert;
+⋮----
+export type Review = typeof reviews.$inferSelect;
+export type NewReview = typeof reviews.$inferInsert;
+⋮----
+export type PageView = typeof pageViews.$inferSelect;
+export type NewPageView = typeof pageViews.$inferInsert;
+</file>
+
+<file path="src/lib/exchange-rate.ts">
+/**
+ * Real-time USD ↔ IDR exchange rate with 1-hour caching and graceful fallback.
+ *
+ * Performance: console output is dev-only so production logs stay clean and
+ * the bundle stays small after dead-code elimination.
+ */
+⋮----
+const CACHE_DURATION = 3600000; // 1 hour
+⋮----
+interface ExchangeRateCache {
+  rate: number;
+  timestamp: number;
+}
+⋮----
+/**
+ * Fetch real-time USD to IDR exchange rate.
+ * Uses the free exchangerate-api.com service. Falls back to a hardcoded rate
+ * if the API is unreachable.
+ */
+export async function getUsdToIdrRate(): Promise<number>
+⋮----
+// Cache the fallback for 5 minutes so we retry the API soon, but stop
+// hammering it during an outage.
+⋮----
+/** Synchronously read the cached rate. Returns null if no fresh cache. */
+export function getCachedRate(): number | null
+⋮----
+/** Clear the cache. Used by tests and the manual refresh utility. */
+export function clearCache(): void
+</file>
+
+<file path="src/lib/site-config.ts">
+/**
+ * Single source of truth for SEO + branding metadata.
+ * Edit here, propagates to <head>, sitemap, robots, JSON-LD.
+ */
+⋮----
+import { CONTACT_INFO } from './constants';
+⋮----
+/** Production canonical URL — change this when you buy your real domain */
+⋮----
+/** ~155 chars max — used as default <meta description> */
+⋮----
+/** Default Open Graph image — must exist in /public */
+⋮----
+/** Locale shipped on initial render */
+⋮----
+/** Geo for LocalBusiness JSON-LD (Nusa Penida, Bali) */
+⋮----
+/** Operating hours — used by LocalBusiness JSON-LD */
+⋮----
+/** Search engine verification — drop your codes here when you have them */
+⋮----
+/** Primary keywords — keep tight, Google ignores keyword bloat */
+⋮----
+// English — high intent
+⋮----
+// Indonesian — local SEO
+⋮----
+/** Build absolute URL for a given path */
+export function absoluteUrl(path: string = '/'): string
+</file>
+
+<file path="src/styles/README.md">
+# Brand colors and styles
+
+The brand palette comes from the NusaBeeTrip logo and reflects the look of Nusa Penida: deep ocean blue, tropical orange (the "bee"), and crystal teal for water.
+
+## Files
+
+- `variables.css` — CSS custom properties for the palette (`--color-brand-blue-primary`, etc.)
+- `components.css` — small set of component-level helpers (cards, buttons, badges)
+- `utilities.css` — extra utility classes that aren't covered by Tailwind out of the box
+
+## Usage
+
+Most of the time, just use Tailwind classes:
+
+```html
+<button class="bg-brand-blue-800 text-white">Book a tour</button>
+<div class="text-brand-orange-800">390,000 IDR</div>
+```
+
+The color scale is defined in `tailwind.config.js` so all `brand-blue-*`, `brand-orange-*`, `brand-teal-*`, `brand-green-*`, and `whatsapp-*` shades are available as standard Tailwind utilities.
+
+For custom CSS, prefer the variables:
+
+```css
+.custom-cta {
+  background: var(--color-brand-orange-primary);
+  color: white;
+}
+```
+
+## Conventions
+
+- Primary nav and hero backgrounds: deep blue (`brand-blue-800`/`brand-blue-900`)
+- Primary CTAs: orange (`brand-orange-800`)
+- Secondary CTAs and accents: teal (`brand-teal-500`)
+- WhatsApp buttons only: WhatsApp green (`whatsapp-500`/`whatsapp-600`)
+- Avoid introducing new brand shades without updating the palette config.
+</file>
+
+<file path="src/types/index.ts">
+// Core business types for NusaBeeTrip
+⋮----
+export interface TourPackage {
+  id: string;
+  name: string;
+  slug: string;
+  description: string;
+  price: number;
+  currency: string;
+  duration: number; // in hours
+  includesSnorkeling: boolean;
+  features: string[];
+  image: string;
+  isActive: boolean;
+}
+⋮----
+duration: number; // in hours
+⋮----
+export interface RentalService {
+  id: string;
+  vehicleType: 'motorcycle' | 'car';
+  model: string;
+  slug: string;
+  pricePerDay: number;
+  pricePerHour?: number;
+  currency: string;
+  features: string[];
+  image: string;
+  isAvailable: boolean;
+}
+⋮----
+export interface Souvenir {
+  id: string;
+  name: string;
+  slug: string;
+  description: string;
+  price: number;
+  currency: string;
+  category: string;
+  image: string;
+  isAvailable: boolean;
+}
+⋮----
+export interface ContactInfo {
+  phone: string;
+  whatsapp: string;
+  email: string;
+  instagram: string;
+}
+⋮----
+export interface BusinessInfo {
+  name: string;
+  location: string;
+  description: string;
+  contactInfo: ContactInfo;
+}
+⋮----
+export interface ContactFormData {
+  name: string;
+  email: string;
+  phone: string;
+  message: string;
+  tourInterest?: string;
+  rentalInterest?: string;
+  serviceType?: 'tour' | 'rental' | 'general';
+}
+⋮----
+export interface WhatsAppBookingParams {
+  phoneNumber: string;
+  serviceType: 'tour' | 'rental' | 'souvenir';
+  serviceName: string;
+  price: number;
+  currency: string;
+}
+⋮----
+// SEO related types
+export interface SEOData {
+  title: string;
+  description: string;
+  keywords: string[];
+  canonicalUrl: string;
+  openGraph: OpenGraphData;
+  structuredData?: StructuredData;
+}
+⋮----
+export interface OpenGraphData {
+  title: string;
+  description: string;
+  image: string;
+  url: string;
+  type: string;
+  siteName: string;
+}
+⋮----
+export interface StructuredData {
+  '@context': string;
+  '@type': string;
+  name: string;
+  description?: string;
+  url?: string;
+  telephone?: string;
+  email?: string;
+  address?: Address;
+  geo?: GeoCoordinates;
+  priceRange?: string;
+  image?: string[];
+}
+⋮----
+export interface Address {
+  '@type': string;
+  streetAddress?: string;
+  addressLocality: string;
+  addressRegion: string;
+  addressCountry: string;
+}
+⋮----
+export interface GeoCoordinates {
+  '@type': string;
+  latitude: number;
+  longitude: number;
+}
+⋮----
+// Navigation types
+export interface NavigationItem {
+  label: string;
+  href: string;
+  isExternal?: boolean;
+}
+⋮----
+export interface SocialLink {
+  platform: string;
+  url: string;
+  icon: string;
+}
+⋮----
+// API response types
+export interface APIResponse<T = any> {
+  success: boolean;
+  data?: T;
+  error?: string;
+  message?: string;
+}
+⋮----
+export interface ContactSubmissionResponse extends APIResponse {
+  data?: {
+    id: string;
+    status: string;
+  };
+}
+⋮----
+// Component prop types
+export interface TourPackageCardProps {
+  tourPackage: TourPackage;
+  onBookingClick?: (packageName: string, price: number) => void;
+  className?: string;
+}
+⋮----
+export interface RentalServiceCardProps {
+  rentalService: RentalService;
+  onBookingClick?: (vehicleModel: string, price: number) => void;
+  className?: string;
+}
+⋮----
+export interface WhatsAppBookingButtonProps {
+  phoneNumber: string;
+  serviceType: 'tour' | 'rental' | 'souvenir';
+  serviceName: string;
+  price: number;
+  currency: string;
+  className?: string;
+}
+⋮----
+export interface SouvenirCardProps {
+  souvenir: Souvenir;
+  onBookingClick?: (souvenirName: string, price: number) => void;
+  className?: string;
+}
+⋮----
+export interface ContactFormProps {
+  onSubmit: (data: ContactFormData) => Promise<void>;
+  loading?: boolean;
+  className?: string;
+}
+⋮----
+// Layout component types
+export interface LayoutProps {
+  children: React.ReactNode;
+  metadata?: SEOData;
+}
+⋮----
+export interface HeaderProps {
+  logo?: string;
+  navigation: NavigationItem[];
+  contactInfo: ContactInfo;
+}
+⋮----
+export interface FooterProps {
+  businessInfo: BusinessInfo;
+  socialLinks: SocialLink[];
+  quickLinks: NavigationItem[];
+}
+⋮----
+// Database types (for future use)
+export interface DatabaseTourPackage extends Omit<TourPackage, 'features'> {
+  features: string; // JSON string in database
+  createdAt: Date;
+  updatedAt: Date;
+}
+⋮----
+features: string; // JSON string in database
+⋮----
+export interface DatabaseRentalService extends Omit<RentalService, 'features'> {
+  features: string; // JSON string in database
+  createdAt: Date;
+  updatedAt: Date;
+}
+⋮----
+features: string; // JSON string in database
+⋮----
+export interface DatabaseContactInquiry {
+  id: number;
+  name: string;
+  email: string;
+  phone?: string;
+  message: string;
+  tourInterest?: string;
+  rentalInterest?: string;
+  status: 'new' | 'contacted' | 'booked' | 'closed';
+  createdAt: Date;
+  updatedAt: Date;
+}
+⋮----
+// Analytics types
+export interface AnalyticsEvent {
+  action: string;
+  category: string;
+  label?: string;
+  value?: number;
+  timestamp: string;
+  userAgent?: string;
+  referrer?: string;
+}
+⋮----
+export interface BookingClickEvent extends AnalyticsEvent {
+  serviceType: 'tour' | 'rental' | 'souvenir';
+  serviceName: string;
+  price: number;
+  method: 'whatsapp' | 'contact_form';
+}
+</file>
+
+<file path="tsconfig.json">
+{
+  "compilerOptions": {
+    "target": "es5",
+    "lib": ["dom", "dom.iterable", "es6"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  },
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "exclude": ["node_modules", "**/__tests__/**", "**/*.test.ts", "**/*.test.tsx", "**/*.spec.ts", "**/*.spec.tsx"]
+}
+</file>
+
+<file path="README.md">
+# NusaBeeTrip
+
+The website for NusaBeeTrip, a local tour and rental operator on Nusa Penida, Bali. It runs on Next.js 14 with the App Router, Tailwind for styling, and Drizzle ORM on Neon Postgres for content.
+
+Live site: https://nusabeetrip.com
+
+## Stack
+
+- Next.js 14 (App Router) with TypeScript
+- Tailwind CSS
+- Drizzle ORM + Neon serverless Postgres
+- Deployed on Vercel (Singapore region)
+- Bilingual UI (English / Bahasa Indonesia) via React context
+- USD/IDR conversion using a real-time exchange rate with caching
+
+## Getting started
+
+```bash
+git clone https://github.com/reikidevs/nusabeetrip.git
+cd nusabeetrip
+npm install
+cp .env.example .env.local
+# Fill in DATABASE_URL and other values in .env.local
+npm run dev
+```
+
+The dev server runs at http://localhost:3000. If the build cache misbehaves, use `npm run dev:clean`.
+
+## Project layout
+
+```
+.
+├── public/            Static assets (logos, tour photos, souvenirs)
+├── src/
+│   ├── app/           Routes (App Router): home, tours, rentals, souvenirs, contact, about
+│   ├── components/    UI building blocks
+│   │   ├── business/  Tour/rental cards, testimonials, review form
+│   │   ├── layout/    Header, footer, navigation
+│   │   ├── seo/       JSON-LD generators, breadcrumbs
+│   │   └── ui/        Generic UI primitives
+│   ├── lib/
+│   │   ├── db/        Drizzle config, schema, queries (runtime only)
+│   │   ├── seo.ts     Metadata builder + Schema.org generators
+│   │   ├── translations.ts
+│   │   ├── currency.ts, exchange-rate.ts
+│   │   └── ...
+│   ├── styles/        Shared CSS variables and utilities
+│   └── types/         Shared TypeScript types
+├── scripts/
+│   └── db/            One-off database operations (seed, migrate, moderate reviews)
+├── drizzle/           SQL migration files
+├── next.config.js
+├── tailwind.config.js
+├── drizzle.config.ts
+└── package.json
+```
+
+Anything in `src/lib/db/` is imported by the running app. Anything in `scripts/db/` is a CLI tool you run manually with `tsx` and never ships to production.
+
+## Common scripts
+
+```bash
+# Dev / build
+npm run dev              # Start dev server
+npm run dev:clean        # Clear .next cache then start dev
+npm run build            # Production build
+npm start                # Run the production build
+npm run lint             # ESLint
+npm test                 # Jest
+
+# Database (development branch by default)
+npm run db:push                  # Push schema changes
+npm run db:studio                # Open Drizzle Studio
+npm run db:list-tables           # List tables and row counts
+npm run db:check-reviews         # Show reviews grouped by status
+npm run db:seed                  # Seed tours / rentals / SEO data
+npm run db:seed-reviews          # Seed sample testimonials
+
+# Database (production branch — requires DATABASE_URL_PROD in .env.local)
+npm run db:list-tables:prod
+npm run db:check-reviews:prod
+npm run db:migrate-missing:prod  # Add missing tables without touching existing data
+npm run db:seed-reviews:prod
+
+# Review moderation (CLI)
+npm run db:moderate -- approve <id> [prod]
+npm run db:moderate -- reject <id> [prod]
+npm run db:moderate -- feature <id>
+npm run db:moderate -- delete <id>
+```
+
+See `scripts/db/README.md` for details on each operational script.
+
+## Environment variables
+
+All variables live in `.env.local` (never committed). The template is in `.env.example`.
+
+| Variable | Purpose |
+|---|---|
+| `DATABASE_URL` | Neon Postgres connection string used by the running app and dev scripts |
+| `DATABASE_URL_PROD` | Optional. Lets local ops scripts target the production branch separately |
+| `NEXT_PUBLIC_SITE_URL` | Canonical site URL used in metadata, sitemap, and JSON-LD |
+| `GOOGLE_SITE_VERIFICATION` | Search Console verification code (string, no quotes inside) |
+| `BING_SITE_VERIFICATION` | Bing Webmaster verification code |
+| `RESEND_API_KEY`, `FROM_EMAIL`, `TO_EMAIL` | Used by the contact form when email delivery is enabled |
+| `GOOGLE_ANALYTICS_ID` | Optional analytics |
+
+In production these are set in the Vercel project settings.
+
+## Database
+
+Schema is defined in `src/lib/db/schema.ts`. Tables:
+
+- `tour_packages` — published tour packages
+- `rental_services` — motorcycle and car rentals
+- `seo_data` — per-page metadata overrides
+- `contact_inquiries` — submissions from the contact form
+- `page_views` — lightweight view tracking
+- `reviews` — guest testimonials (rating, body, status, optional Google sync columns)
+
+The `reviews` table is designed to mirror the shape of Google Business Profile reviews so they can be merged in later without changing the UI.
+
+### Review moderation flow
+
+When a visitor submits a review through the website:
+
+- Rating 3–5 → published immediately
+- Rating 1–2 → held as `pending` for manual review
+- Spam patterns (URLs, HTML, blocklisted words) → marked as `spam` and never shown
+
+Approve or reject pending reviews with `npm run db:moderate -- approve <id>` or via SQL.
+
+## Deployment
+
+The project deploys to Vercel automatically on push to `main`. Things to confirm before promoting a build:
+
+1. Environment variables are set in Vercel (production environment)
+2. Schema on the production database matches `src/lib/db/schema.ts` (`npm run db:list-tables:prod`)
+3. `npm run build` passes locally
+
+If schema is out of date, run `npm run db:migrate-missing:prod`. It only adds tables that do not exist and never touches existing data.
+
+## SEO
+
+Metadata is built in one place via `buildMetadata()` in `src/lib/seo.ts`. Every page sets its own canonical URL, hreflang variants, OpenGraph image, and JSON-LD. The homepage emits a richer set of schemas (FAQ, ItemList, AggregateRating, LocalBusiness with reviews, HowTo). Sitemap and robots are generated by `src/app/sitemap.ts` and `src/app/robots.ts`.
+
+## License
+
+All rights reserved. The codebase is published for transparency and learning purposes.
+</file>
+
+<file path="src/app/demo/page.tsx">
+import React from 'react';
+import { TourPackageGrid, TourPackageCard, TourPackageDetail } from '@/components';
+import { TourPackage } from '@/types';
+⋮----
+// Sample tour package data
+⋮----
+{/* Header */}
+⋮----
+{/* Tour Package Grid Demo */}
+⋮----
+{/* Individual Tour Package Cards */}
+⋮----
+{/* Tour Package Detail View */}
+⋮----
+{/* Component Features */}
+</file>
+
+<file path="src/app/globals.css">
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+⋮----
+/* Import custom styles */
+⋮----
+/* Brand color CSS variables for compatibility */
+:root {
+⋮----
+/* Primary brand colors extracted from NusaBeeTrip logo */
+--primary-blue: #1E40AF;      /* Deep ocean blue */
+--primary-orange: #FFB800;    /* Tropical sunset orange */
+--accent-teal: #0EA5E9;       /* Crystal water teal */
+⋮----
+/* Supporting colors */
+--secondary-blue: #3B82F6;    /* Lighter blue variant */
+--secondary-orange: #FB923C;  /* Lighter orange variant */
+--secondary-teal: #38BDF8;    /* Lighter teal variant */
+⋮----
+/* WhatsApp brand colors */
+--whatsapp-green: #25D366;    /* Official WhatsApp green */
+--whatsapp-dark: #128C7E;     /* Darker WhatsApp green */
+⋮----
+/* Semantic colors */
+⋮----
+@layer base {
+⋮----
+html {
+⋮----
+body {
+⋮----
+/* Focus styles only for keyboard navigation (not mouse clicks) */
+*:focus {
+⋮----
+*:focus-visible {
+⋮----
+/* Better text rendering */
+h1, h2, h3, h4, h5, h6 {
+⋮----
+@apply font-display;
+⋮----
+@layer components {
+⋮----
+/* Primary button styles */
+.btn-primary {
+⋮----
+.btn-primary:hover {
+⋮----
+/* Secondary button styles */
+.btn-secondary {
+⋮----
+.btn-secondary:hover {
+⋮----
+/* WhatsApp button with enhanced styling */
+.btn-whatsapp {
+⋮----
+.btn-whatsapp:hover {
+⋮----
+/* Card component with brand styling */
+.card {
+⋮----
+.card:hover {
+⋮----
+/* Enhanced card variants */
+.card-brand {
+⋮----
+@apply card;
+⋮----
+.card-featured {
+⋮----
+/* Section padding utility */
+.section-padding {
+⋮----
+.section-padding-sm {
+⋮----
+.section-padding-lg {
+⋮----
+/* Container utilities */
+.container-max {
+⋮----
+.container-content {
+⋮----
+.container-narrow {
+⋮----
+/* Form input styling */
+.input-brand {
+⋮----
+.input-brand:focus {
+⋮----
+/* Textarea styling */
+.textarea-brand {
+⋮----
+/* Link styling */
+.link-brand {
+⋮----
+.link-brand:hover {
+⋮----
+@layer utilities {
+⋮----
+/* Text gradient utilities */
+.text-gradient {
+⋮----
+.text-gradient-sunset {
+⋮----
+.text-gradient-ocean {
+⋮----
+/* Background gradient utilities */
+.bg-hero-gradient {
+⋮----
+.bg-brand-gradient {
+⋮----
+.bg-sunset-gradient {
+⋮----
+.bg-ocean-gradient {
+⋮----
+/* Brand color utilities */
+.text-brand-primary {
+⋮----
+.text-brand-orange {
+⋮----
+.text-brand-teal {
+⋮----
+.bg-brand-primary {
+⋮----
+.bg-brand-orange {
+⋮----
+.bg-brand-teal {
+⋮----
+/* Border utilities */
+.border-brand {
+⋮----
+.border-brand-orange {
+⋮----
+.border-brand-blue {
+⋮----
+/* Hide scrollbar utilities */
+.scrollbar-hide {
+⋮----
+.scrollbar-hide::-webkit-scrollbar {
+</file>
+
+<file path="src/app/souvenirs/SouvenirsPageContent.tsx">
+import React from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { SouvenirGrid } from '@/components/business';
+import { BreadcrumbNav } from '@/components/seo';
+import { SOUVENIRS } from '@/lib/constants';
+import { useLanguage } from '@/lib/LanguageContext';
+import { getWhatsAppLink } from '@/lib/whatsapp';
+⋮----
+const handleBookingClick = () =>
+⋮----
+// No-op — booking handled by WhatsApp link in SouvenirGrid.
+// Kept here for the SouvenirGrid prop signature.
+⋮----
+{/* Breadcrumb */}
+⋮----
+{/* Hero Section with Background Image */}
+⋮----
+{/* Highlights */}
+⋮----
+{/* Category Count Bar */}
+⋮----
+{/* Souvenirs Grid */}
+⋮----
+{/* How to Order */}
+⋮----
+{/* CTA Section */}
+⋮----
+href=
+</file>
+
+<file path="src/components/business/index.ts">
+// Business components exports
+⋮----
+// export { default as ContactInfo } from './ContactInfo';
+// export { default as HeroSection } from './HeroSection';
+</file>
+
+<file path="src/components/business/ReviewForm.tsx">
+import React, { useState, useEffect } from 'react';
+import { useLanguage } from '@/lib/LanguageContext';
+⋮----
+interface ReviewFormProps {
+  isOpen: boolean;
+  onClose: () => void;
+  onSuccess?: () => void;
+  defaultTour?: string;
+}
+⋮----
+/**
+ * Google-style review submission form (modal).
+ * Submits to /api/reviews endpoint with moderation.
+ */
+⋮----
+// Reset form when closing
+⋮----
+// Lock body scroll when open
+⋮----
+const handleSubmit = async (e: React.FormEvent) =>
+⋮----
+// Reset form
+⋮----
+{/* Header */}
+⋮----
+{/* Brand-style icon */}
+⋮----
+{/* Body */}
+⋮----
+{/* Star rating — Google style */}
+⋮----
+onMouseEnter=
+onMouseLeave=
+⋮----
+{/* Name */}
+⋮----
+{/* Email */}
+⋮----
+{/* Country */}
+⋮----
+{/* Tour */}
+⋮----
+{/* Title */}
+⋮----
+{/* Body */}
+⋮----
+onChange=
+⋮----
+{/* Privacy note */}
+</file>
+
+<file path="src/components/business/SouvenirCard.tsx">
+import React from 'react';
+import Image from 'next/image';
+import { Souvenir } from '@/types';
+import WhatsAppBookingButton from './WhatsAppBookingButton';
+import { trackBookingClick } from '@/lib/analytics';
+import { useLanguage } from '@/lib/LanguageContext';
+import { formatUsdPriceByLang } from '@/lib/currency';
+⋮----
+export interface SouvenirCardProps {
+  souvenir: Souvenir;
+  onBookingClick?: (souvenirName: string, price: number) => void;
+  className?: string;
+}
+⋮----
+const handleBookingClick = () =>
+⋮----
+{/* Image */}
+⋮----
+{/* Content */}
+⋮----
+{/* Price */}
+⋮----
+{/* Booking Button */}
+</file>
+
+<file path="src/components/business/TourPackageDetail.tsx">
+import React, { useState } from 'react';
+import { TourPackage } from '@/types';
+import WhatsAppBookingButton from './WhatsAppBookingButton';
+import TourImage from './TourImage';
+import { useLanguage } from '@/lib/LanguageContext';
+import { formatPriceByLang } from '@/lib/currency';
+⋮----
+interface TourPackageDetailProps {
+  tourPackage: TourPackage;
+  onBookingClick?: (packageName: string, price: number) => void;
+  className?: string;
+  images?: string[]; // Additional images for gallery
+}
+⋮----
+images?: string[]; // Additional images for gallery
+⋮----
+// Combine main image with additional images
+⋮----
+const handleBookingClick = () =>
+⋮----
+{/* Image Gallery */}
+⋮----
+{/* Main Image */}
+⋮----
+{/* Image Thumbnails */}
+⋮----
+{/* Package Details */}
+⋮----
+{/* Header */}
+⋮----
+{/* Description */}
+⋮----
+{/* Price */}
+⋮----
+
+⋮----
+{/* Features */}
+⋮----
+{/* Booking Section */}
+⋮----
+{/* Additional Info */}
+</file>
+
+<file path="src/components/business/WhatsAppBookingButton.tsx">
+import React from 'react';
+import { generateWhatsAppURL, validateWhatsAppParams } from '@/lib/whatsapp';
+import { trackBookingClick } from '@/lib/analytics';
+import { WhatsAppBookingParams } from '@/types';
+import { useLanguage } from '@/lib/LanguageContext';
+⋮----
+interface WhatsAppBookingButtonProps {
+  phoneNumber: string;
+  serviceType: 'tour' | 'rental' | 'souvenir';
+  serviceName: string;
+  price: number;
+  currency: string;
+  className?: string;
+  onClick?: () => void;
+  disabled?: boolean;
+  size?: 'sm' | 'md' | 'lg';
+}
+⋮----
+const WhatsAppBookingButton: React.FC<WhatsAppBookingButtonProps> = ({
+  phoneNumber,
+  serviceType,
+  serviceName,
+  price,
+  currency,
+  className = '',
+  onClick,
+  disabled = false,
+  size = 'md'
+}) =>
+⋮----
+const handleBookingClick = () =>
+⋮----
+// Validate parameters before proceeding
+⋮----
+// Track analytics event
+⋮----
+// Call custom onClick handler if provided
+⋮----
+// Generate and open WhatsApp URL with language-aware message
+⋮----
+// Size variants
+⋮----
+{/* WhatsApp Icon */}
+</file>
+
+<file path="src/components/seo/HomepageSEO.tsx">
+import React from 'react';
+import JsonLd from './JsonLd';
+import {
+  homepageJsonLd,
+  faqJsonLd,
+  itemListJsonLd,
+  aggregateRatingJsonLd,
+} from '@/lib/seo';
+import { absoluteUrl } from '@/lib/site-config';
+import { getAggregateRating } from '@/lib/testimonials';
+⋮----
+/**
+ * Homepage-specific SEO schemas.
+ * Renders multiple JSON-LD blocks for maximum SERP rich snippet coverage:
+ * - WebPage schema (speakable, breadcrumb)
+ * - FAQ schema (rich results)
+ * - ItemList schema (carousel potential)
+ * - AggregateRating (star ratings in SERP)
+ */
+⋮----
+export default function HomepageSEO()
+</file>
+
+<file path="src/components/seo/index.ts">
+
+</file>
+
+<file path="src/lib/db/config.ts">
+import { neon, NeonQueryFunction } from '@neondatabase/serverless';
+import { drizzle } from 'drizzle-orm/neon-http';
+⋮----
+type DbInstance = ReturnType<typeof drizzle<typeof schema>>;
+type SqlInstance = NeonQueryFunction<false, false>;
+⋮----
+/**
+ * Lazy database initialization.
+ * Throws only at runtime when getDb() is called, not at module load time (build time).
+ * This prevents Next.js static generation from failing during `next build`.
+ */
+⋮----
+function initDb():
+⋮----
+/** Returns the Drizzle DB instance. Throws if DATABASE_URL is not set. */
+export function getDb(): DbInstance
+⋮----
+/** Returns the Neon SQL client. Throws if DATABASE_URL is not set. */
+export function getSql(): SqlInstance
+⋮----
+// Legacy named exports for backward compatibility with existing imports
+⋮----
+get(_target, prop)
+⋮----
+apply(_target, _thisArg, args)
+</file>
+
+<file path="src/lib/whatsapp.ts">
+import { WhatsAppBookingParams } from '@/types';
+import { CONTACT_INFO } from './constants';
+import { trackBookingClick } from './analytics';
+import type { Language } from './translations';
+⋮----
+/**
+ * Bilingual message templates for different service types
+ */
+⋮----
+/**
+ * Simple helper to build a WhatsApp link with the given message.
+ * Used for inline href attributes in JSX.
+ */
+export function getWhatsAppLink(
+  messageKey: 'bookTour' | 'rentVehicle' | 'orderSouvenir' | 'services' | 'general',
+  lang: Language = 'en'
+): string
+⋮----
+/**
+ * Build a WhatsApp link for a specific product/item order.
+ */
+export function getWhatsAppItemLink(itemName: string, lang: Language = 'en'): string
+⋮----
+/**
+ * Build a WhatsApp link for a specific vehicle rental.
+ */
+export function getWhatsAppRentalLink(vehicleName: string, lang: Language = 'en'): string
+⋮----
+/**
+ * Generates a WhatsApp URL with pre-filled message for booking inquiries
+ */
+export function generateWhatsAppURL(params: WhatsAppBookingParams &
+⋮----
+/**
+ * Opens WhatsApp with booking inquiry and tracks analytics
+ */
+export function openWhatsAppBooking(params: WhatsAppBookingParams &
+⋮----
+// Track booking click for analytics
+⋮----
+// Open WhatsApp in new tab/window
+⋮----
+/**
+ * Validates WhatsApp booking parameters
+ */
+export function validateWhatsAppParams(params: WhatsAppBookingParams): boolean
+⋮----
+/**
+ * Generates a general WhatsApp contact URL
+ */
+export function generateWhatsAppContactURL(message?: string, lang: Language = 'en'): string
+⋮----
+/**
+ * Opens general WhatsApp contact
+ */
+export function openWhatsAppContact(message?: string, lang: Language = 'en'): void
+</file>
+
+<file path="vercel.json">
+{
+  "framework": "nextjs",
+  "buildCommand": "npm run build",
+  "regions": ["sin1"]
+}
+</file>
+
+<file path=".env.example">
+# Copy this file to .env.local and fill in real values.
+# Never commit .env.local — it is git-ignored.
+
+# Database (Neon PostgreSQL)
+# Get from https://console.neon.tech → your project → Connection Details
+DATABASE_URL="postgresql://user:password@host/dbname?sslmode=require"
+
+# Optional: separate URL for production branch (used by ops scripts in /scripts/db)
+# DATABASE_URL_PROD="postgresql://user:password@host/dbname?sslmode=require"
+
+# Site URL — must match your live domain, no trailing slash
+NEXT_PUBLIC_SITE_URL="https://example.com"
+
+# Search engine verification codes (leave empty until you have them)
+GOOGLE_SITE_VERIFICATION=""
+BING_SITE_VERIFICATION=""
+YANDEX_SITE_VERIFICATION=""
+
+# Email service (Resend) — required if you wire up the contact form
+RESEND_API_KEY=""
+FROM_EMAIL="noreply@example.com"
+TO_EMAIL="owner@example.com"
+
+# Analytics (optional)
+GOOGLE_ANALYTICS_ID=""
+
+# Admin panel
+# Set a strong password — this protects /admin. Never commit the real value.
+ADMIN_PASSWORD=""
+# Optional: separate signing key for the session cookie. If empty, the
+# password is used as the signing key. Set a long random string in production.
+ADMIN_SESSION_SECRET=""
+</file>
+
+<file path="src/app/robots.ts">
+import { MetadataRoute } from 'next';
+import { SITE } from '@/lib/site-config';
+⋮----
+/**
+ * Enhanced robots.txt with bot-specific rules and image sitemap reference.
+ *
+ * Note on `sitemap`: Next.js' MetadataRoute.Robots type only accepts a single
+ * sitemap URL. We point it at the standard /sitemap.xml. Google also discovers
+ * /image-sitemap.xml because we include it in the URL list it picks up via
+ * the homepage <link rel="sitemap"> hint plus the Search Console submission.
+ */
+export default function robots(): MetadataRoute.Robots
+</file>
+
+<file path="src/lib/db/queries.ts">
+import { eq, desc, and, sql as drizzleSql } from 'drizzle-orm';
+import { db } from './config';
+import { 
+  tourPackages, 
+  rentalServices, 
+  contactInquiries, 
+  seoData,
+  pageViews,
+  reviews,
+  type NewContactInquiry,
+  type NewPageView,
+  type NewSeoData,
+  type NewReview,
+  type Review
+} from './schema';
+⋮----
+// Tour Package Queries
+export const getTourPackages = async () =>
+⋮----
+export const getTourPackageBySlug = async (slug: string) =>
+⋮----
+// Rental Service Queries
+export const getRentalServices = async () =>
+⋮----
+export const getRentalServiceBySlug = async (slug: string) =>
+⋮----
+// Contact Inquiry Operations
+export const createContactInquiry = async (inquiry: NewContactInquiry) =>
+⋮----
+export const getContactInquiries = async (limit = 50) =>
+⋮----
+// SEO Data Operations
+export const getSeoDataByPath = async (pagePath: string) =>
+⋮----
+export const upsertSeoData = async (data: NewSeoData) =>
+⋮----
+// Analytics Operations
+export const trackPageView = async (pageViewData: NewPageView) =>
+⋮----
+export const getPageViewStats = async (pagePath?: string, days = 30) =>
+⋮----
+/* ─────────────────────────────────────────────────────────────────── */
+/*  Reviews / Testimonials Queries                                      */
+/* ─────────────────────────────────────────────────────────────────── */
+⋮----
+/** Get all approved reviews for public display (homepage, etc.) */
+export const getApprovedReviews = async (limit = 50): Promise<Review[]> =>
+⋮----
+/** Get reviews filtered by language (for UI filter) */
+export const getApprovedReviewsByLanguage = async (
+  language: 'en' | 'id',
+  limit = 50,
+): Promise<Review[]> =>
+⋮----
+/** Get reviews for a specific tour/service */
+export const getReviewsByTourSlug = async (tourSlug: string): Promise<Review[]> =>
+⋮----
+/** Submit a new review (defaults to 'pending' status for moderation) */
+export const createReview = async (review: NewReview): Promise<Review> =>
+⋮----
+/** Get pending reviews (admin moderation queue) */
+export const getPendingReviews = async (limit = 50): Promise<Review[]> =>
+⋮----
+/** Approve or reject a review (admin action) */
+export const moderateReview = async (
+  id: number,
+  status: 'approved' | 'rejected' | 'spam',
+  moderatedBy: string,
+  rejectionReason?: string,
+): Promise<Review> =>
+⋮----
+/** Add owner response to a review */
+export const respondToReview = async (
+  id: number,
+  ownerResponse: string,
+): Promise<Review> =>
+⋮----
+/** Pin/unpin a review to top */
+export const setReviewFeatured = async (id: number, isFeatured: boolean): Promise<Review> =>
+⋮----
+/** Get aggregate rating stats for SEO schema */
+export const getReviewStats = async (): Promise<
+⋮----
+/** Mark review as helpful (increment counter) */
+export const incrementReviewHelpful = async (id: number): Promise<Review> =>
+⋮----
+/* ─────────────────────────────────────────────────────────────────── */
+/*  Admin-only review queries                                           */
+/* ─────────────────────────────────────────────────────────────────── */
+⋮----
+/** Get every review regardless of status (admin moderation view). */
+export const getAllReviews = async (limit = 200): Promise<Review[]> =>
+⋮----
+/** Permanently delete a review. */
+export const deleteReview = async (id: number): Promise<void> =>
+⋮----
+/** Counts grouped by status — used by the admin overview cards. */
+export const getReviewStatusCounts = async (): Promise<Record<string, number>> =>
+⋮----
+/* ─────────────────────────────────────────────────────────────────── */
+/*  Admin: tour & rental edits                                          */
+/* ─────────────────────────────────────────────────────────────────── */
+⋮----
+export interface TourUpdateInput {
+  priceIdr?: number;
+  durationHours?: number;
+  description?: string;
+  isActive?: boolean;
+  features?: string[];
+}
+⋮----
+/** Update editable fields of a tour package by slug. */
+export const updateTourPackage = async (
+  slug: string,
+  input: TourUpdateInput,
+) =>
+⋮----
+export interface RentalUpdateInput {
+  pricePerDayIdr?: number;
+  pricePerHourIdr?: number | null;
+  isAvailable?: boolean;
+  features?: string[];
+}
+⋮----
+/** Update editable fields of a rental service by slug. */
+export const updateRentalService = async (
+  slug: string,
+  input: RentalUpdateInput,
+) =>
+⋮----
+/* ─────────────────────────────────────────────────────────────────── */
+/*  Admin: analytics aggregation                                        */
+/* ─────────────────────────────────────────────────────────────────── */
+⋮----
+export interface AnalyticsSummary {
+  totalViews: number;
+  viewsLast7: number;
+  viewsLast30: number;
+  topPages: { path: string; views: number }[];
+  topReferrers: { referrer: string; views: number }[];
+  dailySeries: { date: string; views: number }[];
+}
+⋮----
+/** Aggregate page-view analytics for the admin dashboard. */
+export const getAnalyticsSummary = async (): Promise<AnalyticsSummary> =>
+⋮----
+// Seed the last 30 day buckets so the chart has continuous days.
+⋮----
+// Normalize referrer to its hostname; treat empty as "Direct".
+</file>
+
+<file path="src/app/sitemap.ts">
+import { MetadataRoute } from 'next';
+import { SITE, absoluteUrl } from '@/lib/site-config';
+import { TOUR_PACKAGES, RENTAL_SERVICES, SOUVENIRS } from '@/lib/constants';
+import { DESTINATIONS } from '@/lib/destinations';
+import { getAllGuides } from '@/lib/guides';
+⋮----
+/**
+ * Native Next.js sitemap. Visit /sitemap.xml — Next.js generates it from this file.
+ *
+ * Note on images: Next 14.2's MetadataRoute.Sitemap type does not yet expose
+ * an `images` field, but Google's image sitemap protocol allows it. We emit
+ * image references through the dedicated `/image-sitemap.xml` route instead
+ * (see /src/app/image-sitemap.xml/route.ts), and reference both sitemaps from
+ * robots.txt so crawlers find them.
+ */
+export default function sitemap(): MetadataRoute.Sitemap
+⋮----
+const bilingualAlternates = (path: string) => (
+</file>
+
+<file path="src/components/business/Testimonials.tsx">
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import { useLanguage } from '@/lib/LanguageContext';
+import { TESTIMONIALS, countryFlag, getAggregateRating, type Testimonial } from '@/lib/testimonials';
+import ReviewForm from './ReviewForm';
+⋮----
+type ReviewItem = Testimonial & {
+  source?: string;
+  helpfulCount?: number;
+  ownerResponse?: string;
+};
+⋮----
+/**
+ * Premium Testimonials section.
+ * - Hero summary with rating distribution histogram (TripAdvisor / Booking.com style)
+ * - Filterable, paginated review cards
+ * - Connected to /api/reviews with static fallback
+ * - Schema.org Review microdata for rich snippets
+ */
+⋮----
+// Compute aggregate stats with distribution
+⋮----
+// Apply filter
+⋮----
+// Reset visible count when filter changes
+⋮----
+// Rating quality label
+⋮----
+{/* Decorative background pattern */}
+⋮----
+{/* Section header */}
+⋮----
+{/* Stars */}
+⋮----
+{/* Body */}
+⋮----
+onClick=
+⋮----
+{/* Tour package taken */}
+⋮----
+{/* Owner response */}
+</file>
+
+<file path="src/lib/seo.ts">
+/**
+ * SEO utilities — metadata builder + Schema.org JSON-LD generators.
+ *
+ * Strategy:
+ * - One builder for every page → no missing canonical / OG / hreflang
+ * - JSON-LD generators are pure functions, return plain objects
+ * - Each route should embed at least 1 LocalBusiness/TravelAgency schema
+ *   plus a Breadcrumb schema for SERP rich results
+ * - Rich snippets: FAQ, HowTo, ItemList, Review, AggregateRating
+ * - Local SEO: GeoCoordinates, areaServed, serviceArea
+ * - E-E-A-T signals: author, publisher, datePublished, dateModified
+ */
+⋮----
+import { Metadata } from 'next';
+import { PRIMARY_KEYWORDS, SITE, absoluteUrl } from './site-config';
+import { TOUR_PACKAGES, RENTAL_SERVICES } from './constants';
+import { TESTIMONIALS, getAggregateRating } from './testimonials';
+⋮----
+type PageMetaInput = {
+  /** Title fragment — final title is "<title> | NusaBeeTrip — Best Travel Nusa Penida" */
+  title: string;
+  description: string;
+  /** Path including leading slash, e.g. '/tours' */
+  path: string;
+  /** Optional extra keywords merged with PRIMARY_KEYWORDS */
+  keywords?: string[];
+  /** Absolute or root-relative image */
+  image?: string;
+  imageAlt?: string;
+  /** Set to true for content pages, false for utility pages */
+  index?: boolean;
+  /** Override default OG type */
+  ogType?: 'website' | 'article';
+  /** Locales for hreflang */
+  alternates?: Record<string, string>;
+  /** Date the page was published (ISO string) */
+  datePublished?: string;
+  /** Date the page was last modified (ISO string) */
+  dateModified?: string;
+};
+⋮----
+/** Title fragment — final title is "<title> | NusaBeeTrip — Best Travel Nusa Penida" */
+⋮----
+/** Path including leading slash, e.g. '/tours' */
+⋮----
+/** Optional extra keywords merged with PRIMARY_KEYWORDS */
+⋮----
+/** Absolute or root-relative image */
+⋮----
+/** Set to true for content pages, false for utility pages */
+⋮----
+/** Override default OG type */
+⋮----
+/** Locales for hreflang */
+⋮----
+/** Date the page was published (ISO string) */
+⋮----
+/** Date the page was last modified (ISO string) */
+⋮----
+/**
+ * Build a Next.js Metadata object with strong defaults.
+ * Use this in every page.tsx file.
+ */
+export function buildMetadata({
+  title,
+  description,
+  path,
+  keywords = [],
+  image,
+  imageAlt,
+  index = true,
+  ogType = 'website',
+  alternates,
+  datePublished,
+  dateModified,
+}: PageMetaInput): Metadata
+⋮----
+// hreflang: serve same URL for en/id since UI auto-translates client-side
+⋮----
+// Build other meta tags for enhanced SEO
+⋮----
+/* ─────────────────────────────────────────────────────────────────── */
+/*  JSON-LD generators (Schema.org)                                     */
+/* ─────────────────────────────────────────────────────────────────── */
+⋮----
+/** TravelAgency schema — most accurate type for a tour/rental operator */
+export function travelAgencyJsonLd()
+⋮----
+/** Website schema with SearchAction (enables sitelinks search box) */
+export function websiteJsonLd()
+⋮----
+/** Organization schema — paired with WebSite for entity recognition */
+export function organizationJsonLd()
+⋮----
+/** TouristTrip schema for individual tour packages */
+export function tourPackagesJsonLd()
+⋮----
+/** Product schema for rental services */
+export function rentalProductsJsonLd()
+⋮----
+/** BreadcrumbList — boosts SERP appearance */
+export function breadcrumbJsonLd(items: Array<
+⋮----
+/** FAQPage — gives you FAQ rich results in SERP */
+export function faqJsonLd(items: Array<
+⋮----
+/** TouristAttraction — for landmark mentions (Kelingking, Diamond, etc) */
+export function touristAttractionJsonLd(opts: {
+  name: string;
+  description: string;
+  image?: string;
+  latitude?: number;
+  longitude?: number;
+})
+⋮----
+/** Renderer helper — drop into a page to inject any JSON-LD object(s) */
+export function jsonLdScript(data: object | object[]): string
+⋮----
+/* ─────────────────────────────────────────────────────────────────── */
+/*  ADVANCED SEO: ItemList, Service, Review, HowTo schemas             */
+/* ─────────────────────────────────────────────────────────────────── */
+⋮----
+/** ItemList schema — for tour/rental listing pages (enables carousel in SERP) */
+export function itemListJsonLd(opts: {
+  name: string;
+  description: string;
+  items: Array<{ name: string; url: string; image?: string; position?: number }>;
+})
+⋮----
+/** Service schema — for individual services (tours, rentals) */
+export function serviceJsonLd(opts: {
+  name: string;
+  description: string;
+  provider?: string;
+  areaServed?: string;
+  price?: number;
+  currency?: string;
+  image?: string;
+  url?: string;
+})
+⋮----
+/** Review/AggregateRating schema — for social proof */
+export function aggregateRatingJsonLd(opts: {
+  itemName: string;
+  itemType?: string;
+  ratingValue: number;
+  reviewCount: number;
+  bestRating?: number;
+})
+⋮----
+/** HowTo schema — for booking process (rich snippet in SERP) */
+export function howToBookJsonLd()
+⋮----
+/** Event schema — for seasonal promotions or special tours */
+export function tourEventJsonLd(opts: {
+  name: string;
+  description: string;
+  startDate: string;
+  endDate?: string;
+  price?: number;
+  currency?: string;
+  image?: string;
+  location?: string;
+})
+⋮----
+/** VideoObject schema — for YouTube/social video embeds */
+export function videoJsonLd(opts: {
+  name: string;
+  description: string;
+  thumbnailUrl: string;
+  uploadDate: string;
+  contentUrl?: string;
+  embedUrl?: string;
+  duration?: string;
+})
+⋮----
+/** SiteNavigationElement — helps Google understand site structure */
+export function siteNavigationJsonLd()
+⋮----
+/** Homepage-specific: combined rich schema for maximum SERP presence */
+export function homepageJsonLd()
+⋮----
+/** LocalBusiness with enhanced local SEO signals */
+export function localBusinessEnhancedJsonLd()
+</file>
+
+<file path="src/app/about/page.tsx">
+import { Metadata } from 'next';
+import { JsonLd } from '@/components/seo';
+import { breadcrumbJsonLd, buildMetadata } from '@/lib/seo';
+import AboutPageContent from './AboutPageContent';
+⋮----
+export default function AboutPage()
+</file>
+
+<file path="src/app/layout.tsx">
+import type { Metadata, Viewport } from 'next'
+import { Inter } from 'next/font/google'
+⋮----
+import { Layout } from '@/components'
+import { LanguageProvider } from '@/lib/LanguageContext'
+import ExchangeRateProvider from '@/components/ExchangeRateProvider'
+import PageViewTracker from '@/components/PageViewTracker'
+import { JsonLd } from '@/components/seo'
+import {
+  buildMetadata,
+  organizationJsonLd,
+  travelAgencyJsonLd,
+  websiteJsonLd,
+  siteNavigationJsonLd,
+  howToBookJsonLd,
+  localBusinessEnhancedJsonLd,
+} from '@/lib/seo'
+import { SITE } from '@/lib/site-config'
+⋮----
+// Use a variable for the body, smaller weight set for faster TBT.
+⋮----
+// We only ship the weights actually used in the design.
+⋮----
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode
+})
+⋮----
+{/* Site-wide JSON-LD: identifies the organization & site to Google */}
+</file>
+
+<file path="src/app/rentals/RentalsPageContent.tsx">
+import React from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { RentalServiceGrid } from '@/components/business';
+import { BreadcrumbNav } from '@/components/seo';
+import { RentalService } from '@/types';
+import { useLanguage } from '@/lib/LanguageContext';
+import { getWhatsAppLink } from '@/lib/whatsapp';
+⋮----
+interface RentalsPageContentProps {
+  rentalServices: RentalService[];
+}
+⋮----
+{/* Breadcrumb */}
+⋮----
+{/* Hero Section */}
+⋮----
+{/* Trust indicators */}
+⋮----
+{/* Stats Bar */}
+⋮----
+{/* Rental Services Grid */}
+⋮----
+{/* Why Choose Our Rentals — Card Grid */}
+⋮----
+{/* Quality Vehicles */}
+⋮----
+{/* 24/7 Support */}
+⋮----
+{/* Free Delivery */}
+⋮----
+{/* How It Works */}
+⋮----
+{/* CTA Section */}
+⋮----
+href=
+</file>
+
+<file path="src/app/souvenirs/page.tsx">
+import { Metadata } from 'next';
+import { JsonLd } from '@/components/seo';
+import { breadcrumbJsonLd, buildMetadata } from '@/lib/seo';
+import SouvenirsPageContent from './SouvenirsPageContent';
+⋮----
+export default function SouvenirsPage()
+</file>
+
+<file path="src/components/business/RentalServiceCard.tsx">
+import React from 'react';
+import Link from 'next/link';
+import { RentalService } from '@/types';
+import WhatsAppBookingButton from './WhatsAppBookingButton';
+import Image from 'next/image';
+import { useLanguage } from '@/lib/LanguageContext';
+import { formatPriceByLang } from '@/lib/currency';
+⋮----
+interface RentalServiceCardProps {
+  rentalService: RentalService;
+  onBookingClick?: (vehicleModel: string, price: number) => void;
+  className?: string;
+}
+⋮----
+const handleBookingClick = () =>
+⋮----
+{/* Vehicle Image (linked to detail page) */}
+⋮----
+{/* Vehicle Type Badge */}
+⋮----
+{/* Card Content */}
+⋮----
+{/* Vehicle Model (linked to detail page) */}
+⋮----
+{/* Pricing */}
+⋮----
+<span className="text-xs text-gray-500">
+⋮----
+{/* Features List */}
+⋮----
+{/* Booking Buttons */}
+</file>
+
+<file path="package.json">
+{
+  "name": "nusabeetrip",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "dev:clean": "rimraf .next && next dev",
+    "build": "next build",
+    "build:clean": "rimraf .next && next build",
+    "start": "next start",
+    "lint": "next lint",
+    "clean": "rimraf .next",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate",
+    "db:push": "drizzle-kit push",
+    "db:push:prod": "tsx scripts/db/push-prod.ts",
+    "db:migrate-missing": "tsx scripts/db/migrate-missing-tables.ts",
+    "db:migrate-missing:prod": "tsx scripts/db/migrate-missing-tables.ts prod",
+    "db:studio": "drizzle-kit studio",
+    "db:list-tables": "tsx scripts/db/list-tables.ts",
+    "db:list-tables:prod": "tsx scripts/db/list-tables.ts prod",
+    "db:check-reviews": "tsx scripts/db/check-reviews.ts",
+    "db:check-reviews:prod": "tsx scripts/db/check-reviews.ts prod",
+    "db:moderate": "tsx scripts/db/moderate-review.ts",
+    "db:seed": "tsx scripts/db/seed.ts",
+    "db:seed-reviews": "tsx scripts/db/seed-reviews.ts",
+    "db:seed-reviews:prod": "tsx scripts/db/seed-reviews.ts prod",
+    "db:setup": "npm run db:push && npm run db:seed"
+  },
+  "dependencies": {
+    "@heroicons/react": "^2.2.0",
+    "@neondatabase/serverless": "^1.1.0",
+    "@types/pg": "^8.20.0",
+    "clsx": "^2.1.1",
+    "dotenv": "^17.4.2",
+    "drizzle-kit": "^0.31.10",
+    "drizzle-orm": "^0.45.2",
+    "next": "14.2.18",
+    "pg": "^8.20.0",
+    "react": "^18",
+    "react-dom": "^18",
+    "tailwind-merge": "^3.5.0"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@testing-library/user-event": "^14.6.1",
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "autoprefixer": "^10.4.20",
+    "critters": "^0.0.23",
+    "eslint": "^8",
+    "eslint-config-next": "14.2.18",
+    "jest": "^30.3.0",
+    "jest-environment-jsdom": "^30.3.0",
+    "postcss": "^8.4.49",
+    "rimraf": "^6.1.3",
+    "tailwindcss": "^3.4.17",
+    "tsx": "^4.21.0",
+    "typescript": "^5"
+  }
+}
+</file>
+
+<file path="src/app/contact/page.tsx">
+import { Metadata } from 'next';
+import { JsonLd } from '@/components/seo';
+import { breadcrumbJsonLd, buildMetadata, faqJsonLd } from '@/lib/seo';
+import ContactPageContent from './ContactPageContent';
+⋮----
+export default function ContactPage()
+</file>
+
+<file path="src/app/rentals/page.tsx">
+import { Metadata } from 'next';
+import { getRentalServices } from '@/lib/db/queries';
+import { RentalService } from '@/types';
+import { JsonLd } from '@/components/seo';
+import { breadcrumbJsonLd, buildMetadata, rentalProductsJsonLd } from '@/lib/seo';
+import RentalsPageContent from './RentalsPageContent';
+⋮----
+// Opt out of static generation — this page fetches from DB at runtime
+⋮----
+/** Model-name → image-file mapping for reliable image resolution */
+⋮----
+/**
+ * Resolve a valid image path for a rental vehicle.
+ * 1. ALWAYS use DB imageUrl if provided (prioritize database)
+ * 2. Otherwise match model name to known vehicle image
+ * 3. Fallback to placeholder
+ */
+function resolveRentalImage(model: string, dbImageUrl: string | null): string
+⋮----
+// 1. ALWAYS prioritize DB imageUrl if it exists and is not a placeholder
+⋮----
+// 2. Match model name to known vehicle images
+⋮----
+// 3. Fallback
+⋮----
+// Transform database rental service to component format
+const transformRentalService = (dbService: any): RentalService => (
+⋮----
+export default async function RentalsPage()
+⋮----
+// Fallback to static data with correct images matching database
+</file>
+
+<file path="src/app/tours/ToursPageContent.tsx">
+import React from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { TourPackageGrid } from '@/components/business';
+import { BreadcrumbNav } from '@/components/seo';
+import { TourPackage } from '@/types';
+import { useLanguage } from '@/lib/LanguageContext';
+import { getWhatsAppLink } from '@/lib/whatsapp';
+⋮----
+interface ToursPageContentProps {
+  tourPackages: TourPackage[];
+}
+⋮----
+{/* Breadcrumb */}
+⋮----
+{/* Hero Section */}
+⋮----
+{/* Trust indicators */}
+⋮----
+{/* Stats Bar */}
+⋮----
+{/* Tour Packages Grid */}
+⋮----
+{/* What's Included */}
+⋮----
+{/* Professional Guide */}
+⋮----
+{/* Transportation */}
+⋮----
+{/* Tax Island */}
+⋮----
+{/* Parking Ticket */}
+⋮----
+{/* Second Row */}
+⋮----
+{/* Snorkeling Equipment */}
+⋮----
+{/* Documentation */}
+⋮----
+{/* Note */}
+⋮----
+{/* Expert Guides */}
+⋮----
+{/* Fair Pricing */}
+⋮----
+{/* Easy Booking */}
+⋮----
+{/* CTA Section */}
+⋮----
+href=
+</file>
+
+<file path="next.config.js">
+/** @type {import('next').NextConfig} */
+⋮----
+minimumCacheTTL: 60 * 60 * 24 * 30, // 30 days — public images change rarely
+⋮----
+// Inline critical CSS, defer the rest. Big LCP win on slow connections.
+⋮----
+// Tree-shake heavy icon libraries.
+⋮----
+// Better client/server boundary tree-shaking.
+⋮----
+// Performance optimizations
+⋮----
+// SEO: trailing slash consistency (no trailing slash = canonical)
+⋮----
+async redirects()
+⋮----
+// Common misspellings and old URLs
+⋮----
+// Trailing slashes (belt-and-suspenders with trailingSlash: false)
+⋮----
+async headers()
+⋮----
+// Security headers — applied to every response
+⋮----
+// Sitemaps — fresh for crawlers
+⋮----
+// API routes — never cached
+⋮----
+// Hashed Next.js static assets — safe to cache forever
+⋮----
+// Optimized images
+⋮----
+// Public images — long cache with stale-while-revalidate
+⋮----
+// HTML pages — short cache for freshness with edge SWR
+</file>
+
+<file path="src/lib/image-resolver.ts">
+/**
+ * Image Resolver Utility
+ * 
+ * Resolves tour/rental images by matching content keywords to available
+ * image folders. Falls back to a random scenic image when no contextual
+ * match is found.
+ * 
+ * Works server-side: verifies file existence via `fs` before trusting
+ * any imageUrl from the database.
+ */
+⋮----
+import fs from 'fs';
+import path from 'path';
+⋮----
+// Mapping of content keywords → image folder/file paths
+// Each key is a lowercase keyword found in tour features, names, or descriptions
+⋮----
+// Pool of scenic images for random fallback (excluding souvenirs & vehicle rentals)
+⋮----
+// West Trip images
+⋮----
+// East Trip images
+⋮----
+/**
+ * Hard slug → image overrides. These ALWAYS win over DB imageUrl and keyword
+ * matching, so we can correct image assignments without re-seeding the DB.
+ *
+ * Use this when an image must be locked in (e.g. combo packages where the
+ * marketing-approved image differs from any single attraction).
+ */
+⋮----
+// Combo packages — must show the half-snorkeling composite image
+⋮----
+// Regular East Trip — Diamond Beach (different from Tree House
+// used by east-trip-snorkeling above)
+⋮----
+// Mix Trip — Thousand Island + Crystal Bay composite
+⋮----
+/**
+ * Check if a public image file actually exists on disk.
+ * Handles URL-encoded paths (e.g. `%20` → space).
+ */
+function imageFileExists(imageUrl: string): boolean
+⋮----
+// Decode percent-encoded characters to get real filesystem path
+⋮----
+/**
+ * Deterministic pseudo-random index derived from a string seed.
+ * Ensures the same tour always gets the same "random" image (no layout shift).
+ */
+function seededIndex(seed: string, max: number): number
+⋮----
+hash |= 0; // Convert to 32-bit integer
+⋮----
+/**
+ * Resolve the best image for a tour package based on its content.
+ * 
+ * Priority:
+ * 1. ALWAYS use imageUrl from database if provided (even if file doesn't exist yet)
+ * 2. Match tour name, features, or description against keyword map
+ * 3. Fall back to a deterministic "random" scenic image
+ * 
+ * @param context - Object containing tour name, features, description, slug, and current imageUrl
+ * @returns Resolved image path string
+ */
+export function resolveTourImage(context: {
+  name: string;
+  features: string[];
+  description: string;
+  slug: string;
+  imageUrl?: string | null;
+}): string
+⋮----
+// 0. Slug-based hard override — always wins, even over DB imageUrl.
+//    Edit SLUG_IMAGE_OVERRIDES at top of file to lock specific assignments.
+⋮----
+// 1. ALWAYS prioritize imageUrl from database if it exists and is not a placeholder
+// This ensures database values are always respected
+⋮----
+// 2. Collect ALL matching images from keyword map
+⋮----
+// Deduplicate matched images
+⋮----
+// Pick one from all matched images using slug as seed for variety
+⋮----
+// 3. Deterministic random from scenic pool
+</file>
+
+<file path="src/components/business/TourPackageCard.tsx">
+import React from 'react';
+import Link from 'next/link';
+import { TourPackage } from '@/types';
+import WhatsAppBookingButton from './WhatsAppBookingButton';
+import Image from 'next/image';
+import { useLanguage } from '@/lib/LanguageContext';
+import { formatPriceByLang } from '@/lib/currency';
+⋮----
+interface TourPackageCardProps {
+  tourPackage: TourPackage;
+  onBookingClick?: (packageName: string, price: number) => void;
+  className?: string;
+}
+⋮----
+const handleBookingClick = () =>
+⋮----
+{/* Tour Image (linked to detail page) */}
+⋮----
+{/* Duration Badge */}
+⋮----
+{/* Card Content */}
+⋮----
+{/* Tour Name (linked to detail page) */}
+⋮----
+{/* Description */}
+⋮----
+{/* Price */}
+⋮----
+{/* Features List */}
+⋮----
+{/* Show all destinations/features first (excluding service items) */}
+⋮----
+{/* Booking Buttons */}
+</file>
+
+<file path="src/components/layout/Footer.tsx">
+import React from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
+import { useLanguage } from '@/lib/LanguageContext';
+import { getWhatsAppLink } from '@/lib/whatsapp';
+⋮----
+const Footer: React.FC = () =>
+⋮----
+{/* CTA Banner */}
+⋮----
+href=
+⋮----
+{/* Main footer grid */}
+⋮----
+{/* Brand column */}
+⋮----
+{/* Social icons */}
+⋮----
+{/* Quick Links */}
+⋮----
+{/* Services */}
+⋮----
+{/* Contact & Destinations */}
+⋮----
+{/* Popular Destinations tags */}
+</file>
+
+<file path="src/components/layout/Header.tsx">
+import React, { useState, useEffect, useCallback } from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
+import { usePathname } from 'next/navigation';
+import { useLanguage } from '@/lib/LanguageContext';
+import type { Language } from '@/lib/translations';
+import { getWhatsAppLink } from '@/lib/whatsapp';
+import { useActiveSection } from '@/lib/hooks/useActiveSection';
+⋮----
+/* ------------------------------------------------------------------ */
+/*  Nav items                                                          */
+/* ------------------------------------------------------------------ */
+⋮----
+/* ------------------------------------------------------------------ */
+/*  Mobile bottom-bar items (5 tabs — About accessible via menu)       */
+/* ------------------------------------------------------------------ */
+⋮----
+/* ------------------------------------------------------------------ */
+/*  Flag SVGs                                                          */
+/* ------------------------------------------------------------------ */
+const FlagGB: React.FC<{ className?: string }> = ({ className = 'w-5 h-4' }) => (
+  <svg className={className} viewBox="0 0 60 30" xmlns="http://www.w3.org/2000/svg">
+    <rect width="60" height="30" fill="#012169" />
+    <path d="M0 0 L60 30 M60 0 L0 30" stroke="#fff" strokeWidth="6" />
+    <path d="M0 0 L60 30 M60 0 L0 30" stroke="#C8102E" strokeWidth="4" />
+    <path d="M30 0 V30 M0 15 H60" stroke="#fff" strokeWidth="10" />
+    <path d="M30 0 V30 M0 15 H60" stroke="#C8102E" strokeWidth="6" />
+  </svg>
+);
+⋮----
+const FlagID: React.FC<{ className?: string }> = ({ className = 'w-5 h-4' }) => (
+  <svg className={className} viewBox="0 0 3 2" xmlns="http://www.w3.org/2000/svg">
+    <rect width="3" height="1" fill="#CE1126" />
+    <rect y="1" width="3" height="1" fill="#FFFFFF" />
+  </svg>
+);
+⋮----
+/* ------------------------------------------------------------------ */
+/*  Language switcher                                                   */
+/* ------------------------------------------------------------------ */
+⋮----
+/* ------------------------------------------------------------------ */
+/*  Header Component                                                    */
+/* ------------------------------------------------------------------ */
+⋮----
+const handleScroll = ()
+⋮----
+// Close mobile menu on route change
+⋮----
+// Lock body scroll when mobile menu is open
+⋮----
+// Track which homepage section the user is currently looking at, so anchor
+// links (e.g. /#testimonials) can highlight as the user scrolls.
+⋮----
+const isActive = (href: string) =>
+⋮----
+// Anchor links (e.g. /#testimonials) only highlight when their target
+// section is the one currently in view on the homepage.
+⋮----
+// For the home link itself, only highlight when no tracked section is
+// active — that way Reviews can take over while the user is scrolled to
+// the testimonials section.
+⋮----
+{/* Desktop top info bar — visible only on large screens */}
+⋮----
+{/* Logo */}
+⋮----
+{/* Desktop nav links — visible on lg+ (tablet uses hamburger) */}
+⋮----
+{/* Desktop CTA */}
+⋮----
+href=
+⋮----
+{/* Mobile & Tablet: Lang toggle + Hamburger */}
+⋮----
+{/* Compact lang toggle */}
+⋮----
+{/* Hamburger button */}
+⋮----
+{/* Mobile & Tablet slide-down menu */}
+⋮----
+onClick=
+⋮----
+{/* WhatsApp CTA in mobile menu */}
+⋮----
+{/* Mobile menu backdrop overlay */}
+⋮----
+{/* ============================================================ */}
+{/*  Mobile Bottom Tab Bar                                        */}
+{/* ============================================================ */}
+⋮----
+{/* Safe area for notched phones */}
+</file>
+
+<file path="src/lib/translations.ts">
+export type Language = 'en' | 'id';
+⋮----
+// Navbar
+⋮----
+// Top bar
+⋮----
+// Hero
+⋮----
+// Tours section
+⋮----
+// Tours page specific
+⋮----
+// Destinations
+⋮----
+// Why us
+⋮----
+// Rentals section
+⋮----
+// Rentals page specific
+⋮----
+// Souvenirs section
+⋮----
+// Contact section
+⋮----
+// Footer
+⋮----
+// Common / shared
+⋮----
+// Navbar
+⋮----
+// Top bar
+⋮----
+// Hero
+⋮----
+// Tours section
+⋮----
+// Tours page specific
+⋮----
+// Destinations
+⋮----
+// Why us
+⋮----
+// Rentals section
+⋮----
+// Rentals page specific
+⋮----
+// Souvenirs section
+⋮----
+// Contact section
+⋮----
+// Footer
+⋮----
+// Common / shared
+⋮----
+export type TranslationKeys = typeof translations.en | typeof translations.id;
+</file>
+
+<file path="src/lib/constants.ts">
+import { TourPackage, RentalService, Souvenir, BusinessInfo, ContactInfo } from '@/types';
+⋮----
+// Business contact information
+⋮----
+// Business information
+⋮----
+// Tour packages data
+⋮----
+// Rental services data
+⋮----
+pricePerHour: 125000, // 4-hour minimum
+⋮----
+// Souvenir products data
+⋮----
+// SEO target keywords
+⋮----
+// Social media links
+⋮----
+// Navigation menu items
+⋮----
+// Site configuration
+</file>
+
+<file path="src/app/page.tsx">
+import dynamic from 'next/dynamic'
+import Link from 'next/link'
+import Image from 'next/image'
+import { useLanguage } from '@/lib/LanguageContext'
+import { formatPriceByLang, formatUsdPriceByLang } from '@/lib/currency'
+import { getWhatsAppLink, getWhatsAppRentalLink, getWhatsAppItemLink } from '@/lib/whatsapp'
+import HomepageSEO from '@/components/seo/HomepageSEO'
+⋮----
+// Testimonials section sits below the fold and pulls reviews from the DB.
+// Defer it so the hero ships smaller and renders faster.
+⋮----
+{/* Homepage-specific structured data for rich snippets */}
+⋮----
+{/* Hero Section */}
+⋮----
+{/* Real photo background */}
+⋮----
+{/* Trust indicators */}
+⋮----
+{/* Tour Packages Preview - 2 Column Layout */}
+⋮----
+{/* Section Header */}
+⋮----
+{/* 2 Column Layout: Content Left, Images Right */}
+⋮----
+{/* Left: Content */}
+⋮----
+{/* Right: Image Gallery/Carousel */}
+⋮----
+{/* View All Link */}
+⋮----
+{/* Destinations Gallery Section - Balanced Masonry Grid */}
+⋮----
+{/* Balanced Grid Layout */}
+⋮----
+{/* Row 1: Large featured + 2 regular */}
+⋮----
+{/* Customer Testimonials & Reviews */}
+⋮----
+{/* Vehicle Rentals Section - Horizontal Scroll/Carousel Style */}
+⋮----
+{/* Horizontal scrollable container */}
+⋮----
+{/* N-Max Rental */}
+⋮----
+href=
+⋮----
+{/* Vario Rental */}
+⋮----
+<span className="text-3xl font-bold text-brand-blue-800">
+⋮----
+{/* Scoopy Rental */}
+⋮----
+{/* Car Rental */}
+⋮----
+{/* Scroll hint */}
+⋮----
+{/* Souvenirs Section - Bento Grid Layout */}
+⋮----
+{/* Bento Grid - Varied sizes */}
+⋮----
+{/* Large featured item - spans 2x2 */}
+⋮----
+{/* Regular item */}
+⋮----
+{/* Wide item - spans 2 columns */}
+⋮----
+{/* CTA Section */}
+⋮----
+{/* Compact contact pills */}
+</file>
+
+<file path="src/app/tours/page.tsx">
+import { Metadata } from 'next';
+import { getTourPackages } from '@/lib/db/queries';
+import { TourPackage } from '@/types';
+import { resolveTourImage } from '@/lib/image-resolver';
+import { JsonLd } from '@/components/seo';
+import { breadcrumbJsonLd, buildMetadata, tourPackagesJsonLd } from '@/lib/seo';
+import ToursPageContent from './ToursPageContent';
+⋮----
+// Opt out of static generation — this page fetches from DB at runtime
+⋮----
+export const revalidate = 0; // Always fetch fresh data
+export const fetchCache = 'force-no-store'; // Disable fetch cache
+export const runtime = 'nodejs'; // Use Node.js runtime
+⋮----
+// Transform database tour package to component format
+const transformTourPackage = (dbPackage: any): TourPackage =>
+⋮----
+export default async function ToursPage()
+⋮----
+// Fallback static data with correct images matching database
+</file>
+
+</files>

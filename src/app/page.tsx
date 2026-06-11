@@ -8,8 +8,8 @@ import { formatPriceByLang, formatUsdPriceByLang } from '@/lib/currency'
 import { getWhatsAppLink, getWhatsAppRentalLink, getWhatsAppItemLink } from '@/lib/whatsapp'
 import HomepageSEO from '@/components/seo/HomepageSEO'
 
-// Testimonials section sits below the fold and pulls reviews from the DB.
-// Defer it so the hero ships smaller and renders faster.
+// Testimonials section sits right below the hero and pulls reviews from the DB.
+// Code-split it so the hero ships smaller and renders faster (still SSR'd for SEO).
 const Testimonials = dynamic(
   () => import('@/components/business').then((mod) => mod.Testimonials),
   {
@@ -103,6 +103,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* Customer Testimonials & Reviews */}
+      <Testimonials />
 
       {/* Tour Packages Preview - 2 Column Layout */}
       <section className="py-12 sm:py-24 bg-gradient-to-b from-gray-50 to-white" aria-label="Tour Packages" id="tours-preview">
@@ -445,9 +448,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
-      {/* Customer Testimonials & Reviews */}
-      <Testimonials />
 
       {/* Vehicle Rentals Section - Horizontal Scroll/Carousel Style */}
       <section className="py-12 sm:py-24 bg-white" aria-label="Vehicle Rentals Nusa Penida" id="rentals-preview">
