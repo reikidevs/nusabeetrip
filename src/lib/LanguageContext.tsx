@@ -24,6 +24,13 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     }
   }, []);
 
+  // Keep the document <html lang> in sync with the active language for SEO/a11y
+  useEffect(() => {
+    if (typeof document !== 'undefined') {
+      document.documentElement.lang = language;
+    }
+  }, [language]);
+
   const setLanguage = (lang: Language) => {
     setLanguageState(lang);
     localStorage.setItem(STORAGE_KEY, lang);

@@ -4,10 +4,8 @@ import {
   homepageJsonLd,
   faqJsonLd,
   itemListJsonLd,
-  aggregateRatingJsonLd,
 } from '@/lib/seo';
 import { absoluteUrl } from '@/lib/site-config';
-import { getAggregateRating } from '@/lib/testimonials';
 
 /**
  * Homepage-specific SEO schemas.
@@ -15,7 +13,10 @@ import { getAggregateRating } from '@/lib/testimonials';
  * - WebPage schema (speakable, breadcrumb)
  * - FAQ schema (rich results)
  * - ItemList schema (carousel potential)
- * - AggregateRating (star ratings in SERP)
+ *
+ * The authoritative AggregateRating + Review nodes live on the site-wide
+ * LocalBusiness schema (see layout.tsx), which is fed real DB data — so we
+ * intentionally do NOT emit a second rating entity here to avoid conflicts.
  */
 
 const HOMEPAGE_FAQ = [
@@ -62,7 +63,6 @@ const HOMEPAGE_FAQ = [
 ];
 
 export default function HomepageSEO() {
-  const { ratingValue, reviewCount } = getAggregateRating();
   const tourItems = [
     { name: 'West Trip Nusa Penida', url: absoluteUrl('/tours/west-trip'), image: '/images/West%20Trip/West%20trip%20%20kelingking%20beach.jpeg' },
     { name: 'East Trip Nusa Penida', url: absoluteUrl('/tours/east-trip'), image: '/images/East%20Trip/East%20trip%20DIAMOND%20BEACH.jpeg' },
@@ -82,15 +82,6 @@ export default function HomepageSEO() {
           name: 'NusaBeeTrip Services — Tours & Rentals in Nusa Penida',
           description: 'Complete list of tour packages and vehicle rentals available in Nusa Penida, Bali',
           items: tourItems,
-        })}
-      />
-      <JsonLd
-        id="ld-homepage-rating"
-        data={aggregateRatingJsonLd({
-          itemName: 'NusaBeeTrip',
-          itemType: 'TravelAgency',
-          ratingValue,
-          reviewCount,
         })}
       />
     </>

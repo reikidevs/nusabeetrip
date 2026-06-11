@@ -15,6 +15,7 @@ import {
   howToBookJsonLd,
   localBusinessEnhancedJsonLd,
 } from '@/lib/seo'
+import { getReviewsForSeo, getAggregateRatingForSeo } from '@/lib/reviews-server'
 import { SITE } from '@/lib/site-config'
 
 const inter = Inter({
@@ -65,11 +66,18 @@ export const viewport: Viewport = {
   maximumScale: 5,
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
+  // Pull real, approved reviews + aggregate rating from the DB for JSON-LD.
+  // Both helpers fall back to static testimonials if the DB is unreachable.
+  const [{ ratingValue, reviewCount }, reviews] = await Promise.all([
+    getAggregateRatingForSeo(),
+    getReviewsForSeo(6),
+  ])
+
   return (
     <html lang="en" dir="ltr" className={inter.variable}>
       <head>
@@ -89,7 +97,20 @@ export default function RootLayout({
         {/* Site-wide JSON-LD: identifies the organization & site to Google */}
         <JsonLd id="ld-website" data={websiteJsonLd()} />
         <JsonLd id="ld-organization" data={organizationJsonLd()} />
-        <JsonLd id="ld-business" data={localBusinessEnhancedJsonLd()} />
+        <JsonLd
+          id="ld-business"
+          data={localBusinessEnhancedJsonLd({
+            ratingValue,
+            reviewCount,
+            reviews: reviews.map((r) => ({
+              authorName: r.authorName,
+              title: r.title,
+              body: r.body,
+              rating: r.rating,
+              date: r.date,
+            })),
+          })}
+        />
         <JsonLd id="ld-navigation" data={siteNavigationJsonLd()} />
         <JsonLd id="ld-howto-book" data={howToBookJsonLd()} />
 

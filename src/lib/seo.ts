@@ -259,6 +259,7 @@ export function organizationJsonLd() {
 
 /** TouristTrip schema for individual tour packages */
 export function tourPackagesJsonLd() {
+  const { ratingValue, reviewCount } = getAggregateRating();
   return TOUR_PACKAGES.filter((p) => p.isActive).map((pkg) => ({
     '@context': 'https://schema.org',
     '@type': 'Product',
@@ -277,18 +278,23 @@ export function tourPackagesJsonLd() {
       seller: { '@id': `${SITE.url}#business` },
       priceValidUntil: new Date(new Date().getFullYear(), 11, 31).toISOString().split('T')[0],
     },
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: '4.9',
-      reviewCount: '127',
-      bestRating: '5',
-      worstRating: '1',
-    },
+    ...(reviewCount > 0
+      ? {
+          aggregateRating: {
+            '@type': 'AggregateRating',
+            ratingValue: ratingValue.toString(),
+            reviewCount: reviewCount.toString(),
+            bestRating: '5',
+            worstRating: '1',
+          },
+        }
+      : {}),
   }));
 }
 
 /** Product schema for rental services */
 export function rentalProductsJsonLd() {
+  const { ratingValue, reviewCount } = getAggregateRating();
   return RENTAL_SERVICES.filter((r) => r.isAvailable).map((r) => ({
     '@context': 'https://schema.org',
     '@type': 'Product',
@@ -312,6 +318,17 @@ export function rentalProductsJsonLd() {
       availability: 'https://schema.org/InStock',
       seller: { '@id': `${SITE.url}#business` },
     },
+    ...(reviewCount > 0
+      ? {
+          aggregateRating: {
+            '@type': 'AggregateRating',
+            ratingValue: ratingValue.toString(),
+            reviewCount: reviewCount.toString(),
+            bestRating: '5',
+            worstRating: '1',
+          },
+        }
+      : {}),
   }));
 }
 
@@ -623,9 +640,31 @@ export function homepageJsonLd() {
   };
 }
 
-/** LocalBusiness with enhanced local SEO signals */
-export function localBusinessEnhancedJsonLd() {
-  const { ratingValue, reviewCount } = getAggregateRating();
+/** LocalBusiness with enhanced local SEO signals.
+ *  Pass real DB rating/reviews via `opts` (server-side); falls back to static. */
+export function localBusinessEnhancedJsonLd(opts?: {
+  ratingValue?: number;
+  reviewCount?: number;
+  reviews?: Array<{
+    authorName: string;
+    title?: string | null;
+    body: string;
+    rating: number;
+    date: string;
+  }>;
+}) {
+  const fallback = getAggregateRating();
+  const ratingValue = opts?.ratingValue ?? fallback.ratingValue;
+  const reviewCount = opts?.reviewCount ?? fallback.reviewCount;
+  const reviewList =
+    opts?.reviews ??
+    TESTIMONIALS.slice(0, 6).map((t) => ({
+      authorName: t.name,
+      title: t.title,
+      body: t.body,
+      rating: t.rating,
+      date: t.date,
+    }));
 
   return {
     '@context': 'https://schema.org',
@@ -701,11 +740,11 @@ export function localBusinessEnhancedJsonLd() {
             worstRating: '1',
           }
         : undefined,
-    review: TESTIMONIALS.slice(0, 6).map((r) => ({
+    review: reviewList.map((r) => ({
       '@type': 'Review',
-      author: { '@type': 'Person', name: r.name },
+      author: { '@type': 'Person', name: r.authorName },
       datePublished: r.date,
-      name: r.title,
+      name: r.title || undefined,
       reviewBody: r.body,
       reviewRating: {
         '@type': 'Rating',

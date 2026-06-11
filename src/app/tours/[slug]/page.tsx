@@ -10,6 +10,7 @@ import {
   serviceJsonLd,
   faqJsonLd,
 } from '@/lib/seo';
+import { getAggregateRating } from '@/lib/testimonials';
 import { absoluteUrl, SITE } from '@/lib/site-config';
 import type { TourPackage } from '@/types';
 import TourDetailContent from './TourDetailContent';
@@ -102,6 +103,8 @@ export async function generateMetadata({
 export default async function TourDetailPage({ params }: { params: { slug: string } }) {
   const tour = await loadTour(params.slug);
   if (!tour) notFound();
+
+  const { ratingValue, reviewCount } = getAggregateRating();
 
   // Pull two extra tours for the "Other tours you may like" section
   let related: TourPackage[] = [];
@@ -207,13 +210,17 @@ export default async function TourDetailPage({ params }: { params: { slug: strin
               .split('T')[0],
             seller: { '@id': `${SITE.url}#business` },
           },
-          aggregateRating: {
-            '@type': 'AggregateRating',
-            ratingValue: '4.9',
-            reviewCount: '127',
-            bestRating: '5',
-            worstRating: '1',
-          },
+          ...(reviewCount > 0
+            ? {
+                aggregateRating: {
+                  '@type': 'AggregateRating',
+                  ratingValue: ratingValue.toString(),
+                  reviewCount: reviewCount.toString(),
+                  bestRating: '5',
+                  worstRating: '1',
+                },
+              }
+            : {}),
         }}
       />
 
