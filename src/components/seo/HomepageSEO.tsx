@@ -60,6 +60,16 @@ const HOMEPAGE_FAQ = [
     answer:
       'Ya, kami menerima booking di hari yang sama tergantung ketersediaan. Hubungi kami via WhatsApp di +62 896-3128-1234 untuk konfirmasi cepat. Kami merespon dalam hitungan menit.',
   },
+  {
+    question: 'Is NusaBeeTrip the same as Nusatrip or BeeTrip?',
+    answer:
+      'No. NusaBeeTrip is an independent, locally-owned tour and vehicle rental operator based on Nusa Penida island, Bali. We are not affiliated with Nusatrip.com (the flight/hotel OTA) or BeeTrip. Book directly with us at nusabeetrip.com or via WhatsApp at +62 896-3128-1234.',
+  },
+  {
+    question: 'Apakah NusaBeeTrip sama dengan Nusatrip atau BeeTrip?',
+    answer:
+      'Tidak. NusaBeeTrip adalah operator tur dan rental kendaraan lokal yang berbasis di Pulau Nusa Penida, Bali. Kami tidak berafiliasi dengan Nusatrip.com (OTA tiket pesawat/hotel) maupun BeeTrip. Pesan langsung dengan kami di nusabeetrip.com atau via WhatsApp di +62 896-3128-1234.',
+  },
 ];
 
 export default function HomepageSEO() {

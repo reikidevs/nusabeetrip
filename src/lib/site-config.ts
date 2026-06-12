@@ -14,6 +14,21 @@ export const SITE = {
   shortName: 'NusaBeeTrip',
   brandTagline: 'Best Travel Nusa Penida',
 
+  /**
+   * Brand name variations — fed into Organization/WebSite/LocalBusiness
+   * `alternateName`. Helps search engines disambiguate "NusaBeeTrip" from
+   * the unrelated "Nusatrip" (OTA) and "BeeTrip" brands, and to recognise
+   * common spellings users actually type.
+   */
+  alternateNames: [
+    'Nusa Bee Trip',
+    'NusaBee Trip',
+    'Nusabee Trip',
+    'Nusa Bee Trip Nusa Penida',
+    'NusaBeeTrip Nusa Penida Tours',
+    'NusaBeeTrip Tours & Rentals',
+  ],
+
   /** ~155 chars max — used as default <meta description> */
   description:
     'Local-owned Nusa Penida tours, snorkeling with Manta Rays, and motorcycle/car rentals. West Trip, East Trip & Mix Trip from 390K IDR. Book instantly via WhatsApp — best prices guaranteed.',

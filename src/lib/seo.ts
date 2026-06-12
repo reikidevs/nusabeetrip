@@ -226,6 +226,7 @@ export function websiteJsonLd() {
     '@id': `${SITE.url}#website`,
     url: SITE.url,
     name: SITE.name,
+    alternateName: SITE.alternateNames,
     description: SITE.description,
     publisher: { '@id': `${SITE.url}#business` },
     inLanguage: ['en', 'id'],
@@ -239,6 +240,7 @@ export function organizationJsonLd() {
     '@type': 'Organization',
     '@id': `${SITE.url}#organization`,
     name: SITE.name,
+    alternateName: SITE.alternateNames,
     url: SITE.url,
     logo: {
       '@type': 'ImageObject',
@@ -671,6 +673,7 @@ export function localBusinessEnhancedJsonLd(opts?: {
     '@type': 'TravelAgency',
     '@id': `${SITE.url}#business`,
     name: SITE.name,
+    alternateName: SITE.alternateNames,
     legalName: SITE.legalName,
     description: SITE.description,
     url: SITE.url,
