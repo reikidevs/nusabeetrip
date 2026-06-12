@@ -40,6 +40,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       alternates: bilingualAlternates('/tours'),
     },
     {
+      url: absoluteUrl('/bali-day-trip'),
+      lastModified: now,
+      changeFrequency: 'weekly',
+      priority: 0.92,
+      alternates: bilingualAlternates('/bali-day-trip'),
+    },
+    {
       url: absoluteUrl('/rentals'),
       lastModified: now,
       changeFrequency: 'weekly',

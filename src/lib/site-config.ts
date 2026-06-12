@@ -63,12 +63,23 @@ export const SITE = {
 
 /** Primary keywords — keep tight, Google ignores keyword bloat */
 export const PRIMARY_KEYWORDS = [
+  // Brand — defend the name so it always surfaces
+  'nusabeetrip',
+  'nusa bee trip',
+  // English — broad Bali intent (high volume, top-of-funnel)
+  'best tour in bali',
+  'best day trip from bali',
+  'best tour trip in bali',
+  'bali island tour',
+  'best tour nusa penida',
+  'best nusa penida tour',
   // English — high intent
   'nusa penida tour',
   'best travel nusa penida',
   'tour nusa penida',
   'nusa penida trip',
   'nusa penida day trip',
+  'nusa penida day trip from bali',
   'nusa penida tour package',
   'nusa penida island tour',
   'kelingking beach tour',
@@ -86,6 +97,7 @@ export const PRIMARY_KEYWORDS = [
   'nusa penida from bali',
   'things to do nusa penida',
   'nusa penida travel guide',
+  'nusa penida tour price',
   // Indonesian — local SEO
   'paket tur nusa penida',
   'wisata nusa penida',
@@ -95,6 +107,7 @@ export const PRIMARY_KEYWORDS = [
   'paket snorkeling nusa penida',
   'trip nusa penida',
   'liburan nusa penida',
+  'paket wisata bali',
 ];
 
 /** Build absolute URL for a given path */

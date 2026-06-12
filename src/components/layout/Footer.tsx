@@ -42,6 +42,7 @@ const Footer: React.FC = () => {
     { name: 'Snorkeling', href: '/tours' },
     { name: 'Motorcycle Rental', href: '/rentals' },
     { name: t.rentals.carWithDriver, href: '/rentals' },
+    { name: 'Bali Day Trip', href: '/bali-day-trip' },
   ];
 
   return (

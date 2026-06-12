@@ -432,6 +432,73 @@ export const DESTINATIONS: Destination[] = [
     ],
     relatedTourSlugs: ['west-trip', 'mix-trip', 'snorkeling-manta'],
   },
+  {
+    slug: 'tree-house-molenteng',
+    name: 'Tree House (Rumah Pohon)',
+    nameId: 'Rumah Pohon Molenteng',
+    region: 'east',
+    geo: { lat: -8.7611, lng: 115.6433 },
+    description: {
+      en: 'The famous wooden tree house perched on a cliff edge in Molenteng, overlooking the turquoise sea and the Thousand Islands viewpoint.',
+      id: 'Rumah pohon kayu terkenal yang bertengger di tepi tebing Molenteng, menghadap laut toska dan viewpoint Thousand Islands.',
+    },
+    body: {
+      en: [
+        'The Molenteng Tree House (Rumah Pohon) is one of the most photographed structures in Nusa Penida — a small wooden hut built into a tree on the edge of a dramatic cliff. Behind it stretches the Thousand Islands panorama, a maze of jagged limestone outcrops rising from clear blue water.',
+        'The tree house itself can be rented as quirky accommodation, but most visitors come for the iconic photo from the path below it, with the cliffs and sea framing the hut. The walk down to the viewpoint is short but the steps are uneven, so take your time.',
+        'The Tree House is a signature stop on our East Trip and Mix Trip itineraries, usually paired with Diamond Beach and Atuh Beach nearby.',
+      ],
+      id: [
+        'Rumah Pohon Molenteng adalah salah satu bangunan paling sering difoto di Nusa Penida — gubuk kayu kecil yang dibangun di pohon di tepi tebing dramatis. Di belakangnya membentang panorama Thousand Islands, labirin tebing kapur tajam yang muncul dari air biru jernih.',
+        'Rumah pohonnya sendiri bisa disewa sebagai penginapan unik, tapi mayoritas pengunjung datang untuk foto ikonik dari jalur di bawahnya, dengan tebing dan laut membingkai gubuk. Jalan turun ke viewpoint singkat tapi tangganya tidak rata, jadi pelan-pelan saja.',
+        'Tree House adalah titik khas di rute East Trip dan Mix Trip kami, biasanya dipasangkan dengan Diamond Beach dan Atuh Beach di dekatnya.',
+      ],
+    },
+    highlights: {
+      en: [
+        'Iconic clifftop wooden tree house',
+        'Thousand Islands panorama backdrop',
+        'One of the best photo spots in East Nusa Penida',
+        'Close to Diamond Beach and Atuh Beach',
+        'Can be rented as overnight accommodation',
+      ],
+      id: [
+        'Rumah pohon kayu ikonik di atas tebing',
+        'Latar panorama Thousand Islands',
+        'Salah satu spot foto terbaik di Nusa Penida Timur',
+        'Dekat dengan Diamond Beach dan Atuh Beach',
+        'Bisa disewa sebagai penginapan',
+      ],
+    },
+    tips: {
+      en: [
+        'Arrive early morning for soft light and fewer people in the frame',
+        'Combine with Diamond and Atuh Beach in one east-coast loop',
+        'Watch your footing on the uneven steps near the cliff',
+        'Bring water — the climb back up is in full sun',
+      ],
+      id: [
+        'Datang pagi untuk cahaya lembut dan lebih sedikit orang di frame',
+        'Gabungkan dengan Diamond dan Atuh Beach dalam satu rute pantai timur',
+        'Hati-hati pijakan di tangga tidak rata dekat tebing',
+        'Bawa air — naik kembali di bawah terik matahari',
+      ],
+    },
+    bestTime: {
+      en: 'Early morning (07:00–09:00) for the best light and quiet',
+      id: 'Pagi (07.00–09.00) untuk cahaya terbaik dan suasana sepi',
+    },
+    accessibility: {
+      en: 'Moderate — uneven steps down to the viewpoint.',
+      id: 'Sedang — tangga tidak rata menuju viewpoint.',
+    },
+    heroImage: '/images/East%20Trip/East%20trip%20TREE%20HOUSE.jpeg',
+    images: [
+      '/images/East%20Trip/East%20trip%20TREE%20HOUSE.jpeg',
+      '/images/East%20Trip/East%20trip%20VIEW%20THOUSAND%20ISLAND.jpeg',
+    ],
+    relatedTourSlugs: ['east-trip', 'mix-trip', 'east-trip-snorkeling'],
+  },
 ];
 
 export function getDestinationBySlug(slug: string): Destination | null {

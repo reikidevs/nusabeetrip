@@ -7,6 +7,8 @@ import {
   getGuideBySlug,
   getAllGuides,
   getGuidesBySlugs,
+  getGuideArticleBody,
+  getGuideWordCount,
 } from '@/lib/guides';
 import GuideContent from './GuideContent';
 
@@ -94,6 +96,18 @@ export default function GuideDetailPage({
           },
           articleSection: g.category,
           keywords: g.keywords.join(', '),
+          wordCount: getGuideWordCount(g),
+          timeRequired: `PT${g.readingMinutes}M`,
+          articleBody: getGuideArticleBody(g),
+          about: {
+            '@type': 'TouristDestination',
+            name: 'Nusa Penida',
+            address: {
+              '@type': 'PostalAddress',
+              addressRegion: 'Bali',
+              addressCountry: 'ID',
+            },
+          },
           inLanguage: 'en',
           isAccessibleForFree: true,
         }}
