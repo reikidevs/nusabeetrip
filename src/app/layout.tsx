@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
-import { Layout } from '@/components'
+import SiteChrome from '@/components/layout/SiteChrome'
 import { LanguageProvider } from '@/lib/LanguageContext'
 import ExchangeRateProvider from '@/components/ExchangeRateProvider'
 import PageViewTracker from '@/components/PageViewTracker'
@@ -117,9 +117,9 @@ export default async function RootLayout({
         <LanguageProvider>
           <ExchangeRateProvider />
           <PageViewTracker />
-          <Layout>
+          <SiteChrome>
             {children}
-          </Layout>
+          </SiteChrome>
         </LanguageProvider>
       </body>
     </html>
