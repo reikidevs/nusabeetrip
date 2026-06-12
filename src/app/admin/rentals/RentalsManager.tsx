@@ -179,7 +179,14 @@ function RentalCard({
         >
           {saving ? 'Saving…' : 'Save changes'}
         </button>
-        {justSaved && <span className="text-sm text-green-600 font-medium">Saved ✓</span>}
+        {justSaved && (
+          <span className="inline-flex items-center gap-1 text-sm text-green-600 font-medium">
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+            </svg>
+            Saved
+          </span>
+        )}
         {err && <span className="text-sm text-red-600">{err}</span>}
         {dirty && !justSaved && (
           <span className="text-xs text-amber-600">Unsaved changes</span>

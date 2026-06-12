@@ -173,7 +173,7 @@ export default async function AdminSeoPage() {
           {checklist.map((item) => (
             <li key={item.label} className="flex items-start gap-3">
               <span
-                className={`mt-0.5 flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center text-xs ${
+                className={`mt-0.5 flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center ${
                   item.done === true
                     ? 'bg-green-100 text-green-600'
                     : item.done === false
@@ -181,7 +181,15 @@ export default async function AdminSeoPage() {
                     : 'bg-gray-100 text-gray-400'
                 }`}
               >
-                {item.done === true ? '✓' : item.done === false ? '!' : '–'}
+                <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  {item.done === true ? (
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                  ) : item.done === false ? (
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M12 9v4m0 4h.01" />
+                  ) : (
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 12h14" />
+                  )}
+                </svg>
               </span>
               <div>
                 <div className="text-sm font-medium text-gray-900">{item.label}</div>

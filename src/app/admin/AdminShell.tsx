@@ -79,7 +79,12 @@ export default function AdminShell({ children }: { children: React.ReactNode }) 
       {/* Sidebar — desktop */}
       <aside className="hidden lg:flex fixed inset-y-0 left-0 w-60 bg-gray-900 text-gray-300 flex-col">
         <div className="px-5 py-5 border-b border-gray-800 flex items-center gap-2.5">
-          <span className="text-2xl">🐝</span>
+          <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-blue-700 text-white">
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
+          </span>
           <div>
             <div className="font-bold text-white text-sm">NusaBeeTrip</div>
             <div className="text-[11px] text-gray-500">Admin panel</div>
@@ -130,7 +135,12 @@ export default function AdminShell({ children }: { children: React.ReactNode }) 
       {/* Mobile top bar */}
       <div className="lg:hidden sticky top-0 z-30 bg-gray-900 text-white flex items-center justify-between px-4 py-3">
         <div className="flex items-center gap-2">
-          <span className="text-xl">🐝</span>
+          <span className="flex h-7 w-7 items-center justify-center rounded-md bg-brand-blue-700 text-white">
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
+          </span>
           <span className="font-bold text-sm">Admin</span>
         </div>
         <button

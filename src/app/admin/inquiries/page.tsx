@@ -30,7 +30,11 @@ export default async function AdminInquiriesPage() {
 
       {inquiries.length === 0 ? (
         <div className="bg-white rounded-2xl border border-gray-100 p-12 text-center">
-          <div className="text-4xl mb-3">📭</div>
+          <div className="mx-auto mb-3 flex h-14 w-14 items-center justify-center rounded-full bg-gray-100 text-gray-400">
+            <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
+          </div>
           <h2 className="font-semibold text-gray-900 mb-1">No inquiries yet</h2>
           <p className="text-sm text-gray-500 max-w-md mx-auto">
             Right now bookings come in through WhatsApp. Once we add the on-site
