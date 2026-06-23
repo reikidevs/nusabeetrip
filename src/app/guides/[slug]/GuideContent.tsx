@@ -6,7 +6,12 @@ import Link from 'next/link';
 import { useLanguage } from '@/lib/LanguageContext';
 import { getWhatsAppLink } from '@/lib/whatsapp';
 import { BreadcrumbNav } from '@/components/seo';
-import { GUIDE_CATEGORIES, type Guide } from '@/lib/guides';
+import {
+  GUIDE_CATEGORIES,
+  getGuideRelatedTourLinks,
+  getGuideRelatedDestinationLinks,
+  type Guide,
+} from '@/lib/guides';
 
 interface Props {
   guide: Guide;
@@ -15,6 +20,9 @@ interface Props {
 
 export default function GuideContent({ guide: g, relatedGuides }: Props) {
   const { language } = useLanguage();
+
+  const tourLinks = getGuideRelatedTourLinks(g);
+  const destinationLinks = getGuideRelatedDestinationLinks(g);
 
   const formattedDate = new Date(g.dateModified).toLocaleDateString(
     language === 'id' ? 'id-ID' : 'en-US',
@@ -138,9 +146,109 @@ export default function GuideContent({ guide: g, relatedGuides }: Props) {
                 Plan via WhatsApp
               </a>
             </div>
+
+            {/* Automatic internal links — related tours & destinations */}
+            {(tourLinks.length > 0 || destinationLinks.length > 0) && (
+              <div className="space-y-6">
+                {tourLinks.length > 0 && (
+                  <div>
+                    <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-3">
+                      {language === 'id' ? 'Tur & rental terkait' : 'Related tours & rentals'}
+                    </h3>
+                    <div className="grid sm:grid-cols-2 gap-3">
+                      {tourLinks.map((link) => (
+                        <Link
+                          key={link.href}
+                          href={link.href}
+                          className="group flex items-center justify-between gap-3 bg-white rounded-xl border border-gray-200 px-4 py-3 hover:border-brand-blue-300 hover:shadow-md transition-all"
+                        >
+                          <span>
+                            <span className="block font-semibold text-gray-900 group-hover:text-brand-blue-800 transition-colors">
+                              {link.label}
+                            </span>
+                            {link.sub && (
+                              <span className="block text-sm text-gray-500">{link.sub}</span>
+                            )}
+                          </span>
+                          <svg
+                            className="w-5 h-5 text-brand-blue-600 flex-shrink-0 group-hover:translate-x-0.5 transition-transform"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                            aria-hidden="true"
+                          >
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                          </svg>
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {destinationLinks.length > 0 && (
+                  <div>
+                    <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-3">
+                      {language === 'id' ? 'Destinasi yang disebutkan' : 'Destinations mentioned'}
+                    </h3>
+                    <div className="flex flex-wrap gap-2.5">
+                      {destinationLinks.map((link) => (
+                        <Link
+                          key={link.href}
+                          href={link.href}
+                          className="inline-flex items-center gap-1.5 bg-brand-blue-50 text-brand-blue-800 hover:bg-brand-blue-100 px-3.5 py-2 rounded-full text-sm font-semibold transition-colors"
+                        >
+                          {link.label}
+                          <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                          </svg>
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
           </div>
         </div>
       </article>
+
+      {/* FAQ — visible on-page content backs the FAQPage JSON-LD */}
+      {g.faq && g.faq.length > 0 && (
+        <section className="py-10 sm:py-16 border-t border-gray-100">
+          <div className="container mx-auto px-4">
+            <div className="max-w-3xl mx-auto">
+              <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-6 sm:mb-8 tracking-tight">
+                {language === 'id' ? 'Pertanyaan yang sering diajukan' : 'Frequently asked questions'}
+              </h2>
+              <div className="space-y-3">
+                {g.faq.map((item, i) => (
+                  <details
+                    key={i}
+                    className="group bg-gray-50 rounded-2xl border border-gray-100 overflow-hidden"
+                    {...(i === 0 ? { open: true } : {})}
+                  >
+                    <summary className="flex items-center justify-between gap-4 cursor-pointer list-none p-5 sm:p-6 font-semibold text-gray-900">
+                      <span>{item.question}</span>
+                      <svg
+                        className="w-5 h-5 text-brand-blue-700 flex-shrink-0 transition-transform group-open:rotate-180"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        aria-hidden="true"
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                      </svg>
+                    </summary>
+                    <div className="px-5 sm:px-6 pb-5 sm:pb-6 -mt-1 text-gray-700 leading-relaxed">
+                      {item.answer}
+                    </div>
+                  </details>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Related guides */}
       {relatedGuides.length > 0 && (

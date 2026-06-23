@@ -6,6 +6,9 @@
  * and is designed to rank for long-tail keywords without daily content output.
  */
 
+import { TOUR_PACKAGES, RENTAL_SERVICES } from './constants';
+import { DESTINATIONS } from './destinations';
+
 export interface GuideSection {
   /** Heading of the section (rendered as <h2>) */
   heading: string;
@@ -13,6 +16,13 @@ export interface GuideSection {
   paragraphs: string[];
   /** Optional bullet list shown after the paragraphs */
   bullets?: string[];
+}
+
+export interface GuideFaq {
+  /** The question (rendered as <h3>, emitted to FAQPage schema) */
+  question: string;
+  /** Plain-text answer (emitted to FAQPage schema) */
+  answer: string;
 }
 
 export interface Guide {
@@ -37,6 +47,21 @@ export interface Guide {
   sections: GuideSection[];
   /** Slugs of related guides shown at the bottom */
   relatedGuideSlugs: string[];
+  /**
+   * Optional FAQ block — rendered on the page AND emitted as FAQPage JSON-LD
+   * so the guide is eligible for FAQ rich results in Google SERPs.
+   */
+  faq?: GuideFaq[];
+  /**
+   * Tour slugs this guide is topically related to. Drives automatic internal
+   * links from the article to the relevant /tours/* pages (topical authority).
+   */
+  relatedTourSlugs?: string[];
+  /**
+   * Destination slugs this guide is topically related to. Drives automatic
+   * internal links to the relevant /destinations/* pages.
+   */
+  relatedDestinationSlugs?: string[];
 }
 
 /* ─────────────────────────────────────────────────────────────────── */
@@ -44,6 +69,29 @@ export interface Guide {
 const GUIDES: Guide[] = [
   {
     slug: 'how-to-get-to-nusa-penida',
+    relatedTourSlugs: ['west-trip', 'east-trip', 'mix-trip'],
+    faq: [
+      {
+        question: 'How long is the boat to Nusa Penida?',
+        answer:
+          'The fast boat from Sanur to Nusa Penida takes about 30 minutes. From Padang Bai it is 30–45 minutes. Public boats from Kusamba take over an hour and are much rougher.',
+      },
+      {
+        question: 'How much is the fast boat to Nusa Penida?',
+        answer:
+          'A one-way fast-boat ticket from Sanur costs roughly IDR 100,000–175,000 depending on the operator, so budget IDR 200,000–350,000 for a round trip.',
+      },
+      {
+        question: 'Do I need to book the boat in advance?',
+        answer:
+          'In low season you can usually buy a ticket on the day. In high season (July–August, Christmas, New Year) it is best to reserve the night before through your hotel or a local agent.',
+      },
+      {
+        question: 'Which harbour is best for getting to Nusa Penida?',
+        answer:
+          'Sanur is the easiest and most popular departure point with the most boats and the most predictable schedule. Padang Bai suits travellers coming from east Bali.',
+      },
+    ],
     title: 'How to Get to Nusa Penida from Bali',
     excerpt:
       'Step-by-step guide to reaching Nusa Penida from Sanur, Padang Bai, and Kusamba. Boat schedules, ticket prices, and what to expect at each harbour.',
@@ -105,6 +153,24 @@ const GUIDES: Guide[] = [
 
   {
     slug: 'best-time-to-visit-nusa-penida',
+    relatedTourSlugs: ['west-trip', 'mix-trip', 'snorkeling-manta'],
+    faq: [
+      {
+        question: 'What is the best month to visit Nusa Penida?',
+        answer:
+          'May and September are the sweet spot — dry weather, calm seas, manageable crowds, and reasonable prices. Any month from April to October has good weather overall.',
+      },
+      {
+        question: 'When can you see manta rays in Nusa Penida?',
+        answer:
+          'Manta rays are visible year-round, with peak sightings from April to November when the surrounding water is rich in plankton.',
+      },
+      {
+        question: 'Is the wet season a bad time to visit Nusa Penida?',
+        answer:
+          'November to March brings more rain, usually as short afternoon bursts, plus choppier seas and occasional boat cancellations. Mornings often stay clear and prices and crowds drop noticeably.',
+      },
+    ],
     title: 'Best Time to Visit Nusa Penida',
     excerpt:
       'Month-by-month breakdown of weather, crowds, sea conditions, and prices in Nusa Penida — so you can pick the right time for your trip.',
@@ -164,6 +230,25 @@ const GUIDES: Guide[] = [
 
   {
     slug: 'nusa-penida-itinerary',
+    relatedTourSlugs: ['west-trip', 'east-trip', 'mix-trip', 'snorkeling-manta'],
+    relatedDestinationSlugs: ['kelingking-beach', 'crystal-bay-beach', 'diamond-beach', 'atuh-beach'],
+    faq: [
+      {
+        question: 'How many days do you need in Nusa Penida?',
+        answer:
+          'One day covers a single coast well. Two days lets you do both coasts plus manta snorkeling without rushing. Three days adds Nusa Lembongan and Ceningan at a relaxed pace.',
+      },
+      {
+        question: 'Can you see Nusa Penida in one day?',
+        answer:
+          'Yes. Arrive on the 08:00 boat and leave on the 16:00 return for about 7 usable hours. Pick one direction — west or east — or take a Mix Trip for highlights of both.',
+      },
+      {
+        question: 'Should I do the West Trip or East Trip first?',
+        answer:
+          'For a single day, the West Trip (Kelingking, Broken Beach, Angel\u2019s Billabong, Crystal Bay) packs the icons closest together. Save the East Trip for a second day or overnight stay.',
+      },
+    ],
     title: 'Nusa Penida Itinerary: 1 Day, 2 Days, and 3 Days',
     excerpt:
       'Three battle-tested itineraries for Nusa Penida. What to see, when to start, and which combinations actually work in a single day on the road.',
@@ -245,6 +330,24 @@ const GUIDES: Guide[] = [
 
   {
     slug: 'what-to-pack-nusa-penida',
+    relatedTourSlugs: ['west-trip', 'snorkeling-manta'],
+    faq: [
+      {
+        question: 'What should I wear in Nusa Penida?',
+        answer:
+          'Light, breathable clothes and closed shoes with good grip — the Kelingking trail is loose rock. Wear your swimsuit under your clothes to save changing-room hassle.',
+      },
+      {
+        question: 'Do I need cash in Nusa Penida?',
+        answer:
+          'Yes. Bring cash in IDR with small notes for parking, warungs, and harbour fees. ATMs are unreliable, so withdraw enough in Bali first. USD is not accepted island-wide.',
+      },
+      {
+        question: 'Should I bring a drone to Nusa Penida?',
+        answer:
+          'Most popular spots restrict drones for safety and Indonesian airspace rules around tourist sites are tightening. If you bring one, always ask before flying.',
+      },
+    ],
     title: 'What to Pack for Nusa Penida',
     excerpt:
       'A focused packing list for a Nusa Penida day trip or short stay. What is essential, what is overkill, and what locals actually wish tourists brought.',
@@ -306,6 +409,24 @@ const GUIDES: Guide[] = [
 
   {
     slug: 'nusa-penida-vs-lembongan',
+    relatedTourSlugs: ['mix-trip', 'snorkeling-manta'],
+    faq: [
+      {
+        question: 'Is Nusa Penida or Nusa Lembongan better?',
+        answer:
+          'Nusa Penida is better for dramatic cliffs, hidden beaches, and the most photographed spots in Bali. Nusa Lembongan suits a slower beach holiday with sunset bars and easy snorkeling. They are 15 minutes apart by boat.',
+      },
+      {
+        question: 'Can you visit both Nusa Penida and Lembongan in one trip?',
+        answer:
+          'Yes. Boats between the two run hourly through the day, so a common 3-day plan combines a relaxed Lembongan base with a full Mix Trip day on Penida.',
+      },
+      {
+        question: 'Which island is better for a day trip from Bali?',
+        answer:
+          'Nusa Penida, because its iconic viewpoints — Kelingking, Broken Beach, Angel\u2019s Billabong — are concentrated together and best seen in a single day.',
+      },
+    ],
     title: 'Nusa Penida vs Nusa Lembongan: Which One Should You Visit?',
     excerpt:
       'Both islands are gorgeous and 15 minutes apart, but they serve different traveller types. Honest comparison of crowds, scenery, food, and what to expect.',
@@ -368,6 +489,25 @@ const GUIDES: Guide[] = [
 
   {
     slug: 'is-nusa-penida-worth-it',
+    relatedTourSlugs: ['west-trip', 'mix-trip', 'snorkeling-manta'],
+    relatedDestinationSlugs: ['kelingking-beach', 'diamond-beach', 'broken-beach'],
+    faq: [
+      {
+        question: 'Is Nusa Penida worth visiting?',
+        answer:
+          'Yes. The scenery at Kelingking, Diamond Beach, and Broken Beach is among the most striking in Indonesia. The one caveat is the rough, steep roads, so a guided tour makes the day far easier.',
+      },
+      {
+        question: 'Is Nusa Penida worth it for just a day trip?',
+        answer:
+          'Yes, if you focus on one coast. A West Trip day covers the most-photographed spots. An early start and a guided tour help you beat the midday crowds.',
+      },
+      {
+        question: 'What are the downsides of Nusa Penida?',
+        answer:
+          'Narrow potholed roads, busy viewpoints between 10:00 and 14:00, and basic facilities. A guided tour with a local driver solves most of this by timing stops and handling the roads.',
+      },
+    ],
     title: 'Is Nusa Penida Worth Visiting? An Honest Answer',
     excerpt:
       'A straight answer on whether Nusa Penida is worth the trip from Bali — the highlights, the rough roads, the crowds, and who will love it most.',
@@ -427,6 +567,29 @@ const GUIDES: Guide[] = [
 
   {
     slug: 'nusa-penida-tour-cost',
+    relatedTourSlugs: ['west-trip', 'east-trip', 'mix-trip', 'snorkeling-manta'],
+    faq: [
+      {
+        question: 'How much does a Nusa Penida tour cost?',
+        answer:
+          'A guided Nusa Penida day tour starts from IDR 390,000 per person for the West Trip, IDR 430,000 for the East Trip, and IDR 500,000 for the Mix Trip. Manta ray snorkeling starts from IDR 200,000. Prices include island transport, a guide, and hotel pickup.',
+      },
+      {
+        question: 'Is the fast boat included in the tour price?',
+        answer:
+          'No. The fast-boat ticket from Sanur is booked separately and costs roughly IDR 200,000–350,000 round trip. Everything on the island — transport, guide, entrance and parking fees — is included in the tour price.',
+      },
+      {
+        question: 'How can I make a Nusa Penida tour cheaper?',
+        answer:
+          'Travel as a small group to lower the per-person transport cost, take the early boat for a full day, and book directly via WhatsApp so there is no agent markup.',
+      },
+      {
+        question: 'Is Nusa Penida expensive to visit?',
+        answer:
+          'No. With a guided day tour from IDR 390,000, a round-trip boat, and cheap warung lunches (IDR 30,000–60,000), a full day on Nusa Penida is affordable compared with most Bali day trips.',
+      },
+    ],
     title: 'How Much Does a Nusa Penida Tour Cost? (2026 Prices)',
     excerpt:
       'A clear breakdown of Nusa Penida tour prices in 2026 — tour packages, boat tickets, scooter rental, entrance fees, and how to budget your day trip.',
@@ -497,6 +660,29 @@ const GUIDES: Guide[] = [
 
   {
     slug: 'manta-ray-snorkeling-nusa-penida',
+    relatedTourSlugs: ['snorkeling-manta', 'west-trip-snorkeling', 'mix-trip'],
+    faq: [
+      {
+        question: 'When is the best time to see manta rays in Nusa Penida?',
+        answer:
+          'Manta rays are present year-round off Nusa Penida, with especially reliable encounters from April to November. Mornings usually have the calmest sea and the best snorkeling visibility.',
+      },
+      {
+        question: 'Do I need to know how to dive to see the manta rays?',
+        answer:
+          'No. The trips are snorkeling tours — you float at the surface above the mantas, so any confident swimmer can join without a diving licence.',
+      },
+      {
+        question: 'Where do manta snorkeling trips go?',
+        answer:
+          'The two main sites are Manta Point (Batu Lumbung), the most reliable spot, and Manta Bay, a calmer alternative used in bigger swells. Boats pick the better site on the day.',
+      },
+      {
+        question: 'How long is a manta snorkeling trip?',
+        answer:
+          'A typical trip spends about two hours on the water visiting two to three snorkel spots, including the manta site and colourful reef stops like Crystal Bay or Gamat Bay.',
+      },
+    ],
     title: 'Manta Ray Snorkeling in Nusa Penida: Complete Guide',
     excerpt:
       'Everything about snorkeling with manta rays in Nusa Penida — Manta Point vs Manta Bay, the best season, what to expect, and how to book a responsible trip.',
@@ -554,6 +740,24 @@ const GUIDES: Guide[] = [
 
   {
     slug: 'renting-a-scooter-in-nusa-penida',
+    relatedTourSlugs: ['nmax-motorcycle', 'scoopy-motorcycle', 'vario-motorcycle', 'car-rental'],
+    faq: [
+      {
+        question: 'How much does it cost to rent a scooter in Nusa Penida?',
+        answer:
+          'A basic automatic scooter like a Honda Scoopy rents for around IDR 70,000–100,000 per day. A larger Yamaha N-Max with stronger brakes costs a little more. Helmets are included.',
+      },
+      {
+        question: 'Is it safe to ride a scooter in Nusa Penida?',
+        answer:
+          'The roads to the famous viewpoints are steep, narrow, and broken in places. Confident riders travelling light are fine, but nervous riders or anyone carrying a passenger should consider a car with a driver.',
+      },
+      {
+        question: 'Do I need a licence to rent a scooter in Nusa Penida?',
+        answer:
+          'Yes. Carry an International Driving Permit with a motorcycle category plus your home licence. Most travel insurance only covers scooter accidents if you hold the correct licence.',
+      },
+    ],
     title: 'Renting a Scooter in Nusa Penida: What You Need to Know',
     excerpt:
       'Honest advice on renting a scooter in Nusa Penida — prices, road conditions, safety, licence rules, and when hiring a driver is the smarter choice.',
@@ -613,6 +817,25 @@ const GUIDES: Guide[] = [
 
   {
     slug: 'where-to-stay-nusa-penida',
+    relatedTourSlugs: ['west-trip', 'mix-trip'],
+    relatedDestinationSlugs: ['crystal-bay-beach', 'atuh-beach'],
+    faq: [
+      {
+        question: 'Where is the best area to stay in Nusa Penida?',
+        answer:
+          'The north-west coast around Toyapakeh and Ped is the most convenient base — close to the harbour, restaurants, and the west-coast viewpoints. It suits first visits and short stays.',
+      },
+      {
+        question: 'Should I stay on the east coast of Nusa Penida?',
+        answer:
+          'The east coast near Atuh and Diamond Beach is quieter and scenic but far from everything else, with long slow drives. It suits travellers staying several nights who want calm over convenience.',
+      },
+      {
+        question: 'Where should I stay for a short trip to Nusa Penida?',
+        answer:
+          'For one or two nights, stay in the Toyapakeh–Ped area and let a tour handle transport to the viewpoints. You waste no time on long transfers and can still reach both coasts on a Mix Trip.',
+      },
+    ],
     title: 'Where to Stay in Nusa Penida: Best Areas Explained',
     excerpt:
       'A guide to the best areas to stay in Nusa Penida — Toyapakeh, Crystal Bay, Ped, and the east coast — matched to what you want from your trip.',
@@ -674,6 +897,24 @@ const GUIDES: Guide[] = [
 
   {
     slug: 'nusa-penida-day-trip-from-ubud',
+    relatedTourSlugs: ['west-trip', 'mix-trip'],
+    faq: [
+      {
+        question: 'Can you do a Nusa Penida day trip from Ubud?',
+        answer:
+          'Yes. Leave Ubud by around 06:00, catch the 07:30–08:00 fast boat from Sanur, and you have a full day on the island. It is long but very doable, especially for the west-coast highlights.',
+      },
+      {
+        question: 'How far is Ubud from the Nusa Penida boat?',
+        answer:
+          'Ubud is about 60–90 minutes by car from Sanur harbour, where most Nusa Penida fast boats depart. Add the 30-minute crossing for roughly two hours of travel each way.',
+      },
+      {
+        question: 'West Trip or East Trip from Ubud?',
+        answer:
+          'For a single day from Ubud, choose the West Trip — Kelingking, Broken Beach, Angel\u2019s Billabong, and Crystal Bay are close together. The East Trip involves longer drives and suits an overnight stay.',
+      },
+    ],
     title: 'Nusa Penida Day Trip from Ubud: Full Guide',
     excerpt:
       'How to do a Nusa Penida day trip from Ubud — transfer times, the right boat, a realistic timeline, costs, and the easiest way to see Kelingking in one day.',
@@ -743,6 +984,24 @@ const GUIDES: Guide[] = [
 
   {
     slug: 'nusa-penida-day-trip-from-kuta-seminyak',
+    relatedTourSlugs: ['west-trip', 'mix-trip'],
+    faq: [
+      {
+        question: 'Can you do a Nusa Penida day trip from Kuta or Seminyak?',
+        answer:
+          'Yes. The drive from Kuta, Legian, or Seminyak to Sanur harbour takes about 30–50 minutes. With a 06:30 pickup you make the 07:30–08:00 boat and have a full day on the island.',
+      },
+      {
+        question: 'How far is Seminyak from the Nusa Penida boat?',
+        answer:
+          'About 30–50 minutes by car to Sanur, where the fast boats leave. Morning traffic can be heavy, so leave early to catch the first boats.',
+      },
+      {
+        question: 'Is a day trip enough, or should I stay overnight?',
+        answer:
+          'A day trip works well for the west-coast highlights. To see both Kelingking and Diamond Beach without rushing, an overnight stay removes the boat-time pressure.',
+      },
+    ],
     title: 'Nusa Penida Day Trip from Kuta & Seminyak',
     excerpt:
       'Planning a Nusa Penida day trip from Kuta, Seminyak, or Legian? Transfer times to Sanur, the right boat, a one-day timeline, and how to make it stress-free.',
@@ -804,6 +1063,25 @@ const GUIDES: Guide[] = [
 
   {
     slug: 'best-beaches-nusa-penida',
+    relatedTourSlugs: ['west-trip', 'east-trip', 'mix-trip'],
+    relatedDestinationSlugs: ['crystal-bay-beach', 'kelingking-beach', 'diamond-beach', 'atuh-beach'],
+    faq: [
+      {
+        question: 'What is the best beach in Nusa Penida?',
+        answer:
+          'Crystal Bay is the best beach for swimming and sunset — calm clear water, soft sand, and shade. Kelingking has the most famous view, but reaching its sand is a steep rope-assisted climb.',
+      },
+      {
+        question: 'Can you swim at Diamond Beach in Nusa Penida?',
+        answer:
+          'Diamond Beach is stunning but swimming can be unsafe due to currents. Neighbouring Atuh Beach is gentler and easier to enjoy in the water.',
+      },
+      {
+        question: 'Which Nusa Penida beaches are easiest to reach?',
+        answer:
+          'Crystal Bay is the most accessible swimmable beach. Kelingking and Diamond require steep descents, so many visitors enjoy them from the viewpoints at the top.',
+      },
+    ],
     title: 'Best Beaches in Nusa Penida',
     excerpt:
       'The best beaches in Nusa Penida ranked — Kelingking, Crystal Bay, Diamond Beach, Atuh, and more — with what each is good for and how hard they are to reach.',
@@ -865,6 +1143,25 @@ const GUIDES: Guide[] = [
 
   {
     slug: 'things-to-do-nusa-penida',
+    relatedTourSlugs: ['west-trip', 'east-trip', 'mix-trip', 'snorkeling-manta'],
+    relatedDestinationSlugs: ['kelingking-beach', 'broken-beach', 'crystal-bay-beach', 'diamond-beach'],
+    faq: [
+      {
+        question: 'What are the top things to do in Nusa Penida?',
+        answer:
+          'The essentials are the Kelingking cliff viewpoint, Broken Beach and Angel\u2019s Billabong, Crystal Bay for swimming, Diamond and Atuh beaches on the east coast, and snorkeling with manta rays.',
+      },
+      {
+        question: 'How many days do you need in Nusa Penida?',
+        answer:
+          'One day covers a single coast well — either the west or the east. To see both coasts plus manta snorkeling at a relaxed pace, stay one or two nights.',
+      },
+      {
+        question: 'Can you see Nusa Penida in one day?',
+        answer:
+          'Yes, with an early start you can comfortably cover one coast in a day. A Mix Trip squeezes the most-photographed spots from both coasts into a single 8-hour tour.',
+      },
+    ],
     title: 'Things to Do in Nusa Penida: Top Activities',
     excerpt:
       'The best things to do in Nusa Penida — viewpoints, snorkeling with manta rays, beaches, and hidden spots — and how to fit them into your trip.',
@@ -923,6 +1220,25 @@ const GUIDES: Guide[] = [
 
   {
     slug: 'nusa-penida-with-family',
+    relatedTourSlugs: ['mix-trip', 'car-rental', 'snorkeling-manta'],
+    relatedDestinationSlugs: ['crystal-bay-beach', 'broken-beach'],
+    faq: [
+      {
+        question: 'Is Nusa Penida good for families with kids?',
+        answer:
+          'Yes, with the right plan. Focus on easy, swimmable spots like Crystal Bay, enjoy Kelingking from the viewpoint, and use a private car with a driver to handle the bumpy roads.',
+      },
+      {
+        question: 'What should families avoid in Nusa Penida?',
+        answer:
+          'Skip the steep rope-assisted climb down to Kelingking\u2019s sand and the swimming at Diamond Beach. Keep east-coast drives short as they can be tiring for young children.',
+      },
+      {
+        question: 'What is the best way to visit Nusa Penida with kids?',
+        answer:
+          'Take the calm morning boat, use a private car so you control the pace, and build the day around Crystal Bay. Bring water, snacks, and reef-safe sunscreen.',
+      },
+    ],
     title: 'Nusa Penida with Family: Kids & Easy Days',
     excerpt:
       'Visiting Nusa Penida with kids or older parents? Which spots are family-friendly, which to skip, and how to plan an easy, safe day on the island.',
@@ -979,6 +1295,24 @@ const GUIDES: Guide[] = [
 
   {
     slug: 'nusa-penida-travel-tips',
+    relatedTourSlugs: ['west-trip', 'mix-trip', 'car-rental'],
+    faq: [
+      {
+        question: 'What should first-time visitors know about Nusa Penida?',
+        answer:
+          'The roads to viewpoints are steep and rough, viewpoints get busy midday, and ATMs are unreliable. Bring cash in IDR, start early, and consider a guided tour to handle the driving.',
+      },
+      {
+        question: 'Is Nusa Penida safe for tourists?',
+        answer:
+          'Yes, Nusa Penida is generally safe. The main risk is the roads — ride within your limits if on a scooter, wear a helmet, and never rush to catch a boat. A car with driver is the safest option.',
+      },
+      {
+        question: 'What are common mistakes visitors make in Nusa Penida?',
+        answer:
+          'Trying to cover both coasts in one day, taking the last return boat (which can be cancelled by weather), underestimating the roads, and not carrying enough cash.',
+      },
+    ],
     title: 'Nusa Penida Travel Tips: First-Timer Guide',
     excerpt:
       'Essential Nusa Penida travel tips — safety, money, roads, what to avoid, and the common mistakes first-time visitors make. Read this before you go.',
@@ -1071,4 +1405,61 @@ export function getGuidesBySlugs(slugs: string[]): Guide[] {
   return slugs
     .map((s) => GUIDES.find((g) => g.slug === s))
     .filter((g): g is Guide => g !== undefined);
+}
+
+/** Lightweight link target used by automatic internal linking on guide pages. */
+export interface GuideRelatedLink {
+  href: string;
+  label: string;
+  /** Short supporting line shown under the label */
+  sub?: string;
+}
+
+/**
+ * Resolve a guide's related tour slugs into internal link targets.
+ * Looks up tours and rentals from constants so labels/prices stay in sync.
+ */
+export function getGuideRelatedTourLinks(guide: Guide): GuideRelatedLink[] {
+  if (!guide.relatedTourSlugs?.length) return [];
+  const fmt = (n: number) => `from ${(n / 1000).toFixed(0)}K IDR`;
+
+  return guide.relatedTourSlugs
+    .map((slug): GuideRelatedLink | null => {
+      const tour = TOUR_PACKAGES.find((p) => p.slug === slug && p.isActive);
+      if (tour) {
+        return {
+          href: `/tours/${tour.slug}`,
+          label: tour.name,
+          sub: fmt(tour.price),
+        };
+      }
+      const rental = RENTAL_SERVICES.find((r) => r.slug === slug && r.isAvailable);
+      if (rental) {
+        return {
+          href: `/rentals/${rental.slug}`,
+          label: rental.model,
+          sub: fmt(rental.pricePerDay) + ' / day',
+        };
+      }
+      return null;
+    })
+    .filter((l): l is GuideRelatedLink => l !== null);
+}
+
+/**
+ * Resolve a guide's related destination slugs into internal link targets.
+ */
+export function getGuideRelatedDestinationLinks(guide: Guide): GuideRelatedLink[] {
+  if (!guide.relatedDestinationSlugs?.length) return [];
+  return guide.relatedDestinationSlugs
+    .map((slug): GuideRelatedLink | null => {
+      const dest = DESTINATIONS.find((d) => d.slug === slug);
+      if (!dest) return null;
+      return {
+        href: `/destinations/${dest.slug}`,
+        label: dest.name,
+        sub: dest.region ? `${dest.region} Nusa Penida` : undefined,
+      };
+    })
+    .filter((l): l is GuideRelatedLink => l !== null);
 }

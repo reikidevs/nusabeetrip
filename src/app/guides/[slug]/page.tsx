@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { JsonLd } from '@/components/seo';
-import { breadcrumbJsonLd, buildMetadata } from '@/lib/seo';
+import { breadcrumbJsonLd, buildMetadata, faqJsonLd } from '@/lib/seo';
 import { absoluteUrl, SITE } from '@/lib/site-config';
 import {
   getGuideBySlug,
@@ -108,10 +108,14 @@ export default function GuideDetailPage({
               addressCountry: 'ID',
             },
           },
-          inLanguage: 'en',
+          inLanguage: ['en', 'id'],
           isAccessibleForFree: true,
         }}
       />
+
+      {g.faq && g.faq.length > 0 && (
+        <JsonLd id={`ld-faq-${g.slug}`} data={faqJsonLd(g.faq)} />
+      )}
 
       <GuideContent guide={g} relatedGuides={related} />
     </>
