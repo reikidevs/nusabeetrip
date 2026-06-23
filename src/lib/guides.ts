@@ -62,6 +62,17 @@ export interface Guide {
    * internal links to the relevant /destinations/* pages.
    */
   relatedDestinationSlugs?: string[];
+  /**
+   * Optional step-by-step instructions — emitted as HowTo JSON-LD so step-type
+   * guides (e.g. "how to get to Nusa Penida", itinerary planning) are eligible
+   * for HowTo rich results. Steps must mirror content visible on the page.
+   */
+  howTo?: {
+    name: string;
+    description: string;
+    totalTime?: string;
+    steps: { name: string; text: string }[];
+  };
 }
 
 /* ─────────────────────────────────────────────────────────────────── */
@@ -149,6 +160,30 @@ const GUIDES: Guide[] = [
       'nusa-penida-itinerary',
       'what-to-pack-nusa-penida',
     ],
+    howTo: {
+      name: 'How to Get to Nusa Penida from Bali',
+      description:
+        'Reach Nusa Penida from Bali in four simple steps: pick a harbour, book a fast boat, board at the beach, and meet your driver on arrival.',
+      totalTime: 'PT1H',
+      steps: [
+        {
+          name: 'Choose your departure harbour',
+          text: 'Pick Sanur for the easiest and most frequent fast boats (30 minutes), Padang Bai if you are coming from east Bali, or skip Kusamba\u2019s slow public boats.',
+        },
+        {
+          name: 'Book your fast boat ticket',
+          text: 'Buy a one-way ticket (roughly IDR 100,000\u2013175,000). In low season you can buy on the day; in high season reserve the night before through your hotel or a local agent.',
+        },
+        {
+          name: 'Board at the beach',
+          text: 'At Sanur you board directly from the sand, so wear shoes you can walk through shallow water in. A porter loads luggage at the front of the boat.',
+        },
+        {
+          name: 'Meet your driver on arrival',
+          text: 'On arrival at Banjar Nyuh, walk off onto the beach where drivers and guides wait. Look for your NusaBeeTrip sign \u2014 we coordinate the meet point via WhatsApp.',
+        },
+      ],
+    },
   },
 
   {
@@ -326,6 +361,34 @@ const GUIDES: Guide[] = [
       'best-time-to-visit-nusa-penida',
       'what-to-pack-nusa-penida',
     ],
+    howTo: {
+      name: 'How to Plan a 1-Day Nusa Penida Itinerary',
+      description:
+        'Build a realistic one-day Nusa Penida itinerary in five steps: catch the early boat, pick one direction, and pace your viewpoint stops around the 90-minute cross-island drive.',
+      totalTime: 'P1D',
+      steps: [
+        {
+          name: 'Catch the 08:00 boat from Sanur',
+          text: 'Arrive on the early fast boat and leave on the 16:00 return for roughly 7 usable hours on the island. The morning sea is also the calmest.',
+        },
+        {
+          name: 'Pick one direction',
+          text: 'Choose West (Kelingking, Angel Billabong, Broken Beach, Crystal Bay) or East (Diamond Beach, Atuh Beach, Tree House). Driving tip-to-tip takes 90 minutes, so commit to one side.',
+        },
+        {
+          name: 'Hit your first viewpoint by 09:30',
+          text: 'Meet your driver at Banjar Nyuh around 08:30 and reach the first major viewpoint by 09:30 to beat the midday crowds and heat.',
+        },
+        {
+          name: 'Break for lunch around 12:30',
+          text: 'Stop at a local warung for lunch, then continue to your second and third viewpoints or a beach swim in the afternoon.',
+        },
+        {
+          name: 'Drive back for the 16:00 boat',
+          text: 'Leave your last stop by 15:00 to return to the harbour with a buffer and board the 16:00 boat back to Sanur.',
+        },
+      ],
+    },
   },
 
   {
@@ -1459,6 +1522,83 @@ export function getGuideRelatedDestinationLinks(guide: Guide): GuideRelatedLink[
         href: `/destinations/${dest.slug}`,
         label: dest.name,
         sub: dest.region ? `${dest.region} Nusa Penida` : undefined,
+      };
+    })
+    .filter((l): l is GuideRelatedLink => l !== null);
+}
+
+/**
+ * Resolve a destination's related guide slugs into internal link targets.
+ * Completes the bidirectional guide ↔ destination link graph: guide pages
+ * link out to destinations, and destination pages link back to guides.
+ */
+export function getDestinationRelatedGuideLinks(
+  relatedGuideSlugs: string[] | undefined,
+): GuideRelatedLink[] {
+  if (!relatedGuideSlugs?.length) return [];
+  return relatedGuideSlugs
+    .map((slug): GuideRelatedLink | null => {
+      const guide = GUIDES.find((g) => g.slug === slug);
+      if (!guide) return null;
+      return {
+        href: `/guides/${guide.slug}`,
+        label: guide.title,
+        sub: `${guide.readingMinutes} min read`,
+      };
+    })
+    .filter((l): l is GuideRelatedLink => l !== null);
+}
+
+/**
+ * Maps each tour package slug to the guides most relevant to that tour.
+ * Drives internal links from tour detail pages back to the /guides/* articles
+ * (topical authority + keeps visitors in the funnel while researching).
+ */
+const TOUR_GUIDE_MAP: Record<string, string[]> = {
+  'west-trip': [
+    'best-beaches-nusa-penida',
+    'things-to-do-nusa-penida',
+    'nusa-penida-itinerary',
+  ],
+  'east-trip': [
+    'best-beaches-nusa-penida',
+    'nusa-penida-itinerary',
+    'things-to-do-nusa-penida',
+  ],
+  'west-trip-snorkeling': [
+    'manta-ray-snorkeling-nusa-penida',
+    'best-beaches-nusa-penida',
+    'best-time-to-visit-nusa-penida',
+  ],
+  'east-trip-snorkeling': [
+    'manta-ray-snorkeling-nusa-penida',
+    'nusa-penida-itinerary',
+    'best-time-to-visit-nusa-penida',
+  ],
+  'mix-trip': [
+    'nusa-penida-itinerary',
+    'things-to-do-nusa-penida',
+    'is-nusa-penida-worth-it',
+  ],
+  'snorkeling-manta': [
+    'manta-ray-snorkeling-nusa-penida',
+    'best-time-to-visit-nusa-penida',
+    'what-to-pack-nusa-penida',
+  ],
+};
+
+/** Resolve a tour slug into related guide link targets. */
+export function getTourRelatedGuideLinks(tourSlug: string): GuideRelatedLink[] {
+  const slugs = TOUR_GUIDE_MAP[tourSlug];
+  if (!slugs?.length) return [];
+  return slugs
+    .map((slug): GuideRelatedLink | null => {
+      const guide = GUIDES.find((g) => g.slug === slug);
+      if (!guide) return null;
+      return {
+        href: `/guides/${guide.slug}`,
+        label: guide.title,
+        sub: `${guide.readingMinutes} min read`,
       };
     })
     .filter((l): l is GuideRelatedLink => l !== null);

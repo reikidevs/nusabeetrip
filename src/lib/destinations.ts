@@ -37,6 +37,12 @@ export interface Destination {
   images: string[];
   /** Slugs of tour packages that include this destination */
   relatedTourSlugs: string[];
+  /**
+   * Slugs of travel guides topically related to this spot. Drives internal
+   * links from the destination page back to the relevant /guides/* articles
+   * (completes the bidirectional guide ↔ destination link graph).
+   */
+  relatedGuideSlugs?: string[];
 }
 
 export const DESTINATIONS: Destination[] = [
@@ -44,6 +50,11 @@ export const DESTINATIONS: Destination[] = [
     slug: 'kelingking-beach',
     name: 'Kelingking Beach',
     region: 'west',
+    relatedGuideSlugs: [
+      'best-beaches-nusa-penida',
+      'things-to-do-nusa-penida',
+      'is-nusa-penida-worth-it',
+    ],
     geo: { lat: -8.7494, lng: 115.4663 },
     description: {
       en: 'The most photographed spot in Nusa Penida. A T-Rex-shaped cliff towering over a hidden white sand beach with turquoise water below.',
@@ -115,6 +126,11 @@ export const DESTINATIONS: Destination[] = [
     slug: 'diamond-beach',
     name: 'Diamond Beach',
     region: 'east',
+    relatedGuideSlugs: [
+      'best-beaches-nusa-penida',
+      'nusa-penida-itinerary',
+      'things-to-do-nusa-penida',
+    ],
     geo: { lat: -8.7681, lng: 115.6333 },
     description: {
       en: 'Crystal turquoise water meets sharp limestone pinnacles in this stunning east-coast beach with carved stone steps leading down to the sand.',
@@ -183,6 +199,11 @@ export const DESTINATIONS: Destination[] = [
     slug: 'broken-beach',
     name: 'Broken Beach',
     region: 'west',
+    relatedGuideSlugs: [
+      'best-beaches-nusa-penida',
+      'things-to-do-nusa-penida',
+      'nusa-penida-itinerary',
+    ],
     geo: { lat: -8.7847, lng: 115.4694 },
     description: {
       en: 'A natural arch of stone wraps around a hidden lagoon. Walk the cliff loop trail for unmatched views of the turquoise pool below.',
@@ -250,6 +271,11 @@ export const DESTINATIONS: Destination[] = [
     slug: 'angel-billabong',
     name: 'Angel Billabong',
     region: 'west',
+    relatedGuideSlugs: [
+      'best-beaches-nusa-penida',
+      'things-to-do-nusa-penida',
+      'what-to-pack-nusa-penida',
+    ],
     geo: { lat: -8.7831, lng: 115.4683 },
     description: {
       en: 'A natural infinity pool carved into the cliffs. At low tide it becomes a calm tidal pool with views straight out to the Indian Ocean.',
@@ -309,6 +335,11 @@ export const DESTINATIONS: Destination[] = [
     slug: 'atuh-beach',
     name: 'Atuh Beach',
     region: 'east',
+    relatedGuideSlugs: [
+      'best-beaches-nusa-penida',
+      'things-to-do-nusa-penida',
+      'nusa-penida-itinerary',
+    ],
     geo: { lat: -8.7639, lng: 115.6336 },
     description: {
       en: 'A pristine bay framed by towering cliffs and dramatic rock formations. Calmer water than Kelingking and a peaceful place to swim.',
@@ -370,6 +401,11 @@ export const DESTINATIONS: Destination[] = [
     slug: 'crystal-bay-beach',
     name: 'Crystal Bay Beach',
     region: 'west',
+    relatedGuideSlugs: [
+      'best-beaches-nusa-penida',
+      'manta-ray-snorkeling-nusa-penida',
+      'things-to-do-nusa-penida',
+    ],
     geo: { lat: -8.7172, lng: 115.4517 },
     description: {
       en: 'A wide, calm beach with crystal-clear water and shaded coconut trees. The most family-friendly beach on Nusa Penida.',
@@ -436,6 +472,11 @@ export const DESTINATIONS: Destination[] = [
     slug: 'tree-house-molenteng',
     name: 'Tree House (Rumah Pohon)',
     nameId: 'Rumah Pohon Molenteng',
+    relatedGuideSlugs: [
+      'things-to-do-nusa-penida',
+      'best-time-to-visit-nusa-penida',
+      'nusa-penida-itinerary',
+    ],
     region: 'east',
     geo: { lat: -8.7611, lng: 115.6433 },
     description: {

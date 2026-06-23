@@ -12,6 +12,7 @@ import {
 } from '@/lib/seo';
 import { getAggregateRating } from '@/lib/testimonials';
 import { absoluteUrl, SITE } from '@/lib/site-config';
+import { getTourRelatedGuideLinks } from '@/lib/guides';
 import type { TourPackage } from '@/types';
 import TourDetailContent from './TourDetailContent';
 
@@ -161,6 +162,8 @@ export default async function TourDetailPage({ params }: { params: { slug: strin
     },
   ];
 
+  const guideLinks = getTourRelatedGuideLinks(tour.slug);
+
   return (
     <>
       {/* Breadcrumb JSON-LD for the tour detail page */}
@@ -227,7 +230,7 @@ export default async function TourDetailPage({ params }: { params: { slug: strin
       {/* Per-tour FAQ */}
       <JsonLd id={`ld-faq-${tour.slug}`} data={faqJsonLd(tourFaq)} />
 
-      <TourDetailContent tour={tour} relatedTours={related} faqItems={tourFaq} />
+      <TourDetailContent tour={tour} relatedTours={related} faqItems={tourFaq} guideLinks={guideLinks} />
     </>
   );
 }

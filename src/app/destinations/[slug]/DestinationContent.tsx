@@ -8,6 +8,7 @@ import { formatPriceByLang } from '@/lib/currency';
 import { getWhatsAppLink } from '@/lib/whatsapp';
 import { BreadcrumbNav } from '@/components/seo';
 import type { Destination } from '@/lib/destinations';
+import { getDestinationRelatedGuideLinks } from '@/lib/guides';
 import type { TourPackage } from '@/types';
 
 interface Props {
@@ -79,6 +80,8 @@ export default function DestinationContent({
   const mapsUrl = d.geo
     ? `https://www.google.com/maps/search/?api=1&query=${d.geo.lat},${d.geo.lng}`
     : `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${d.name} Nusa Penida`)}`;
+
+  const guideLinks = getDestinationRelatedGuideLinks(d.relatedGuideSlugs);
 
   return (
     <main className="min-h-screen bg-gray-50">
@@ -364,6 +367,60 @@ export default function DestinationContent({
                         </span>
                       </div>
                     </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Related guides */}
+      {guideLinks.length > 0 && (
+        <section className="py-10 sm:py-16 bg-white border-t border-gray-100">
+          <div className="container mx-auto px-4">
+            <div className="max-w-7xl mx-auto">
+              <h2 className="text-2xl sm:text-3xl font-bold text-brand-blue-800 mb-2">
+                {language === 'id' ? 'Panduan terkait' : 'Related guides'}
+              </h2>
+              <p className="text-gray-600 mb-6 sm:mb-8">
+                {language === 'id'
+                  ? `Baca panduan kami untuk merencanakan kunjungan ke ${d.name}.`
+                  : `Read our guides to plan your visit to ${d.name}.`}
+              </p>
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                {guideLinks.map((g) => (
+                  <Link
+                    key={g.href}
+                    href={g.href}
+                    className="group flex items-start gap-3 bg-white rounded-2xl border border-gray-100 p-5 hover:shadow-lg transition-all hover:-translate-y-0.5"
+                  >
+                    <span className="flex-shrink-0 w-10 h-10 rounded-xl bg-brand-teal-600/10 text-brand-teal-700 flex items-center justify-center">
+                      <svg
+                        className="w-5 h-5"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        aria-hidden="true"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+                        />
+                      </svg>
+                    </span>
+                    <span className="min-w-0">
+                      <span className="block font-semibold text-gray-900 group-hover:text-brand-blue-800 transition-colors leading-snug">
+                        {g.label}
+                      </span>
+                      {g.sub && (
+                        <span className="block text-xs text-gray-500 mt-1">
+                          {g.sub}
+                        </span>
+                      )}
+                    </span>
                   </Link>
                 ))}
               </div>

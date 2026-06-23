@@ -526,6 +526,30 @@ export function howToBookJsonLd() {
   };
 }
 
+/** Generic HowTo schema for step-by-step guide articles (e.g. "How to get
+ * to Nusa Penida", itinerary planning). Makes the article eligible for HowTo
+ * rich results in Google SERPs. Steps must reflect content visible on-page. */
+export function guideHowToJsonLd(opts: {
+  name: string;
+  description: string;
+  steps: { name: string; text: string }[];
+  totalTime?: string;
+}) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'HowTo',
+    name: opts.name,
+    description: opts.description,
+    ...(opts.totalTime ? { totalTime: opts.totalTime } : {}),
+    step: opts.steps.map((s, i) => ({
+      '@type': 'HowToStep',
+      position: i + 1,
+      name: s.name,
+      text: s.text,
+    })),
+  };
+}
+
 /** Event schema — for seasonal promotions or special tours */
 export function tourEventJsonLd(opts: {
   name: string;

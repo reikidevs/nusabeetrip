@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { JsonLd } from '@/components/seo';
-import { breadcrumbJsonLd, buildMetadata, faqJsonLd } from '@/lib/seo';
+import { breadcrumbJsonLd, buildMetadata, faqJsonLd, guideHowToJsonLd } from '@/lib/seo';
 import { absoluteUrl, SITE } from '@/lib/site-config';
 import {
   getGuideBySlug,
@@ -115,6 +115,18 @@ export default function GuideDetailPage({
 
       {g.faq && g.faq.length > 0 && (
         <JsonLd id={`ld-faq-${g.slug}`} data={faqJsonLd(g.faq)} />
+      )}
+
+      {g.howTo && g.howTo.steps.length > 0 && (
+        <JsonLd
+          id={`ld-howto-${g.slug}`}
+          data={guideHowToJsonLd({
+            name: g.howTo.name,
+            description: g.howTo.description,
+            totalTime: g.howTo.totalTime,
+            steps: g.howTo.steps,
+          })}
+        />
       )}
 
       <GuideContent guide={g} relatedGuides={related} />
