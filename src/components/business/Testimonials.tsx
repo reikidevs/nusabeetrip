@@ -4,6 +4,7 @@ import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { useLanguage } from '@/lib/LanguageContext';
 import { TESTIMONIALS, countryFlag, getAggregateRating, type Testimonial } from '@/lib/testimonials';
 import ReviewForm from './ReviewForm';
+import { SITE } from '@/lib/site-config';
 
 type ReviewItem = Testimonial & {
   source?: string;
@@ -306,7 +307,7 @@ export default function Testimonials() {
 
                 {/* Google reviews badge — subtle, professional */}
                 <a
-                  href="https://www.google.com/maps/search/?api=1&query=NusaBeeTrip+Nusa+Penida"
+                  href={SITE.googleReviewUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="group inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white border border-gray-200 hover:border-gray-300 hover:shadow-sm transition-all"

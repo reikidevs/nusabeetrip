@@ -73,6 +73,16 @@ export const SITE = {
     whatsapp: `https://wa.me/${CONTACT_INFO.whatsapp.replace(/[^0-9]/g, '')}`,
   },
 
+  /**
+   * Google Business Profile review link. Until the GBP is verified we fall back
+   * to a Maps brand search. Once verified, grab your short review link from the
+   * GBP dashboard (Ask for reviews → looks like https://g.page/r/XXXX/review)
+   * and set NEXT_PUBLIC_GOOGLE_REVIEW_URL in Vercel — it propagates everywhere.
+   */
+  googleReviewUrl:
+    process.env.NEXT_PUBLIC_GOOGLE_REVIEW_URL ||
+    'https://www.google.com/maps/search/?api=1&query=NusaBeeTrip+Nusa+Penida',
+
   contact: CONTACT_INFO,
 } as const;
 
