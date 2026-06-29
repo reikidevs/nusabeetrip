@@ -369,11 +369,7 @@ export default function Testimonials() {
         {/* Reviews Grid */}
         {filtered.length > 0 ? (
           <>
-            <div
-              className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 max-w-7xl mx-auto"
-              itemScope
-              itemType="https://schema.org/ItemList"
-            >
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 max-w-7xl mx-auto">
               {filtered.slice(0, visible).map((review, idx) => (
                 <ReviewCard
                   key={review.id}
@@ -494,12 +490,7 @@ function ReviewCard({ review, position, language, labels }: ReviewCardProps) {
   return (
     <article
       className="group relative bg-white rounded-2xl p-5 sm:p-6 border border-gray-100 hover:border-gray-200 hover:shadow-[0_12px_40px_rgba(0,0,0,0.08)] transition-all duration-300 flex flex-col"
-      itemProp="itemListElement"
-      itemScope
-      itemType="https://schema.org/Review"
     >
-      <meta itemProp="position" content={String(position)} />
-
       {/* Author header */}
       <div className="flex items-start gap-3 mb-4">
         <div
@@ -509,13 +500,8 @@ function ReviewCard({ review, position, language, labels }: ReviewCardProps) {
           {review.name.charAt(0).toUpperCase()}
         </div>
         <div className="flex-1 min-w-0">
-          <div
-            className="font-semibold text-gray-900 text-sm flex items-center gap-1.5"
-            itemProp="author"
-            itemScope
-            itemType="https://schema.org/Person"
-          >
-            <span itemProp="name" className="truncate">
+          <div className="font-semibold text-gray-900 text-sm flex items-center gap-1.5">
+            <span className="truncate">
               {review.name}
             </span>
             {review.verified && (
@@ -538,7 +524,7 @@ function ReviewCard({ review, position, language, labels }: ReviewCardProps) {
             )}
             <span className="truncate">{review.country}</span>
             {review.country && <span className="text-gray-300" aria-hidden="true">·</span>}
-            <time dateTime={review.date} itemProp="datePublished">
+            <time dateTime={review.date}>
               {new Date(review.date).toLocaleDateString(
                 language === 'id' ? 'id-ID' : 'en-US',
                 { year: 'numeric', month: 'short' },
@@ -551,13 +537,8 @@ function ReviewCard({ review, position, language, labels }: ReviewCardProps) {
       {/* Stars */}
       <div
         className="flex items-center gap-0.5 mb-2.5"
-        itemProp="reviewRating"
-        itemScope
-        itemType="https://schema.org/Rating"
         aria-label={`${review.rating} out of 5 stars`}
       >
-        <meta itemProp="ratingValue" content={String(review.rating)} />
-        <meta itemProp="bestRating" content="5" />
         {[1, 2, 3, 4, 5].map((i) => (
           <svg
             key={i}
@@ -573,19 +554,13 @@ function ReviewCard({ review, position, language, labels }: ReviewCardProps) {
 
       {/* Title */}
       {review.title && (
-        <h3
-          className="font-semibold text-gray-900 mb-1.5 text-sm sm:text-base leading-snug"
-          itemProp="name"
-        >
+        <h3 className="font-semibold text-gray-900 mb-1.5 text-sm sm:text-base leading-snug">
           {review.title}
         </h3>
       )}
 
       {/* Body */}
-      <p
-        className="text-gray-700 text-sm leading-relaxed mb-3 flex-grow"
-        itemProp="reviewBody"
-      >
+      <p className="text-gray-700 text-sm leading-relaxed mb-3 flex-grow">
         {displayBody}
         {isLong && (
           <button

@@ -279,6 +279,23 @@ export function tourPackagesJsonLd() {
       availability: 'https://schema.org/InStock',
       seller: { '@id': `${SITE.url}#business` },
       priceValidUntil: new Date(new Date().getFullYear(), 11, 31).toISOString().split('T')[0],
+      shippingDetails: {
+        '@type': 'OfferShippingDetails',
+        shippingRate: {
+          '@type': 'MonetaryAmount',
+          value: 0,
+          currency: pkg.currency,
+        },
+        shippingDestination: {
+          '@type': 'DefinedRegion',
+          addressCountry: 'ID',
+        },
+      },
+      hasMerchantReturnPolicy: {
+        '@type': 'MerchantReturnPolicy',
+        applicableCountry: 'ID',
+        returnPolicyCategory: 'https://schema.org/MerchantReturnNotPermitted',
+      },
     },
     ...(reviewCount > 0
       ? {
