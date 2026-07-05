@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useLanguage } from '@/lib/LanguageContext';
 import { getWhatsAppLink } from '@/lib/whatsapp';
+import { localizedPath } from '@/lib/site-config';
 
 const WHATSAPP_NUMBER = '6289631281234';
 
@@ -20,6 +21,7 @@ const DESTINATIONS = [
 
 const Footer: React.FC = () => {
   const { t, language } = useLanguage();
+  const href = (path: string) => localizedPath(path, language);
 
   const destinations = DESTINATIONS;
 
@@ -68,7 +70,7 @@ const Footer: React.FC = () => {
               {t.footer.chatWhatsApp}
             </a>
             <Link
-              href="/tours"
+              href={href('/tours')}
               className="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 border border-white/30 text-white px-6 py-3 rounded-xl font-semibold transition-all duration-200"
             >
               {t.footer.viewTours}
@@ -83,7 +85,7 @@ const Footer: React.FC = () => {
 
           {/* Brand column */}
           <div className="lg:col-span-1">
-            <Link href="/" className="inline-block mb-5">
+            <Link href={href('/')} className="inline-block mb-5">
               <Image
                 src="/images/NusaBeeTrip-Logo-final.png"
                 alt="NusaBeeTrip"
@@ -147,7 +149,7 @@ const Footer: React.FC = () => {
               {quickLinks.map((link) => (
                 <li key={link.name}>
                   <Link
-                    href={link.href}
+                    href={href(link.href)}
                     className="text-gray-400 hover:text-white text-sm flex items-center gap-2 group transition-colors duration-200"
                   >
                     <span className="w-1 h-1 rounded-full bg-brand-teal-500 group-hover:w-2 transition-all duration-200 flex-shrink-0" />
@@ -165,7 +167,7 @@ const Footer: React.FC = () => {
               {services.map((s) => (
                 <li key={s.name}>
                   <Link
-                    href={s.href}
+                    href={href(s.href)}
                     className="text-gray-400 hover:text-white text-sm flex items-center gap-2 group transition-colors duration-200"
                   >
                     <span className="w-1 h-1 rounded-full bg-brand-orange-800 group-hover:w-2 transition-all duration-200 flex-shrink-0" />
@@ -247,9 +249,9 @@ const Footer: React.FC = () => {
             </span>
           </p>
           <div className="flex items-center gap-4">
-            <Link href="/privacy" className="hover:text-gray-300 transition-colors">{t.footer.privacyPolicy}</Link>
+            <Link href={href('/privacy')} className="hover:text-gray-300 transition-colors">{t.footer.privacyPolicy}</Link>
             <span className="text-gray-700">·</span>
-            <Link href="/terms" className="hover:text-gray-300 transition-colors">{t.footer.terms}</Link>
+            <Link href={href('/terms')} className="hover:text-gray-300 transition-colors">{t.footer.terms}</Link>
           </div>
         </div>
       </div>

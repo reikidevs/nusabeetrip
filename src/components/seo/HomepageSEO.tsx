@@ -14,9 +14,9 @@ import { absoluteUrl } from '@/lib/site-config';
  * - FAQ schema (rich results)
  * - ItemList schema (carousel potential)
  *
- * The authoritative AggregateRating + Review nodes live on the site-wide
- * LocalBusiness schema (see layout.tsx), which is fed real DB data — so we
- * intentionally do NOT emit a second rating entity here to avoid conflicts.
+ * Review/rating markup is intentionally omitted for LocalBusiness because
+ * business-owned review markup can be treated as self-serving. Reviews still
+ * render visibly in the homepage testimonials section.
  */
 
 const HOMEPAGE_FAQ = [

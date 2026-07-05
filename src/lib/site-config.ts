@@ -140,3 +140,56 @@ export function absoluteUrl(path: string = '/'): string {
   const cleanPath = path.startsWith('/') ? path : `/${path}`;
   return `${SITE.url}${cleanPath}`;
 }
+
+export type SiteLocale = 'en' | 'id';
+
+export const DEFAULT_LOCALE: SiteLocale = 'en';
+export const LOCALE_PREFIXES: Record<Exclude<SiteLocale, 'en'>, string> = {
+  id: '/id',
+};
+
+function normalizePath(path: string = '/'): string {
+  if (!path) return '/';
+  const [pathname, suffix = ''] = path.split(/(?=[?#])/);
+  let cleanPath = pathname.startsWith('/') ? pathname : `/${pathname}`;
+  if (cleanPath.length > 1) {
+    cleanPath = cleanPath.replace(/\/+$/, '');
+  }
+  return `${cleanPath}${suffix}`;
+}
+
+export function stripLocaleFromPath(path: string = '/'): string {
+  const cleanPath = normalizePath(path);
+  const [pathname, suffix = ''] = cleanPath.split(/(?=[?#])/);
+  if (pathname === LOCALE_PREFIXES.id) return `/${suffix}`;
+  if (pathname.startsWith(`${LOCALE_PREFIXES.id}/`)) {
+    return `${pathname.slice(LOCALE_PREFIXES.id.length)}${suffix}`;
+  }
+  return cleanPath;
+}
+
+export function localizedPath(path: string = '/', locale: SiteLocale = DEFAULT_LOCALE): string {
+  const basePath = stripLocaleFromPath(path);
+  const [pathname, suffix = ''] = basePath.split(/(?=[?#])/);
+  if (locale === 'en') return basePath;
+  if (pathname === '/') return `${LOCALE_PREFIXES.id}${suffix}`;
+  return `${LOCALE_PREFIXES.id}${pathname}${suffix}`;
+}
+
+export function localeFromPath(path: string = '/'): SiteLocale {
+  const cleanPath = normalizePath(path);
+  return cleanPath === LOCALE_PREFIXES.id || cleanPath.startsWith(`${LOCALE_PREFIXES.id}/`)
+    ? 'id'
+    : 'en';
+}
+
+export function localizedAlternates(path: string = '/'): Record<string, string> {
+  const basePath = stripLocaleFromPath(path);
+  const enUrl = absoluteUrl(localizedPath(basePath, 'en'));
+  const idUrl = absoluteUrl(localizedPath(basePath, 'id'));
+  return {
+    'en-US': enUrl,
+    'id-ID': idUrl,
+    'x-default': enUrl,
+  };
+}

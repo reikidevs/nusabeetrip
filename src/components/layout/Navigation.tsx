@@ -3,6 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { stripLocaleFromPath } from '@/lib/site-config';
 
 interface NavigationItem {
   name: string;
@@ -28,10 +29,13 @@ const Navigation: React.FC<NavigationProps> = ({
   const pathname = usePathname();
 
   const isActive = (href: string) => {
-    if (href === '/') {
-      return pathname === '/';
+    const currentPath = stripLocaleFromPath(pathname || '/');
+    const hrefPath = stripLocaleFromPath(href);
+
+    if (hrefPath === '/') {
+      return currentPath === '/';
     }
-    return pathname.startsWith(href);
+    return currentPath.startsWith(hrefPath);
   };
 
   const baseClasses = orientation === 'horizontal' 

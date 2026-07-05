@@ -1,5 +1,10 @@
 import { MetadataRoute } from 'next';
-import { SITE, absoluteUrl } from '@/lib/site-config';
+import {
+  absoluteUrl,
+  localizedAlternates,
+  localizedPath,
+  type SiteLocale,
+} from '@/lib/site-config';
 import { TOUR_PACKAGES, RENTAL_SERVICES, SOUVENIRS } from '@/lib/constants';
 import { DESTINATIONS } from '@/lib/destinations';
 import { getAllGuides } from '@/lib/guides';
@@ -16,124 +21,57 @@ import { getAllGuides } from '@/lib/guides';
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
 
-  const bilingualAlternates = (path: string) => ({
-    languages: {
-      en: absoluteUrl(path),
-      id: absoluteUrl(path),
-      'x-default': absoluteUrl(path),
-    },
-  });
+  type ChangeFrequency = NonNullable<MetadataRoute.Sitemap[number]['changeFrequency']>;
+
+  const localizedRoutes = (
+    path: string,
+    changeFrequency: ChangeFrequency,
+    priority: number,
+    lastModified: Date = now,
+  ): MetadataRoute.Sitemap =>
+    (['en', 'id'] as SiteLocale[]).map((locale) => ({
+      url: absoluteUrl(localizedPath(path, locale)),
+      lastModified,
+      changeFrequency,
+      priority,
+      alternates: {
+        languages: localizedAlternates(path),
+      },
+    }));
 
   const staticRoutes: MetadataRoute.Sitemap = [
-    {
-      url: SITE.url,
-      lastModified: now,
-      changeFrequency: 'daily',
-      priority: 1.0,
-      alternates: bilingualAlternates('/'),
-    },
-    {
-      url: absoluteUrl('/tours'),
-      lastModified: now,
-      changeFrequency: 'daily',
-      priority: 0.95,
-      alternates: bilingualAlternates('/tours'),
-    },
-    {
-      url: absoluteUrl('/bali-day-trip'),
-      lastModified: now,
-      changeFrequency: 'weekly',
-      priority: 0.92,
-      alternates: bilingualAlternates('/bali-day-trip'),
-    },
-    {
-      url: absoluteUrl('/rentals'),
-      lastModified: now,
-      changeFrequency: 'weekly',
-      priority: 0.9,
-      alternates: bilingualAlternates('/rentals'),
-    },
-    {
-      url: absoluteUrl('/destinations'),
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.85,
-      alternates: bilingualAlternates('/destinations'),
-    },
-    {
-      url: absoluteUrl('/guides'),
-      lastModified: now,
-      changeFrequency: 'weekly',
-      priority: 0.8,
-      alternates: bilingualAlternates('/guides'),
-    },
-    {
-      url: absoluteUrl('/souvenirs'),
-      lastModified: now,
-      changeFrequency: 'weekly',
-      priority: 0.7,
-      alternates: bilingualAlternates('/souvenirs'),
-    },
-    {
-      url: absoluteUrl('/about'),
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.6,
-      alternates: bilingualAlternates('/about'),
-    },
-    {
-      url: absoluteUrl('/contact'),
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.7,
-      alternates: bilingualAlternates('/contact'),
-    },
+    ...localizedRoutes('/', 'daily', 1.0),
+    ...localizedRoutes('/tours', 'daily', 0.95),
+    ...localizedRoutes('/bali-day-trip', 'weekly', 0.92),
+    ...localizedRoutes('/rentals', 'weekly', 0.9),
+    ...localizedRoutes('/destinations', 'monthly', 0.85),
+    ...localizedRoutes('/guides', 'weekly', 0.8),
+    ...localizedRoutes('/souvenirs', 'weekly', 0.7),
+    ...localizedRoutes('/about', 'monthly', 0.6),
+    ...localizedRoutes('/contact', 'monthly', 0.7),
+    ...localizedRoutes('/privacy', 'yearly', 0.3),
+    ...localizedRoutes('/terms', 'yearly', 0.3),
   ];
 
   const tourDetailRoutes: MetadataRoute.Sitemap = TOUR_PACKAGES.filter(
     (p) => p.isActive,
-  ).map((p) => ({
-    url: absoluteUrl(`/tours/${p.slug}`),
-    lastModified: now,
-    changeFrequency: 'weekly',
-    priority: 0.9,
-    alternates: bilingualAlternates(`/tours/${p.slug}`),
-  }));
+  ).flatMap((p) => localizedRoutes(`/tours/${p.slug}`, 'weekly', 0.9));
 
   const rentalDetailRoutes: MetadataRoute.Sitemap = RENTAL_SERVICES.filter(
     (r) => r.isAvailable,
-  ).map((r) => ({
-    url: absoluteUrl(`/rentals/${r.slug}`),
-    lastModified: now,
-    changeFrequency: 'weekly',
-    priority: 0.85,
-    alternates: bilingualAlternates(`/rentals/${r.slug}`),
-  }));
+  ).flatMap((r) => localizedRoutes(`/rentals/${r.slug}`, 'weekly', 0.85));
 
-  const destinationRoutes: MetadataRoute.Sitemap = DESTINATIONS.map((d) => ({
-    url: absoluteUrl(`/destinations/${d.slug}`),
-    lastModified: now,
-    changeFrequency: 'monthly',
-    priority: 0.8,
-    alternates: bilingualAlternates(`/destinations/${d.slug}`),
-  }));
+  const destinationRoutes: MetadataRoute.Sitemap = DESTINATIONS.flatMap((d) =>
+    localizedRoutes(`/destinations/${d.slug}`, 'monthly', 0.8),
+  );
 
-  const guideRoutes: MetadataRoute.Sitemap = getAllGuides().map((g) => ({
-    url: absoluteUrl(`/guides/${g.slug}`),
-    lastModified: new Date(g.dateModified),
-    changeFrequency: 'monthly',
-    priority: 0.75,
-    alternates: bilingualAlternates(`/guides/${g.slug}`),
-  }));
+  const guideRoutes: MetadataRoute.Sitemap = getAllGuides().flatMap((g) =>
+    localizedRoutes(`/guides/${g.slug}`, 'monthly', 0.75, new Date(g.dateModified)),
+  );
 
   const souvenirAnchors: MetadataRoute.Sitemap = SOUVENIRS.filter(
     (s) => s.isAvailable,
-  ).map((s) => ({
-    url: absoluteUrl(`/souvenirs#${s.slug}`),
-    lastModified: now,
-    changeFrequency: 'monthly',
-    priority: 0.45,
-  }));
+  ).flatMap((s) => localizedRoutes(`/souvenirs#${s.slug}`, 'monthly', 0.45));
 
   return [
     ...staticRoutes,

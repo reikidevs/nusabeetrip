@@ -75,7 +75,7 @@ export function getWhatsAppRentalLink(vehicleName: string, lang: Language = 'en'
 export function generateWhatsAppURL(params: WhatsAppBookingParams & { lang?: Language }): string {
   const { serviceType, serviceName, price, currency, lang = 'en' } = params;
   
-  const formattedPrice = new Intl.NumberFormat(lang === 'id' ? 'id-ID' : 'en-US').format(price);
+  const formattedPrice = new Intl.NumberFormat('id-ID').format(price);
   const template = MESSAGE_TEMPLATES[lang][serviceType];
   const message = encodeURIComponent(template(serviceName, formattedPrice, currency));
   
@@ -129,4 +129,4 @@ export function generateWhatsAppContactURL(message?: string, lang: Language = 'e
 export function openWhatsAppContact(message?: string, lang: Language = 'en'): void {
   const whatsappURL = generateWhatsAppContactURL(message, lang);
   window.open(whatsappURL, '_blank', 'noopener,noreferrer');
-}
+}

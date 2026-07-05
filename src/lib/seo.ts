@@ -12,7 +12,7 @@
  */
 
 import { Metadata } from 'next';
-import { PRIMARY_KEYWORDS, SITE, absoluteUrl } from './site-config';
+import { PRIMARY_KEYWORDS, SITE, absoluteUrl, localizedAlternates } from './site-config';
 import { TOUR_PACKAGES, RENTAL_SERVICES } from './constants';
 import { TESTIMONIALS, getAggregateRating } from './testimonials';
 
@@ -63,12 +63,7 @@ export function buildMetadata({
     : absoluteUrl(SITE.ogImage);
   const allKeywords = Array.from(new Set([...PRIMARY_KEYWORDS, ...keywords]));
 
-  // hreflang: serve same URL for en/id since UI auto-translates client-side
-  const languages = alternates ?? {
-    'en-US': url,
-    'id-ID': url,
-    'x-default': url,
-  };
+  const languages = alternates ?? localizedAlternates(path);
 
   // Build other meta tags for enhanced SEO
   const otherMeta: Record<string, string> = {
@@ -261,7 +256,6 @@ export function organizationJsonLd() {
 
 /** TouristTrip schema for individual tour packages */
 export function tourPackagesJsonLd() {
-  const { ratingValue, reviewCount } = getAggregateRating();
   return TOUR_PACKAGES.filter((p) => p.isActive).map((pkg) => ({
     '@context': 'https://schema.org',
     '@type': 'Product',
@@ -297,23 +291,11 @@ export function tourPackagesJsonLd() {
         returnPolicyCategory: 'https://schema.org/MerchantReturnNotPermitted',
       },
     },
-    ...(reviewCount > 0
-      ? {
-          aggregateRating: {
-            '@type': 'AggregateRating',
-            ratingValue: ratingValue.toString(),
-            reviewCount: reviewCount.toString(),
-            bestRating: '5',
-            worstRating: '1',
-          },
-        }
-      : {}),
   }));
 }
 
 /** Product schema for rental services */
 export function rentalProductsJsonLd() {
-  const { ratingValue, reviewCount } = getAggregateRating();
   return RENTAL_SERVICES.filter((r) => r.isAvailable).map((r) => ({
     '@context': 'https://schema.org',
     '@type': 'Product',
@@ -337,17 +319,6 @@ export function rentalProductsJsonLd() {
       availability: 'https://schema.org/InStock',
       seller: { '@id': `${SITE.url}#business` },
     },
-    ...(reviewCount > 0
-      ? {
-          aggregateRating: {
-            '@type': 'AggregateRating',
-            ratingValue: ratingValue.toString(),
-            reviewCount: reviewCount.toString(),
-            bestRating: '5',
-            worstRating: '1',
-          },
-        }
-      : {}),
   }));
 }
 
@@ -688,6 +659,7 @@ export function homepageJsonLd() {
 export function localBusinessEnhancedJsonLd(opts?: {
   ratingValue?: number;
   reviewCount?: number;
+  includeReviews?: boolean;
   reviews?: Array<{
     authorName: string;
     title?: string | null;
@@ -699,6 +671,7 @@ export function localBusinessEnhancedJsonLd(opts?: {
   const fallback = getAggregateRating();
   const ratingValue = opts?.ratingValue ?? fallback.ratingValue;
   const reviewCount = opts?.reviewCount ?? fallback.reviewCount;
+  const includeReviews = opts?.includeReviews === true;
   const reviewList =
     opts?.reviews ??
     TESTIMONIALS.slice(0, 6).map((t) => ({
@@ -775,7 +748,7 @@ export function localBusinessEnhancedJsonLd(opts?: {
       maxValue: 10,
     },
     aggregateRating:
-      reviewCount > 0
+      includeReviews && reviewCount > 0
         ? {
             '@type': 'AggregateRating',
             ratingValue: ratingValue.toString(),
@@ -784,19 +757,21 @@ export function localBusinessEnhancedJsonLd(opts?: {
             worstRating: '1',
           }
         : undefined,
-    review: reviewList.map((r) => ({
-      '@type': 'Review',
-      author: { '@type': 'Person', name: r.authorName },
-      datePublished: r.date,
-      name: r.title || undefined,
-      reviewBody: r.body,
-      reviewRating: {
-        '@type': 'Rating',
-        ratingValue: r.rating.toString(),
-        bestRating: '5',
-        worstRating: '1',
-      },
-    })),
+    review: includeReviews
+      ? reviewList.map((r) => ({
+          '@type': 'Review',
+          author: { '@type': 'Person', name: r.authorName },
+          datePublished: r.date,
+          name: r.title || undefined,
+          reviewBody: r.body,
+          reviewRating: {
+            '@type': 'Rating',
+            ratingValue: r.rating.toString(),
+            bestRating: '5',
+            worstRating: '1',
+          },
+        }))
+      : undefined,
     makesOffer: TOUR_PACKAGES.filter((p) => p.isActive).map((p) => ({
       '@type': 'Offer',
       name: p.name,

@@ -3,11 +3,12 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useLanguage } from '@/lib/LanguageContext';
 import type { Language } from '@/lib/translations';
 import { getWhatsAppLink } from '@/lib/whatsapp';
 import { useActiveSection } from '@/lib/hooks/useActiveSection';
+import { localizedPath, stripLocaleFromPath } from '@/lib/site-config';
 
 /* ------------------------------------------------------------------ */
 /*  Nav items                                                          */
@@ -143,6 +144,7 @@ const Header: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
+  const router = useRouter();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -169,8 +171,25 @@ const Header: React.FC = () => {
     setMobileMenuOpen((prev) => !prev);
   }, []);
 
+  const localeHref = useCallback(
+    (href: string) => localizedPath(href, language),
+    [language],
+  );
+
+  const switchLanguage = useCallback(
+    (lang: Language) => {
+      setLanguage(lang);
+      const target = localizedPath(stripLocaleFromPath(pathname || '/'), lang);
+      if (target !== pathname) {
+        router.push(target);
+      }
+    },
+    [pathname, router, setLanguage],
+  );
+
   const navItems = NAV_ITEMS.map((item) => ({
     ...item,
+    href: localeHref(item.href),
     name: t.nav[item.key],
   }));
 
@@ -179,19 +198,22 @@ const Header: React.FC = () => {
   const activeSection = useActiveSection(['testimonials']);
 
   const isActive = (href: string) => {
+    const currentPath = stripLocaleFromPath(pathname || '/');
+    const hrefPath = stripLocaleFromPath(href);
+
     // Anchor links (e.g. /#testimonials) only highlight when their target
     // section is the one currently in view on the homepage.
     if (href.includes('#')) {
       const hash = href.split('#')[1];
-      return pathname === '/' && activeSection === hash;
+      return currentPath === '/' && activeSection === hash;
     }
     // For the home link itself, only highlight when no tracked section is
     // active — that way Reviews can take over while the user is scrolled to
     // the testimonials section.
-    if (href === '/') {
-      return pathname === '/' && activeSection === null;
+    if (hrefPath === '/') {
+      return currentPath === '/' && activeSection === null;
     }
-    return pathname.startsWith(href);
+    return currentPath.startsWith(hrefPath);
   };
 
   return (
@@ -239,7 +261,7 @@ const Header: React.FC = () => {
                 @sidiq_1312
               </a>
             </div>
-            <LangSwitcher language={language} setLanguage={setLanguage} variant="desktop" />
+            <LangSwitcher language={language} setLanguage={switchLanguage} variant="desktop" />
           </div>
         </div>
 
@@ -248,7 +270,7 @@ const Header: React.FC = () => {
           <div className="flex justify-between items-center h-16 lg:h-20">
 
             {/* Logo */}
-            <Link href="/" className="flex-shrink-0">
+            <Link href={localeHref('/')} className="flex-shrink-0">
               <Image
                 src="/images/NusaBeeTrip-Logo-final.png"
                 alt="NusaBeeTrip"
@@ -297,7 +319,7 @@ const Header: React.FC = () => {
             {/* Mobile & Tablet: Lang toggle + Hamburger */}
             <div className="flex lg:hidden items-center gap-2.5">
               {/* Compact lang toggle */}
-              <LangSwitcher language={language} setLanguage={setLanguage} variant="mobile" />
+              <LangSwitcher language={language} setLanguage={switchLanguage} variant="mobile" />
 
               {/* Hamburger button */}
               <button
@@ -378,11 +400,12 @@ const Header: React.FC = () => {
         {/* Safe area for notched phones */}
         <div className="flex items-center justify-around px-3 pt-2.5 pb-[calc(0.625rem+env(safe-area-inset-bottom,0px))]">
           {MOBILE_TABS.map((tab) => {
-            const active = isActive(tab.href);
+            const tabHref = localeHref(tab.href);
+            const active = isActive(tabHref);
             return (
               <Link
                 key={tab.href}
-                href={tab.href}
+                href={tabHref}
                 className={`flex flex-col items-center gap-1 min-w-[3.75rem] py-1.5 rounded-xl outline-none transition-all duration-200 ${
                   active
                     ? 'text-brand-blue-800'

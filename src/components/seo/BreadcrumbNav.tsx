@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useLanguage } from '@/lib/LanguageContext';
+import { localizedPath } from '@/lib/site-config';
 
 export interface BreadcrumbItem {
   /** Default (English) label */
@@ -65,6 +66,7 @@ export default function BreadcrumbNav({
             const isLast = idx === fullTrail.length - 1;
             const isFirst = idx === 0;
             const label = language === 'id' && item.labelId ? item.labelId : item.label;
+            const href = localizedPath(item.href, language);
 
             return (
               <li
@@ -97,7 +99,7 @@ export default function BreadcrumbNav({
                   </span>
                 ) : (
                   <Link
-                    href={item.href}
+                    href={href}
                     className="inline-flex items-center gap-1 px-2 py-1 rounded-md text-gray-600 hover:text-brand-blue-800 hover:bg-gray-100/80 transition-colors"
                     itemProp="item"
                   >

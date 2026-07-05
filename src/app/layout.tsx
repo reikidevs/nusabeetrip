@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from 'next'
 import { Inter } from 'next/font/google'
+import { headers } from 'next/headers'
 import './globals.css'
 import SiteChrome from '@/components/layout/SiteChrome'
 import { LanguageProvider } from '@/lib/LanguageContext'
@@ -15,8 +16,7 @@ import {
   howToBookJsonLd,
   localBusinessEnhancedJsonLd,
 } from '@/lib/seo'
-import { getReviewsForSeo, getAggregateRatingForSeo } from '@/lib/reviews-server'
-import { SITE } from '@/lib/site-config'
+import { SITE, localeFromPath } from '@/lib/site-config'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -71,15 +71,11 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  // Pull real, approved reviews + aggregate rating from the DB for JSON-LD.
-  // Both helpers fall back to static testimonials if the DB is unreachable.
-  const [{ ratingValue, reviewCount }, reviews] = await Promise.all([
-    getAggregateRatingForSeo(),
-    getReviewsForSeo(6),
-  ])
+  const pathname = headers().get('x-pathname') || '/'
+  const initialLanguage = localeFromPath(pathname)
 
   return (
-    <html lang="en" dir="ltr" className={inter.variable}>
+    <html lang={initialLanguage} dir="ltr" className={inter.variable}>
       <head>
         <link rel="dns-prefetch" href="//wa.me" />
         <link rel="dns-prefetch" href="//www.google-analytics.com" />
@@ -97,24 +93,11 @@ export default async function RootLayout({
         {/* Site-wide JSON-LD: identifies the organization & site to Google */}
         <JsonLd id="ld-website" data={websiteJsonLd()} />
         <JsonLd id="ld-organization" data={organizationJsonLd()} />
-        <JsonLd
-          id="ld-business"
-          data={localBusinessEnhancedJsonLd({
-            ratingValue,
-            reviewCount,
-            reviews: reviews.map((r) => ({
-              authorName: r.authorName,
-              title: r.title,
-              body: r.body,
-              rating: r.rating,
-              date: r.date,
-            })),
-          })}
-        />
+        <JsonLd id="ld-business" data={localBusinessEnhancedJsonLd()} />
         <JsonLd id="ld-navigation" data={siteNavigationJsonLd()} />
         <JsonLd id="ld-howto-book" data={howToBookJsonLd()} />
 
-        <LanguageProvider>
+        <LanguageProvider initialLanguage={initialLanguage}>
           <ExchangeRateProvider />
           <PageViewTracker />
           <SiteChrome>
