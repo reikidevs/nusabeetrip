@@ -162,7 +162,9 @@ export function travelAgencyJsonLd() {
     '@id': `${SITE.url}#business`,
     name: SITE.name,
     legalName: SITE.legalName,
+    alternateName: SITE.alternateNames,
     description: SITE.description,
+    disambiguatingDescription: SITE.disambiguatingDescription,
     url: SITE.url,
     logo: absoluteUrl(SITE.ogImage),
     image: absoluteUrl(SITE.ogImage),
@@ -223,6 +225,7 @@ export function websiteJsonLd() {
     name: SITE.name,
     alternateName: SITE.alternateNames,
     description: SITE.description,
+    disambiguatingDescription: SITE.disambiguatingDescription,
     publisher: { '@id': `${SITE.url}#business` },
     inLanguage: ['en', 'id'],
   };
@@ -236,7 +239,14 @@ export function organizationJsonLd() {
     '@id': `${SITE.url}#organization`,
     name: SITE.name,
     alternateName: SITE.alternateNames,
+    description: SITE.description,
+    disambiguatingDescription: SITE.disambiguatingDescription,
     url: SITE.url,
+    identifier: {
+      '@type': 'PropertyValue',
+      propertyID: 'officialWebsite',
+      value: 'nusabeetrip.com',
+    },
     logo: {
       '@type': 'ImageObject',
       url: absoluteUrl(SITE.ogImage),
@@ -627,8 +637,9 @@ export function homepageJsonLd() {
     '@type': 'WebPage',
     '@id': `${SITE.url}/#webpage`,
     url: SITE.url,
-    name: `${SITE.name} — Best Travel Nusa Penida | Tours, Snorkeling & Rentals`,
+    name: `Official ${SITE.name} Website - Nusa Penida Tours, Snorkeling & Rentals`,
     description: SITE.description,
+    disambiguatingDescription: SITE.disambiguatingDescription,
     isPartOf: { '@id': `${SITE.url}#website` },
     about: { '@id': `${SITE.url}#business` },
     primaryImageOfPage: {
@@ -690,6 +701,7 @@ export function localBusinessEnhancedJsonLd(opts?: {
     alternateName: SITE.alternateNames,
     legalName: SITE.legalName,
     description: SITE.description,
+    disambiguatingDescription: SITE.disambiguatingDescription,
     url: SITE.url,
     logo: absoluteUrl(SITE.ogImage),
     image: [

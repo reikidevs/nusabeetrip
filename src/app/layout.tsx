@@ -38,11 +38,14 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = buildMetadata({
-  title: 'Nusa Penida Tours, Snorkeling & Vehicle Rentals',
+  title: 'Official NusaBeeTrip Website - Nusa Penida Tours',
   description:
-    'Local-owned Nusa Penida tours, snorkeling with Manta Rays, and motorcycle/car rentals. West Trip, East Trip & Mix Trip from 390K IDR. Book instantly via WhatsApp. Best prices guaranteed.',
+    'NusaBeeTrip official website. Local-owned Nusa Penida tours, Manta Ray snorkeling, scooter rentals, and car with driver. Book direct via WhatsApp.',
   path: '/',
   keywords: [
+    'nusabeetrip',
+    'nusabeetrip official',
+    'nusabeetrip.com',
     'nusa penida',
     'best travel nusa penida',
     'tour package nusa penida',

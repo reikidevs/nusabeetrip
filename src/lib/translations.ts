@@ -22,8 +22,8 @@ export const translations = {
     },
     // Hero
     hero: {
-      title: 'Explore Nusa Penida',
-      subtitle: 'Guided tours and vehicle rentals around the island. Local guides who know the spots.',
+      title: 'NusaBeeTrip Nusa Penida Tours',
+      subtitle: 'Official NusaBeeTrip website for local tours, Manta Ray snorkeling, scooter rental, and car with driver. Book direct via WhatsApp.',
       viewTours: 'View Tours',
       bookWhatsApp: 'Book via WhatsApp',
       localGuides: 'Local Guides',
@@ -192,8 +192,8 @@ export const translations = {
     },
     // Hero
     hero: {
-      title: 'Jelajahi Nusa Penida',
-      subtitle: 'Tur berpemandu dan sewa kendaraan di sekitar pulau. Pemandu lokal yang tahu spot terbaik.',
+      title: 'NusaBeeTrip Tour Nusa Penida',
+      subtitle: 'Website resmi NusaBeeTrip untuk tour lokal, snorkeling Manta Ray, sewa motor, dan mobil dengan sopir. Booking langsung via WhatsApp.',
       viewTours: 'Lihat Paket Tur',
       bookWhatsApp: 'Pesan via WhatsApp',
       localGuides: 'Pemandu Lokal',

@@ -24,6 +24,10 @@ export const SITE = {
     'Nusa Bee Trip',
     'NusaBee Trip',
     'Nusabee Trip',
+    'NusaBeeTrip.com',
+    'NusaBeeTrip Official',
+    'NusaBeeTrip Tour Nusa Penida',
+    'Nusa Bee Trip Bali',
     'Nusa Bee Trip Nusa Penida',
     'NusaBeeTrip Nusa Penida Tours',
     'NusaBeeTrip Tours & Rentals',
@@ -31,7 +35,10 @@ export const SITE = {
 
   /** ~155 chars max — used as default <meta description> */
   description:
-    'Local-owned Nusa Penida tours, snorkeling with Manta Rays, and motorcycle/car rentals. West Trip, East Trip & Mix Trip from 390K IDR. Book instantly via WhatsApp — best prices guaranteed.',
+    'NusaBeeTrip official website for local Nusa Penida tours, Manta Ray snorkeling, scooter rental, and car with driver. Book direct via WhatsApp.',
+
+  disambiguatingDescription:
+    'NusaBeeTrip is an independent local Nusa Penida tour and vehicle rental operator in Bali, not Nusatrip.com or other flight and hotel OTA brands.',
 
   /** Default Open Graph image — must exist in /public */
   ogImage: '/images/NusaBeeTrip-Logo-final.png',
@@ -90,7 +97,10 @@ export const SITE = {
 export const PRIMARY_KEYWORDS = [
   // Brand — defend the name so it always surfaces
   'nusabeetrip',
+  'nusabeetrip.com',
+  'nusabeetrip official',
   'nusa bee trip',
+  'nusa bee trip official',
   // English — broad Bali intent (high volume, top-of-funnel)
   'best tour in bali',
   'best day trip from bali',

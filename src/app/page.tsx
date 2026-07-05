@@ -6,7 +6,7 @@ import Image from 'next/image'
 import { useLanguage } from '@/lib/LanguageContext'
 import { formatPriceByLang, formatUsdPriceByLang } from '@/lib/currency'
 import { getWhatsAppLink, getWhatsAppRentalLink, getWhatsAppItemLink } from '@/lib/whatsapp'
-import HomepageSEO from '@/components/seo/HomepageSEO'
+import HomepageSEO, { HOMEPAGE_FAQ } from '@/components/seo/HomepageSEO'
 
 // Testimonials section sits right below the hero and pulls reviews from the DB.
 // Code-split it so the hero ships smaller and renders faster (still SSR'd for SEO).
@@ -26,10 +26,11 @@ const Testimonials = dynamic(
 
 export default function Home() {
   const { t, language } = useLanguage();
+  const homepageFaq = HOMEPAGE_FAQ[language];
   return (
     <main className="min-h-screen">
       {/* Homepage-specific structured data for rich snippets */}
-      <HomepageSEO />
+      <HomepageSEO language={language} />
 
       {/* Hero Section */}
       <section className="relative text-white overflow-hidden" aria-label="Hero - Nusa Penida Tours">
@@ -53,7 +54,9 @@ export default function Home() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
               </svg>
-              Nusa Penida, Bali
+              {language === 'id'
+                ? 'Website resmi NusaBeeTrip - Nusa Penida, Bali'
+                : 'Official NusaBeeTrip website - Nusa Penida, Bali'}
             </span>
             <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-7xl font-bold mb-4 sm:mb-6 leading-tight tracking-tight">
               {t.hero.title}
@@ -61,6 +64,12 @@ export default function Home() {
 
             <p className="hero-description text-sm sm:text-lg md:text-xl lg:text-2xl mb-6 sm:mb-12 text-white/95 leading-relaxed max-w-2xl mx-auto">
               {t.hero.subtitle}
+            </p>
+
+            <p className="text-xs sm:text-sm text-white/80 leading-relaxed max-w-2xl mx-auto -mt-3 mb-6 sm:-mt-8 sm:mb-10">
+              {language === 'id'
+                ? 'NusaBeeTrip adalah operator lokal independen di Nusa Penida. Booking resmi hanya melalui nusabeetrip.com dan WhatsApp +62 896-3128-1234.'
+                : 'NusaBeeTrip is an independent local operator in Nusa Penida. Official booking is only through nusabeetrip.com and WhatsApp +62 896-3128-1234.'}
             </p>
 
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center mb-6 sm:mb-12">
@@ -796,6 +805,51 @@ export default function Home() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>
             </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ Section - visible counterpart for homepage FAQ structured data */}
+      <section className="py-12 sm:py-20 bg-white" aria-label="NusaBeeTrip FAQ" id="faq">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto">
+            <div className="text-center mb-8 sm:mb-12">
+              <span className="inline-flex items-center justify-center px-3 py-1 rounded-full bg-brand-teal-50 text-brand-teal-700 text-xs font-semibold uppercase tracking-wide mb-4">
+                {language === 'id' ? 'FAQ NusaBeeTrip' : 'NusaBeeTrip FAQ'}
+              </span>
+              <h2 className="text-2xl sm:text-4xl font-bold text-brand-blue-800 tracking-tight mb-3">
+                {language === 'id'
+                  ? 'Pertanyaan tentang NusaBeeTrip'
+                  : 'Common Questions About NusaBeeTrip'}
+              </h2>
+              <p className="text-gray-600 text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
+                {language === 'id'
+                  ? 'Informasi resmi tentang brand NusaBeeTrip, harga tour, pickup, rental, dan booking langsung di Nusa Penida.'
+                  : 'Official information about the NusaBeeTrip brand, tour prices, pickup, rentals, and direct booking in Nusa Penida.'}
+              </p>
+            </div>
+
+            <div className="divide-y divide-gray-200 border-y border-gray-200">
+              {homepageFaq.map((item) => (
+                <details key={item.question} className="group py-5">
+                  <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-left font-semibold text-gray-900">
+                    <span>{item.question}</span>
+                    <svg
+                      className="h-5 w-5 flex-shrink-0 text-brand-blue-700 transition-transform group-open:rotate-180"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      aria-hidden="true"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </summary>
+                  <p className="mt-3 text-sm sm:text-base text-gray-600 leading-relaxed">
+                    {item.answer}
+                  </p>
+                </details>
+              ))}
+            </div>
           </div>
         </div>
       </section>
