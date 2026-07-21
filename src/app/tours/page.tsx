@@ -3,7 +3,7 @@ import { getTourPackages } from '@/lib/db/queries';
 import { TourPackage } from '@/types';
 import { resolveTourImage } from '@/lib/image-resolver';
 import { JsonLd } from '@/components/seo';
-import { breadcrumbJsonLd, buildMetadata, tourPackagesJsonLd } from '@/lib/seo';
+import { breadcrumbJsonLd, buildMetadata, tourPackageListJsonLd } from '@/lib/seo';
 import ToursPageContent from './ToursPageContent';
 
 // Opt out of static generation — this page fetches from DB at runtime
@@ -170,7 +170,7 @@ export default async function ToursPage() {
           { name: 'Tours', path: '/tours' },
         ])}
       />
-      <JsonLd id="ld-tour-products" data={tourPackagesJsonLd()} />
+      <JsonLd id="ld-tour-list" data={tourPackageListJsonLd(tourPackages)} />
       <ToursPageContent tourPackages={tourPackages} />
     </>
   );

@@ -34,7 +34,7 @@ export default async function AdminSeoPage() {
       rows: [
         { path: '/', type: 'Home', hasSchema: true, note: 'WebSite, Organization, LocalBusiness, FAQ, HowTo' },
         { path: '/tours', type: 'Listing', hasSchema: true, note: 'ItemList, Breadcrumb' },
-        { path: '/rentals', type: 'Listing', hasSchema: true, note: 'Product list, Breadcrumb' },
+        { path: '/rentals', type: 'Listing', hasSchema: true, note: 'ItemList, Breadcrumb' },
         { path: '/destinations', type: 'Listing', hasSchema: true, note: 'ItemList, Breadcrumb' },
         { path: '/guides', type: 'Listing', hasSchema: true, note: 'ItemList, Breadcrumb' },
         { path: '/souvenirs', type: 'Listing', hasSchema: true, note: 'Breadcrumb' },
@@ -48,7 +48,7 @@ export default async function AdminSeoPage() {
         path: `/tours/${t.slug}`,
         type: 'Tour',
         hasSchema: true,
-        note: 'Product, Service, FAQ, Breadcrumb, OG image',
+        note: 'Service, FAQ, Breadcrumb, OG image',
       })),
     },
     {
@@ -57,7 +57,7 @@ export default async function AdminSeoPage() {
         path: `/rentals/${r.slug}`,
         type: 'Rental',
         hasSchema: true,
-        note: 'Product, FAQ, Breadcrumb',
+        note: 'Service, FAQ, Breadcrumb',
       })),
     },
     {
@@ -101,12 +101,12 @@ export default async function AdminSeoPage() {
         : 'Set GOOGLE_SITE_VERIFICATION in Vercel',
     },
     {
-      label: 'Star rating schema is active',
+      label: 'Approved customer reviews available',
       done: reviewStats.reviewCount > 0,
       detail:
         reviewStats.reviewCount > 0
           ? `${reviewStats.ratingValue.toFixed(1)}/5 from ${reviewStats.reviewCount} approved reviews`
-          : 'Approve reviews to enable rich-result stars',
+          : 'Approve genuine reviews before adding per-service rating schema',
     },
   ];
 
@@ -131,13 +131,13 @@ export default async function AdminSeoPage() {
         </div>
         <div className="bg-white rounded-2xl border border-gray-100 p-5">
           <div className="text-xs font-medium text-gray-500 uppercase tracking-wide mb-2">
-            Rating for SERP
+            Approved rating
           </div>
           <div className="text-3xl font-bold text-gray-900">
             {reviewStats.ratingValue.toFixed(1)}
           </div>
           <div className="text-xs text-gray-400 mt-1">
-            {reviewStats.reviewCount} reviews in schema
+            {reviewStats.reviewCount} reviews in database
           </div>
         </div>
         <a

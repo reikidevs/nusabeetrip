@@ -10,7 +10,7 @@ export default function AdminToursPage() {
         <h1 className="text-2xl font-bold text-gray-900">Tours</h1>
         <p className="text-gray-500 mt-1 text-sm">
           Edit prices, duration, and availability. Changes update the live site
-          and the Product schema Google reads — so prices in search stay correct.
+          and the Service and Offer schema Google reads.
         </p>
       </header>
       <ToursManager />

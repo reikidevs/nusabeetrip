@@ -3,8 +3,7 @@ import { notFound } from 'next/navigation';
 import { getRentalServiceBySlug, getRentalServices } from '@/lib/db/queries';
 import { RENTAL_SERVICES } from '@/lib/constants';
 import { JsonLd } from '@/components/seo';
-import { buildMetadata, breadcrumbJsonLd, faqJsonLd } from '@/lib/seo';
-import { absoluteUrl, SITE } from '@/lib/site-config';
+import { buildMetadata, breadcrumbJsonLd, faqJsonLd, serviceJsonLd } from '@/lib/seo';
 import type { RentalService } from '@/types';
 import RentalDetailContent from './RentalDetailContent';
 
@@ -166,38 +165,20 @@ export default async function RentalDetailPage({
         ])}
       />
       <JsonLd
-        id={`ld-product-${rental.slug}`}
-        data={{
-          '@context': 'https://schema.org',
-          '@type': 'Product',
-          '@id': absoluteUrl(`/rentals/${rental.slug}`),
-          name: rental.model,
-          category:
-            rental.vehicleType === 'car' ? 'Car Rental' : 'Motorcycle Rental',
+        id={`ld-service-${rental.slug}`}
+        data={serviceJsonLd({
+          name: `${rental.model} rental`,
           description: `${rental.model} rental in Nusa Penida — ${rental.features
             .slice(0, 3)
             .join(', ')}.`,
-          image: rental.image
-            ? absoluteUrl(rental.image)
-            : absoluteUrl(SITE.ogImage),
-          brand: { '@type': 'Brand', name: SITE.name },
-          offers: {
-            '@type': 'Offer',
-            url: absoluteUrl(`/rentals/${rental.slug}`),
-            priceCurrency: rental.currency,
-            price: rental.pricePerDay,
-            priceSpecification: {
-              '@type': 'UnitPriceSpecification',
-              price: rental.pricePerDay,
-              priceCurrency: rental.currency,
-              unitText: 'per day',
-            },
-            availability: rental.isAvailable
-              ? 'https://schema.org/InStock'
-              : 'https://schema.org/OutOfStock',
-            seller: { '@id': `${SITE.url}#business` },
-          },
-        }}
+          price: rental.pricePerDay,
+          currency: rental.currency,
+          available: rental.isAvailable,
+          unitText: 'per day',
+          image: rental.image,
+          url: `/rentals/${rental.slug}`,
+          areaServed: 'Nusa Penida, Bali, Indonesia',
+        })}
       />
       <JsonLd id={`ld-faq-${rental.slug}`} data={faqJsonLd(rentalFaq)} />
 

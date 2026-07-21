@@ -15,6 +15,7 @@ import { Metadata } from 'next';
 import { PRIMARY_KEYWORDS, SITE, absoluteUrl, localizedAlternates } from './site-config';
 import { TOUR_PACKAGES, RENTAL_SERVICES } from './constants';
 import { TESTIMONIALS, getAggregateRating } from './testimonials';
+import type { RentalService, TourPackage } from '@/types';
 
 type PageMetaInput = {
   /** Title fragment — final title is "<title> | NusaBeeTrip — Best Travel Nusa Penida" */
@@ -264,72 +265,46 @@ export function organizationJsonLd() {
   };
 }
 
-/** TouristTrip schema for individual tour packages */
-export function tourPackagesJsonLd() {
-  return TOUR_PACKAGES.filter((p) => p.isActive).map((pkg) => ({
+/** ItemList for the tour catalog. Service schema belongs on each detail page. */
+export function tourPackageListJsonLd(packages: TourPackage[] = TOUR_PACKAGES) {
+  const activePackages = packages.filter((pkg) => pkg.isActive);
+
+  return {
     '@context': 'https://schema.org',
-    '@type': 'Product',
-    '@id': absoluteUrl(`/tours/${pkg.slug}`),
-    name: pkg.name,
-    description: pkg.description,
-    image: pkg.image ? absoluteUrl(pkg.image) : absoluteUrl(SITE.ogImage),
-    brand: { '@type': 'Brand', name: SITE.name },
-    category: 'Travel & Tours',
-    offers: {
-      '@type': 'Offer',
-      url: absoluteUrl('/tours'),
-      priceCurrency: pkg.currency,
-      price: pkg.price,
-      availability: 'https://schema.org/InStock',
-      seller: { '@id': `${SITE.url}#business` },
-      priceValidUntil: new Date(new Date().getFullYear(), 11, 31).toISOString().split('T')[0],
-      shippingDetails: {
-        '@type': 'OfferShippingDetails',
-        shippingRate: {
-          '@type': 'MonetaryAmount',
-          value: 0,
-          currency: pkg.currency,
-        },
-        shippingDestination: {
-          '@type': 'DefinedRegion',
-          addressCountry: 'ID',
-        },
-      },
-      hasMerchantReturnPolicy: {
-        '@type': 'MerchantReturnPolicy',
-        applicableCountry: 'ID',
-        returnPolicyCategory: 'https://schema.org/MerchantReturnNotPermitted',
-      },
-    },
-  }));
+    '@type': 'ItemList',
+    '@id': absoluteUrl('/tours#tour-list'),
+    name: 'Nusa Penida Tour Packages',
+    url: absoluteUrl('/tours'),
+    numberOfItems: activePackages.length,
+    itemListOrder: 'https://schema.org/ItemListUnordered',
+    itemListElement: activePackages.map((pkg, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name: pkg.name,
+      url: absoluteUrl(`/tours/${pkg.slug}`),
+    })),
+  };
 }
 
-/** Product schema for rental services */
-export function rentalProductsJsonLd() {
-  return RENTAL_SERVICES.filter((r) => r.isAvailable).map((r) => ({
+/** ItemList for the rental catalog. Service schema belongs on each detail page. */
+export function rentalServiceListJsonLd(services: RentalService[] = RENTAL_SERVICES) {
+  const availableServices = services.filter((service) => service.isAvailable);
+
+  return {
     '@context': 'https://schema.org',
-    '@type': 'Product',
-    '@id': absoluteUrl(`/rentals/${r.slug}`),
-    name: r.model,
-    category: r.vehicleType === 'car' ? 'Car Rental' : 'Motorcycle Rental',
-    description: `${r.model} rental in Nusa Penida — ${r.features.slice(0, 3).join(', ')}.`,
-    image: r.image ? absoluteUrl(r.image) : absoluteUrl(SITE.ogImage),
-    brand: { '@type': 'Brand', name: SITE.name },
-    offers: {
-      '@type': 'Offer',
-      url: absoluteUrl('/rentals'),
-      priceCurrency: r.currency,
-      price: r.pricePerDay,
-      priceSpecification: {
-        '@type': 'UnitPriceSpecification',
-        price: r.pricePerDay,
-        priceCurrency: r.currency,
-        unitText: 'per day',
-      },
-      availability: 'https://schema.org/InStock',
-      seller: { '@id': `${SITE.url}#business` },
-    },
-  }));
+    '@type': 'ItemList',
+    '@id': absoluteUrl('/rentals#rental-list'),
+    name: 'Nusa Penida Vehicle Rentals',
+    url: absoluteUrl('/rentals'),
+    numberOfItems: availableServices.length,
+    itemListOrder: 'https://schema.org/ItemListUnordered',
+    itemListElement: availableServices.map((service, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name: service.model,
+      url: absoluteUrl(`/rentals/${service.slug}`),
+    })),
+  };
 }
 
 /** BreadcrumbList — boosts SERP appearance */
@@ -432,6 +407,8 @@ export function serviceJsonLd(opts: {
   areaServed?: string;
   price?: number;
   currency?: string;
+  available?: boolean;
+  unitText?: string;
   image?: string;
   url?: string;
 }) {
@@ -455,7 +432,17 @@ export function serviceJsonLd(opts: {
             '@type': 'Offer',
             price: opts.price,
             priceCurrency: opts.currency,
-            availability: 'https://schema.org/InStock',
+            availability: opts.available === false
+              ? 'https://schema.org/OutOfStock'
+              : 'https://schema.org/InStock',
+            priceSpecification: opts.unitText
+              ? {
+                  '@type': 'UnitPriceSpecification',
+                  price: opts.price,
+                  priceCurrency: opts.currency,
+                  unitText: opts.unitText,
+                }
+              : undefined,
           },
         }
       : {}),

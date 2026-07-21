@@ -10,7 +10,7 @@ export default function AdminRentalsPage() {
         <h1 className="text-2xl font-bold text-gray-900">Rentals</h1>
         <p className="text-gray-500 mt-1 text-sm">
           Edit rental prices and availability. Updates flow to the live site and
-          the Product schema for each vehicle.
+          the Service and Offer schema for each vehicle.
         </p>
       </header>
       <RentalsManager />

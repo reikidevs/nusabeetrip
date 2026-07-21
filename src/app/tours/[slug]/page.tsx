@@ -10,7 +10,6 @@ import {
   serviceJsonLd,
   faqJsonLd,
 } from '@/lib/seo';
-import { absoluteUrl, SITE } from '@/lib/site-config';
 import { getTourRelatedGuideLinks } from '@/lib/guides';
 import type { TourPackage } from '@/types';
 import TourDetailContent from './TourDetailContent';
@@ -181,36 +180,11 @@ export default async function TourDetailPage({ params }: { params: { slug: strin
           description: tour.description,
           price: tour.price,
           currency: tour.currency,
+          available: tour.isActive,
           image: tour.image,
           url: `/tours/${tour.slug}`,
           areaServed: 'Nusa Penida, Bali, Indonesia',
         })}
-      />
-
-      {/* Product schema with price + offer */}
-      <JsonLd
-        id={`ld-product-${tour.slug}`}
-        data={{
-          '@context': 'https://schema.org',
-          '@type': 'Product',
-          '@id': absoluteUrl(`/tours/${tour.slug}`),
-          name: tour.name,
-          description: tour.description,
-          image: tour.image ? absoluteUrl(tour.image) : absoluteUrl(SITE.ogImage),
-          brand: { '@type': 'Brand', name: SITE.name },
-          category: 'Travel & Tours',
-          offers: {
-            '@type': 'Offer',
-            url: absoluteUrl(`/tours/${tour.slug}`),
-            priceCurrency: tour.currency,
-            price: tour.price,
-            availability: 'https://schema.org/InStock',
-            priceValidUntil: new Date(new Date().getFullYear(), 11, 31)
-              .toISOString()
-              .split('T')[0],
-            seller: { '@id': `${SITE.url}#business` },
-          },
-        }}
       />
 
       {/* Per-tour FAQ */}

@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 import { getRentalServices } from '@/lib/db/queries';
 import { RentalService } from '@/types';
 import { JsonLd } from '@/components/seo';
-import { breadcrumbJsonLd, buildMetadata, rentalProductsJsonLd } from '@/lib/seo';
+import { breadcrumbJsonLd, buildMetadata, rentalServiceListJsonLd } from '@/lib/seo';
 import RentalsPageContent from './RentalsPageContent';
 
 // Opt out of static generation — this page fetches from DB at runtime
@@ -145,7 +145,7 @@ export default async function RentalsPage() {
           { name: 'Rentals', path: '/rentals' },
         ])}
       />
-      <JsonLd id="ld-rental-products" data={rentalProductsJsonLd()} />
+      <JsonLd id="ld-rental-list" data={rentalServiceListJsonLd(rentalServices)} />
       <RentalsPageContent rentalServices={rentalServices} />
     </>
   );
