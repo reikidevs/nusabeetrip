@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen } from '@/test/test-utils';
 import '@testing-library/jest-dom';
 import Footer from '../Footer';
 
@@ -14,29 +14,20 @@ jest.mock('next/link', () => {
 
 jest.mock('next/image', () => {
   const MockImage = ({ src, alt, ...props }: any) => (
+    // eslint-disable-next-line @next/next/no-img-element
     <img src={src} alt={alt} {...props} />
   );
   MockImage.displayName = 'MockImage';
   return MockImage;
 });
 
-// Mock window.open
-const mockWindowOpen = jest.fn();
-Object.defineProperty(window, 'open', {
-  value: mockWindowOpen,
-});
-
 describe('Footer Component', () => {
-  beforeEach(() => {
-    mockWindowOpen.mockClear();
-  });
-
   it('renders business information', () => {
     render(<Footer />);
-    
-    expect(screen.getByText('NusaBeeTrip')).toBeInTheDocument();
-    expect(screen.getByText('Nusa Penida, Bali')).toBeInTheDocument();
-    expect(screen.getByText(/Your trusted partner for unforgettable/)).toBeInTheDocument();
+
+    expect(screen.getByAltText('NusaBeeTrip')).toBeInTheDocument();
+    expect(screen.getByText('Nusa Penida, Klungkung, Bali')).toBeInTheDocument();
+    expect(screen.getByText(/Local-owned tour & rental business/)).toBeInTheDocument();
   });
 
   it('renders contact information', () => {
@@ -50,66 +41,57 @@ describe('Footer Component', () => {
     render(<Footer />);
     
     expect(screen.getByText('Quick Links')).toBeInTheDocument();
-    expect(screen.getByText('Home')).toBeInTheDocument();
-    expect(screen.getByText('Tour Packages')).toBeInTheDocument();
-    expect(screen.getByText('Vehicle Rentals')).toBeInTheDocument();
-    expect(screen.getByText('About Us')).toBeInTheDocument();
-    expect(screen.getByText('Contact')).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'Home' })).toHaveAttribute('href', '/');
+    expect(screen.getByRole('link', { name: 'Tours' })).toHaveAttribute('href', '/tours');
+    expect(screen.getByRole('link', { name: 'Rentals' })).toHaveAttribute('href', '/rentals');
+    expect(screen.getByRole('link', { name: 'About' })).toHaveAttribute('href', '/about');
+    expect(screen.getByRole('link', { name: 'Contact' })).toHaveAttribute('href', '/contact');
   });
 
   it('renders services list', () => {
     render(<Footer />);
     
     expect(screen.getByText('Our Services')).toBeInTheDocument();
-    expect(screen.getByText('West Trip Tours')).toBeInTheDocument();
-    expect(screen.getByText('East Trip Tours')).toBeInTheDocument();
-    expect(screen.getByText('Mix Trip Tours')).toBeInTheDocument();
-    expect(screen.getByText('Snorkeling Packages')).toBeInTheDocument();
-    expect(screen.getByText('Motorcycle Rentals')).toBeInTheDocument();
-    expect(screen.getByText('Car Rentals')).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'West Trip' })).toHaveAttribute('href', '/tours/west-trip');
+    expect(screen.getByRole('link', { name: 'East Trip' })).toHaveAttribute('href', '/tours/east-trip');
+    expect(screen.getByRole('link', { name: 'Mix Trip (West & East)' })).toHaveAttribute('href', '/tours/mix-trip');
+    expect(screen.getByRole('link', { name: 'Snorkeling' })).toHaveAttribute('href', '/tours/snorkeling-manta');
+    expect(screen.getByRole('link', { name: 'Motorcycle Rental' })).toHaveAttribute('href', '/rentals');
+    expect(screen.getByRole('link', { name: 'Car with Driver' })).toHaveAttribute('href', '/rentals/car-rental');
   });
 
   it('renders call-to-action section', () => {
     render(<Footer />);
     
     expect(screen.getByText('Ready to Explore Nusa Penida?')).toBeInTheDocument();
-    expect(screen.getByText(/Contact us now to book/)).toBeInTheDocument();
+    expect(screen.getByText(/Book your tour or rental today/)).toBeInTheDocument();
   });
 
-  it('opens WhatsApp when WhatsApp button is clicked', () => {
+  it('renders a direct WhatsApp booking link', () => {
     render(<Footer />);
-    
-    const whatsappButton = screen.getByText('WhatsApp Us');
-    fireEvent.click(whatsappButton);
-    
-    expect(mockWindowOpen).toHaveBeenCalledWith(
+
+    expect(screen.getByRole('link', { name: 'Chat on WhatsApp' })).toHaveAttribute(
+      'href',
       expect.stringContaining('https://wa.me/6289631281234'),
-      '_blank'
     );
   });
 
-  it('handles phone click correctly', () => {
-    const mockOpen = jest.fn();
-    Object.defineProperty(window, 'open', { value: mockOpen });
-    
+  it('renders a telephone link', () => {
     render(<Footer />);
-    
-    const phoneButton = screen.getByText('+62 896-3128-1234');
-    fireEvent.click(phoneButton);
-    
-    expect(mockOpen).toHaveBeenCalledWith('tel:+62 896-3128-1234', '_self');
+
+    expect(screen.getByRole('link', { name: '+62 896-3128-1234' })).toHaveAttribute(
+      'href',
+      'tel:+6289631281234',
+    );
   });
 
-  it('handles email click correctly', () => {
-    const mockOpen = jest.fn();
-    Object.defineProperty(window, 'open', { value: mockOpen });
-    
+  it('renders an email link', () => {
     render(<Footer />);
-    
-    const emailButton = screen.getByText('sidiqdwiatmoko@gmail.com');
-    fireEvent.click(emailButton);
-    
-    expect(mockOpen).toHaveBeenCalledWith('mailto:sidiqdwiatmoko@gmail.com', '_self');
+
+    expect(screen.getByRole('link', { name: 'sidiqdwiatmoko@gmail.com' })).toHaveAttribute(
+      'href',
+      'mailto:sidiqdwiatmoko@gmail.com',
+    );
   });
 
   it('displays copyright information', () => {
@@ -124,14 +106,17 @@ describe('Footer Component', () => {
     
     expect(screen.getByText('Privacy Policy')).toBeInTheDocument();
     expect(screen.getByText('Terms of Service')).toBeInTheDocument();
-    expect(screen.getByText('Best Travel Nusa Penida')).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'Ubud to Nusa Penida' })).toHaveAttribute(
+      'href',
+      '/guides/nusa-penida-day-trip-from-ubud',
+    );
   });
 
   it('renders logo with correct attributes', () => {
     render(<Footer />);
     
-    const logo = screen.getByAltText('NusaBeeTrip - Best Travel Nusa Penida');
+    const logo = screen.getByAltText('NusaBeeTrip');
     expect(logo).toBeInTheDocument();
-    expect(logo).toHaveAttribute('src', '/images/NusaBeeTrip-Logo.png');
+    expect(logo).toHaveAttribute('src', '/images/NusaBeeTrip-Logo-final.png');
   });
 });

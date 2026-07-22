@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent } from '@/test/test-utils';
 import '@testing-library/jest-dom';
 import Header from '../Header';
 
@@ -14,39 +14,30 @@ jest.mock('next/link', () => {
 
 jest.mock('next/image', () => {
   const MockImage = ({ src, alt, ...props }: any) => (
+    // eslint-disable-next-line @next/next/no-img-element
     <img src={src} alt={alt} {...props} />
   );
   MockImage.displayName = 'MockImage';
   return MockImage;
 });
 
-// Mock window.open
-const mockWindowOpen = jest.fn();
-Object.defineProperty(window, 'open', {
-  value: mockWindowOpen,
-});
-
 describe('Header Component', () => {
-  beforeEach(() => {
-    mockWindowOpen.mockClear();
-  });
-
   it('renders the NusaBeeTrip logo', () => {
     render(<Header />);
     
-    const logo = screen.getByAltText('NusaBeeTrip - Best Travel Nusa Penida');
+    const logo = screen.getByAltText('NusaBeeTrip');
     expect(logo).toBeInTheDocument();
-    expect(logo).toHaveAttribute('src', '/images/NusaBeeTrip-Logo.png');
+    expect(logo).toHaveAttribute('src', '/images/NusaBeeTrip-Logo-final.png');
   });
 
   it('renders navigation links', () => {
     render(<Header />);
     
-    expect(screen.getByText('Home')).toBeInTheDocument();
-    expect(screen.getByText('Tours')).toBeInTheDocument();
-    expect(screen.getByText('Rentals')).toBeInTheDocument();
-    expect(screen.getByText('About')).toBeInTheDocument();
-    expect(screen.getByText('Contact')).toBeInTheDocument();
+    expect(screen.getAllByRole('link', { name: 'Home' })).not.toHaveLength(0);
+    expect(screen.getAllByRole('link', { name: 'Tours' })).not.toHaveLength(0);
+    expect(screen.getAllByRole('link', { name: 'Rentals' })).not.toHaveLength(0);
+    expect(screen.getAllByRole('link', { name: 'About' })).not.toHaveLength(0);
+    expect(screen.getAllByRole('link', { name: 'Contact' })).not.toHaveLength(0);
   });
 
   it('displays contact information in top bar', () => {
@@ -57,59 +48,52 @@ describe('Header Component', () => {
     expect(screen.getByText('@sidiq_1312')).toBeInTheDocument();
   });
 
-  it('opens WhatsApp when WhatsApp button is clicked', () => {
+  it('renders direct WhatsApp booking links', () => {
     render(<Header />);
-    
-    const whatsappButtons = screen.getAllByText('WhatsApp');
-    fireEvent.click(whatsappButtons[0]);
-    
-    expect(mockWindowOpen).toHaveBeenCalledWith(
-      expect.stringContaining('https://wa.me/6289631281234'),
-      '_blank'
-    );
+
+    const whatsappLinks = screen.getAllByRole('link', { name: 'Book Now' });
+    expect(whatsappLinks).not.toHaveLength(0);
+    whatsappLinks.forEach((link) => {
+      expect(link).toHaveAttribute(
+        'href',
+        expect.stringContaining('https://wa.me/6289631281234'),
+      );
+    });
   });
 
   it('toggles mobile menu when hamburger button is clicked', () => {
     render(<Header />);
     
-    const mobileMenuButton = screen.getByTestId('mobile-menu-button');
+    const mobileMenuButton = screen.getByRole('button', { name: 'Open menu' });
     fireEvent.click(mobileMenuButton);
-    
-    // Check if mobile navigation appears
-    const mobileNavLinks = screen.getAllByText('Home');
-    expect(mobileNavLinks.length).toBeGreaterThan(1); // Desktop + Mobile
+
+    expect(mobileMenuButton).toHaveAttribute('aria-expanded', 'true');
+    expect(mobileMenuButton).toHaveAccessibleName('Close menu');
   });
 
-  it('handles phone click correctly', () => {
-    // Mock window.open for tel: links
-    const mockOpen = jest.fn();
-    Object.defineProperty(window, 'open', { value: mockOpen });
-    
+  it('renders a telephone link', () => {
     render(<Header />);
-    
-    const phoneButton = screen.getByText('+62 896-3128-1234');
-    fireEvent.click(phoneButton);
-    
-    expect(mockOpen).toHaveBeenCalledWith('tel:+62 896-3128-1234', '_self');
+
+    expect(screen.getByRole('link', { name: '+62 896-3128-1234' })).toHaveAttribute(
+      'href',
+      'tel:+6289631281234',
+    );
   });
 
-  it('handles email click correctly', () => {
-    const mockOpen = jest.fn();
-    Object.defineProperty(window, 'open', { value: mockOpen });
-    
+  it('renders an email link', () => {
     render(<Header />);
-    
-    const emailButton = screen.getByText('sidiqdwiatmoko@gmail.com');
-    fireEvent.click(emailButton);
-    
-    expect(mockOpen).toHaveBeenCalledWith('mailto:sidiqdwiatmoko@gmail.com', '_self');
+
+    expect(screen.getByRole('link', { name: 'sidiqdwiatmoko@gmail.com' })).toHaveAttribute(
+      'href',
+      'mailto:sidiqdwiatmoko@gmail.com',
+    );
   });
 
   it('is responsive and shows mobile menu button on small screens', () => {
     render(<Header />);
     
-    const mobileMenuButton = screen.getByTestId('mobile-menu-button');
+    const mobileMenuButton = screen.getByRole('button', { name: 'Open menu' });
     expect(mobileMenuButton).toBeInTheDocument();
-    expect(mobileMenuButton).toHaveClass('md:hidden');
+    expect(mobileMenuButton.parentElement).toHaveClass('lg:hidden');
   });
 });

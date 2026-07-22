@@ -1,9 +1,10 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
+import { headers } from 'next/headers';
 import { JsonLd, BreadcrumbNav } from '@/components/seo';
 import { breadcrumbJsonLd, buildMetadata, itemListJsonLd } from '@/lib/seo';
-import { absoluteUrl } from '@/lib/site-config';
+import { absoluteUrl, localeFromPath, localizedPath } from '@/lib/site-config';
 import { getAllGuides, GUIDE_CATEGORIES } from '@/lib/guides';
 
 export const metadata: Metadata = buildMetadata({
@@ -24,26 +25,52 @@ export const metadata: Metadata = buildMetadata({
 });
 
 export default function GuidesIndexPage() {
-  const guides = getAllGuides();
+  const locale = localeFromPath(headers().get('x-pathname') || '/');
+  const guides = getAllGuides(locale);
+  const isIndonesian = locale === 'id';
+  const guidesPath = localizedPath('/guides', locale);
+  const labels = isIndonesian
+    ? {
+        eyebrow: 'Panduan wisata',
+        title: 'Panduan jujur untuk menjelajahi Nusa Penida',
+        description:
+          'Ditulis oleh tim lokal yang tinggal dan bekerja di pulau ini. Tanpa basa-basi—hanya informasi praktis untuk merencanakan perjalanan dengan baik.',
+        read: 'Baca panduan',
+        minute: 'menit baca',
+        categories: {
+          planning: 'Perencanaan perjalanan',
+          'getting-around': 'Transportasi',
+          comparison: 'Perbandingan',
+          tips: 'Tips penting',
+        },
+      }
+    : {
+        eyebrow: 'Travel guides',
+        title: 'Honest guides to Nusa Penida',
+        description:
+          'Written by people who live and work on the island. No fluff, no filler—just the answers you actually need to plan a good trip.',
+        read: 'Read the guide',
+        minute: 'min read',
+        categories: GUIDE_CATEGORIES,
+      };
 
   return (
     <main className="min-h-screen bg-gray-50">
       <JsonLd
         id="ld-breadcrumbs-guides"
         data={breadcrumbJsonLd([
-          { name: 'Home', path: '/' },
-          { name: 'Guides', path: '/guides' },
+          { name: isIndonesian ? 'Beranda' : 'Home', path: localizedPath('/', locale) },
+          { name: isIndonesian ? 'Panduan' : 'Guides', path: guidesPath },
         ])}
       />
       <JsonLd
         id="ld-guides-list"
         data={itemListJsonLd({
-          name: 'Nusa Penida Travel Guides',
-          description:
-            'Curated guides for planning a trip to Nusa Penida — getting there, when to visit, what to see, and what to pack.',
+          name: isIndonesian ? 'Panduan Wisata Nusa Penida' : 'Nusa Penida Travel Guides',
+          description: labels.description,
           items: guides.map((g) => ({
             name: g.title,
-            url: absoluteUrl(`/guides/${g.slug}`),
+            url: absoluteUrl(localizedPath(`/guides/${g.slug}`, locale)),
             image: g.heroImage,
           })),
         })}
@@ -67,14 +94,13 @@ export default function GuidesIndexPage() {
         <div className="container mx-auto px-4 py-16 sm:py-24 md:py-32 relative">
           <div className="max-w-3xl">
             <span className="inline-flex items-center gap-1.5 bg-white/15 backdrop-blur-sm text-white/95 px-3 py-1 rounded-full text-xs font-semibold border border-white/20 mb-5 uppercase tracking-wide">
-              Travel guides
+              {labels.eyebrow}
             </span>
             <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold mb-4 tracking-tight leading-tight">
-              Honest guides to Nusa Penida
+              {labels.title}
             </h1>
             <p className="text-base sm:text-lg text-white/90 leading-relaxed max-w-2xl">
-              Written by people who live and work on the island. No fluff, no
-              filler — just the answers you actually need to plan a good trip.
+              {labels.description}
             </p>
           </div>
         </div>
@@ -87,7 +113,7 @@ export default function GuidesIndexPage() {
             {guides.map((g, i) => (
               <Link
                 key={g.slug}
-                href={`/guides/${g.slug}`}
+                href={localizedPath(`/guides/${g.slug}`, locale)}
                 className="group block bg-white rounded-2xl overflow-hidden border border-gray-100 hover:shadow-xl transition-all hover:-translate-y-0.5"
               >
                 <article className="grid md:grid-cols-[280px_1fr] gap-0">
@@ -104,11 +130,11 @@ export default function GuidesIndexPage() {
                   <div className="p-6 sm:p-8">
                     <div className="flex items-center gap-3 mb-3 text-xs uppercase tracking-wide font-semibold">
                       <span className="text-brand-blue-700">
-                        {GUIDE_CATEGORIES[g.category]}
+                        {labels.categories[g.category]}
                       </span>
                       <span className="text-gray-300">·</span>
                       <span className="text-gray-500">
-                        {g.readingMinutes} min read
+                        {g.readingMinutes} {labels.minute}
                       </span>
                     </div>
                     <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3 group-hover:text-brand-blue-800 transition-colors leading-tight">
@@ -118,7 +144,7 @@ export default function GuidesIndexPage() {
                       {g.excerpt}
                     </p>
                     <span className="inline-flex items-center gap-1 text-sm font-semibold text-brand-blue-700 group-hover:gap-2 transition-all">
-                      Read the guide
+                      {labels.read}
                       <svg
                         className="w-4 h-4"
                         fill="none"

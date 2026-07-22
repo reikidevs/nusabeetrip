@@ -8,6 +8,8 @@
 
 import { TOUR_PACKAGES, RENTAL_SERVICES } from './constants';
 import { DESTINATIONS } from './destinations';
+import { GUIDE_ID_TRANSLATIONS } from './guides-id';
+import { localizedPath, type SiteLocale } from './site-config';
 
 export interface GuideSection {
   /** Heading of the section (rendered as <h2>) */
@@ -290,7 +292,7 @@ const GUIDES: Guide[] = [
     heroImage: '/images/Mix%20Trip%20View%20Thoussand%20Island%20and%20Crystal%20bay%20Beach.png',
     readingMinutes: 8,
     datePublished: '2026-02-01',
-    dateModified: '2026-04-28',
+    dateModified: '2026-07-22',
     category: 'planning',
     keywords: [
       'nusa penida itinerary',
@@ -326,7 +328,7 @@ const GUIDES: Guide[] = [
       {
         heading: '2-day itinerary (the comfortable one)',
         paragraphs: [
-          'Stay one night and the trip stops feeling rushed. Day 1 covers one direction with time for proper photos and a swim. Day 2 covers the other direction or includes manta snorkeling.',
+          'Stay one night and the trip stops feeling rushed. Day 1 covers one direction with time for proper photos and, when local conditions allow, a swim. Day 2 covers the other direction or includes manta snorkeling.',
         ],
         bullets: [
           'Day 1 — West trip: Kelingking → Angel Billabong → Broken Beach → Crystal Bay sunset',
@@ -339,12 +341,12 @@ const GUIDES: Guide[] = [
       {
         heading: '3-day itinerary (the slow one)',
         paragraphs: [
-          'Three days lets you actually rest and dive deeper. Day 3 opens up Nusa Lembongan and Ceningan — they are connected to Penida by a quick boat or the famous yellow bridge.',
+          'Three days lets you actually rest and dive deeper. On day 3, take a short local boat from Nusa Penida to Nusa Lembongan; the famous Yellow Bridge then connects Lembongan with Nusa Ceningan.',
         ],
         bullets: [
           'Day 1 — West trip with a longer stop at Crystal Bay for sunset',
           'Day 2 — Manta snorkeling + East side',
-          'Day 3 — Cross to Nusa Lembongan, see Devil\'s Tear and Dream Beach, return in the evening',
+          'Day 3 — Cross by boat to Nusa Lembongan, see Devil\'s Tear and Dream Beach, and confirm the return schedule before leaving Penida',
         ],
       },
       {
@@ -369,7 +371,7 @@ const GUIDES: Guide[] = [
       steps: [
         {
           name: 'Catch the 08:00 boat from Sanur',
-          text: 'Arrive on the early fast boat and leave on the 16:00 return for roughly 7 usable hours on the island. The morning sea is also the calmest.',
+          text: 'Arrive on the early fast boat and leave on the 16:00 return for roughly 7 usable hours on the island. Morning crossings are often preferable, but sea conditions still vary.',
         },
         {
           name: 'Pick one direction',
@@ -381,7 +383,7 @@ const GUIDES: Guide[] = [
         },
         {
           name: 'Break for lunch around 12:30',
-          text: 'Stop at a local warung for lunch, then continue to your second and third viewpoints or a beach swim in the afternoon.',
+          text: 'Stop at a local warung for lunch, then continue to your second and third viewpoints or a beach stop in the afternoon. Swim only when local conditions are suitable.',
         },
         {
           name: 'Drive back for the 16:00 boat',
@@ -482,7 +484,7 @@ const GUIDES: Guide[] = [
       {
         question: 'Can you visit both Nusa Penida and Lembongan in one trip?',
         answer:
-          'Yes. Boats between the two run hourly through the day, so a common 3-day plan combines a relaxed Lembongan base with a full Mix Trip day on Penida.',
+          'Yes. Local boats connect the two islands, so a common 3-day plan combines a relaxed Lembongan base with a full Mix Trip day on Penida. Timetables vary, so confirm the outbound and return sailings with the operator.',
       },
       {
         question: 'Which island is better for a day trip from Bali?',
@@ -496,7 +498,7 @@ const GUIDES: Guide[] = [
     heroImage: '/images/East%20Trip/East%20trip%20VIEW%20THOUSAND%20ISLAND.jpeg',
     readingMinutes: 6,
     datePublished: '2026-03-05',
-    dateModified: '2026-05-02',
+    dateModified: '2026-07-22',
     category: 'comparison',
     keywords: [
       'nusa penida vs nusa lembongan',
@@ -538,7 +540,7 @@ const GUIDES: Guide[] = [
       {
         heading: 'Doing both in one trip',
         paragraphs: [
-          'A common 3-day plan: arrive in Lembongan on day 1 for a relaxed start, take the 15-minute boat to Penida for a full Mix Trip on day 2, and return for sunset back on Lembongan. Boats between the two run hourly through the day.',
+          'A common 3-day plan: arrive in Lembongan on day 1 for a relaxed start, take a short local boat to Penida for a full Mix Trip on day 2, and return to Lembongan afterward. Boat timetables vary by operator and conditions, so confirm both sailings before setting out.',
           'For day-trippers from Bali, Penida is the better single-day choice because the iconic viewpoints are concentrated there. If you have at least one overnight, doing both gives you the variety.',
         ],
       },
@@ -635,12 +637,12 @@ const GUIDES: Guide[] = [
       {
         question: 'How much does a Nusa Penida tour cost?',
         answer:
-          'A guided Nusa Penida day tour starts from IDR 390,000 per person for the West Trip, IDR 430,000 for the East Trip, and IDR 500,000 for the Mix Trip. Manta ray snorkeling starts from IDR 200,000. Prices include island transport, a guide, and hotel pickup.',
+          'A guided Nusa Penida day tour starts from IDR 390,000 per person for the West Trip, IDR 430,000 for the East Trip, and IDR 500,000 for the Mix Trip. Manta ray snorkeling starts from IDR 200,000. The land-tour prices include island transport, a guide, island hotel or harbour pickup, the Nusa Penida island tax, and parking. Attraction entrance tickets are separate.',
       },
       {
         question: 'Is the fast boat included in the tour price?',
         answer:
-          'No. The fast-boat ticket from Sanur is booked separately and costs roughly IDR 200,000–350,000 round trip. Everything on the island — transport, guide, entrance and parking fees — is included in the tour price.',
+          'No. The fast-boat ticket from Sanur is booked separately and costs roughly IDR 200,000–350,000 round trip. The selected island tour includes transport, a guide, island pickup, the Nusa Penida island tax, and parking; attraction entrance tickets, the boat, lunch, and any occasional harbour fee remain separate.',
       },
       {
         question: 'How can I make a Nusa Penida tour cheaper?',
@@ -650,16 +652,16 @@ const GUIDES: Guide[] = [
       {
         question: 'Is Nusa Penida expensive to visit?',
         answer:
-          'No. With a guided day tour from IDR 390,000, a round-trip boat, and cheap warung lunches (IDR 30,000–60,000), a full day on Nusa Penida is affordable compared with most Bali day trips.',
+          'No. With a guided day tour from IDR 390,000, a round-trip boat, attraction entrance tickets, and a warung lunch (IDR 30,000–60,000), a full day on Nusa Penida remains affordable compared with many Bali day trips.',
       },
     ],
-    title: 'How Much Does a Nusa Penida Tour Cost? (2026 Prices)',
+    title: 'Nusa Penida Tour Cost: 2026 Prices',
     excerpt:
       'A clear breakdown of Nusa Penida tour prices in 2026 — tour packages, boat tickets, scooter rental, entrance fees, and how to budget your day trip.',
     heroImage: '/images/Mix%20Trip%20View%20Thoussand%20Island%20and%20Crystal%20bay%20Beach.png',
     readingMinutes: 7,
     datePublished: '2026-03-25',
-    dateModified: '2026-06-05',
+    dateModified: '2026-07-22',
     category: 'planning',
     keywords: [
       'nusa penida tour cost',
@@ -673,8 +675,8 @@ const GUIDES: Guide[] = [
       {
         heading: 'Quick price overview',
         paragraphs: [
-          'A guided Nusa Penida day tour with NusaBeeTrip starts at IDR 390,000 per person for the West Trip and IDR 430,000 for the East Trip, with the Mix Trip at IDR 500,000. Manta ray snorkeling starts from IDR 200,000. Prices include transport on the island, a guide, and hotel pickup.',
-          'On top of the tour, budget for the fast boat from Sanur (roughly IDR 100,000–175,000 each way) and a small amount of cash for entrance fees and lunch.',
+          'A guided Nusa Penida day tour with NusaBeeTrip starts at IDR 390,000 per person for the West Trip and IDR 430,000 for the East Trip, with the Mix Trip at IDR 500,000. Manta ray snorkeling starts from IDR 200,000. The land-tour prices include transport on the island, a guide, island hotel or harbour pickup, the Nusa Penida island tax, and parking.',
+          'On top of the tour, budget for the fast boat from Sanur (roughly IDR 100,000–175,000 each way), attraction entrance tickets at each stop, lunch, and any occasional harbour fee.',
         ],
         bullets: [
           'West Trip — from IDR 390,000 per person',
@@ -687,23 +689,25 @@ const GUIDES: Guide[] = [
       {
         heading: 'What is included in our tour price',
         paragraphs: [
-          'Our packages bundle the costs that catch independent travellers by surprise. Each tour covers private transport, fuel, a local guide/driver, hotel or harbour pickup and drop-off, and the destination entrance/parking fees along the route.',
+          'Our packages bundle the core on-island costs. Each tour covers private transport, fuel, a local guide/driver, island hotel or harbour pickup and drop-off, the Nusa Penida island tax, and parking along the route. Attraction entrance tickets are paid separately at each location.',
         ],
         bullets: [
           'Private air-conditioned car or scooter transport',
           'Local English-speaking guide / driver',
           'Hotel or harbour pickup and drop-off',
-          'Entrance and parking fees on the itinerary',
+          'Nusa Penida island tax and parking fees',
         ],
       },
       {
         heading: 'Costs to budget separately',
         paragraphs: [
-          'The fast boat ticket is booked separately and is the largest add-on. Lunch at a local warung is cheap (IDR 30,000–60,000). Bring small IDR notes for occasional harbour fees and tips.',
+          'The fast boat ticket is booked separately and is the largest add-on. Attraction entrance tickets are also paid separately at each location. Lunch at a local warung is typically IDR 30,000–60,000, and an occasional harbour fee may be payable on the day. Confirm the written total and inclusions before booking.',
         ],
         bullets: [
           'Fast boat ticket (round trip): IDR 200,000–350,000',
+          'Attraction entrance tickets at each location',
           'Lunch: IDR 30,000–60,000 at local warungs',
+          'Any occasional harbour fee payable on the day',
           'Optional travel insurance and tips',
         ],
       },
@@ -808,7 +812,7 @@ const GUIDES: Guide[] = [
       {
         question: 'How much does it cost to rent a scooter in Nusa Penida?',
         answer:
-          'A basic automatic scooter like a Honda Scoopy rents for around IDR 70,000–100,000 per day. A larger Yamaha N-Max with stronger brakes costs a little more. Helmets are included.',
+          'A Honda Scoopy or Honda Vario rents for IDR 100,000 per day, while a Yamaha N-Max rents for IDR 125,000 per day. Helmets are included.',
       },
       {
         question: 'Is it safe to ride a scooter in Nusa Penida?',
@@ -821,13 +825,13 @@ const GUIDES: Guide[] = [
           'Yes. Carry an International Driving Permit with a motorcycle category plus your home licence. Most travel insurance only covers scooter accidents if you hold the correct licence.',
       },
     ],
-    title: 'Renting a Scooter in Nusa Penida: What You Need to Know',
+    title: 'Nusa Penida Scooter Rental Guide (2026)',
     excerpt:
       'Honest advice on renting a scooter in Nusa Penida — prices, road conditions, safety, licence rules, and when hiring a driver is the smarter choice.',
     heroImage: '/images/Vehicle%20Rentals/Yamaha%20N-Max.webp',
     readingMinutes: 6,
     datePublished: '2026-04-10',
-    dateModified: '2026-06-09',
+    dateModified: '2026-07-22',
     category: 'getting-around',
     keywords: [
       'renting a scooter in nusa penida',
@@ -840,12 +844,12 @@ const GUIDES: Guide[] = [
       {
         heading: 'How much does scooter rental cost?',
         paragraphs: [
-          'A scooter in Nusa Penida typically rents for IDR 70,000–100,000 per day for a basic automatic like a Honda Scoopy, and a little more for a larger Yamaha N-Max with stronger brakes. We provide well-serviced scooters, helmets, and a quick safety briefing before you ride.',
+          'A Honda Scoopy or Honda Vario rents for IDR 100,000 per day. A larger Yamaha N-Max with stronger brakes rents for IDR 125,000 per day. We provide well-serviced scooters, helmets, and a quick safety briefing before you ride.',
           'Fuel is cheap and sold at small roadside shops in glass bottles as well as proper stations. Budget a small amount of cash for petrol top-ups during the day.',
         ],
         bullets: [
-          'Honda Scoopy / Vario — from IDR 70,000–90,000 per day',
-          'Yamaha N-Max (stronger brakes, recommended) — slightly higher',
+          'Honda Scoopy / Vario — IDR 100,000 per day',
+          'Yamaha N-Max — IDR 125,000 per day',
           'Helmet included; bring your own if you prefer',
         ],
       },
@@ -905,7 +909,7 @@ const GUIDES: Guide[] = [
     heroImage: '/images/West%20Trip/West%20Trip%20Crystal%20Bay%20Beach%203.jpeg',
     readingMinutes: 5,
     datePublished: '2026-04-18',
-    dateModified: '2026-06-10',
+    dateModified: '2026-07-22',
     category: 'planning',
     keywords: [
       'where to stay nusa penida',
@@ -935,7 +939,7 @@ const GUIDES: Guide[] = [
       {
         heading: 'Crystal Bay area (beach & sunset)',
         paragraphs: [
-          'Staying near Crystal Bay puts you next to the island\'s most swimmable beach and the best sunsets. It is slightly further from the harbour but ideal if you want a relaxed beach base and easy access to snorkeling boats.',
+          'Staying near Crystal Bay puts you next to one of the island\'s easiest-access beaches and its best sunsets. It is slightly further from the harbour but suits a relaxed beach base and gives easy access to snorkeling boats. Swim only when conditions allow and stay close to shore because the channel can have currents.',
         ],
       },
       {
@@ -961,16 +965,24 @@ const GUIDES: Guide[] = [
   {
     slug: 'nusa-penida-day-trip-from-ubud',
     relatedTourSlugs: ['west-trip', 'mix-trip'],
+    relatedDestinationSlugs: [
+      'kelingking-beach',
+      'broken-beach',
+      'angel-billabong',
+      'crystal-bay-beach',
+      'diamond-beach',
+      'atuh-beach',
+    ],
     faq: [
       {
         question: 'Can you do a Nusa Penida day trip from Ubud?',
         answer:
-          'Yes. Leave Ubud by around 06:00, catch the 07:30–08:00 fast boat from Sanur, and you have a full day on the island. It is long but very doable, especially for the west-coast highlights.',
+          'Yes. Leave Ubud by around 06:00, catch the 07:30–08:00 fast boat from Sanur, and allow 30–45 minutes for the crossing. It is a long day but very doable, especially for the west-coast highlights.',
       },
       {
         question: 'How far is Ubud from the Nusa Penida boat?',
         answer:
-          'Ubud is about 60–90 minutes by car from Sanur harbour, where most Nusa Penida fast boats depart. Add the 30-minute crossing for roughly two hours of travel each way.',
+          'Central Ubud to Sanur harbour is approximately 25–30 km by road and usually takes 60–90 minutes by car. Sanur to Nusa Penida is approximately 25 km by sea and usually takes 30–45 minutes by fast boat. Allow around two hours to reach the island before driving there; all distances and times are approximate and can vary with traffic, check-in, weather, and sea conditions.',
       },
       {
         question: 'West Trip or East Trip from Ubud?',
@@ -978,13 +990,13 @@ const GUIDES: Guide[] = [
           'For a single day from Ubud, choose the West Trip — Kelingking, Broken Beach, Angel\u2019s Billabong, and Crystal Bay are close together. The East Trip involves longer drives and suits an overnight stay.',
       },
     ],
-    title: 'Nusa Penida Day Trip from Ubud: Full Guide',
+    title: 'Ubud to Nusa Penida Day Trip: Time & Cost',
     excerpt:
-      'How to do a Nusa Penida day trip from Ubud — transfer times, the right boat, a realistic timeline, costs, and the easiest way to see Kelingking in one day.',
+      'Plan a Ubud to Nusa Penida day trip with approximate distances, realistic road and boat times, return steps, costs, and a practical one-day route.',
     heroImage: '/images/West%20Trip/West%20trip%20kelingking%20beach%202.jpeg',
     readingMinutes: 6,
     datePublished: '2026-06-12',
-    dateModified: '2026-06-12',
+    dateModified: '2026-07-22',
     category: 'planning',
     keywords: [
       'nusa penida day trip from ubud',
@@ -995,10 +1007,15 @@ const GUIDES: Guide[] = [
     ],
     sections: [
       {
-        heading: 'Is a day trip from Ubud realistic?',
+        heading: 'Ubud to Nusa Penida route, distance and travel time',
         paragraphs: [
-          'Yes — but it is a long day, so the plan matters. Ubud sits inland, about 60–90 minutes by car from Sanur harbour, which is where most Nusa Penida fast boats leave. Add the 30-minute crossing and you are looking at roughly two hours of travel each way before you even reach a viewpoint.',
-          'The trick is an early start. Leave Ubud by 06:00, catch the 07:30–08:00 boat from Sanur, and you arrive on the island with a full day ahead. Done right, you can comfortably see the west-coast highlights and be back in Ubud for dinner.',
+          'The usual route is central Ubud to Sanur harbour by car, then Sanur to Nusa Penida by fast boat. Central Ubud to Sanur is approximately 25–30 km by road and usually takes 60–90 minutes. The sea crossing is approximately 25 km and usually takes 30–45 minutes.',
+          'Allow around two hours to reach Nusa Penida before any driving on the island. These are approximate distances and times: Bali traffic, harbour check-in, weather, and sea conditions can all make the journey longer. An early start keeps enough time for a useful day trip.',
+        ],
+        bullets: [
+          'Central Ubud → Sanur harbour — approximately 25–30 km by road; usually 60–90 minutes by car',
+          'Sanur → Nusa Penida — approximately 25 km by sea; usually 30–45 minutes by fast boat',
+          'Typical total before island driving — around two hours, plus any extra check-in or traffic delay',
         ],
       },
       {
@@ -1020,21 +1037,22 @@ const GUIDES: Guide[] = [
       {
         heading: 'West Trip vs East Trip from Ubud',
         paragraphs: [
-          'With the travel time from Ubud, a single day suits the West Trip — Kelingking, Broken Beach, Angel\'s Billabong, and Crystal Bay are all close together on the north-west of the island. The East Trip (Diamond Beach, Atuh) involves much longer drives on rough roads and is better as a second day or an overnight stay.',
+          'With the travel time from Ubud, a single day suits the West Trip — Kelingking, Broken Beach, Angel\'s Billabong, and Crystal Bay are grouped on the western and south-western side of the island. The East Trip (Diamond Beach, Atuh) involves much longer drives on rough roads and is better as a second day or an overnight stay.',
           'If you only have one day from Ubud and want the postcard shots, choose the West Trip. If you can stay a night, do both coasts at a relaxed pace.',
         ],
       },
       {
-        heading: 'What it costs',
+        heading: 'Costs and what is included',
         paragraphs: [
-          'Budget roughly for: the Ubud–Sanur car transfer, the return fast-boat ticket (about 250,000–350,000 IDR round trip), and your island tour with a driver-guide. Booking it as one package removes the stress of timing each connection yourself — miss the boat and the whole day unravels.',
-          'We arrange the entire chain — Ubud pickup, boat, island guide, and return — as a single private day trip so every leg is timed to connect.',
+          'Budget separately for the Ubud–Sanur road transfer, the return fast-boat ticket (about IDR 200,000–350,000), the island tour, and attraction entrance tickets at each stop. Transfer prices vary by pickup details and provider, so confirm the quote rather than relying on a fixed estimate. Lunch and any occasional harbour fee are also separate.',
+          'Our selected island tour includes transport, a driver-guide, island pickup, the Nusa Penida island tax, and parking. We can coordinate the Ubud pickup, boat timing, island tour, and return, but coordination does not mean every leg is included in the base island-tour price. Confirm the written total and inclusions before booking.',
         ],
       },
       {
-        heading: 'Tips for the Ubud route',
+        heading: 'How to return from Nusa Penida to Ubud',
         paragraphs: [
-          'Reserve your boat the night before in high season. Sit on the left side of the boat leaving Sanur for the calmest ride. And avoid the very last return boat — if weather cancels it, you are stuck overnight far from Ubud.',
+          'For the return, take the fast boat from Nusa Penida to Sanur, meet your pre-arranged driver at the harbour, and continue by road to Ubud. The crossing usually takes 30–45 minutes and the Sanur–Ubud drive usually takes 60–90 minutes, before allowing for boarding, disembarkation, and traffic.',
+          'Reserve the boat in advance during high season, keep the boat and driver contacts handy, and choose a return sailing with a buffer instead of relying on the final boat. Weather and sea conditions can change the schedule.',
         ],
       },
     ],
@@ -1052,7 +1070,7 @@ const GUIDES: Guide[] = [
       {
         question: 'Can you do a Nusa Penida day trip from Kuta or Seminyak?',
         answer:
-          'Yes. The drive from Kuta, Legian, or Seminyak to Sanur harbour takes about 30–50 minutes. With a 06:30 pickup you make the 07:30–08:00 boat and have a full day on the island.',
+          'Yes. The drive from Kuta, Legian, or Seminyak to Sanur harbour usually takes about 30–50 minutes. With an early pickup and morning boat, you can plan a practical west-coast day, but traffic, check-in, and sea conditions can change the timing.',
       },
       {
         question: 'How far is Seminyak from the Nusa Penida boat?',
@@ -1071,7 +1089,7 @@ const GUIDES: Guide[] = [
     heroImage: '/images/West%20Trip/West%20Trip%20Broken%20Beach%202.jpeg',
     readingMinutes: 6,
     datePublished: '2026-06-12',
-    dateModified: '2026-06-12',
+    dateModified: '2026-07-22',
     category: 'planning',
     keywords: [
       'nusa penida day trip from kuta',
@@ -1101,7 +1119,7 @@ const GUIDES: Guide[] = [
           '10:30 — Broken Beach & Angel\'s Billabong',
           '12:00 — Crystal Bay (lunch + swim)',
           '14:30 — Return boat to Sanur',
-          '15:30 — Back in Kuta / Seminyak',
+          'Around 16:00–17:00 — Typical arrival back in Kuta / Seminyak, depending on disembarkation and traffic',
         ],
       },
       {
@@ -1113,7 +1131,7 @@ const GUIDES: Guide[] = [
       {
         heading: 'Make it stress-free',
         paragraphs: [
-          'The hardest part of a day trip from Kuta or Seminyak is connecting the car, the boat, and the island transport on a tight schedule. We package all three into one private trip so the timing is handled and you simply enjoy the day. Tell us your hotel and we arrange pickup at the right time.',
+          'The hardest part of a day trip from Kuta or Seminyak is connecting the car, the boat, and the island transport on a tight schedule. We can coordinate all three so the connections line up, but the mainland transfer, fast-boat ticket, and island tour are priced separately unless your written quote explicitly bundles them. Tell us your hotel and we will confirm the pickup time, total price, and inclusions before you book.',
         ],
       },
     ],
@@ -1132,17 +1150,17 @@ const GUIDES: Guide[] = [
       {
         question: 'What is the best beach in Nusa Penida?',
         answer:
-          'Crystal Bay is the best beach for swimming and sunset — calm clear water, soft sand, and shade. Kelingking has the most famous view, but reaching its sand is a steep rope-assisted climb.',
+          'Crystal Bay is one of the easiest-access beaches for a swim and sunset when conditions allow, with soft sand and shade. Stay close to shore because the channel can have currents. Kelingking has the most famous view, but reaching its sand is a steep rope-assisted climb.',
       },
       {
         question: 'Can you swim at Diamond Beach in Nusa Penida?',
         answer:
-          'Diamond Beach is stunning but swimming can be unsafe due to currents. Neighbouring Atuh Beach is gentler and easier to enjoy in the water.',
+          'Diamond Beach is stunning but swimming can be unsafe due to currents. Neighbouring Atuh Beach is generally gentler, but enter only when conditions allow, stay close to shore, and follow local warnings.',
       },
       {
         question: 'Which Nusa Penida beaches are easiest to reach?',
         answer:
-          'Crystal Bay is the most accessible swimmable beach. Kelingking and Diamond require steep descents, so many visitors enjoy them from the viewpoints at the top.',
+          'Crystal Bay is one of the most accessible beaches and can suit a near-shore swim when conditions allow. Kelingking and Diamond require steep descents, so many visitors enjoy them from the viewpoints at the top.',
       },
     ],
     title: 'Best Beaches in Nusa Penida',
@@ -1151,7 +1169,7 @@ const GUIDES: Guide[] = [
     heroImage: '/images/East%20Trip/East%20Trip%20Atuh%20Beach%202.jpeg',
     readingMinutes: 7,
     datePublished: '2026-06-12',
-    dateModified: '2026-06-12',
+    dateModified: '2026-07-22',
     category: 'tips',
     keywords: [
       'best beaches nusa penida',
@@ -1170,30 +1188,30 @@ const GUIDES: Guide[] = [
       {
         heading: 'Crystal Bay — best for swimming & sunset',
         paragraphs: [
-          'Crystal Bay is the most accessible swimmable beach on the island, with calm clear water, soft sand, and shade. It is the easiest place to relax, snorkel near the shore, and watch the sunset. If you want a beach you can lie on, this is the one.',
+          'Crystal Bay is one of the island\'s easiest-access beaches, with clear shallow water near shore, soft sand, and shade. It can suit swimming and shore snorkeling when conditions allow, but stay close to shore because the channel can have currents. It is also an easy place to relax and watch the sunset.',
         ],
       },
       {
         heading: 'Kelingking Beach — best view, hardest descent',
         paragraphs: [
-          'The T-Rex-shaped cliff at Kelingking is the island\'s signature shot. The viewpoint at the top is unmissable. Reaching the sand itself means a steep, rope-assisted 30–45 minute climb down — and a tougher climb back up. The view from the top is the real reward; the descent is for the adventurous.',
+          'The T-Rex-shaped cliff at Kelingking is the island\'s signature shot. The viewpoint at the top is unmissable, but visitors should stay back from the exposed cliff edge. Reaching the sand itself means a steep, rope-assisted 30–45 minute climb down — and a tougher climb back up. The view from the top is the real reward; the descent is only for fit, experienced visitors.',
         ],
       },
       {
         heading: 'Diamond Beach & Atuh — best on the east coast',
         paragraphs: [
-          'Diamond Beach has a carved stairway down to white sand framed by limestone pillars — stunning, though swimming can be unsafe due to currents. Next door, Atuh Beach is gentler and easier to enjoy in the water. Both sit on the quieter east coast and pair naturally on an East Trip.',
+          'Diamond Beach has a carved stairway down to white sand framed by limestone pillars — stunning, though swimming can be unsafe due to currents. Next door, Atuh Beach is generally gentler and may suit swimming when conditions allow; check the water, stay close to shore, and follow local warnings. Both sit on the quieter east coast and pair naturally on an East Trip.',
         ],
         bullets: [
           'Diamond Beach — iconic stairway and pillars (photos)',
-          'Atuh Beach — calmer, easier to swim',
+          'Atuh Beach — generally calmer; swim only when conditions allow',
           'Best combined on a single East Trip day',
         ],
       },
       {
         heading: 'Which beaches fit which trip',
         paragraphs: [
-          'On a West Trip you get Crystal Bay and the Kelingking viewpoint. On an East Trip you get Diamond and Atuh. To see beaches on both coasts in one day you need a Mix Trip and an early start. If a relaxed swim is your priority, build the day around Crystal Bay; if it is photos, prioritise Kelingking and Diamond.',
+          'On a West Trip you get Crystal Bay and the Kelingking viewpoint. On an East Trip you get Diamond and Atuh. To see beaches on both coasts in one day you need a Mix Trip and an early start. If swimming is your priority, check conditions at Crystal Bay and stay close to shore; if it is photos, prioritise Kelingking and Diamond.',
         ],
       },
     ],
@@ -1212,7 +1230,7 @@ const GUIDES: Guide[] = [
       {
         question: 'What are the top things to do in Nusa Penida?',
         answer:
-          'The essentials are the Kelingking cliff viewpoint, Broken Beach and Angel\u2019s Billabong, Crystal Bay for swimming, Diamond and Atuh beaches on the east coast, and snorkeling with manta rays.',
+          'The essentials are the Kelingking cliff viewpoint, Broken Beach and Angel\u2019s Billabong, a near-shore swim at Crystal Bay when conditions allow, Diamond and Atuh beaches on the east coast, and snorkeling with manta rays.',
       },
       {
         question: 'How many days do you need in Nusa Penida?',
@@ -1231,7 +1249,7 @@ const GUIDES: Guide[] = [
     heroImage: '/images/West%20Trip/West%20trip%20kelingking%20beach%203.jpeg',
     readingMinutes: 6,
     datePublished: '2026-06-12',
-    dateModified: '2026-06-12',
+    dateModified: '2026-07-22',
     category: 'planning',
     keywords: [
       'things to do in nusa penida',
@@ -1244,12 +1262,12 @@ const GUIDES: Guide[] = [
       {
         heading: 'The essentials you should not miss',
         paragraphs: [
-          'Nusa Penida packs an enormous amount into a small island. If it is your first visit, prioritise the icons: the Kelingking cliff viewpoint, Broken Beach and Angel\'s Billabong, Crystal Bay for swimming, and — if you can stay longer — Diamond and Atuh beaches on the east coast.',
+          'Nusa Penida packs an enormous amount into a small island. If it is your first visit, prioritise the icons: the Kelingking cliff viewpoint, Broken Beach and Angel\'s Billabong, Crystal Bay for a near-shore swim when conditions allow, and — if you can stay longer — Diamond and Atuh beaches on the east coast.',
         ],
         bullets: [
           'Kelingking Beach viewpoint (the T-Rex cliff)',
           'Broken Beach & Angel\'s Billabong',
-          'Crystal Bay — swim and sunset',
+          'Crystal Bay — near-shore swim when conditions allow, plus sunset',
           'Diamond Beach & Atuh (east coast)',
           'Snorkeling with manta rays',
         ],
@@ -1289,7 +1307,7 @@ const GUIDES: Guide[] = [
       {
         question: 'Is Nusa Penida good for families with kids?',
         answer:
-          'Yes, with the right plan. Focus on easy, swimmable spots like Crystal Bay, enjoy Kelingking from the viewpoint, and use a private car with a driver to handle the bumpy roads.',
+          'Yes, with the right plan. Focus on easy-access stops such as Crystal Bay, where children need close supervision and swimming depends on conditions. Enjoy Kelingking from the viewpoint while staying back from the cliff edge, and use a private car with a driver for the bumpy roads.',
       },
       {
         question: 'What should families avoid in Nusa Penida?',
@@ -1299,7 +1317,7 @@ const GUIDES: Guide[] = [
       {
         question: 'What is the best way to visit Nusa Penida with kids?',
         answer:
-          'Take the calm morning boat, use a private car so you control the pace, and build the day around Crystal Bay. Bring water, snacks, and reef-safe sunscreen.',
+          'Choose a morning crossing while remembering that sea conditions vary, and use a private car so you control the pace. At Crystal Bay, supervise children closely, stay near shore, and enter the water only when conditions allow. Bring water, snacks, and reef-safe sunscreen.',
       },
     ],
     title: 'Nusa Penida with Family: Kids & Easy Days',
@@ -1308,7 +1326,7 @@ const GUIDES: Guide[] = [
     heroImage: '/images/West%20Trip/West%20Trip%20Crystal%20Bay%20Beach%202.jpeg',
     readingMinutes: 5,
     datePublished: '2026-06-12',
-    dateModified: '2026-06-12',
+    dateModified: '2026-07-22',
     category: 'tips',
     keywords: [
       'nusa penida with family',
@@ -1321,19 +1339,19 @@ const GUIDES: Guide[] = [
       {
         heading: 'Is Nusa Penida good for families?',
         paragraphs: [
-          'Yes — with the right plan. Nusa Penida is wonderful for families if you focus on the easy, swimmable spots and skip the steep cliff descents. The island\'s roads are bumpy and some viewpoints involve hard climbs, so a private car with a driver makes all the difference for travelling with kids or older relatives.',
+          'Yes — with the right plan. Nusa Penida is wonderful for families if you focus on easy-access stops, treat every swim as condition-dependent, and skip the steep cliff descents. The island\'s roads are bumpy and some viewpoints involve hard climbs, so a private car with a driver makes all the difference for travelling with kids or older relatives.',
         ],
       },
       {
         heading: 'Family-friendly spots',
         paragraphs: [
-          'Crystal Bay is the standout for families — calm water, sand to play on, shade, and easy access. The Kelingking viewpoint is fine for everyone from the top (no need to climb down). Broken Beach and Angel\'s Billabong are short, flat walks with big payoffs.',
+          'Crystal Bay offers sand, shade, and easy access, but water conditions vary and children need close supervision near shore. Kelingking can be enjoyed from the top without descending, but keep children back from the exposed cliff edge. Broken Beach and Angel\'s Billabong are short walks; stay back from the cliff and pool edges.',
         ],
         bullets: [
-          'Crystal Bay — swimming and sand',
-          'Kelingking — viewpoint from the top only',
-          'Broken Beach — easy flat loop',
-          'Calm-water snorkeling near Crystal Bay',
+          'Crystal Bay — sand and shade; swim only when conditions allow',
+          'Kelingking — top viewpoint only; stay back from the edge',
+          'Broken Beach — easy loop with close supervision at the cliff edge',
+          'Near-shore snorkeling at Crystal Bay only when conditions allow',
         ],
       },
       {
@@ -1345,7 +1363,7 @@ const GUIDES: Guide[] = [
       {
         heading: 'Planning an easy family day',
         paragraphs: [
-          'Take the morning boat when the sea is calmest, use a private car so you control the pace and can rest when needed, and build the day around Crystal Bay. Bring water, snacks, sun protection, and reef-safe sunscreen. We arrange child-friendly private trips with a driver who knows which stops work for families.',
+          'Morning crossings are often preferable, but sea conditions still vary. Use a private car so you control the pace and can rest when needed. If you visit Crystal Bay, supervise children closely, stay near shore, and swim only when conditions allow. Bring water, snacks, sun protection, and reef-safe sunscreen. We arrange child-friendly private trips with a driver who knows which stops work for families.',
         ],
       },
     ],
@@ -1453,21 +1471,42 @@ export function getGuideWordCount(guide: Guide): number {
   return body ? body.split(/\s+/).length : 0;
 }
 
-export function getAllGuides(): Guide[] {
+export function localizeGuide(guide: Guide, locale: SiteLocale = 'en'): Guide {
+  if (locale === 'en') return guide;
+
+  const translation = GUIDE_ID_TRANSLATIONS[guide.slug];
+  if (!translation) {
+    throw new Error(`Missing Indonesian translation for guide "${guide.slug}"`);
+  }
+
+  return {
+    ...guide,
+    ...translation,
+    datePublished: '2026-07-22',
+    dateModified: '2026-07-22',
+  };
+}
+
+export function getAllGuides(locale: SiteLocale = 'en'): Guide[] {
   return [...GUIDES].sort(
     (a, b) =>
       new Date(b.dateModified).getTime() - new Date(a.dateModified).getTime(),
-  );
+  ).map((guide) => localizeGuide(guide, locale));
 }
 
-export function getGuideBySlug(slug: string): Guide | null {
-  return GUIDES.find((g) => g.slug === slug) || null;
+export function getGuideBySlug(slug: string, locale: SiteLocale = 'en'): Guide | null {
+  const guide = GUIDES.find((g) => g.slug === slug);
+  return guide ? localizeGuide(guide, locale) : null;
 }
 
-export function getGuidesBySlugs(slugs: string[]): Guide[] {
+export function getGuidesBySlugs(
+  slugs: string[],
+  locale: SiteLocale = 'en',
+): Guide[] {
   return slugs
     .map((s) => GUIDES.find((g) => g.slug === s))
-    .filter((g): g is Guide => g !== undefined);
+    .filter((g): g is Guide => g !== undefined)
+    .map((guide) => localizeGuide(guide, locale));
 }
 
 /** Lightweight link target used by automatic internal linking on guide pages. */
@@ -1482,16 +1521,22 @@ export interface GuideRelatedLink {
  * Resolve a guide's related tour slugs into internal link targets.
  * Looks up tours and rentals from constants so labels/prices stay in sync.
  */
-export function getGuideRelatedTourLinks(guide: Guide): GuideRelatedLink[] {
+export function getGuideRelatedTourLinks(
+  guide: Guide,
+  locale: SiteLocale = 'en',
+): GuideRelatedLink[] {
   if (!guide.relatedTourSlugs?.length) return [];
-  const fmt = (n: number) => `from ${(n / 1000).toFixed(0)}K IDR`;
+  const fmt = (n: number) =>
+    locale === 'id'
+      ? `mulai Rp${n.toLocaleString('id-ID')}`
+      : `from ${(n / 1000).toFixed(0)}K IDR`;
 
   return guide.relatedTourSlugs
     .map((slug): GuideRelatedLink | null => {
       const tour = TOUR_PACKAGES.find((p) => p.slug === slug && p.isActive);
       if (tour) {
         return {
-          href: `/tours/${tour.slug}`,
+          href: localizedPath(`/tours/${tour.slug}`, locale),
           label: tour.name,
           sub: fmt(tour.price),
         };
@@ -1499,9 +1544,11 @@ export function getGuideRelatedTourLinks(guide: Guide): GuideRelatedLink[] {
       const rental = RENTAL_SERVICES.find((r) => r.slug === slug && r.isAvailable);
       if (rental) {
         return {
-          href: `/rentals/${rental.slug}`,
+          href: localizedPath(`/rentals/${rental.slug}`, locale),
           label: rental.model,
-          sub: fmt(rental.pricePerDay) + ' / day',
+          sub: locale === 'id'
+            ? `${fmt(rental.pricePerDay)}/hari`
+            : `${fmt(rental.pricePerDay)}/day`,
         };
       }
       return null;
@@ -1512,16 +1559,31 @@ export function getGuideRelatedTourLinks(guide: Guide): GuideRelatedLink[] {
 /**
  * Resolve a guide's related destination slugs into internal link targets.
  */
-export function getGuideRelatedDestinationLinks(guide: Guide): GuideRelatedLink[] {
+export function getGuideRelatedDestinationLinks(
+  guide: Guide,
+  locale: SiteLocale = 'en',
+): GuideRelatedLink[] {
   if (!guide.relatedDestinationSlugs?.length) return [];
   return guide.relatedDestinationSlugs
     .map((slug): GuideRelatedLink | null => {
       const dest = DESTINATIONS.find((d) => d.slug === slug);
       if (!dest) return null;
       return {
-        href: `/destinations/${dest.slug}`,
-        label: dest.name,
-        sub: dest.region ? `${dest.region} Nusa Penida` : undefined,
+        href: localizedPath(`/destinations/${dest.slug}`, locale),
+        label: locale === 'id' ? dest.nameId || dest.name : dest.name,
+        sub: dest.region
+          ? locale === 'id'
+            ? `Nusa Penida ${
+                dest.region === 'west'
+                  ? 'Barat'
+                  : dest.region === 'east'
+                    ? 'Timur'
+                    : dest.region === 'south'
+                      ? 'Selatan'
+                      : 'Tengah'
+              }`
+            : `${dest.region} Nusa Penida`
+          : undefined,
       };
     })
     .filter((l): l is GuideRelatedLink => l !== null);
@@ -1534,16 +1596,20 @@ export function getGuideRelatedDestinationLinks(guide: Guide): GuideRelatedLink[
  */
 export function getDestinationRelatedGuideLinks(
   relatedGuideSlugs: string[] | undefined,
+  locale: SiteLocale = 'en',
 ): GuideRelatedLink[] {
   if (!relatedGuideSlugs?.length) return [];
   return relatedGuideSlugs
     .map((slug): GuideRelatedLink | null => {
-      const guide = GUIDES.find((g) => g.slug === slug);
+      const sourceGuide = GUIDES.find((g) => g.slug === slug);
+      const guide = sourceGuide ? localizeGuide(sourceGuide, locale) : null;
       if (!guide) return null;
       return {
-        href: `/guides/${guide.slug}`,
+        href: localizedPath(`/guides/${guide.slug}`, locale),
         label: guide.title,
-        sub: `${guide.readingMinutes} min read`,
+        sub: locale === 'id'
+          ? `${guide.readingMinutes} menit baca`
+          : `${guide.readingMinutes} min read`,
       };
     })
     .filter((l): l is GuideRelatedLink => l !== null);
@@ -1588,17 +1654,23 @@ const TOUR_GUIDE_MAP: Record<string, string[]> = {
 };
 
 /** Resolve a tour slug into related guide link targets. */
-export function getTourRelatedGuideLinks(tourSlug: string): GuideRelatedLink[] {
+export function getTourRelatedGuideLinks(
+  tourSlug: string,
+  locale: SiteLocale = 'en',
+): GuideRelatedLink[] {
   const slugs = TOUR_GUIDE_MAP[tourSlug];
   if (!slugs?.length) return [];
   return slugs
     .map((slug): GuideRelatedLink | null => {
-      const guide = GUIDES.find((g) => g.slug === slug);
+      const sourceGuide = GUIDES.find((g) => g.slug === slug);
+      const guide = sourceGuide ? localizeGuide(sourceGuide, locale) : null;
       if (!guide) return null;
       return {
-        href: `/guides/${guide.slug}`,
+        href: localizedPath(`/guides/${guide.slug}`, locale),
         label: guide.title,
-        sub: `${guide.readingMinutes} min read`,
+        sub: locale === 'id'
+          ? `${guide.readingMinutes} menit baca`
+          : `${guide.readingMinutes} min read`,
       };
     })
     .filter((l): l is GuideRelatedLink => l !== null);

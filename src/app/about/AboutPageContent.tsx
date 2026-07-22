@@ -5,6 +5,7 @@ import { getWhatsAppLink } from '@/lib/whatsapp';
 import { BreadcrumbNav } from '@/components/seo';
 import Image from 'next/image';
 import Link from 'next/link';
+import { localizedPath } from '@/lib/site-config';
 
 export default function AboutPage() {
   const { t, language } = useLanguage();
@@ -255,7 +256,7 @@ export default function AboutPage() {
               {services.map((svc, i) => (
                 <Link
                   key={i}
-                  href={svc.href}
+                  href={localizedPath(svc.href, language)}
                   className="group bg-white rounded-2xl p-6 border border-gray-100 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
                 >
                   <div className={`w-14 h-14 ${svc.bgLight} rounded-xl flex items-center justify-center mb-5 text-brand-blue-700 group-hover:scale-110 transition-transform duration-300`}>
@@ -348,7 +349,7 @@ export default function AboutPage() {
                 {t.common.bookViaWhatsApp}
               </a>
               <Link
-                href="/tours"
+                href={localizedPath('/tours', language)}
                 className="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 border border-white/30 text-white px-8 py-4 rounded-xl font-semibold transition-all duration-200 backdrop-blur-sm"
               >
                 {t.tours.viewAll}

@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import RentalDetailPage from '../../../rentals/[slug]/page';
 import { RENTAL_SERVICES } from '@/lib/constants';
 import { buildMetadata } from '@/lib/seo';
+import { formatRentalList, getRentalIncludedBenefits } from '@/lib/rentals';
 
 export const dynamic = 'force-dynamic';
 export const runtime = 'nodejs';
@@ -26,15 +27,18 @@ export function generateMetadata({
   }
 
   const priceDisplay = `${(rental.pricePerDay / 1000).toFixed(0)}K IDR`;
-  const vehicleLabel = rental.vehicleType === 'car' ? 'Mobil dengan Sopir' : 'Sewa Motor';
+  const isCar = rental.vehicleType === 'car';
+  const vehicleName = isCar ? 'mobil dengan sopir' : rental.model;
+  const includedBenefits = getRentalIncludedBenefits(rental, 'id');
+  const inclusionCopy = includedBenefits.length
+    ? ` Termasuk ${formatRentalList(includedBenefits, 'id')}.`
+    : '';
 
   return buildMetadata({
-    title: `${vehicleLabel} ${rental.model} di Nusa Penida`,
-    description:
-      `Sewa ${rental.model} di Nusa Penida mulai ${priceDisplay} per hari. Kendaraan terawat, antar gratis, dan support via WhatsApp.`.slice(
-        0,
-        160,
-      ),
+    title: isCar
+      ? 'Sewa Mobil dengan Sopir di Nusa Penida'
+      : `Sewa Motor ${rental.model} di Nusa Penida`,
+    description: `Sewa ${vehicleName} di Nusa Penida mulai ${priceDisplay}${isCar ? '' : ' per hari'}.${inclusionCopy} Pesan via WhatsApp.`.slice(0, 160),
     path: `/id/rentals/${rental.slug}`,
     keywords: [
       `sewa ${rental.model.toLowerCase()} nusa penida`,

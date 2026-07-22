@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent } from '@/test/test-utils';
 import '@testing-library/jest-dom';
 import TourPackageCard from '../TourPackageCard';
 import { TourPackage } from '@/types';
@@ -7,9 +7,9 @@ import { TourPackage } from '@/types';
 // Mock Next.js Image component
 jest.mock('next/image', () => ({
   __esModule: true,
-  default: (props: any) => {
+  default: ({ fill, priority, alt, ...props }: any) => {
     // eslint-disable-next-line @next/next/no-img-element
-    return <img {...props} />;
+    return <img {...props} alt={alt ?? ''} data-testid="tour-image" />;
   },
 }));
 
@@ -59,9 +59,14 @@ describe('TourPackageCard', () => {
     
     expect(screen.getByText('West Trip')).toBeInTheDocument();
     expect(screen.getByText('Explore the western attractions of Nusa Penida')).toBeInTheDocument();
-    expect(screen.getByText('390.000 IDR')).toBeInTheDocument();
+    expect(screen.getByText('$24')).toBeInTheDocument();
+    expect(screen.getByText('USD')).toBeInTheDocument();
     expect(screen.getByText('Start From')).toBeInTheDocument();
     expect(screen.getByText('8 hours')).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'View Details' })).toHaveAttribute(
+      'href',
+      '/tours/west-trip',
+    );
   });
 
   it('displays all features correctly', () => {

@@ -211,7 +211,7 @@ export default async function TourOgImage({
               }}
             >
               From <span style={{ color: '#fbbf24' }}>{priceK}</span> per person
-              · Hotel pickup included
+              · Nusa Penida pickup included
             </div>
           </div>
 

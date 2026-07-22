@@ -10,13 +10,31 @@ import { localizedPath } from '@/lib/site-config';
 const WHATSAPP_NUMBER = '6289631281234';
 
 const DESTINATIONS = [
-  'Kelingking Beach',
-  'Angel Billabong',
-  'Broken Beach',
-  'Crystal Bay',
-  'Diamond Beach',
-  'Atuh Beach',
-  'Tree House',
+  { name: 'Kelingking Beach', slug: 'kelingking-beach' },
+  { name: 'Angel Billabong', slug: 'angel-billabong' },
+  { name: 'Broken Beach', slug: 'broken-beach' },
+  { name: 'Crystal Bay', slug: 'crystal-bay-beach' },
+  { name: 'Diamond Beach', slug: 'diamond-beach' },
+  { name: 'Atuh Beach', slug: 'atuh-beach' },
+  { name: 'Tree House', slug: 'tree-house-molenteng' },
+];
+
+const POPULAR_GUIDES = [
+  {
+    slug: 'nusa-penida-day-trip-from-ubud',
+    en: 'Ubud to Nusa Penida',
+    id: 'Ubud ke Nusa Penida',
+  },
+  {
+    slug: 'renting-a-scooter-in-nusa-penida',
+    en: 'Scooter Rental Guide',
+    id: 'Panduan Sewa Motor',
+  },
+  {
+    slug: 'nusa-penida-tour-cost',
+    en: 'Nusa Penida Tour Cost',
+    id: 'Biaya Tur Nusa Penida',
+  },
 ];
 
 const Footer: React.FC = () => {
@@ -38,13 +56,19 @@ const Footer: React.FC = () => {
   ];
 
   const services = [
-    { name: t.tours.westTrip, href: '/tours' },
-    { name: t.tours.eastTrip, href: '/tours' },
-    { name: t.tours.mixTrip, href: '/tours' },
-    { name: 'Snorkeling', href: '/tours' },
-    { name: 'Motorcycle Rental', href: '/rentals' },
-    { name: t.rentals.carWithDriver, href: '/rentals' },
-    { name: 'Bali Day Trip', href: '/bali-day-trip' },
+    { name: t.tours.westTrip, href: '/tours/west-trip' },
+    { name: t.tours.eastTrip, href: '/tours/east-trip' },
+    { name: t.tours.mixTrip, href: '/tours/mix-trip' },
+    { name: 'Snorkeling', href: '/tours/snorkeling-manta' },
+    {
+      name: language === 'id' ? 'Sewa Motor' : 'Motorcycle Rental',
+      href: '/rentals',
+    },
+    { name: t.rentals.carWithDriver, href: '/rentals/car-rental' },
+    {
+      name: language === 'id' ? 'Trip Sehari Bali' : 'Bali Day Trip',
+      href: '/bali-day-trip',
+    },
   ];
 
   return (
@@ -219,13 +243,31 @@ const Footer: React.FC = () => {
             <div>
               <p className="text-gray-500 text-xs uppercase tracking-wider mb-3">{t.footer.popularDestinations}</p>
               <div className="flex flex-wrap gap-2">
-                {destinations.map((d) => (
-                  <span
-                    key={d}
-                    className="text-xs bg-gray-800 text-gray-400 px-2.5 py-1 rounded-full border border-gray-700 hover:border-brand-teal-600 hover:text-white cursor-default transition-colors duration-200"
+                {destinations.map((destination) => (
+                  <Link
+                    key={destination.slug}
+                    href={href(`/destinations/${destination.slug}`)}
+                    className="text-xs bg-gray-800 text-gray-400 px-2.5 py-1 rounded-full border border-gray-700 hover:border-brand-teal-600 hover:text-white transition-colors duration-200"
                   >
-                    {d}
-                  </span>
+                    {destination.name}
+                  </Link>
+                ))}
+              </div>
+            </div>
+
+            <div className="mt-5">
+              <p className="text-gray-500 text-xs uppercase tracking-wider mb-3">
+                {language === 'id' ? 'Panduan populer' : 'Popular guides'}
+              </p>
+              <div className="flex flex-wrap gap-2">
+                {POPULAR_GUIDES.map((guide) => (
+                  <Link
+                    key={guide.slug}
+                    href={href(`/guides/${guide.slug}`)}
+                    className="text-xs bg-gray-800 text-gray-400 px-2.5 py-1 rounded-full border border-gray-700 hover:border-brand-teal-600 hover:text-white transition-colors duration-200"
+                  >
+                    {guide[language]}
+                  </Link>
                 ))}
               </div>
             </div>

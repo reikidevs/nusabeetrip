@@ -1,8 +1,15 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import { headers } from 'next/headers';
 import { JsonLd } from '@/components/seo';
 import { breadcrumbJsonLd, buildMetadata, faqJsonLd, guideHowToJsonLd } from '@/lib/seo';
-import { absoluteUrl, SITE } from '@/lib/site-config';
+import {
+  absoluteUrl,
+  localeFromPath,
+  localizedPath,
+  SITE,
+  type SiteLocale,
+} from '@/lib/site-config';
 import {
   getGuideBySlug,
   getAllGuides,
@@ -45,24 +52,38 @@ export function generateMetadata({
   });
 }
 
-export default function GuideDetailPage({
-  params,
-}: {
-  params: { slug: string };
-}) {
-  const g = getGuideBySlug(params.slug);
+export default function GuideDetailPage({ params }: { params: { slug: string } }) {
+  const locale: SiteLocale = localeFromPath(headers().get('x-pathname') || '/');
+  const g = getGuideBySlug(params.slug, locale);
   if (!g) notFound();
 
-  const related = getGuidesBySlugs(g.relatedGuideSlugs);
+  const related = getGuidesBySlugs(g.relatedGuideSlugs, locale);
+  const homePath = localizedPath('/', locale);
+  const guidesPath = localizedPath('/guides', locale);
+  const guidePath = localizedPath(`/guides/${g.slug}`, locale);
+  const isIndonesian = locale === 'id';
+  const articleSection = isIndonesian
+    ? {
+        planning: 'Perencanaan perjalanan',
+        'getting-around': 'Transportasi',
+        comparison: 'Perbandingan',
+        tips: 'Tips penting',
+      }[g.category]
+    : {
+        planning: 'Trip planning',
+        'getting-around': 'Getting around',
+        comparison: 'Comparisons',
+        tips: 'Tips & essentials',
+      }[g.category];
 
   return (
     <>
       <JsonLd
         id={`ld-breadcrumbs-${g.slug}`}
         data={breadcrumbJsonLd([
-          { name: 'Home', path: '/' },
-          { name: 'Guides', path: '/guides' },
-          { name: g.title, path: `/guides/${g.slug}` },
+          { name: isIndonesian ? 'Beranda' : 'Home', path: homePath },
+          { name: isIndonesian ? 'Panduan' : 'Guides', path: guidesPath },
+          { name: g.title, path: guidePath },
         ])}
       />
       <JsonLd
@@ -92,9 +113,9 @@ export default function GuideDetailPage({
           dateModified: g.dateModified,
           mainEntityOfPage: {
             '@type': 'WebPage',
-            '@id': absoluteUrl(`/guides/${g.slug}`),
+            '@id': absoluteUrl(guidePath),
           },
-          articleSection: g.category,
+          articleSection,
           keywords: g.keywords.join(', '),
           wordCount: getGuideWordCount(g),
           timeRequired: `PT${g.readingMinutes}M`,
@@ -108,7 +129,7 @@ export default function GuideDetailPage({
               addressCountry: 'ID',
             },
           },
-          inLanguage: ['en', 'id'],
+          inLanguage: isIndonesian ? 'id-ID' : 'en-US',
           isAccessibleForFree: true,
         }}
       />

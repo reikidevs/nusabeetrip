@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import { headers } from 'next/headers';
 import { getTourPackages, getTourPackageBySlug } from '@/lib/db/queries';
 import { TOUR_PACKAGES } from '@/lib/constants';
 import { resolveTourImage } from '@/lib/image-resolver';
@@ -11,6 +12,7 @@ import {
   faqJsonLd,
 } from '@/lib/seo';
 import { getTourRelatedGuideLinks } from '@/lib/guides';
+import { localeFromPath, localizedPath } from '@/lib/site-config';
 import type { TourPackage } from '@/types';
 import TourDetailContent from './TourDetailContent';
 
@@ -100,8 +102,10 @@ export async function generateMetadata({
 }
 
 export default async function TourDetailPage({ params }: { params: { slug: string } }) {
+  const locale = localeFromPath(headers().get('x-pathname') || '/');
   const tour = await loadTour(params.slug);
   if (!tour) notFound();
+  const isIndonesian = locale === 'id';
 
   // Pull two extra tours for the "Other tours you may like" section
   let related: TourPackage[] = [];
@@ -137,28 +141,52 @@ export default async function TourDetailPage({ params }: { params: { slug: strin
   }
 
   // Tour-specific FAQ — boosts long-tail SEO and gives FAQ rich result
-  const tourFaq = [
-    {
-      question: `How long does the ${tour.name} take?`,
-      answer: `The ${tour.name} runs approximately ${tour.duration} hours including pickup, all destinations, and return drop-off.`,
-    },
-    {
-      question: `What is the price of the ${tour.name}?`,
-      answer: `The ${tour.name} costs ${tour.price.toLocaleString('id-ID')} IDR per person and includes professional guide, transportation, tax island, and parking tickets.`,
-    },
-    {
-      question: `Is hotel pickup included for the ${tour.name}?`,
-      answer:
-        'Yes, free pickup and drop-off is included from any hotel or accommodation across Nusa Penida.',
-    },
-    {
-      question: `What should I bring for the ${tour.name}?`,
-      answer:
-        'Sunscreen, comfortable shoes, swimwear, towel, water bottle, and a camera. We recommend wearing clothes you can swim in.',
-    },
-  ];
+  const tourFaq = isIndonesian
+    ? [
+        {
+          question: `Berapa lama durasi ${tour.name}?`,
+          answer: `${tour.name} berlangsung sekitar ${tour.duration} jam, termasuk penjemputan, kunjungan ke seluruh destinasi, dan pengantaran kembali.`,
+        },
+        {
+          question: `Berapa harga ${tour.name}?`,
+          answer: `Harga ${tour.name} adalah ${tour.price.toLocaleString('id-ID')} IDR per orang, termasuk pemandu profesional, transportasi, pajak pulau, dan tiket parkir.`,
+        },
+        {
+          question: `Apakah penjemputan hotel termasuk dalam ${tour.name}?`,
+          answer:
+            'Ya. Penjemputan dan pengantaran gratis tersedia dari hotel atau akomodasi di seluruh Nusa Penida.',
+        },
+        {
+          question: `Apa yang perlu dibawa untuk ${tour.name}?`,
+          answer:
+            'Bawa tabir surya, sepatu nyaman, pakaian renang, handuk, botol minum, dan kamera. Sebaiknya kenakan pakaian yang nyaman untuk berenang.',
+        },
+      ]
+    : [
+        {
+          question: `How long does the ${tour.name} take?`,
+          answer: `The ${tour.name} runs approximately ${tour.duration} hours including pickup, all destinations, and return drop-off.`,
+        },
+        {
+          question: `What is the price of the ${tour.name}?`,
+          answer: `The ${tour.name} costs ${tour.price.toLocaleString('id-ID')} IDR per person and includes professional guide, transportation, tax island, and parking tickets.`,
+        },
+        {
+          question: `Is hotel pickup included for the ${tour.name}?`,
+          answer:
+            'Yes, free pickup and drop-off is included from any hotel or accommodation across Nusa Penida.',
+        },
+        {
+          question: `What should I bring for the ${tour.name}?`,
+          answer:
+            'Sunscreen, comfortable shoes, swimwear, towel, water bottle, and a camera. We recommend wearing clothes you can swim in.',
+        },
+      ];
 
-  const guideLinks = getTourRelatedGuideLinks(tour.slug);
+  const guideLinks = getTourRelatedGuideLinks(tour.slug, locale);
+  const homePath = localizedPath('/', locale);
+  const toursPath = localizedPath('/tours', locale);
+  const tourPath = localizedPath(`/tours/${tour.slug}`, locale);
 
   return (
     <>
@@ -166,9 +194,9 @@ export default async function TourDetailPage({ params }: { params: { slug: strin
       <JsonLd
         id={`ld-breadcrumbs-tour-${tour.slug}`}
         data={breadcrumbJsonLd([
-          { name: 'Home', path: '/' },
-          { name: 'Tours', path: '/tours' },
-          { name: tour.name, path: `/tours/${tour.slug}` },
+          { name: isIndonesian ? 'Beranda' : 'Home', path: homePath },
+          { name: isIndonesian ? 'Tur' : 'Tours', path: toursPath },
+          { name: tour.name, path: tourPath },
         ])}
       />
 
@@ -182,7 +210,7 @@ export default async function TourDetailPage({ params }: { params: { slug: strin
           currency: tour.currency,
           available: tour.isActive,
           image: tour.image,
-          url: `/tours/${tour.slug}`,
+          url: tourPath,
           areaServed: 'Nusa Penida, Bali, Indonesia',
         })}
       />

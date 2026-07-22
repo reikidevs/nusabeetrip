@@ -64,12 +64,12 @@ export const DESTINATIONS: Destination[] = [
       en: [
         'Kelingking Beach is the postcard image of Nusa Penida — a curving limestone cliff that looks like a giant T-Rex bowing over the sea, with a slice of pristine white sand at its base. The viewpoint sits roughly 200 metres above the beach and is reachable by a short drive from anywhere on the island.',
         'Most visitors come for the viewpoint photo. A small fraction of fit travellers also descend the steep 30-minute trail to the beach itself. The path is rough, partly held together by bamboo handrails, and unsuitable for anyone with knee or balance issues — but the reward is a near-empty beach with crashing turquoise waves.',
-        'The viewpoint is included in our West Trip and Mix Trip packages, with parking, entrance fee, and a professional guide who knows the safer parts of the trail.',
+        'The viewpoint is part of our West Trip and Mix Trip routes. The package includes island tax, parking, and a professional guide; the attraction entrance ticket is paid separately.',
       ],
       id: [
         'Kelingking Beach adalah gambar kartu pos Nusa Penida — tebing kapur melengkung yang mirip T-Rex raksasa membungkuk ke laut, dengan sepetak pasir putih bersih di bawahnya. Viewpoint berada sekitar 200 meter di atas pantai dan bisa dijangkau dengan perjalanan singkat dari mana saja di pulau.',
         'Sebagian besar wisatawan datang untuk berfoto di viewpoint. Hanya sebagian kecil yang turun ke pantai melalui jalur tangga curam selama 30 menit. Jalurnya kasar, sebagian hanya dipegang pegangan bambu, dan tidak cocok untuk yang punya masalah lutut atau keseimbangan — tapi imbalannya adalah pantai sepi dengan ombak biru toska.',
-        'Viewpoint Kelingking sudah termasuk dalam paket West Trip dan Mix Trip kami, lengkap dengan parkir, tiket masuk, dan pemandu lokal yang tahu bagian jalur yang aman.',
+        'Viewpoint Kelingking masuk dalam rute West Trip dan Mix Trip kami. Paket mencakup pajak pulau, parkir, dan pemandu lokal; tiket masuk objek wisata dibayar terpisah.',
       ],
     },
     highlights: {
@@ -78,14 +78,14 @@ export const DESTINATIONS: Destination[] = [
         'White sand beach 200m below',
         'Best photography spot on the island',
         'Located in West Nusa Penida',
-        'Entry fee: included in our tour packages',
+        'Attraction entrance ticket is paid separately',
       ],
       id: [
         'Viewpoint tebing T-Rex yang ikonik',
         'Pantai pasir putih 200m di bawah',
         'Spot foto terbaik di pulau ini',
         'Berada di Nusa Penida bagian Barat',
-        'Tiket masuk: termasuk dalam paket tur kami',
+        'Tiket masuk objek wisata dibayar terpisah',
       ],
     },
     tips: {
@@ -139,12 +139,14 @@ export const DESTINATIONS: Destination[] = [
     body: {
       en: [
         'Diamond Beach earned its name from the diamond-shaped limestone formations standing in the water. The carved stone staircase that leads down was hand-cut to make the once-secret beach accessible to visitors. From the top of the cliff, you get a sweeping view of three contrasting blues — sky, sea, and the deeper trench beyond the rocks.',
-        'The water here is calmer than Kelingking but still has unpredictable currents close to the rocks. Most guests come for the photos at the viewpoint and the staircase, then walk along the soft sand for 15–20 minutes.',
+        'Access to the sand is by the steep but well-maintained staircase. Allow about 20–30 minutes for a viewpoint-and-staircase photo stop, or 60–90 minutes if you descend, spend time on the sand, and climb back at an unhurried pace.',
+        'Swimming is not the main reason to visit: currents can be unpredictable near the rocks even when the water looks calm. There is very little shade on the cliff, so bring drinking water and sun protection. For basic food and drinks, the warungs above nearby Atuh Beach are a practical stop when combining the two beaches.',
         'Diamond Beach is a flagship stop in our East Trip and Mix Trip itineraries.',
       ],
       id: [
         'Diamond Beach mendapat namanya dari formasi batu kapur berbentuk berlian yang berdiri di air. Tangga batu pahatan yang menuju ke bawah dibuat tangan untuk membuka akses ke pantai yang dulu rahasia ini. Dari puncak tebing, Anda akan melihat tiga gradasi biru kontras — langit, laut, dan palung lebih dalam di balik batu.',
-        'Airnya lebih tenang daripada Kelingking tapi tetap punya arus tak terduga dekat batu. Mayoritas tamu datang untuk berfoto di viewpoint dan tangga, lalu jalan di pasir lembut selama 15–20 menit.',
+        'Akses menuju pasir menggunakan tangga yang curam tetapi terawat baik. Sisihkan sekitar 20–30 menit jika hanya berhenti untuk menikmati viewpoint dan berfoto di tangga, atau 60–90 menit jika Anda turun, bersantai di pasir, lalu naik kembali tanpa terburu-buru.',
+        'Berenang bukan alasan utama untuk datang: arus di dekat bebatuan dapat berubah meskipun air terlihat tenang. Area tebing memiliki sangat sedikit tempat teduh, jadi bawalah air minum dan pelindung matahari. Untuk makanan dan minuman sederhana, warung di atas Atuh Beach menjadi persinggahan praktis ketika menggabungkan kedua pantai.',
         'Diamond Beach adalah salah satu titik utama di rute East Trip dan Mix Trip kami.',
       ],
     },
@@ -167,15 +169,19 @@ export const DESTINATIONS: Destination[] = [
     tips: {
       en: [
         'Use the staircase for the best photo — the iconic shot is from the steps looking down',
+        'Allow 20–30 minutes for the viewpoint or 60–90 minutes if you descend to the sand',
+        'Treat the water cautiously and skip swimming when conditions near the rocks look unsettled',
         'Late afternoon (15:00–17:00) gives soft light without the harsh midday sun',
         'Combine with Atuh Beach in one trip — they are 5 minutes apart',
-        'Bring sunscreen, the cliff has very little shade',
+        'Bring drinking water and sunscreen — the cliff has very little shade',
       ],
       id: [
         'Gunakan tangga untuk foto terbaik — angle ikonik adalah dari tangga melihat ke bawah',
+        'Sisihkan 20–30 menit untuk viewpoint atau 60–90 menit jika turun ke pasir',
+        'Tetap berhati-hati terhadap air dan jangan berenang ketika kondisi dekat bebatuan terlihat tidak tenang',
         'Sore hari (15.00–17.00) memberikan cahaya lembut tanpa matahari tengah hari yang menyilaukan',
         'Gabungkan dengan Atuh Beach dalam satu trip — jaraknya 5 menit',
-        'Bawa sunscreen, tebingnya sangat sedikit teduhnya',
+        'Bawa air minum dan sunscreen — tebingnya hanya memiliki sedikit tempat teduh',
       ],
     },
     bestTime: {
@@ -183,8 +189,8 @@ export const DESTINATIONS: Destination[] = [
       id: 'Sore hari (15.00–17.00) untuk cahaya lembut dan lebih sepi',
     },
     accessibility: {
-      en: 'Moderate — the staircase is steep but well-maintained.',
-      id: 'Sedang — tangganya curam tapi terawat baik.',
+      en: 'Moderate — the beach requires a steep but well-maintained staircase; a viewpoint-only visit is shorter and less demanding.',
+      id: 'Sedang — akses ke pantai menggunakan tangga yang curam tetapi terawat baik; kunjungan hanya ke viewpoint lebih singkat dan tidak terlalu berat.',
     },
     heroImage: '/images/East%20Trip/East%20trip%20DIAMOND%20BEACH.jpeg',
     images: [
@@ -342,32 +348,34 @@ export const DESTINATIONS: Destination[] = [
     ],
     geo: { lat: -8.7639, lng: 115.6336 },
     description: {
-      en: 'A pristine bay framed by towering cliffs and dramatic rock formations. Calmer water than Kelingking and a peaceful place to swim.',
-      id: 'Teluk asri dibingkai tebing tinggi dan formasi batu dramatis. Airnya lebih tenang daripada Kelingking dan tempat yang damai untuk berenang.',
+      en: 'A pristine bay framed by towering cliffs and dramatic rock formations, with generally calmer water and space to swim when conditions allow.',
+      id: 'Teluk asri yang dibingkai tebing tinggi dan formasi batu dramatis, dengan air yang umumnya lebih tenang untuk berenang saat kondisi memungkinkan.',
     },
     body: {
       en: [
-        'Atuh Beach lies in a deep bay protected by rock pillars rising straight from the sea. The water is calmer than the south coast, the sand is fine and white, and the swimming is among the safest of any beach on Nusa Penida. The trail down is steep but properly maintained.',
-        'You can walk all the way to the western end and reach a small natural arch. Local warungs at the top sell drinks and basic food. The atmosphere is much more relaxed than the busier west-coast viewpoints — Atuh feels like a hidden corner of the island even though it is included in most tour itineraries.',
+        'Atuh Beach lies in a deep bay protected by rock pillars rising straight from the sea. The water is generally calmer than the south coast and the sand is fine and white, making it one of the more approachable Nusa Penida beaches for a swim when conditions allow.',
+        'Reaching the sand requires a steep but properly maintained staircase. Allow about 30–45 minutes for a viewpoint and short stop, or 60–90 minutes if you walk down, swim, visit the natural arch at the western end, and climb back up.',
+        'Local warungs at the viewpoint sell drinks and basic food. Because they are at the top, carry the water and other essentials you need for the stairs and beach. The atmosphere is more relaxed than the busier west-coast viewpoints, but calmer water is not a guarantee—check the conditions before entering and stay close to shore.',
         'Atuh Beach is part of our East Trip and Mix Trip packages, paired with Diamond Beach which is just five minutes away.',
       ],
       id: [
-        'Atuh Beach terletak di teluk dalam yang dilindungi pilar batu yang menjulang langsung dari laut. Airnya lebih tenang daripada pantai selatan, pasirnya halus dan putih, dan berenangnya termasuk paling aman di antara pantai-pantai Nusa Penida. Jalur turunnya curam tapi terawat baik.',
-        'Anda bisa berjalan ke ujung barat dan sampai ke lengkungan batu alami kecil. Warung-warung lokal di atas menjual minuman dan makanan dasar. Suasananya jauh lebih santai dibanding viewpoint-viewpoint pantai barat yang ramai — Atuh terasa seperti sudut pulau yang tersembunyi meskipun masuk dalam mayoritas itinerary tur.',
+        'Atuh Beach terletak di teluk dalam yang dilindungi pilar batu yang menjulang langsung dari laut. Airnya umumnya lebih tenang daripada pantai selatan dan pasirnya halus serta putih, sehingga Atuh termasuk pantai Nusa Penida yang lebih mudah dinikmati untuk berenang saat kondisi memungkinkan.',
+        'Untuk mencapai pasir, Anda perlu melewati tangga yang curam tetapi terawat baik. Sisihkan sekitar 30–45 menit untuk viewpoint dan kunjungan singkat, atau 60–90 menit jika Anda turun, berenang, mengunjungi lengkungan batu alami di ujung barat, lalu naik kembali.',
+        'Warung lokal di area viewpoint menjual minuman dan makanan sederhana. Karena warung berada di atas, bawalah air dan kebutuhan lain yang diperlukan untuk tangga dan pantai. Suasananya lebih santai daripada viewpoint pesisir barat yang ramai, tetapi air yang lebih tenang bukan jaminan—periksa kondisi sebelum masuk dan tetaplah dekat pantai.',
         'Atuh Beach termasuk dalam paket East Trip dan Mix Trip kami, dipasangkan dengan Diamond Beach yang berjarak lima menit saja.',
       ],
     },
     highlights: {
       en: [
         'Calm bay protected by rock pillars',
-        'Safe to swim with calmer waves',
+        'Generally calmer water for swimming',
         'Natural arch at the west end',
         'Local warungs at the viewpoint',
         'Pairs with Diamond Beach (5 min away)',
       ],
       id: [
         'Teluk tenang yang dilindungi pilar batu',
-        'Aman untuk berenang, ombak lebih tenang',
+        'Air yang umumnya lebih tenang untuk berenang',
         'Lengkungan batu alami di ujung barat',
         'Warung lokal di area viewpoint',
         'Berpasangan dengan Diamond Beach (5 menit)',
@@ -376,11 +384,15 @@ export const DESTINATIONS: Destination[] = [
     tips: {
       en: [
         'Bring a swimsuit and towel — this is one of the few beaches you can actually swim at',
+        'Allow 30–45 minutes for a short stop or 60–90 minutes if you descend and swim',
+        'Check the water before entering and stay close to shore even when the bay looks calm',
         'Walk to the western arch for a quieter spot',
         'Sunset paints the cliffs gold, but plan the trip back before dark',
       ],
       id: [
         'Bawa baju renang dan handuk — ini salah satu pantai yang benar-benar bisa untuk berenang',
+        'Sisihkan 30–45 menit untuk kunjungan singkat atau 60–90 menit jika turun dan berenang',
+        'Periksa kondisi air sebelum masuk dan tetap dekat pantai meskipun teluk terlihat tenang',
         'Jalan ke lengkungan barat untuk spot yang lebih sepi',
         'Matahari terbenam mewarnai tebing menjadi emas, tapi atur perjalanan pulang sebelum gelap',
       ],
@@ -390,8 +402,8 @@ export const DESTINATIONS: Destination[] = [
       id: 'Sore (14.00–16.00) untuk berenang dan tebing keemasan',
     },
     accessibility: {
-      en: 'Moderate — staircase down to the beach.',
-      id: 'Sedang — tangga turun ke pantai.',
+      en: 'Moderate — a maintained but steep staircase leads down to the beach, with the return climb requiring extra time.',
+      id: 'Sedang — tangga yang terawat tetapi curam menuju pantai, dan perjalanan naik kembali memerlukan waktu tambahan.',
     },
     heroImage: '/images/East%20Trip/East%20trip%20ATUH%20BEACH.jpeg',
     images: ['/images/East%20Trip/East%20trip%20ATUH%20BEACH.jpeg'],
@@ -413,13 +425,15 @@ export const DESTINATIONS: Destination[] = [
     },
     body: {
       en: [
-        'Crystal Bay is the gentle face of Nusa Penida. The bay is wide and shallow near shore, the water is clear enough to see fish without snorkelling, and rows of coconut trees provide natural shade. It is the only beach where small children can play comfortably.',
-        'The bay is also the launch point for snorkeling boats heading to Manta Bay and Gamat Bay. If you stay until sunset, the beach faces directly into the western horizon, framed by the silhouette of the offshore island Nusa Lembongan.',
+        'Crystal Bay is one of the easiest Nusa Penida beaches to access: the road reaches the beach and there are no stairs. The bay is wide and shallow near shore, the water is clear enough to see fish without snorkelling, and rows of coconut trees provide natural shade. It is one of the more comfortable choices for families, although children still need close supervision around the water.',
+        'Allow about 30–45 minutes for a quick look, or 60–90 minutes for a relaxed swim or shore snorkel. Stay longer if sunset is part of your plan. Coconut shade and local warungs make it easier to pause here than at the island’s steep cliff beaches.',
+        'The bay is also the launch point for snorkeling boats heading to Manta Bay and Gamat Bay. Stay close to shore when swimming or snorkelling because the channel between Nusa Penida and Nusa Lembongan has currents. At sunset, the beach faces the western horizon, framed by the silhouette of Nusa Lembongan.',
         'Crystal Bay appears in our West Trip and Mix Trip itineraries.',
       ],
       id: [
-        'Crystal Bay adalah sisi lembut Nusa Penida. Teluknya luas dan dangkal dekat pantai, airnya jernih sampai bisa melihat ikan tanpa snorkeling, dan deretan pohon kelapa memberikan teduh alami. Ini satu-satunya pantai yang aman untuk anak kecil bermain.',
-        'Teluk ini juga titik berangkat perahu snorkeling yang menuju Manta Bay dan Gamat Bay. Kalau Anda tinggal sampai matahari terbenam, pantai ini menghadap langsung ke barat, dibingkai siluet pulau Nusa Lembongan.',
+        'Crystal Bay termasuk pantai Nusa Penida yang paling mudah diakses: jalan mencapai area pantai dan tidak ada tangga. Teluknya luas dan dangkal dekat pantai, airnya jernih sampai ikan dapat terlihat tanpa snorkeling, dan deretan pohon kelapa memberikan teduh alami. Pantai ini menjadi salah satu pilihan yang lebih nyaman untuk keluarga, meskipun anak-anak tetap harus diawasi dengan ketat di dekat air.',
+        'Sisihkan sekitar 30–45 menit untuk kunjungan singkat, atau 60–90 menit untuk berenang santai atau snorkeling dekat pantai. Tinggallah lebih lama jika ingin menunggu matahari terbenam. Teduh pohon kelapa dan warung lokal membuat Crystal Bay lebih nyaman untuk beristirahat dibanding pantai-pantai tebing yang curam.',
+        'Teluk ini juga menjadi titik keberangkatan perahu snorkeling menuju Manta Bay dan Gamat Bay. Tetaplah dekat pantai saat berenang atau snorkeling karena selat antara Nusa Penida dan Nusa Lembongan memiliki arus. Saat matahari terbenam, pantai menghadap cakrawala barat dengan siluet Nusa Lembongan.',
         'Crystal Bay ada di rute West Trip dan Mix Trip kami.',
       ],
     },
@@ -442,11 +456,15 @@ export const DESTINATIONS: Destination[] = [
     tips: {
       en: [
         'Bring snorkel gear — fish swim near the rocks at the south end',
+        'Allow 30–45 minutes for a quick stop or 60–90 minutes for swimming and shore snorkeling',
+        'Supervise children closely even in the shallower water near shore',
         'Stay for sunset if your itinerary allows',
         'Avoid swimming far out — the channel between Penida and Lembongan has currents',
       ],
       id: [
         'Bawa peralatan snorkel — ikan-ikan berenang dekat batu di ujung selatan',
+        'Sisihkan 30–45 menit untuk kunjungan singkat atau 60–90 menit untuk berenang dan snorkeling dekat pantai',
+        'Awasi anak-anak dengan ketat meskipun berada di air dangkal dekat pantai',
         'Tinggal sampai sunset kalau jadwal memungkinkan',
         'Jangan berenang terlalu jauh — selat antara Penida dan Lembongan punya arus',
       ],
@@ -456,8 +474,8 @@ export const DESTINATIONS: Destination[] = [
       id: 'Sore menjelang matahari terbenam',
     },
     accessibility: {
-      en: 'Easy — drive directly to the beach, no stairs.',
-      id: 'Mudah — bisa langsung ke pantai, tanpa tangga.',
+      en: 'Easy — the road reaches the beach area and there are no stairs, making this a less demanding stop than the cliff beaches.',
+      id: 'Mudah — jalan mencapai area pantai dan tidak ada tangga, sehingga kunjungan ini lebih ringan daripada pantai-pantai tebing.',
     },
     heroImage: '/images/West%20Trip/West%20trip%20CRYSTAL%20BAY%20BEACH.jpeg',
     images: [

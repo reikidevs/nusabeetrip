@@ -7,6 +7,7 @@ import WhatsAppBookingButton from './WhatsAppBookingButton';
 import Image from 'next/image';
 import { useLanguage } from '@/lib/LanguageContext';
 import { formatPriceByLang } from '@/lib/currency';
+import { localizedPath } from '@/lib/site-config';
 
 interface TourPackageCardProps {
   tourPackage: TourPackage;
@@ -32,7 +33,7 @@ const TourPackageCard: React.FC<TourPackageCardProps> = ({
     image
   } = tourPackage;
 
-  const detailHref = `/tours/${slug}`;
+  const detailHref = localizedPath(`/tours/${slug}`, language);
 
   const handleBookingClick = () => {
     if (onBookingClick) {

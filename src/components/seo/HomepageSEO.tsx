@@ -29,7 +29,7 @@ export const HOMEPAGE_FAQ: Record<Language, HomepageFaqItem[]> = {
     {
       question: 'How much does a Nusa Penida tour cost?',
       answer:
-        'Tour prices start from IDR 200,000 for Manta Ray Snorkeling, IDR 390,000 for West Trip, IDR 430,000 for East Trip, and IDR 500,000 for Mix Trip. All prices include transport, guide, and entrance fees.',
+        'Tour prices start from IDR 200,000 for Manta Ray Snorkeling, IDR 390,000 for West Trip, IDR 430,000 for East Trip, and IDR 500,000 for Mix Trip. Packages include transport, a guide, island tax, and parking. Attraction entrance fees are paid separately where applicable.',
     },
     {
       question: 'How do I get to Nusa Penida from Bali?',
@@ -61,7 +61,7 @@ export const HOMEPAGE_FAQ: Record<Language, HomepageFaqItem[]> = {
     {
       question: 'Berapa harga paket tour Nusa Penida?',
       answer:
-        'Harga tour mulai dari Rp 200.000 untuk Snorkeling Manta Ray, Rp 390.000 untuk West Trip, Rp 430.000 untuk East Trip, dan Rp 500.000 untuk Mix Trip. Harga termasuk transportasi, pemandu, dan tiket masuk.',
+        'Harga tour mulai dari Rp 200.000 untuk Snorkeling Manta Ray, Rp 390.000 untuk West Trip, Rp 430.000 untuk East Trip, dan Rp 500.000 untuk Mix Trip. Paket termasuk transportasi, pemandu, pajak pulau, dan parkir. Tiket masuk objek wisata dibayar terpisah jika berlaku.',
     },
     {
       question: 'Bagaimana cara ke Nusa Penida dari Bali?',
@@ -93,19 +93,20 @@ type HomepageSEOProps = {
 export default function HomepageSEO({ language = 'en' }: HomepageSEOProps) {
   const faq = HOMEPAGE_FAQ[language];
   const href = (path: string) => absoluteUrl(localizedPath(path, language));
+  const isIndonesian = language === 'id';
 
   const tourItems = [
     { name: 'West Trip Nusa Penida', url: href('/tours/west-trip'), image: '/images/West%20Trip/West%20trip%20%20kelingking%20beach.jpeg' },
     { name: 'East Trip Nusa Penida', url: href('/tours/east-trip'), image: '/images/East%20Trip/East%20trip%20DIAMOND%20BEACH.jpeg' },
     { name: 'Mix Trip (West & East)', url: href('/tours/mix-trip'), image: '/images/Mix%20Trip%20View%20Thoussand%20Island%20and%20Crystal%20bay%20Beach.png' },
-    { name: 'Snorkeling with Manta Rays', url: href('/tours/snorkeling-manta'), image: '/images/Snorkeling%20%2B%20Manta%20Rays/snorkeling%201.jpeg' },
-    { name: 'Yamaha N-Max Rental', url: href('/rentals/nmax-motorcycle'), image: '/images/Vehicle%20Rentals/Yamaha%20N-Max.webp' },
-    { name: 'Car with Driver', url: href('/rentals/car-rental'), image: '/images/Vehicle%20Rentals/Car%20with%20Driver.jpg' },
+    { name: isIndonesian ? 'Snorkeling Pari Manta' : 'Snorkeling with Manta Rays', url: href('/tours/snorkeling-manta'), image: '/images/Snorkeling%20%2B%20Manta%20Rays/snorkeling%201.jpeg' },
+    { name: isIndonesian ? 'Sewa Yamaha N-Max' : 'Yamaha N-Max Rental', url: href('/rentals/nmax-motorcycle'), image: '/images/Vehicle%20Rentals/Yamaha%20N-Max.webp' },
+    { name: isIndonesian ? 'Mobil dengan Sopir' : 'Car with Driver', url: href('/rentals/car-rental'), image: '/images/Vehicle%20Rentals/Car%20with%20Driver.jpg' },
   ];
 
   return (
     <>
-      <JsonLd id="ld-homepage" data={homepageJsonLd()} />
+      <JsonLd id="ld-homepage" data={homepageJsonLd(language)} />
       <JsonLd id="ld-homepage-faq" data={faqJsonLd(faq)} />
       <JsonLd
         id="ld-homepage-itemlist"

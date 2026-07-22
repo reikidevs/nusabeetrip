@@ -1,21 +1,27 @@
-import { Metadata } from 'next';
-import Link from 'next/link';
+import type { Metadata } from 'next';
+import { headers } from 'next/headers';
 import Image from 'next/image';
+import Link from 'next/link';
 import { JsonLd } from '@/components/seo';
 import {
-  buildMetadata,
   breadcrumbJsonLd,
+  buildMetadata,
   faqJsonLd,
-  serviceJsonLd,
   itemListJsonLd,
+  serviceJsonLd,
 } from '@/lib/seo';
-import { absoluteUrl } from '@/lib/site-config';
+import {
+  absoluteUrl,
+  localeFromPath,
+  localizedPath,
+  type SiteLocale,
+} from '@/lib/site-config';
 import { TOUR_PACKAGES } from '@/lib/constants';
 
 export const metadata: Metadata = buildMetadata({
   title: 'Best Day Trip from Bali — Nusa Penida Tours',
   description:
-    'Looking for the best day trip from Bali? Nusa Penida is the #1 choice — Kelingking Beach, manta ray snorkeling & iconic cliffs. Full-day tours from 390K IDR, hotel pickup included.',
+    'Plan a Nusa Penida day trip from Bali for Kelingking Beach, iconic cliffs, or manta snorkeling. Island tours start at 390K IDR with Nusa Penida pickup.',
   path: '/bali-day-trip',
   keywords: [
     'best day trip from bali',
@@ -31,36 +37,140 @@ export const metadata: Metadata = buildMetadata({
   imageAlt: 'Best day trip from Bali — Kelingking Beach Nusa Penida',
 });
 
-const FAQ = [
-  {
-    question: 'What is the best day trip from Bali?',
-    answer:
-      'Nusa Penida is widely considered the best day trip from Bali. A 30-minute fast boat from Sanur takes you to iconic spots like Kelingking Beach, Broken Beach, and Diamond Beach, plus year-round manta ray snorkeling. A full-day guided tour with NusaBeeTrip starts from IDR 390,000 with hotel pickup included.',
+const FAQ: Record<SiteLocale, Array<{ question: string; answer: string }>> = {
+  en: [
+    {
+      question: 'What is the best day trip from Bali?',
+      answer:
+        'Nusa Penida is one of the most popular day trips from Bali. A 30–45 minute fast boat from Sanur takes you to iconic spots such as Kelingking Beach, Broken Beach, and Diamond Beach, with manta ray snorkeling also available. NusaBeeTrip land tours start from IDR 390,000 with pickup on Nusa Penida included.',
+    },
+    {
+      question: 'How long is the trip from Bali to Nusa Penida?',
+      answer:
+        'The fast boat from Sanur Beach to Nusa Penida usually takes about 30–45 minutes. Take an early departure to leave enough time for a full day on the island.',
+    },
+    {
+      question: 'Can I see Nusa Penida in one day from Bali?',
+      answer:
+        'Yes. A guided full-day itinerary can cover the key viewpoints efficiently. The Mix Trip combines selected west- and east-coast stops in one eight-hour island tour.',
+    },
+    {
+      question: 'Is a Nusa Penida day trip worth it?',
+      answer:
+        'It is a strong choice if you enjoy dramatic cliffs, beaches, and viewpoints. A guided tour handles the island roads and local routing so you can spend more time at the stops.',
+    },
+  ],
+  id: [
+    {
+      question: 'Apa day trip terbaik dari Bali?',
+      answer:
+        'Nusa Penida adalah salah satu pilihan day trip paling populer dari Bali. Fast boat selama sekitar 30–45 menit dari Sanur membawa Anda menuju spot ikonik seperti Kelingking Beach, Broken Beach, dan Diamond Beach, dengan opsi snorkeling pari manta. Tur darat NusaBeeTrip mulai dari Rp390.000 dan sudah termasuk penjemputan di Nusa Penida.',
+    },
+    {
+      question: 'Berapa lama perjalanan dari Bali ke Nusa Penida?',
+      answer:
+        'Fast boat dari Pantai Sanur ke Nusa Penida biasanya memerlukan waktu sekitar 30–45 menit. Pilih keberangkatan pagi agar waktu menjelajahi pulau lebih maksimal.',
+    },
+    {
+      question: 'Bisakah Nusa Penida dikunjungi sehari dari Bali?',
+      answer:
+        'Bisa. Itinerary dengan pemandu dapat mengunjungi viewpoint utama secara efisien dalam sehari. Mix Trip menggabungkan beberapa spot pilihan di bagian barat dan timur dalam tur pulau selama delapan jam.',
+    },
+    {
+      question: 'Apakah day trip ke Nusa Penida sepadan?',
+      answer:
+        'Nusa Penida cocok untuk wisatawan yang menyukai tebing dramatis, pantai, dan viewpoint. Tur berpemandu membantu menangani rute serta kondisi jalan pulau agar waktu di setiap spot lebih efektif.',
+    },
+  ],
+};
+
+const COPY = {
+  en: {
+    breadcrumbHome: 'Home',
+    breadcrumbPage: 'Best Day Trip from Bali',
+    serviceName: 'Nusa Penida Day Trip from Bali',
+    serviceDescription:
+      'Full-day guided island tour in Nusa Penida with pickup, local transport, and an efficient sightseeing itinerary. Fast-boat tickets from Bali are booked separately.',
+    listName: 'Best Day Trips from Bali to Nusa Penida',
+    listDescription: 'Guided full-day tour packages for a Bali to Nusa Penida day trip.',
+    heroAria: 'Best day trip from Bali',
+    heroTitle: 'The Best Day Trip from Bali',
+    heroBeforePrice:
+      'Nusa Penida brings towering cliffs, hidden beaches, and wild manta rays into one memorable day. Full-day guided island tours start from',
+    heroAfterPrice: 'with pickup on Nusa Penida included.',
+    viewTours: 'View Tour Packages',
+    howToGetThere: 'How to Get There',
+    whyTitle: 'Why Nusa Penida Is a Great Day Trip from Bali',
+    whyParagraphs: [
+      'Few day trips from Bali deliver as much scenery in one day as Nusa Penida. A 30–45 minute fast boat from Sanur reaches an island of limestone cliffs, turquoise bays, and the famous Kelingking Beach viewpoint.',
+      'With a realistic itinerary, you can choose west-coast icons, east-coast beaches, a combined route, or a dedicated snorkeling trip. Our guided tours coordinate pickup on Nusa Penida and the island route; fast-boat tickets from Bali are booked separately.',
+    ],
+    toursTitle: 'Choose Your Nusa Penida Day Trip',
+    fromPrice: (price: number) => `From IDR ${price.toLocaleString('id-ID')}`,
+    faqTitle: 'Bali to Nusa Penida Day Trip FAQ',
+    ctaTitle: 'Ready for Your Nusa Penida Day Trip?',
+    ctaBody:
+      'Message us to confirm availability and plan your pickup, island route, and timing. We will also explain which fast boat to book from Bali.',
+    ctaButton: 'Plan Your Tour',
+    imageAlt: (name: string) => `${name} — day trip from Bali to Nusa Penida`,
   },
-  {
-    question: 'How long is the trip from Bali to Nusa Penida?',
-    answer:
-      'The fast boat from Sanur Beach to Nusa Penida takes about 30–45 minutes. Boats run daily from 07:00 to 16:00. We recommend the early boat so you get a full day on the island.',
+  id: {
+    breadcrumbHome: 'Beranda',
+    breadcrumbPage: 'Day Trip Nusa Penida dari Bali',
+    serviceName: 'Day Trip Nusa Penida dari Bali',
+    serviceDescription:
+      'Tur pulau Nusa Penida sehari penuh dengan penjemputan, transportasi lokal, dan itinerary wisata yang efisien. Tiket fast boat dari Bali dipesan terpisah.',
+    listName: 'Pilihan Day Trip Nusa Penida dari Bali',
+    listDescription: 'Paket tur berpemandu sehari penuh untuk perjalanan dari Bali ke Nusa Penida.',
+    heroAria: 'Day trip Nusa Penida dari Bali',
+    heroTitle: 'Day Trip Nusa Penida Terbaik dari Bali',
+    heroBeforePrice:
+      'Nikmati tebing dramatis, pantai tersembunyi, dan pari manta dalam perjalanan satu hari yang berkesan. Tur pulau sehari penuh mulai dari',
+    heroAfterPrice: 'dengan penjemputan di Nusa Penida.',
+    viewTours: 'Lihat Paket Tur',
+    howToGetThere: 'Panduan Cara ke Sana',
+    whyTitle: 'Mengapa Nusa Penida Cocok untuk Day Trip dari Bali',
+    whyParagraphs: [
+      'Nusa Penida menawarkan banyak pemandangan dalam satu hari. Perjalanan fast boat sekitar 30–45 menit dari Sanur membawa Anda menuju pulau dengan tebing batu kapur, teluk biru toska, dan viewpoint Kelingking Beach yang terkenal.',
+      'Dengan itinerary yang realistis, Anda dapat memilih ikon pesisir barat, pantai timur, rute gabungan, atau trip khusus snorkeling. Tur kami mengatur penjemputan di Nusa Penida dan rute di pulau; tiket fast boat dari Bali dipesan terpisah.',
+    ],
+    toursTitle: 'Pilih Day Trip Nusa Penida',
+    fromPrice: (price: number) => `Mulai Rp${price.toLocaleString('id-ID')}`,
+    faqTitle: 'FAQ Day Trip Bali ke Nusa Penida',
+    ctaTitle: 'Siap Menjelajahi Nusa Penida?',
+    ctaBody:
+      'Hubungi kami untuk mengecek ketersediaan serta merencanakan penjemputan, rute pulau, dan waktu perjalanan. Kami juga akan menjelaskan fast boat yang perlu dipesan dari Bali.',
+    ctaButton: 'Rencanakan Tur Anda',
+    imageAlt: (name: string) => `${name} — day trip dari Bali ke Nusa Penida`,
   },
-  {
-    question: 'Can I see Nusa Penida in one day from Bali?',
-    answer:
-      'Yes. Our Mix Trip combines the best of the west and east coasts in a single 8-hour day. If you only have one day, this is the most efficient way to see the famous viewpoints.',
-  },
-  {
-    question: 'Is a Nusa Penida day trip worth it?',
-    answer:
-      'Absolutely. The cliffs and beaches are among the most striking in Indonesia. A guided tour handles the rough island roads and boat logistics so you can focus on the scenery.',
-  },
-];
+} as const;
+
+const TOUR_DESCRIPTIONS_ID: Record<string, string> = {
+  'west-trip':
+    'Jelajahi Kelingking Beach, Angel Billabong, Broken Beach, dan Crystal Bay dalam rute pesisir barat.',
+  'east-trip':
+    'Kunjungi Diamond Beach, Atuh Beach, Rumah Pohon, dan viewpoint Thousand Islands di pesisir timur.',
+  'west-trip-snorkeling':
+    'Gabungkan spot utama pesisir barat dengan pengalaman snorkeling di perairan Nusa Penida.',
+  'east-trip-snorkeling':
+    'Padukan pantai dan viewpoint di bagian timur dengan sesi snorkeling berpemandu.',
+  'mix-trip':
+    'Kunjungi beberapa spot pilihan dari bagian barat dan timur Nusa Penida dalam satu hari.',
+  'snorkeling-manta':
+    'Jelajahi beberapa spot snorkeling dan cari kesempatan berenang bersama pari manta liar.',
+};
 
 export default function BaliDayTripPage() {
-  const activeTours = TOUR_PACKAGES.filter((t) => t.isActive);
-
-  const tourItems = activeTours.map((t) => ({
-    name: t.name,
-    url: absoluteUrl(`/tours/${t.slug}`),
-    image: t.image,
+  const locale = localeFromPath(headers().get('x-pathname') || '/');
+  const isIndonesian = locale === 'id';
+  const copy = COPY[locale];
+  const faq = FAQ[locale];
+  const pagePath = localizedPath('/bali-day-trip', locale);
+  const activeTours = TOUR_PACKAGES.filter((tour) => tour.isActive);
+  const tourItems = activeTours.map((tour) => ({
+    name: tour.name,
+    url: absoluteUrl(localizedPath(`/tours/${tour.slug}`, locale)),
+    image: tour.image,
   }));
 
   return (
@@ -68,41 +178,41 @@ export default function BaliDayTripPage() {
       <JsonLd
         id="ld-breadcrumbs-bali-day-trip"
         data={breadcrumbJsonLd([
-          { name: 'Home', path: '/' },
-          { name: 'Best Day Trip from Bali', path: '/bali-day-trip' },
+          { name: copy.breadcrumbHome, path: localizedPath('/', locale) },
+          { name: copy.breadcrumbPage, path: pagePath },
         ])}
       />
-      <JsonLd id="ld-bali-day-trip-faq" data={faqJsonLd(FAQ)} />
+      <JsonLd id="ld-bali-day-trip-faq" data={faqJsonLd(faq)} />
       <JsonLd
         id="ld-bali-day-trip-service"
         data={serviceJsonLd({
-          name: 'Nusa Penida Day Trip from Bali',
-          description:
-            'Full-day guided tour to Nusa Penida from Bali — iconic viewpoints, beaches, and manta ray snorkeling. Hotel pickup and boat coordination included.',
+          name: copy.serviceName,
+          description: copy.serviceDescription,
           areaServed: 'Bali, Indonesia',
           price: 390000,
           currency: 'IDR',
           image: '/images/West%20Trip/West%20Trip%20Kelingking%20Beach%204.jpeg',
-          url: '/bali-day-trip',
+          url: pagePath,
         })}
       />
       <JsonLd
         id="ld-bali-day-trip-itemlist"
         data={itemListJsonLd({
-          name: 'Best Day Trips from Bali to Nusa Penida',
-          description:
-            'Guided full-day tour packages from Bali to Nusa Penida',
+          name: copy.listName,
+          description: copy.listDescription,
           items: tourItems,
         })}
       />
 
       <main className="min-h-screen">
-        {/* Hero */}
-        <section className="relative text-white overflow-hidden" aria-label="Best day trip from Bali">
+        <section
+          className="relative text-white overflow-hidden"
+          aria-label={copy.heroAria}
+        >
           <div className="absolute inset-0">
             <Image
               src="/images/West%20Trip/West%20Trip%20Kelingking%20Beach%204.jpeg"
-              alt="Best day trip from Bali — Kelingking Beach, Nusa Penida"
+              alt={copy.imageAlt('Kelingking Beach')}
               fill
               className="object-cover"
               priority
@@ -113,75 +223,60 @@ export default function BaliDayTripPage() {
           <div className="container mx-auto px-4 sm:px-6 py-20 sm:py-28 md:py-36 relative">
             <div className="max-w-3xl mx-auto text-center">
               <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-5 leading-tight tracking-tight">
-                The Best Day Trip from Bali
+                {copy.heroTitle}
               </h1>
               <p className="hero-description text-base sm:text-lg md:text-xl text-white/90 mb-8 max-w-2xl mx-auto">
-                Nusa Penida is the #1 day trip from Bali — towering cliffs,
-                hidden beaches, and wild manta rays, all in one unforgettable
-                day. Full-day guided tours from{' '}
-                <span className="font-semibold">390K IDR</span> with hotel
-                pickup included.
+                {copy.heroBeforePrice}{' '}
+                <span className="font-semibold">390K IDR</span>{' '}
+                {copy.heroAfterPrice}
               </p>
               <div className="flex flex-col sm:flex-row gap-3 justify-center">
                 <Link
-                  href="/tours"
+                  href={localizedPath('/tours', locale)}
                   className="inline-flex items-center justify-center bg-white text-brand-blue-900 font-semibold px-6 py-3 rounded-full hover:bg-white/90 transition-colors"
                 >
-                  View Tour Packages
+                  {copy.viewTours}
                 </Link>
                 <Link
-                  href="/guides/how-to-get-to-nusa-penida"
+                  href={localizedPath('/guides/how-to-get-to-nusa-penida', locale)}
                   className="inline-flex items-center justify-center bg-white/15 backdrop-blur-sm border border-white/30 text-white font-semibold px-6 py-3 rounded-full hover:bg-white/25 transition-colors"
                 >
-                  How to Get There
+                  {copy.howToGetThere}
                 </Link>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Why Nusa Penida */}
         <section className="py-14 sm:py-20 bg-white">
           <div className="container mx-auto px-4 sm:px-6 max-w-4xl">
             <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-6 text-center">
-              Why Nusa Penida Is the Best Tour from Bali
+              {copy.whyTitle}
             </h2>
             <div className="prose prose-lg max-w-none text-gray-700 space-y-4">
-              <p>
-                Of all the day trips you can take from Bali, none delivers as
-                much drama in a single day as Nusa Penida. A short 30-minute
-                fast boat from Sanur drops you onto an island of limestone
-                cliffs, turquoise bays, and the most photographed beach in
-                Indonesia — <strong>Kelingking Beach</strong>.
-              </p>
-              <p>
-                In one full day you can stand above the famous T-Rex cliff, walk
-                the natural arch at Broken Beach, descend to Diamond Beach, and
-                snorkel beside wild manta rays. Our guided tours handle the boat
-                timing, the rough island roads, and hotel pickup, so your day is
-                pure sightseeing.
-              </p>
+              {copy.whyParagraphs.map((paragraph) => (
+                <p key={paragraph}>{paragraph}</p>
+              ))}
             </div>
           </div>
         </section>
 
-        {/* Tour cards */}
         <section className="py-14 sm:py-20 bg-gray-50">
           <div className="container mx-auto px-4 sm:px-6">
             <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-10 text-center">
-              Choose Your Bali Day Trip
+              {copy.toursTitle}
             </h2>
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 max-w-6xl mx-auto">
-              {activeTours.map((t) => (
+              {activeTours.map((tour) => (
                 <Link
-                  key={t.id}
-                  href={`/tours/${t.slug}`}
+                  key={tour.id}
+                  href={localizedPath(`/tours/${tour.slug}`, locale)}
                   className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow"
                 >
                   <div className="relative aspect-[4/3]">
                     <Image
-                      src={t.image}
-                      alt={`${t.name} — day trip from Bali to Nusa Penida`}
+                      src={tour.image}
+                      alt={copy.imageAlt(tour.name)}
                       fill
                       className="object-cover group-hover:scale-105 transition-transform duration-300"
                       sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
@@ -189,13 +284,15 @@ export default function BaliDayTripPage() {
                   </div>
                   <div className="p-5">
                     <h3 className="text-lg font-semibold text-gray-900 mb-1">
-                      {t.name}
+                      {tour.name}
                     </h3>
                     <p className="text-sm text-gray-600 line-clamp-2">
-                      {t.description}
+                      {isIndonesian
+                        ? TOUR_DESCRIPTIONS_ID[tour.slug] || `Paket tur ${tour.name} di Nusa Penida.`
+                        : tour.description}
                     </p>
                     <p className="mt-3 text-brand-blue-700 font-semibold">
-                      From IDR {t.price.toLocaleString('id-ID')}
+                      {copy.fromPrice(tour.price)}
                     </p>
                   </div>
                 </Link>
@@ -204,18 +301,14 @@ export default function BaliDayTripPage() {
           </div>
         </section>
 
-        {/* FAQ */}
         <section className="py-14 sm:py-20 bg-white">
           <div className="container mx-auto px-4 sm:px-6 max-w-3xl">
             <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-8 text-center">
-              Bali Day Trip FAQ
+              {copy.faqTitle}
             </h2>
             <div className="space-y-4">
-              {FAQ.map((item) => (
-                <details
-                  key={item.question}
-                  className="group rounded-xl border border-gray-200 p-5"
-                >
+              {faq.map((item) => (
+                <details key={item.question} className="group rounded-xl border border-gray-200 p-5">
                   <summary className="cursor-pointer font-semibold text-gray-900 list-none flex justify-between items-center">
                     {item.question}
                     <span className="text-brand-blue-600 group-open:rotate-45 transition-transform text-xl">
@@ -229,22 +322,17 @@ export default function BaliDayTripPage() {
           </div>
         </section>
 
-        {/* CTA */}
         <section className="py-14 sm:py-16 bg-brand-blue-900 text-white">
           <div className="container mx-auto px-4 sm:px-6 max-w-3xl text-center">
             <h2 className="text-2xl sm:text-3xl font-bold mb-4">
-              Ready for the Best Day Trip from Bali?
+              {copy.ctaTitle}
             </h2>
-            <p className="text-white/90 mb-7">
-              Message us on WhatsApp and we&apos;ll confirm availability in
-              minutes — hotel pickup, boat coordination, and a local guide all
-              sorted.
-            </p>
+            <p className="text-white/90 mb-7">{copy.ctaBody}</p>
             <Link
-              href="/contact"
+              href={localizedPath('/contact', locale)}
               className="inline-flex items-center justify-center bg-white text-brand-blue-900 font-semibold px-7 py-3 rounded-full hover:bg-white/90 transition-colors"
             >
-              Book Your Tour
+              {copy.ctaButton}
             </Link>
           </div>
         </section>

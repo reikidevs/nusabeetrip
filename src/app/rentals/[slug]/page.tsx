@@ -1,10 +1,13 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import { headers } from 'next/headers';
 import { getRentalServiceBySlug, getRentalServices } from '@/lib/db/queries';
 import { RENTAL_SERVICES } from '@/lib/constants';
 import { JsonLd } from '@/components/seo';
 import { buildMetadata, breadcrumbJsonLd, faqJsonLd, serviceJsonLd } from '@/lib/seo';
+import { formatRentalList, getRentalIncludedBenefits } from '@/lib/rentals';
 import type { RentalService } from '@/types';
+import { localeFromPath, localizedPath } from '@/lib/site-config';
 import RentalDetailContent from './RentalDetailContent';
 
 export const dynamic = 'force-dynamic';
@@ -74,17 +77,17 @@ export async function generateMetadata({
   }
 
   const priceDisplay = `${(rental.pricePerDay / 1000).toFixed(0)}K IDR`;
-  const vehicleLabel =
-    rental.vehicleType === 'car' ? 'Car Rental' : 'Motorcycle Rental';
+  const isCar = rental.vehicleType === 'car';
+  const includedBenefits = getRentalIncludedBenefits(rental, 'en');
+  const inclusionCopy = includedBenefits.length
+    ? ` Includes ${formatRentalList(includedBenefits, 'en')}.`
+    : '';
 
   return buildMetadata({
-    title: `${rental.model} ${vehicleLabel} Nusa Penida — From ${priceDisplay}/Day`,
-    description: `Rent a ${rental.model} in Nusa Penida for ${priceDisplay} per day. ${rental.features
-      .slice(0, 3)
-      .join(', ')}. Free delivery, helmet, and insurance included. Book on WhatsApp.`.slice(
-      0,
-      160,
-    ),
+    title: isCar
+      ? `Car with Driver Nusa Penida — From ${priceDisplay}`
+      : `${rental.model} Motorcycle Rental Nusa Penida — From ${priceDisplay}/Day`,
+    description: `${isCar ? 'Hire a car with driver' : `Rent a ${rental.model}`} in Nusa Penida for ${priceDisplay}${isCar ? '' : ' per day'}.${inclusionCopy} Book on WhatsApp.`.slice(0, 160),
     path: `/rentals/${rental.slug}`,
     keywords: [
       `${rental.model.toLowerCase()} rental nusa penida`,
@@ -104,6 +107,8 @@ export default async function RentalDetailPage({
 }) {
   const rental = await loadRental(params.slug);
   if (!rental) notFound();
+  const locale = localeFromPath(headers().get('x-pathname') || '/');
+  const isIndonesian = locale === 'id';
 
   // related rentals
   let related: RentalService[] = [];
@@ -130,53 +135,91 @@ export default async function RentalDetailPage({
     ).slice(0, 3);
   }
 
-  const rentalFaq = [
-    {
-      question: `How much does the ${rental.model} cost in Nusa Penida?`,
-      answer: `The ${rental.model} costs ${rental.pricePerDay.toLocaleString('id-ID')} IDR per day in Nusa Penida, with free delivery, helmet, and full tank included.`,
-    },
-    {
-      question: `Do I need a license to rent the ${rental.model}?`,
-      answer:
-        rental.vehicleType === 'motorcycle'
-          ? 'Yes, a valid international or local driving license for motorcycles is required. Minimum age is 18.'
-          : 'Our cars come with a professional driver, so no license is required from you.',
-    },
-    {
-      question: `Is delivery to my hotel included?`,
-      answer:
-        'Yes, free delivery and pickup is included anywhere in Nusa Penida. Just share your accommodation when booking.',
-    },
-    {
-      question: `What if something goes wrong during the rental?`,
-      answer:
-        'We provide 24/7 roadside support via WhatsApp. Insurance is included and any minor issues are handled at no extra cost.',
-    },
-  ];
+  const hasIncludedDriver = rental.features.some((feature) =>
+    /(?:professional driver|driver included)/i.test(feature),
+  );
+
+  const rentalFaq = isIndonesian
+    ? [
+        {
+          question: `Berapa harga sewa ${rental.model} di Nusa Penida?`,
+          answer: `Harga sewa ${rental.model} adalah ${rental.pricePerDay.toLocaleString('id-ID')} IDR per hari di Nusa Penida, termasuk pengantaran gratis dan perlengkapan yang tercantum pada paket.`,
+        },
+        {
+          question: `Apakah perlu SIM untuk menyewa ${rental.model}?`,
+          answer:
+            rental.vehicleType === 'motorcycle'
+              ? 'Ya. Anda memerlukan SIM internasional atau SIM lokal yang berlaku untuk sepeda motor dan harus berusia minimal 18 tahun.'
+              : hasIncludedDriver
+                ? 'Mobil ini disertai sopir profesional, jadi Anda tidak perlu memiliki SIM.'
+                : 'Hubungi kami untuk memastikan opsi sopir dan persyaratan SIM kendaraan ini.',
+        },
+        {
+          question: 'Apakah pengantaran ke hotel termasuk?',
+          answer:
+            'Ya. Pengantaran dan penjemputan gratis tersedia di area Nusa Penida. Beri tahu lokasi akomodasi saat memesan.',
+        },
+        {
+          question: 'Bagaimana jika terjadi kendala selama masa sewa?',
+          answer:
+            'Hubungi kami melalui WhatsApp untuk mendapatkan bantuan. Tim lokal kami akan membantu menangani kendala kendaraan secepat mungkin.',
+        },
+      ]
+    : [
+        {
+          question: `How much does the ${rental.model} cost in Nusa Penida?`,
+          answer: `The ${rental.model} costs ${rental.pricePerDay.toLocaleString('id-ID')} IDR per day in Nusa Penida, including free delivery and the equipment listed with the rental.`,
+        },
+        {
+          question: `Do I need a license to rent the ${rental.model}?`,
+          answer:
+            rental.vehicleType === 'motorcycle'
+              ? 'Yes, a valid international or local driving license for motorcycles is required. Minimum age is 18.'
+              : hasIncludedDriver
+                ? 'This car comes with a professional driver, so no license is required from you.'
+                : 'Contact us to confirm the driver option and licence requirements for this vehicle.',
+        },
+        {
+          question: 'Is delivery to my hotel included?',
+          answer:
+            'Yes, free delivery and pickup is available across Nusa Penida. Share your accommodation location when booking.',
+        },
+        {
+          question: 'What if something goes wrong during the rental?',
+          answer:
+            'Contact us on WhatsApp for assistance. Our local team will help resolve vehicle issues as quickly as possible.',
+        },
+      ];
+
+  const homePath = localizedPath('/', locale);
+  const rentalsPath = localizedPath('/rentals', locale);
+  const rentalPath = localizedPath(`/rentals/${rental.slug}`, locale);
+  const includedBenefits = getRentalIncludedBenefits(rental, locale);
+  const inclusionSummary = formatRentalList(includedBenefits, locale);
 
   return (
     <>
       <JsonLd
         id={`ld-breadcrumbs-rental-${rental.slug}`}
         data={breadcrumbJsonLd([
-          { name: 'Home', path: '/' },
-          { name: 'Rentals', path: '/rentals' },
-          { name: rental.model, path: `/rentals/${rental.slug}` },
+          { name: isIndonesian ? 'Beranda' : 'Home', path: homePath },
+          { name: isIndonesian ? 'Rental' : 'Rentals', path: rentalsPath },
+          { name: rental.model, path: rentalPath },
         ])}
       />
       <JsonLd
         id={`ld-service-${rental.slug}`}
         data={serviceJsonLd({
-          name: `${rental.model} rental`,
-          description: `${rental.model} rental in Nusa Penida — ${rental.features
-            .slice(0, 3)
-            .join(', ')}.`,
+          name: isIndonesian ? `Sewa ${rental.model}` : `${rental.model} rental`,
+          description: isIndonesian
+            ? `Sewa ${rental.model} di Nusa Penida${inclusionSummary ? `, termasuk ${inclusionSummary}` : ''}. Pesan melalui WhatsApp.`
+            : `${rental.model} rental in Nusa Penida${inclusionSummary ? `, including ${inclusionSummary}` : ''}. Book through WhatsApp.`,
           price: rental.pricePerDay,
           currency: rental.currency,
           available: rental.isAvailable,
-          unitText: 'per day',
+          unitText: isIndonesian ? 'per hari' : 'per day',
           image: rental.image,
-          url: `/rentals/${rental.slug}`,
+          url: rentalPath,
           areaServed: 'Nusa Penida, Bali, Indonesia',
         })}
       />

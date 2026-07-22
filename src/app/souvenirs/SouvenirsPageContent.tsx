@@ -5,12 +5,14 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { SouvenirGrid } from '@/components/business';
 import { BreadcrumbNav } from '@/components/seo';
-import { SOUVENIRS } from '@/lib/constants';
 import { useLanguage } from '@/lib/LanguageContext';
 import { getWhatsAppLink } from '@/lib/whatsapp';
+import { localizedPath } from '@/lib/site-config';
+import { getSouvenirs } from '@/lib/souvenirs';
 
 export default function SouvenirsPage() {
   const { t, language } = useLanguage();
+  const souvenirs = getSouvenirs(language);
 
   const handleBookingClick = () => {
     // No-op — booking handled by WhatsApp link in SouvenirGrid.
@@ -95,12 +97,12 @@ export default function SouvenirsPage() {
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto bg-white rounded-2xl shadow-xl border border-gray-100 grid grid-cols-3 divide-x divide-gray-100">
             <div className="text-center py-6 px-4">
-              <div className="text-2xl md:text-3xl font-bold text-brand-blue-800 mb-1">{SOUVENIRS.length}</div>
+              <div className="text-2xl md:text-3xl font-bold text-brand-blue-800 mb-1">{souvenirs.length}</div>
               <div className="text-sm text-gray-500 font-medium">{language === 'id' ? 'Total Produk' : 'Products'}</div>
             </div>
             <div className="text-center py-6 px-4">
               <div className="text-2xl md:text-3xl font-bold text-brand-blue-800 mb-1">
-                {new Set(SOUVENIRS.map(s => s.category)).size}
+                {new Set(souvenirs.map(s => s.category)).size}
               </div>
               <div className="text-sm text-gray-500 font-medium">{language === 'id' ? 'Kategori' : 'Categories'}</div>
             </div>
@@ -132,7 +134,7 @@ export default function SouvenirsPage() {
             </div>
 
             <SouvenirGrid
-              souvenirs={SOUVENIRS}
+              souvenirs={souvenirs}
               onBookingClick={handleBookingClick}
             />
           </div>
@@ -244,7 +246,7 @@ export default function SouvenirsPage() {
                 {t.souvenirs.contactWhatsApp}
               </a>
               <Link
-                href="/tours"
+                href={localizedPath('/tours', language)}
                 className="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 border border-white/30 text-white px-8 py-4 rounded-xl font-semibold transition-all duration-200 backdrop-blur-sm"
               >
                 {language === 'id' ? 'Lihat Paket Tur' : 'View Tour Packages'}

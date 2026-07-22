@@ -10,8 +10,8 @@ jest.mock('next/navigation', () => ({
 
 // Mock Next.js Link component
 jest.mock('next/link', () => {
-  const MockLink = ({ children, href }: { children: React.ReactNode; href: string }) => (
-    <a href={href}>{children}</a>
+  const MockLink = ({ children, href, ...props }: React.AnchorHTMLAttributes<HTMLAnchorElement> & { href: string }) => (
+    <a href={href} {...props}>{children}</a>
   );
   MockLink.displayName = 'MockLink';
   return MockLink;
@@ -69,7 +69,7 @@ describe('Navigation Component', () => {
     render(<Navigation items={mockNavigationItems} />);
     
     const homeLink = screen.getByText('Home');
-    expect(homeLink).toHaveClass('text-brand-blue-800', 'border-b-2', 'border-brand-blue-800');
+    expect(homeLink).toHaveClass('text-brand-blue-800');
   });
 
   it('shows hover state for non-active items', () => {
@@ -81,7 +81,6 @@ describe('Navigation Component', () => {
     
     const homeLink = screen.getByText('Home');
     expect(homeLink).toHaveClass('text-gray-700', 'hover:text-brand-blue-800');
-    expect(homeLink).not.toHaveClass('border-b-2');
   });
 
   it('disables active state when showActiveState is false', () => {
@@ -91,7 +90,6 @@ describe('Navigation Component', () => {
     render(<Navigation items={mockNavigationItems} showActiveState={false} />);
     
     const homeLink = screen.getByText('Home');
-    expect(homeLink).not.toHaveClass('border-b-2');
     expect(homeLink).toHaveClass('text-gray-700', 'hover:text-brand-blue-800');
   });
 
@@ -126,10 +124,10 @@ describe('Navigation Component', () => {
     render(<Navigation items={mockNavigationItems} />);
     
     const toursLink = screen.getByText('Tours');
-    expect(toursLink).toHaveClass('text-brand-blue-800', 'border-b-2', 'border-brand-blue-800');
+    expect(toursLink).toHaveClass('text-brand-blue-800');
     
     const homeLink = screen.getByText('Home');
-    expect(homeLink).not.toHaveClass('border-b-2');
+    expect(homeLink).toHaveClass('text-gray-700');
   });
 
   it('renders with desktop navigation test id', () => {

@@ -9,6 +9,7 @@ import { getWhatsAppLink, getWhatsAppItemLink } from '@/lib/whatsapp';
 import { BreadcrumbNav } from '@/components/seo';
 import type { TourPackage } from '@/types';
 import type { GuideRelatedLink } from '@/lib/guides';
+import { localizedPath } from '@/lib/site-config';
 
 interface FaqItem {
   question: string;
@@ -144,7 +145,7 @@ export default function TourDetailContent({ tour, relatedTours, faqItems, guideL
                 {L.bookOnWa}
               </a>
               <Link
-                href="/tours"
+                href={localizedPath('/tours', language)}
                 className="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 border border-white/30 text-white px-6 py-3.5 rounded-xl font-semibold transition-all backdrop-blur-sm"
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -364,7 +365,7 @@ export default function TourDetailContent({ tour, relatedTours, faqItems, guideL
                 {relatedTours.map((rt) => (
                   <Link
                     key={rt.slug}
-                    href={`/tours/${rt.slug}`}
+                    href={localizedPath(`/tours/${rt.slug}`, language)}
                     className="group bg-white rounded-2xl border border-gray-100 overflow-hidden hover:shadow-xl transition-all hover:-translate-y-0.5"
                   >
                     <div className="relative h-44 overflow-hidden">

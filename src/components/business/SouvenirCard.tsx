@@ -20,7 +20,7 @@ export const SouvenirCard: React.FC<SouvenirCardProps> = ({
   className = '',
 }) => {
   const { t, language } = useLanguage();
-  const { name, description, price, currency, category, image, isAvailable } = souvenir;
+  const { slug, name, description, price, currency, category, image, isAvailable } = souvenir;
 
   const handleBookingClick = () => {
     trackBookingClick({
@@ -39,6 +39,7 @@ export const SouvenirCard: React.FC<SouvenirCardProps> = ({
 
   return (
     <div
+      id={slug}
       className={`group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-100 hover:-translate-y-1 ${
         !isAvailable ? 'opacity-60' : ''
       } ${className}`}

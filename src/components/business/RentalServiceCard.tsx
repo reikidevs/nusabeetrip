@@ -7,6 +7,8 @@ import WhatsAppBookingButton from './WhatsAppBookingButton';
 import Image from 'next/image';
 import { useLanguage } from '@/lib/LanguageContext';
 import { formatPriceByLang } from '@/lib/currency';
+import { localizedPath } from '@/lib/site-config';
+import { localizeRentalFeature } from '@/lib/rentals';
 
 interface RentalServiceCardProps {
   rentalService: RentalService;
@@ -32,7 +34,7 @@ const RentalServiceCard: React.FC<RentalServiceCardProps> = ({
     isAvailable
   } = rentalService;
 
-  const detailHref = `/rentals/${slug}`;
+  const detailHref = localizedPath(`/rentals/${slug}`, language);
 
   const handleBookingClick = () => {
     if (onBookingClick) {
@@ -101,7 +103,7 @@ const RentalServiceCard: React.FC<RentalServiceCardProps> = ({
                 <svg className="w-4 h-4 text-green-500 mr-2 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
                 </svg>
-                <span>{feature}</span>
+                <span>{localizeRentalFeature(feature, language)}</span>
               </li>
             ))}
           </ul>

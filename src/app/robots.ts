@@ -15,22 +15,22 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: '*',
         allow: ['/'],
-        disallow: ['/api/', '/admin/', '/_next/', '/demo', '/*.json$'],
+        disallow: ['/api/', '/admin/', '/demo', '/*.json$'],
       },
       {
         userAgent: 'Googlebot',
         allow: ['/'],
-        disallow: ['/api/', '/admin/', '/_next/', '/demo'],
+        disallow: ['/api/', '/admin/', '/demo'],
       },
       {
         userAgent: 'Googlebot-Image',
         allow: ['/images/'],
-        disallow: ['/api/', '/_next/'],
+        disallow: ['/api/', '/admin/', '/demo'],
       },
       {
         userAgent: 'Bingbot',
         allow: ['/'],
-        disallow: ['/api/', '/admin/', '/_next/', '/demo'],
+        disallow: ['/api/', '/admin/', '/demo'],
       },
     ],
     sitemap: [

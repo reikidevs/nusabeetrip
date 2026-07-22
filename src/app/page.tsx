@@ -6,6 +6,7 @@ import Image from 'next/image'
 import { useLanguage } from '@/lib/LanguageContext'
 import { formatPriceByLang, formatUsdPriceByLang } from '@/lib/currency'
 import { getWhatsAppLink, getWhatsAppRentalLink, getWhatsAppItemLink } from '@/lib/whatsapp'
+import { localizedPath } from '@/lib/site-config'
 import HomepageSEO, { HOMEPAGE_FAQ } from '@/components/seo/HomepageSEO'
 
 // Testimonials section sits right below the hero and pulls reviews from the DB.
@@ -27,6 +28,7 @@ const Testimonials = dynamic(
 export default function Home() {
   const { t, language } = useLanguage();
   const homepageFaq = HOMEPAGE_FAQ[language];
+  const localHref = (path: string) => localizedPath(path, language);
   return (
     <main className="min-h-screen">
       {/* Homepage-specific structured data for rich snippets */}
@@ -74,7 +76,7 @@ export default function Home() {
 
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center mb-6 sm:mb-12">
               <Link
-                href="/tours"
+                href={localHref('/tours')}
                 className="inline-flex items-center gap-2 bg-white text-brand-blue-800 px-6 py-3 sm:px-8 sm:py-4 rounded-xl font-semibold text-sm sm:text-base hover:bg-gray-50 hover:shadow-xl hover:scale-105 transition-all duration-200 shadow-lg"
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -155,7 +157,7 @@ export default function Home() {
                           <span className="text-xl sm:text-4xl font-bold text-brand-blue-800">{formatPriceByLang(390000, language).display}</span>
                         </div>
                         <Link
-                          href="/tours"
+                          href={localHref('/tours/west-trip')}
                           className="bg-brand-blue-800 hover:bg-brand-blue-700 text-white px-4 py-2 sm:px-6 sm:py-3 rounded-xl font-semibold text-sm sm:text-base transition-all hover:shadow-lg"
                         >
                           {t.tours.viewDetails}
@@ -186,7 +188,7 @@ export default function Home() {
                           <span className="text-xl sm:text-4xl font-bold text-brand-blue-800">{formatPriceByLang(430000, language).display}</span>
                         </div>
                         <Link
-                          href="/tours"
+                          href={localHref('/tours/east-trip')}
                           className="bg-brand-blue-800 hover:bg-brand-blue-700 text-white px-4 py-2 sm:px-6 sm:py-3 rounded-xl font-semibold text-sm sm:text-base transition-all hover:shadow-lg"
                         >
                           {t.tours.viewDetails}
@@ -217,7 +219,7 @@ export default function Home() {
                           <span className="text-xl sm:text-4xl font-bold text-brand-blue-800">{formatPriceByLang(500000, language).display}</span>
                         </div>
                         <Link
-                          href="/tours"
+                          href={localHref('/tours/mix-trip')}
                           className="bg-brand-blue-800 hover:bg-brand-blue-700 text-white px-4 py-2 sm:px-6 sm:py-3 rounded-xl font-semibold text-sm sm:text-base transition-all hover:shadow-lg"
                         >
                           {t.tours.viewDetails}
@@ -247,7 +249,7 @@ export default function Home() {
                           <span className="text-xl sm:text-4xl font-bold text-brand-blue-800">{formatPriceByLang(200000, language).display}</span>
                         </div>
                         <Link
-                          href="/tours"
+                          href={localHref('/tours/snorkeling-manta')}
                           className="bg-brand-blue-800 hover:bg-brand-blue-700 text-white px-4 py-2 sm:px-6 sm:py-3 rounded-xl font-semibold text-sm sm:text-base transition-all hover:shadow-lg"
                         >
                           {t.tours.viewDetails}
@@ -305,7 +307,7 @@ export default function Home() {
             {/* View All Link */}
             <div className="text-center">
               <Link
-                href="/tours"
+                href={localHref('/tours')}
                 className="inline-flex items-center gap-2 text-brand-blue-800 hover:text-brand-teal-600 font-semibold text-lg transition-colors group"
               >
                 {t.tours.viewAll}
@@ -624,7 +626,7 @@ export default function Home() {
 
           <div className="text-center mt-14">
             <Link
-              href="/rentals"
+              href={localHref('/rentals')}
               className="inline-flex items-center gap-2 text-brand-blue-800 hover:text-brand-blue-600 font-semibold text-lg transition-colors group"
             >
               {t.rentals.viewAll}
@@ -797,7 +799,7 @@ export default function Home() {
 
           <div className="text-center mt-14">
             <Link
-              href="/souvenirs"
+              href={localHref('/souvenirs')}
               className="inline-flex items-center gap-2 text-brand-blue-800 hover:text-brand-blue-600 font-semibold text-lg transition-colors group"
             >
               {t.souvenirs.viewAll}
@@ -887,7 +889,7 @@ export default function Home() {
                 {t.common.bookViaWhatsApp}
               </a>
               <Link
-                href="/contact"
+                href={localHref('/contact')}
                 className="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 border border-white/30 text-white px-8 py-4 rounded-xl font-semibold transition-all duration-200 backdrop-blur-sm"
               >
                 {t.contact.heading}

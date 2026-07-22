@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent } from '@/test/test-utils';
 import '@testing-library/jest-dom';
 import WhatsAppBookingButton from '../WhatsAppBookingButton';
 import * as whatsappUtils from '@/lib/whatsapp';
@@ -133,6 +133,7 @@ describe('WhatsAppBookingButton', () => {
       serviceName: defaultProps.serviceName,
       price: defaultProps.price,
       currency: defaultProps.currency,
+      lang: 'en',
     });
     expect(mockWindowOpen).toHaveBeenCalledWith(mockURL, '_blank', 'noopener,noreferrer');
   });

@@ -14,9 +14,8 @@ const LanguageContext = createContext<LanguageContextType | undefined>(undefined
 
 const STORAGE_KEY = 'nusabeetrip-lang';
 
-function getRouteLanguage(pathname: string | null): Language | null {
-  if (!pathname) return null;
-  return pathname === '/id' || pathname.startsWith('/id/') ? 'id' : null;
+function getRouteLanguage(pathname: string | null): Language {
+  return pathname === '/id' || pathname?.startsWith('/id/') ? 'id' : 'en';
 }
 
 export const LanguageProvider: React.FC<{
@@ -26,19 +25,12 @@ export const LanguageProvider: React.FC<{
   const pathname = usePathname();
   const [language, setLanguageState] = useState<Language>(initialLanguage);
 
-  // Route locale wins for /id/* URLs. Default URLs keep the user's preference.
+  // The locale encoded in the URL is the source of truth. Keeping chrome and
+  // content aligned prevents mixed-language pages after cross-locale navigation.
   useEffect(() => {
     const routeLanguage = getRouteLanguage(pathname);
-    if (routeLanguage) {
-      setLanguageState(routeLanguage);
-      localStorage.setItem(STORAGE_KEY, routeLanguage);
-      return;
-    }
-
-    const saved = localStorage.getItem(STORAGE_KEY) as Language | null;
-    if (saved === 'en' || saved === 'id') {
-      setLanguageState(saved);
-    }
+    setLanguageState(routeLanguage);
+    localStorage.setItem(STORAGE_KEY, routeLanguage);
   }, [pathname]);
 
   // Keep the document <html lang> in sync with the active language for SEO/a11y

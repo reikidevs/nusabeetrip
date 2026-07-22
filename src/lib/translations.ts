@@ -33,7 +33,7 @@ export const translations = {
     // Tours section
     tours: {
       heading: 'Tour Packages',
-      subheading: 'Full-day tours with transport, guide, and entrance fees included',
+      subheading: 'Full-day tours with transport, guide, island tax, and parking included',
       westTrip: 'West Trip',
       westTripDesc: 'Kelingking Beach, Angel Billabong, Broken Beach, and Crystal Bay',
       eastTrip: 'East Trip',
@@ -203,7 +203,7 @@ export const translations = {
     // Tours section
     tours: {
       heading: 'Paket Tur',
-      subheading: 'Tur seharian dengan transportasi, pemandu, dan tiket masuk sudah termasuk',
+      subheading: 'Tur seharian termasuk transportasi, pemandu, pajak pulau, dan parkir',
       westTrip: 'West Trip',
       westTripDesc: 'Pantai Kelingking, Angel Billabong, Broken Beach, dan Crystal Bay',
       eastTrip: 'East Trip',

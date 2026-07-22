@@ -7,6 +7,13 @@ import { useLanguage } from '@/lib/LanguageContext';
 import { formatPriceByLang } from '@/lib/currency';
 import { getWhatsAppRentalLink } from '@/lib/whatsapp';
 import { BreadcrumbNav } from '@/components/seo';
+import { localizedPath } from '@/lib/site-config';
+import {
+  formatRentalList,
+  getRentalIncludedBenefits,
+  getRentalTerms,
+  localizeRentalFeature,
+} from '@/lib/rentals';
 import type { RentalService } from '@/types';
 
 interface FaqItem {
@@ -39,14 +46,6 @@ export default function RentalDetailContent({
       faqHeading: 'Frequently asked',
       relatedHeading: 'Other rental options',
       details: 'See details',
-      requirements: [
-        'Valid driving license required (motorcycle only)',
-        'Minimum age: 18 years',
-        'Helmet and fuel included',
-        'Free delivery within Nusa Penida',
-        'Insurance coverage included',
-        '24/7 WhatsApp support',
-      ],
     },
     id: {
       heroBadge: 'Sewa Kendaraan · Nusa Penida',
@@ -59,14 +58,6 @@ export default function RentalDetailContent({
       faqHeading: 'Pertanyaan umum',
       relatedHeading: 'Pilihan sewa lainnya',
       details: 'Lihat detail',
-      requirements: [
-        'SIM yang masih berlaku (khusus motor)',
-        'Usia minimum: 18 tahun',
-        'Helm dan bensin sudah termasuk',
-        'Antar gratis di seluruh Nusa Penida',
-        'Asuransi sudah termasuk',
-        'Bantuan WhatsApp 24/7',
-      ],
     },
   };
   const L = labels[language];
@@ -75,6 +66,9 @@ export default function RentalDetailContent({
   const hourPrice = rental.pricePerHour
     ? formatPriceByLang(rental.pricePerHour, language)
     : null;
+  const includedBenefits = getRentalIncludedBenefits(rental, language);
+  const benefitSummary = formatRentalList(includedBenefits, language);
+  const rentalTerms = getRentalTerms(rental, language);
 
   return (
     <main className="min-h-screen bg-gray-50">
@@ -98,8 +92,8 @@ export default function RentalDetailContent({
               </h1>
               <p className="text-base sm:text-lg text-white/90 leading-relaxed max-w-xl mb-7">
                 {language === 'id'
-                  ? `Sewa ${rental.model} berkualitas di Nusa Penida. Helm, bensin, dan antar jemput gratis di seluruh pulau.`
-                  : `Rent a well-maintained ${rental.model} in Nusa Penida. Helmet, fuel, and free delivery anywhere on the island.`}
+                  ? `Sewa ${rental.model} di Nusa Penida.${benefitSummary ? ` Khusus kendaraan ini termasuk ${benefitSummary}.` : ''}`
+                  : `Rent a well-maintained ${rental.model} in Nusa Penida.${benefitSummary ? ` This vehicle includes ${benefitSummary}.` : ''}`}
               </p>
 
               <div className="flex flex-col sm:flex-row gap-3">
@@ -115,7 +109,7 @@ export default function RentalDetailContent({
                   {L.bookOnWa}
                 </a>
                 <Link
-                  href="/rentals"
+                  href={localizedPath('/rentals', language)}
                   className="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 border border-white/30 text-white px-6 py-3.5 rounded-xl font-semibold transition-all backdrop-blur-sm"
                 >
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -178,26 +172,30 @@ export default function RentalDetailContent({
                             clipRule="evenodd"
                           />
                         </svg>
-                        <span className="text-gray-700 font-medium">{f}</span>
+                        <span className="text-gray-700 font-medium">
+                          {localizeRentalFeature(f, language)}
+                        </span>
                       </li>
                     ))}
                   </ul>
                 </div>
               )}
 
-              <div className="bg-gradient-to-br from-blue-50/40 to-teal-50/40 rounded-2xl p-6 sm:p-8 border border-blue-100/60">
-                <h2 className="text-xl sm:text-2xl font-bold text-brand-blue-800 mb-5">
-                  {L.info}
-                </h2>
-                <ul className="space-y-3">
-                  {L.requirements.map((req, i) => (
-                    <li key={i} className="flex items-start gap-3 text-gray-700">
-                      <span className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-brand-blue-700 mt-2.5" />
-                      <span>{req}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+              {rentalTerms.length > 0 && (
+                <div className="bg-gradient-to-br from-blue-50/40 to-teal-50/40 rounded-2xl p-6 sm:p-8 border border-blue-100/60">
+                  <h2 className="text-xl sm:text-2xl font-bold text-brand-blue-800 mb-5">
+                    {L.info}
+                  </h2>
+                  <ul className="space-y-3">
+                    {rentalTerms.map((req, i) => (
+                      <li key={i} className="flex items-start gap-3 text-gray-700">
+                        <span className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-brand-blue-700 mt-2.5" />
+                        <span>{req}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
 
               {/* FAQ */}
               <div>
@@ -286,7 +284,7 @@ export default function RentalDetailContent({
                 {relatedRentals.map((rt) => (
                   <Link
                     key={rt.slug}
-                    href={`/rentals/${rt.slug}`}
+                    href={localizedPath(`/rentals/${rt.slug}`, language)}
                     className="group bg-white rounded-2xl border border-gray-100 overflow-hidden hover:shadow-xl transition-all hover:-translate-y-0.5"
                   >
                     <div className="relative aspect-[4/3] bg-gray-50 overflow-hidden">

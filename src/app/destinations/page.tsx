@@ -1,9 +1,10 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
+import { headers } from 'next/headers';
 import { JsonLd, BreadcrumbNav } from '@/components/seo';
 import { breadcrumbJsonLd, buildMetadata, itemListJsonLd } from '@/lib/seo';
-import { absoluteUrl } from '@/lib/site-config';
+import { absoluteUrl, localeFromPath, localizedPath } from '@/lib/site-config';
 import { DESTINATIONS } from '@/lib/destinations';
 
 export const metadata: Metadata = buildMetadata({
@@ -26,24 +27,44 @@ export const metadata: Metadata = buildMetadata({
 });
 
 export default function DestinationsIndexPage() {
+  const locale = localeFromPath(headers().get('x-pathname') || '/');
+  const isIndonesian = locale === 'id';
+  const labels = isIndonesian
+    ? {
+        spots: `${DESTINATIONS.length} spot ikonik dalam satu pulau`,
+        title: 'Destinasi terbaik di Nusa Penida',
+        description:
+          'Panduan praktis menuju pantai, tebing, dan laguna yang menjadikan Nusa Penida salah satu pulau paling fotogenik di Bali. Temukan waktu terbaik, kondisi akses, dan paket tur yang mengunjungi setiap lokasi.',
+        read: 'Baca panduan lengkap',
+        regions: { west: 'Barat', east: 'Timur', south: 'Selatan', central: 'Tengah' },
+      }
+    : {
+        spots: `${DESTINATIONS.length} iconic spots, one island`,
+        title: 'Top destinations in Nusa Penida',
+        description:
+          "Practical guides to the beaches, cliffs, and lagoons that make Nusa Penida one of Bali's most photographed islands. Each guide includes the best time to visit, what to expect, and which tour packages cover it.",
+        read: 'Read full guide',
+        regions: { west: 'West', east: 'East', south: 'South', central: 'Central' },
+      };
+  const destinationsPath = localizedPath('/destinations', locale);
+
   return (
     <main className="min-h-screen bg-gray-50">
       <JsonLd
         id="ld-breadcrumbs-destinations"
         data={breadcrumbJsonLd([
-          { name: 'Home', path: '/' },
-          { name: 'Destinations', path: '/destinations' },
+          { name: isIndonesian ? 'Beranda' : 'Home', path: localizedPath('/', locale) },
+          { name: isIndonesian ? 'Destinasi' : 'Destinations', path: destinationsPath },
         ])}
       />
       <JsonLd
         id="ld-destinations-list"
         data={itemListJsonLd({
-          name: 'Top Destinations in Nusa Penida',
-          description:
-            'A curated guide to the most popular beaches, cliffs, and lagoons in Nusa Penida, Bali.',
+          name: isIndonesian ? 'Destinasi Terbaik di Nusa Penida' : 'Top Destinations in Nusa Penida',
+          description: labels.description,
           items: DESTINATIONS.map((d) => ({
-            name: d.name,
-            url: absoluteUrl(`/destinations/${d.slug}`),
+            name: isIndonesian ? d.nameId || d.name : d.name,
+            url: absoluteUrl(localizedPath(`/destinations/${d.slug}`, locale)),
             image: d.heroImage,
           })),
         })}
@@ -73,16 +94,13 @@ export default function DestinationsIndexPage() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
               </svg>
-              {DESTINATIONS.length} iconic spots, one island
+              {labels.spots}
             </span>
             <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold mb-4 tracking-tight leading-tight">
-              Top destinations in Nusa Penida
+              {labels.title}
             </h1>
             <p className="text-base sm:text-lg text-white/90 leading-relaxed max-w-2xl">
-              Practical guides to the beaches, cliffs, and lagoons that make
-              Nusa Penida one of Bali&apos;s most photographed islands.
-              Each guide includes the best time to visit, what to expect, and
-              which of our tour packages cover it.
+              {labels.description}
             </p>
           </div>
         </div>
@@ -95,7 +113,7 @@ export default function DestinationsIndexPage() {
             {DESTINATIONS.map((d) => (
               <Link
                 key={d.slug}
-                href={`/destinations/${d.slug}`}
+                href={localizedPath(`/destinations/${d.slug}`, locale)}
                 className="group bg-white rounded-2xl overflow-hidden border border-gray-100 hover:shadow-xl transition-all hover:-translate-y-0.5"
               >
                 <div className="relative h-56 overflow-hidden">
@@ -108,18 +126,18 @@ export default function DestinationsIndexPage() {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
                   <span className="absolute top-3 left-3 bg-white/95 backdrop-blur-sm text-gray-700 text-xs font-semibold px-2.5 py-1 rounded-full uppercase tracking-wide">
-                    {d.region}
+                    {labels.regions[d.region]}
                   </span>
                 </div>
                 <div className="p-5">
                   <h2 className="text-lg font-bold text-gray-900 mb-1.5 group-hover:text-brand-blue-800 transition-colors">
-                    {d.name}
+                    {isIndonesian ? d.nameId || d.name : d.name}
                   </h2>
                   <p className="text-sm text-gray-600 leading-relaxed line-clamp-2 mb-4">
-                    {d.description.en}
+                    {isIndonesian ? d.description.id : d.description.en}
                   </p>
                   <span className="inline-flex items-center gap-1 text-sm font-semibold text-brand-blue-700 group-hover:gap-2 transition-all">
-                    Read full guide
+                    {labels.read}
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                     </svg>

@@ -1,8 +1,11 @@
 import { Metadata } from 'next';
+import { headers } from 'next/headers';
 import { getRentalServices } from '@/lib/db/queries';
+import { RENTAL_SERVICES } from '@/lib/constants';
 import { RentalService } from '@/types';
 import { JsonLd } from '@/components/seo';
 import { breadcrumbJsonLd, buildMetadata, rentalServiceListJsonLd } from '@/lib/seo';
+import { localeFromPath, localizedPath } from '@/lib/site-config';
 import RentalsPageContent from './RentalsPageContent';
 
 // Opt out of static generation — this page fetches from DB at runtime
@@ -11,7 +14,7 @@ export const dynamic = 'force-dynamic';
 export const metadata: Metadata = buildMetadata({
   title: 'Nusa Penida Vehicle Rentals — Motorcycle & Car with Driver',
   description:
-    'Rent Yamaha N-Max, Honda Vario, Honda Scoopy or hire a car with driver in Nusa Penida. Well-maintained vehicles, helmet & insurance included. From 100K IDR/day.',
+    'Rent Yamaha N-Max, Honda Vario, Honda Scoopy, or a car with driver in Nusa Penida. See vehicle-specific inclusions and book via WhatsApp. From 100K IDR/day.',
   path: '/rentals',
   keywords: [
     'sewa motor nusa penida',
@@ -78,6 +81,8 @@ const transformRentalService = (dbService: any): RentalService => ({
 });
 
 export default async function RentalsPage() {
+  const locale = localeFromPath(headers().get('x-pathname') || '/');
+  const isIndonesian = locale === 'id';
   let rentalServices: RentalService[] = [];
   
   try {
@@ -86,54 +91,8 @@ export default async function RentalsPage() {
   } catch (error) {
     console.error('Failed to fetch rental services from database:', error);
     
-    // Fallback to static data with correct images matching database
-    rentalServices = [
-      {
-        id: '1',
-        vehicleType: 'motorcycle',
-        model: 'N-Max',
-        slug: 'nmax-motorcycle',
-        pricePerDay: 125000,
-        currency: 'IDR',
-        features: ['Automatic Transmission', 'Comfortable Seat', 'Storage Space', 'Helmet Included', 'Full Tank', 'Insurance Covered'],
-        image: '/images/Vehicle%20Rentals/Yamaha%20N-Max.webp',
-        isAvailable: true
-      },
-      {
-        id: '2',
-        vehicleType: 'motorcycle',
-        model: 'Vario',
-        slug: 'vario-motorcycle',
-        pricePerDay: 100000,
-        currency: 'IDR',
-        features: ['Automatic Transmission', 'Fuel Efficient', 'Easy Handling', 'Helmet Included', 'Full Tank', 'Insurance Covered'],
-        image: '/images/Vehicle%20Rentals/Honda%20Vario.png',
-        isAvailable: true
-      },
-      {
-        id: '3',
-        vehicleType: 'motorcycle',
-        model: 'Scoopy',
-        slug: 'scoopy-motorcycle',
-        pricePerDay: 100000,
-        currency: 'IDR',
-        features: ['Automatic Transmission', 'Lightweight', 'Perfect for Beginners', 'Helmet Included', 'Full Tank', 'Insurance Covered'],
-        image: '/images/Vehicle%20Rentals/Honda%20Scoopy.webp',
-        isAvailable: true
-      },
-      {
-        id: '4',
-        vehicleType: 'car',
-        model: 'Car Rental',
-        slug: 'car-rental',
-        pricePerDay: 500000,
-        pricePerHour: 125000,
-        currency: 'IDR',
-        features: ['Air Conditioning', 'Driver Included', 'Comfortable for 4-6 People', 'Full Tank', 'Insurance Covered', 'Local Driver Knowledge'],
-        image: '/images/Vehicle%20Rentals/Car%20with%20Driver.jpg',
-        isAvailable: true
-      }
-    ];
+    // Keep fallback facts in one canonical source so inclusions cannot drift.
+    rentalServices = RENTAL_SERVICES.filter((rental) => rental.isAvailable);
   }
 
   return (
@@ -141,11 +100,11 @@ export default async function RentalsPage() {
       <JsonLd
         id="ld-breadcrumbs-rentals"
         data={breadcrumbJsonLd([
-          { name: 'Home', path: '/' },
-          { name: 'Rentals', path: '/rentals' },
+          { name: isIndonesian ? 'Beranda' : 'Home', path: localizedPath('/', locale) },
+          { name: isIndonesian ? 'Rental' : 'Rentals', path: localizedPath('/rentals', locale) },
         ])}
       />
-      <JsonLd id="ld-rental-list" data={rentalServiceListJsonLd(rentalServices)} />
+      <JsonLd id="ld-rental-list" data={rentalServiceListJsonLd(rentalServices, locale)} />
       <RentalsPageContent rentalServices={rentalServices} />
     </>
   );

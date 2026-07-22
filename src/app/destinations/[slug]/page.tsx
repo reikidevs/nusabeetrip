@@ -1,12 +1,13 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import { headers } from 'next/headers';
 import { JsonLd } from '@/components/seo';
 import {
   buildMetadata,
   breadcrumbJsonLd,
   touristAttractionJsonLd,
 } from '@/lib/seo';
-import { absoluteUrl } from '@/lib/site-config';
+import { absoluteUrl, localeFromPath, localizedPath } from '@/lib/site-config';
 import { DESTINATIONS, getDestinationBySlug } from '@/lib/destinations';
 import { TOUR_PACKAGES } from '@/lib/constants';
 import DestinationContent from './DestinationContent';
@@ -47,13 +48,17 @@ export function generateMetadata({
   });
 }
 
-export default function DestinationDetailPage({
-  params,
-}: {
-  params: { slug: string };
-}) {
+export default function DestinationDetailPage({ params }: { params: { slug: string } }) {
+  const locale = localeFromPath(headers().get('x-pathname') || '/');
   const dest = getDestinationBySlug(params.slug);
   if (!dest) notFound();
+
+  const isIndonesian = locale === 'id';
+  const name = isIndonesian ? dest.nameId || dest.name : dest.name;
+  const description = isIndonesian ? dest.description.id : dest.description.en;
+  const homePath = localizedPath('/', locale);
+  const destinationsPath = localizedPath('/destinations', locale);
+  const destinationPath = localizedPath(`/destinations/${dest.slug}`, locale);
 
   // Find related tours
   const relatedTours = TOUR_PACKAGES.filter(
@@ -70,16 +75,16 @@ export default function DestinationDetailPage({
       <JsonLd
         id={`ld-breadcrumbs-${dest.slug}`}
         data={breadcrumbJsonLd([
-          { name: 'Home', path: '/' },
-          { name: 'Destinations', path: '/destinations' },
-          { name: dest.name, path: `/destinations/${dest.slug}` },
+          { name: isIndonesian ? 'Beranda' : 'Home', path: homePath },
+          { name: isIndonesian ? 'Destinasi' : 'Destinations', path: destinationsPath },
+          { name, path: destinationPath },
         ])}
       />
       <JsonLd
         id={`ld-attraction-${dest.slug}`}
         data={touristAttractionJsonLd({
-          name: dest.name,
-          description: dest.description.en,
+          name,
+          description,
           image: dest.heroImage,
           latitude: dest.geo?.lat,
           longitude: dest.geo?.lng,
@@ -90,8 +95,8 @@ export default function DestinationDetailPage({
         data={{
           '@context': 'https://schema.org',
           '@type': 'Place',
-          name: dest.name,
-          description: dest.description.en,
+          name,
+          description,
           image: dest.images.map((img) => absoluteUrl(img)),
           ...(dest.geo
             ? {

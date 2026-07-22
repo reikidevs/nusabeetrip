@@ -14,7 +14,7 @@ export function generateMetadata({
 }: {
   params: { slug: string };
 }): Metadata {
-  const guide = getGuideBySlug(params.slug);
+  const guide = getGuideBySlug(params.slug, 'id');
   if (!guide) {
     return buildMetadata({
       title: 'Panduan tidak ditemukan',

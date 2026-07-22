@@ -9,6 +9,7 @@ import { getWhatsAppLink } from '@/lib/whatsapp';
 import { BreadcrumbNav } from '@/components/seo';
 import type { Destination } from '@/lib/destinations';
 import { getDestinationRelatedGuideLinks } from '@/lib/guides';
+import { localizedPath } from '@/lib/site-config';
 import type { TourPackage } from '@/types';
 
 interface Props {
@@ -81,7 +82,7 @@ export default function DestinationContent({
     ? `https://www.google.com/maps/search/?api=1&query=${d.geo.lat},${d.geo.lng}`
     : `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${d.name} Nusa Penida`)}`;
 
-  const guideLinks = getDestinationRelatedGuideLinks(d.relatedGuideSlugs);
+  const guideLinks = getDestinationRelatedGuideLinks(d.relatedGuideSlugs, language);
 
   return (
     <main className="min-h-screen bg-gray-50">
@@ -318,7 +319,7 @@ export default function DestinationContent({
                 {relatedTours.map((t) => (
                   <Link
                     key={t.slug}
-                    href={`/tours/${t.slug}`}
+                    href={localizedPath(`/tours/${t.slug}`, language)}
                     className="group bg-white rounded-2xl border border-gray-100 overflow-hidden hover:shadow-xl transition-all hover:-translate-y-0.5"
                   >
                     <div className="relative h-44 overflow-hidden">
@@ -441,7 +442,7 @@ export default function DestinationContent({
                 {relatedDestinations.map((rd) => (
                   <Link
                     key={rd.slug}
-                    href={`/destinations/${rd.slug}`}
+                    href={localizedPath(`/destinations/${rd.slug}`, language)}
                     className="group bg-white rounded-2xl border border-gray-100 overflow-hidden hover:shadow-xl transition-all hover:-translate-y-0.5"
                   >
                     <div className="relative h-40 overflow-hidden">
@@ -466,7 +467,7 @@ export default function DestinationContent({
               </div>
               <div className="text-center mt-8">
                 <Link
-                  href="/destinations"
+                  href={localizedPath('/destinations', language)}
                   className="inline-flex items-center gap-2 text-brand-blue-700 hover:text-brand-blue-900 font-semibold"
                 >
                   {L.backToDestinations}

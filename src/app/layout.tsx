@@ -10,13 +10,11 @@ import { JsonLd } from '@/components/seo'
 import {
   buildMetadata,
   organizationJsonLd,
-  travelAgencyJsonLd,
   websiteJsonLd,
   siteNavigationJsonLd,
-  howToBookJsonLd,
   localBusinessEnhancedJsonLd,
 } from '@/lib/seo'
-import { SITE, localeFromPath } from '@/lib/site-config'
+import { localeFromPath, stripLocaleFromPath } from '@/lib/site-config'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -58,8 +56,6 @@ export const metadata: Metadata = buildMetadata({
     'wisata nusa penida',
     'paket tour nusa penida murah',
   ],
-  datePublished: '2024-01-01',
-  dateModified: new Date().toISOString().split('T')[0],
 })
 
 export const viewport: Viewport = {
@@ -76,6 +72,7 @@ export default async function RootLayout({
 }) {
   const pathname = headers().get('x-pathname') || '/'
   const initialLanguage = localeFromPath(pathname)
+  const isHomepage = stripLocaleFromPath(pathname) === '/'
 
   return (
     <html lang={initialLanguage} dir="ltr" className={inter.variable}>
@@ -84,22 +81,22 @@ export default async function RootLayout({
         <link rel="dns-prefetch" href="//www.google-analytics.com" />
         {/* Preload critical hero image for LCP — homepage only.
             Other routes will swap their own LCP image via next/image priority. */}
-        <link
-          rel="preload"
-          as="image"
-          href="/images/West%20Trip/West%20Trip%20Kelingking%20Beach%204.jpeg"
-          type="image/jpeg"
-          fetchPriority="high"
-        />
+        {isHomepage && (
+          <link
+            rel="preload"
+            as="image"
+            href="/images/West%20Trip/West%20Trip%20Kelingking%20Beach%204.jpeg"
+            type="image/jpeg"
+            fetchPriority="high"
+          />
+        )}
       </head>
       <body className={inter.className}>
         {/* Site-wide JSON-LD: identifies the organization & site to Google */}
         <JsonLd id="ld-website" data={websiteJsonLd()} />
         <JsonLd id="ld-organization" data={organizationJsonLd()} />
         <JsonLd id="ld-business" data={localBusinessEnhancedJsonLd()} />
-        <JsonLd id="ld-navigation" data={siteNavigationJsonLd()} />
-        <JsonLd id="ld-howto-book" data={howToBookJsonLd()} />
-
+        <JsonLd id="ld-navigation" data={siteNavigationJsonLd(initialLanguage)} />
         <LanguageProvider initialLanguage={initialLanguage}>
           <ExchangeRateProvider />
           <PageViewTracker />

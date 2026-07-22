@@ -1,15 +1,8 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent } from '@/test/test-utils';
 import '@testing-library/jest-dom';
 import RentalServiceCard from '../RentalServiceCard';
 import { RentalService } from '@/types';
-
-// Mock the TourImage component
-jest.mock('../TourImage', () => {
-  return function MockTourImage({ alt, src }: { alt: string; src: string }) {
-    return <img alt={alt} src={src} data-testid="rental-image" />;
-  };
-});
 
 // Mock the WhatsAppBookingButton component
 jest.mock('../WhatsAppBookingButton', () => {
@@ -54,11 +47,15 @@ describe('RentalServiceCard', () => {
     render(<RentalServiceCard rentalService={mockRentalService} />);
     
     expect(screen.getByText('N-Max')).toBeInTheDocument();
-    expect(screen.getByText(/motorcycle.*rental/i)).toBeInTheDocument();
-    expect(screen.getByText(/125\.000.*IDR/)).toBeInTheDocument();
+    expect(screen.getByText('$8')).toBeInTheDocument();
+    expect(screen.getAllByText('USD')).not.toHaveLength(0);
     expect(screen.getByText('per day')).toBeInTheDocument();
-    expect(screen.getByText(/15\.000.*IDR/)).toBeInTheDocument();
-    expect(screen.getByText('per hour')).toBeInTheDocument();
+    expect(screen.getByText('$1')).toBeInTheDocument();
+    expect(screen.getByText(/per hour/)).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'View Details' })).toHaveAttribute(
+      'href',
+      '/rentals/nmax-motorcycle',
+    );
   });
 
   it('displays all features correctly', () => {
@@ -72,14 +69,13 @@ describe('RentalServiceCard', () => {
   it('shows vehicle type badge', () => {
     render(<RentalServiceCard rentalService={mockRentalService} />);
     
-    expect(screen.getByText('Motorcycle')).toBeInTheDocument();
+    expect(screen.getByText('motorcycle')).toHaveClass('capitalize');
   });
 
   it('renders image with correct alt text', () => {
     render(<RentalServiceCard rentalService={mockRentalService} />);
     
-    const image = screen.getByTestId('rental-image');
-    expect(image).toHaveAttribute('alt', 'N-Max motorcycle rental - Nusa Penida');
+    const image = screen.getByRole('img', { name: 'N-Max rental - Nusa Penida' });
     expect(image).toHaveAttribute('src', '/images/nmax.jpg');
   });
 
@@ -115,8 +111,8 @@ describe('RentalServiceCard', () => {
     
     render(<RentalServiceCard rentalService={serviceWithoutHourlyPrice} />);
     
-    expect(screen.getByText(/125\.000.*IDR/)).toBeInTheDocument();
-    expect(screen.queryByText('per hour')).not.toBeInTheDocument();
+    expect(screen.getByText('$8')).toBeInTheDocument();
+    expect(screen.queryByText(/per hour/)).not.toBeInTheDocument();
   });
 
   it('applies custom className', () => {
@@ -139,8 +135,8 @@ describe('RentalServiceCard', () => {
     
     render(<RentalServiceCard rentalService={carRentalService} />);
     
-    expect(screen.getByText('Car')).toBeInTheDocument();
-    expect(screen.getByText(/car.*rental/i)).toBeInTheDocument();
+    expect(screen.getByText('car')).toHaveClass('capitalize');
+    expect(screen.getByRole('img')).toHaveAttribute('alt', 'Toyota Avanza rental - Nusa Penida');
   });
 
   it('formats price with Indonesian locale', () => {
@@ -149,8 +145,13 @@ describe('RentalServiceCard', () => {
       pricePerDay: 1500000
     };
     
-    render(<RentalServiceCard rentalService={expensiveService} />);
+    render(<RentalServiceCard rentalService={expensiveService} />, { language: 'id' });
     
-    expect(screen.getByText(/1\.500\.000.*IDR/)).toBeInTheDocument();
+    expect(screen.getByText('Rp 1.500.000')).toBeInTheDocument();
+    expect(screen.getAllByText('IDR')).not.toHaveLength(0);
+    expect(screen.getByRole('link', { name: 'Lihat Detail' })).toHaveAttribute(
+      'href',
+      '/id/rentals/nmax-motorcycle',
+    );
   });
 });

@@ -6,6 +6,7 @@ import WhatsAppBookingButton from './WhatsAppBookingButton';
 import TourImage from './TourImage';
 import { useLanguage } from '@/lib/LanguageContext';
 import { formatPriceByLang } from '@/lib/currency';
+import { getRentalTerms, localizeRentalFeature } from '@/lib/rentals';
 
 interface RentalServiceDetailProps {
   rentalService: RentalService;
@@ -40,26 +41,7 @@ const RentalServiceDetail: React.FC<RentalServiceDetailProps> = ({
     return type.charAt(0).toUpperCase() + type.slice(1);
   };
 
-  // Sample rental terms and conditions
-  const rentalTerms = language === 'id' ? [
-    'SIM yang masih berlaku diperlukan',
-    'Usia minimum: 18 tahun',
-    'Bahan bakar tidak termasuk dalam harga sewa',
-    'Kembalikan kendaraan dengan level bahan bakar sama',
-    'Deposit kerusakan mungkin diperlukan',
-    'Tersedia perlindungan asuransi',
-    'Antar gratis di area Nusa Penida',
-    'Bantuan darurat 24/7'
-  ] : [
-    'Valid driving license required',
-    'Minimum age: 18 years old',
-    'Fuel not included in rental price',
-    'Return vehicle with same fuel level',
-    'Damage deposit may be required',
-    'Insurance coverage available',
-    'Free delivery within Nusa Penida area',
-    '24/7 roadside assistance'
-  ];
+  const rentalTerms = getRentalTerms(rentalService, language);
 
   const specifications = vehicleType === 'motorcycle' 
     ? [
@@ -168,7 +150,7 @@ const RentalServiceDetail: React.FC<RentalServiceDetailProps> = ({
                   <svg className="w-4 h-4 text-green-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  {feature}
+                  {localizeRentalFeature(feature, language)}
                 </li>
               ))}
             </ul>

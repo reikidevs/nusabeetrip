@@ -1,7 +1,10 @@
 import { RENTAL_SERVICES, TOUR_PACKAGES } from '@/lib/constants';
 import {
+  homepageJsonLd,
+  localBusinessEnhancedJsonLd,
   rentalServiceListJsonLd,
   serviceJsonLd,
+  siteNavigationJsonLd,
   tourPackageListJsonLd,
 } from '@/lib/seo';
 
@@ -52,6 +55,33 @@ describe('catalog JSON-LD', () => {
     expect(JSON.stringify(schema)).not.toContain('"@type":"Product"');
   });
 
+  it('uses Indonesian catalog URLs and labels for Indonesian routes', () => {
+    const tourSchema = tourPackageListJsonLd(undefined, 'id');
+    const rentalSchema = rentalServiceListJsonLd(undefined, 'id');
+
+    expect(tourSchema).toMatchObject({
+      '@id': 'https://nusabeetrip.com/id/tours#tour-list',
+      name: 'Paket Tour Nusa Penida',
+      url: 'https://nusabeetrip.com/id/tours',
+    });
+    expect(
+      tourSchema.itemListElement.every((item) =>
+        item.url.startsWith('https://nusabeetrip.com/id/tours/'),
+      ),
+    ).toBe(true);
+
+    expect(rentalSchema).toMatchObject({
+      '@id': 'https://nusabeetrip.com/id/rentals#rental-list',
+      name: 'Rental Kendaraan Nusa Penida',
+      url: 'https://nusabeetrip.com/id/rentals',
+    });
+    expect(
+      rentalSchema.itemListElement.every((item) =>
+        item.url.startsWith('https://nusabeetrip.com/id/rentals/'),
+      ),
+    ).toBe(true);
+  });
+
   it('uses the exact active data rendered by the collection page', () => {
     const [activeTour, inactiveTour] = TOUR_PACKAGES;
     const schema = tourPackageListJsonLd([
@@ -76,6 +106,67 @@ describe('catalog JSON-LD', () => {
     expect(schemas).not.toContain('"OfferShippingDetails"');
     expect(schemas).not.toContain('"shippingDetails"');
     expect(schemas).not.toContain('"deliveryTime"');
+  });
+});
+
+describe('homepage JSON-LD', () => {
+  it('keeps the English homepage entity on the root URL', () => {
+    const schema = homepageJsonLd('en');
+
+    expect(schema).toMatchObject({
+      '@id': 'https://nusabeetrip.com/#webpage',
+      url: 'https://nusabeetrip.com/',
+      inLanguage: 'en-US',
+      datePublished: '2024-01-01',
+      dateModified: '2026-07-22',
+    });
+    expect(schema.breadcrumb.itemListElement[0]).toMatchObject({
+      name: 'Home',
+      item: 'https://nusabeetrip.com/',
+    });
+  });
+
+  it('uses the Indonesian homepage URL and language-specific copy', () => {
+    const schema = homepageJsonLd('id');
+
+    expect(schema).toMatchObject({
+      '@id': 'https://nusabeetrip.com/id#webpage',
+      url: 'https://nusabeetrip.com/id',
+      inLanguage: 'id-ID',
+    });
+    expect(schema.name).toContain('Situs Resmi NusaBeeTrip');
+    expect(schema.breadcrumb.itemListElement[0]).toMatchObject({
+      name: 'Beranda',
+      item: 'https://nusabeetrip.com/id',
+    });
+  });
+
+  it('does not invent an offer expiry date', () => {
+    expect(JSON.stringify(localBusinessEnhancedJsonLd())).not.toContain(
+      'priceValidUntil',
+    );
+  });
+});
+
+describe('site navigation JSON-LD', () => {
+  it('keeps Indonesian navigation names and URLs inside the Indonesian locale', () => {
+    const schema = siteNavigationJsonLd('id');
+
+    expect(schema.name).toBe('Navigasi Utama');
+    expect(schema.hasPart).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({ name: 'Beranda', url: 'https://nusabeetrip.com/id' }),
+        expect.objectContaining({
+          name: 'Panduan',
+          url: 'https://nusabeetrip.com/id/guides',
+        }),
+      ]),
+    );
+    expect(
+      schema.hasPart.every((item) =>
+        item.url === 'https://nusabeetrip.com/id' || item.url.startsWith('https://nusabeetrip.com/id/'),
+      ),
+    ).toBe(true);
   });
 });
 

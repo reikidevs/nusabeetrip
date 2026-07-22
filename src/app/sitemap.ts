@@ -5,7 +5,7 @@ import {
   localizedPath,
   type SiteLocale,
 } from '@/lib/site-config';
-import { TOUR_PACKAGES, RENTAL_SERVICES, SOUVENIRS } from '@/lib/constants';
+import { TOUR_PACKAGES, RENTAL_SERVICES } from '@/lib/constants';
 import { DESTINATIONS } from '@/lib/destinations';
 import { getAllGuides } from '@/lib/guides';
 
@@ -19,19 +19,17 @@ import { getAllGuides } from '@/lib/guides';
  * robots.txt so crawlers find them.
  */
 export default function sitemap(): MetadataRoute.Sitemap {
-  const now = new Date();
-
   type ChangeFrequency = NonNullable<MetadataRoute.Sitemap[number]['changeFrequency']>;
 
   const localizedRoutes = (
     path: string,
     changeFrequency: ChangeFrequency,
     priority: number,
-    lastModified: Date = now,
+    lastModified?: Date,
   ): MetadataRoute.Sitemap =>
     (['en', 'id'] as SiteLocale[]).map((locale) => ({
       url: absoluteUrl(localizedPath(path, locale)),
-      lastModified,
+      ...(lastModified ? { lastModified } : {}),
       changeFrequency,
       priority,
       alternates: {
@@ -65,13 +63,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
     localizedRoutes(`/destinations/${d.slug}`, 'monthly', 0.8),
   );
 
-  const guideRoutes: MetadataRoute.Sitemap = getAllGuides().flatMap((g) =>
-    localizedRoutes(`/guides/${g.slug}`, 'monthly', 0.75, new Date(g.dateModified)),
+  const guideRoutes: MetadataRoute.Sitemap = (['en', 'id'] as SiteLocale[]).flatMap(
+    (locale) =>
+      getAllGuides(locale).map((guide) => {
+        const path = `/guides/${guide.slug}`;
+        return {
+          url: absoluteUrl(localizedPath(path, locale)),
+          lastModified: new Date(guide.dateModified),
+          changeFrequency: 'monthly' as const,
+          priority: 0.75,
+          alternates: { languages: localizedAlternates(path) },
+        };
+      }),
   );
-
-  const souvenirAnchors: MetadataRoute.Sitemap = SOUVENIRS.filter(
-    (s) => s.isAvailable,
-  ).flatMap((s) => localizedRoutes(`/souvenirs#${s.slug}`, 'monthly', 0.45));
 
   return [
     ...staticRoutes,
@@ -79,6 +83,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...rentalDetailRoutes,
     ...destinationRoutes,
     ...guideRoutes,
-    ...souvenirAnchors,
   ];
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent } from '@/test/test-utils';
 import '@testing-library/jest-dom';
 import RentalServiceGrid from '../RentalServiceGrid';
 import { RentalService } from '@/types';
@@ -130,7 +130,7 @@ describe('RentalServiceGrid', () => {
   it('shows "View All Rentals" link when maxItems is set and there are more services', () => {
     render(<RentalServiceGrid rentalServices={mockRentalServices} maxItems={2} />);
     
-    const viewAllLink = screen.getByText('View All Rentals');
+    const viewAllLink = screen.getByText('View All Rental Options');
     expect(viewAllLink).toBeInTheDocument();
     expect(viewAllLink.closest('a')).toHaveAttribute('href', '/rentals');
   });

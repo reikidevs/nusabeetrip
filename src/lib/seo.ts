@@ -12,13 +12,22 @@
  */
 
 import { Metadata } from 'next';
-import { PRIMARY_KEYWORDS, SITE, absoluteUrl, localizedAlternates } from './site-config';
+import {
+  PRIMARY_KEYWORDS,
+  SITE,
+  absoluteUrl,
+  localeFromPath,
+  localizedAlternates,
+  localizedPath,
+  stripLocaleFromPath,
+  type SiteLocale,
+} from './site-config';
 import { TOUR_PACKAGES, RENTAL_SERVICES } from './constants';
 import { TESTIMONIALS, getAggregateRating } from './testimonials';
 import type { RentalService, TourPackage } from '@/types';
 
 type PageMetaInput = {
-  /** Title fragment — final title is "<title> | NusaBeeTrip — Best Travel Nusa Penida" */
+  /** Title fragment — inner pages append "| NusaBeeTrip". */
   title: string;
   description: string;
   /** Path including leading slash, e.g. '/tours' */
@@ -34,6 +43,8 @@ type PageMetaInput = {
   ogType?: 'website' | 'article';
   /** Locales for hreflang */
   alternates?: Record<string, string>;
+  /** Page language. Inferred from the route when omitted. */
+  locale?: SiteLocale;
   /** Date the page was published (ISO string) */
   datePublished?: string;
   /** Date the page was last modified (ISO string) */
@@ -54,11 +65,16 @@ export function buildMetadata({
   index = true,
   ogType = 'website',
   alternates,
+  locale,
   datePublished,
   dateModified,
 }: PageMetaInput): Metadata {
   const url = absoluteUrl(path);
-  const fullTitle = `${title} | ${SITE.name} — ${SITE.brandTagline}`;
+  const pageLocale = locale ?? localeFromPath(path);
+  const isHomepage = stripLocaleFromPath(path) === '/';
+  const fullTitle = isHomepage && title.toLowerCase().includes(SITE.name.toLowerCase())
+    ? title
+    : `${title} | ${SITE.name}`;
   const ogImage = image
     ? (image.startsWith('http') ? image : absoluteUrl(image))
     : absoluteUrl(SITE.ogImage);
@@ -72,7 +88,7 @@ export function buildMetadata({
     'geo.placename': 'Nusa Penida, Bali',
     'geo.position': `${SITE.geo.latitude};${SITE.geo.longitude}`,
     'ICBM': `${SITE.geo.latitude}, ${SITE.geo.longitude}`,
-    'content-language': 'en, id',
+    'content-language': pageLocale,
   };
 
   if (datePublished) otherMeta['article:published_time'] = datePublished;
@@ -103,8 +119,8 @@ export function buildMetadata({
       title: fullTitle,
       description,
       url,
-      locale: SITE.locale,
-      alternateLocale: [SITE.alternateLocale],
+      locale: pageLocale === 'id' ? SITE.alternateLocale : SITE.locale,
+      alternateLocale: [pageLocale === 'id' ? SITE.locale : SITE.alternateLocale],
       images: [
         {
           url: ogImage,
@@ -266,43 +282,51 @@ export function organizationJsonLd() {
 }
 
 /** ItemList for the tour catalog. Service schema belongs on each detail page. */
-export function tourPackageListJsonLd(packages: TourPackage[] = TOUR_PACKAGES) {
+export function tourPackageListJsonLd(
+  packages: TourPackage[] = TOUR_PACKAGES,
+  locale: SiteLocale = 'en',
+) {
   const activePackages = packages.filter((pkg) => pkg.isActive);
+  const listPath = localizedPath('/tours', locale);
 
   return {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
-    '@id': absoluteUrl('/tours#tour-list'),
-    name: 'Nusa Penida Tour Packages',
-    url: absoluteUrl('/tours'),
+    '@id': `${absoluteUrl(listPath)}#tour-list`,
+    name: locale === 'id' ? 'Paket Tour Nusa Penida' : 'Nusa Penida Tour Packages',
+    url: absoluteUrl(listPath),
     numberOfItems: activePackages.length,
     itemListOrder: 'https://schema.org/ItemListUnordered',
     itemListElement: activePackages.map((pkg, index) => ({
       '@type': 'ListItem',
       position: index + 1,
       name: pkg.name,
-      url: absoluteUrl(`/tours/${pkg.slug}`),
+      url: absoluteUrl(localizedPath(`/tours/${pkg.slug}`, locale)),
     })),
   };
 }
 
 /** ItemList for the rental catalog. Service schema belongs on each detail page. */
-export function rentalServiceListJsonLd(services: RentalService[] = RENTAL_SERVICES) {
+export function rentalServiceListJsonLd(
+  services: RentalService[] = RENTAL_SERVICES,
+  locale: SiteLocale = 'en',
+) {
   const availableServices = services.filter((service) => service.isAvailable);
+  const listPath = localizedPath('/rentals', locale);
 
   return {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
-    '@id': absoluteUrl('/rentals#rental-list'),
-    name: 'Nusa Penida Vehicle Rentals',
-    url: absoluteUrl('/rentals'),
+    '@id': `${absoluteUrl(listPath)}#rental-list`,
+    name: locale === 'id' ? 'Rental Kendaraan Nusa Penida' : 'Nusa Penida Vehicle Rentals',
+    url: absoluteUrl(listPath),
     numberOfItems: availableServices.length,
     itemListOrder: 'https://schema.org/ItemListUnordered',
     itemListElement: availableServices.map((service, index) => ({
       '@type': 'ListItem',
       position: index + 1,
       name: service.model,
-      url: absoluteUrl(`/rentals/${service.slug}`),
+      url: absoluteUrl(localizedPath(`/rentals/${service.slug}`, locale)),
     })),
   };
 }
@@ -601,31 +625,47 @@ export function videoJsonLd(opts: {
 }
 
 /** SiteNavigationElement — helps Google understand site structure */
-export function siteNavigationJsonLd() {
+export function siteNavigationJsonLd(locale: SiteLocale = 'en') {
+  const isIndonesian = locale === 'id';
+  const page = (name: string, nameId: string, path: string) => ({
+    '@type': 'WebPage',
+    name: isIndonesian ? nameId : name,
+    url: absoluteUrl(localizedPath(path, locale)),
+  });
+
   return {
     '@context': 'https://schema.org',
     '@type': 'SiteNavigationElement',
-    name: 'Main Navigation',
+    name: isIndonesian ? 'Navigasi Utama' : 'Main Navigation',
     hasPart: [
-      { '@type': 'WebPage', name: 'Home', url: absoluteUrl('/') },
-      { '@type': 'WebPage', name: 'Tours', url: absoluteUrl('/tours') },
-      { '@type': 'WebPage', name: 'Rentals', url: absoluteUrl('/rentals') },
-      { '@type': 'WebPage', name: 'Souvenirs', url: absoluteUrl('/souvenirs') },
-      { '@type': 'WebPage', name: 'About', url: absoluteUrl('/about') },
-      { '@type': 'WebPage', name: 'Contact', url: absoluteUrl('/contact') },
+      page('Home', 'Beranda', '/'),
+      page('Tours', 'Tur', '/tours'),
+      page('Rentals', 'Sewa', '/rentals'),
+      page('Destinations', 'Destinasi', '/destinations'),
+      page('Guides', 'Panduan', '/guides'),
+      page('Souvenirs', 'Souvenir', '/souvenirs'),
+      page('About', 'Tentang', '/about'),
+      page('Contact', 'Kontak', '/contact'),
     ],
   };
 }
 
 /** Homepage-specific: combined rich schema for maximum SERP presence */
-export function homepageJsonLd() {
+export function homepageJsonLd(locale: SiteLocale = 'en') {
+  const isIndonesian = locale === 'id';
+  const pageUrl = absoluteUrl(localizedPath('/', locale));
+
   return {
     '@context': 'https://schema.org',
     '@type': 'WebPage',
-    '@id': `${SITE.url}/#webpage`,
-    url: SITE.url,
-    name: `Official ${SITE.name} Website - Nusa Penida Tours, Snorkeling & Rentals`,
-    description: SITE.description,
+    '@id': `${pageUrl}#webpage`,
+    url: pageUrl,
+    name: isIndonesian
+      ? `Situs Resmi ${SITE.name} - Tour, Snorkeling & Rental Nusa Penida`
+      : `Official ${SITE.name} Website - Nusa Penida Tours, Snorkeling & Rentals`,
+    description: isIndonesian
+      ? 'Situs resmi NusaBeeTrip untuk tour lokal Nusa Penida, snorkeling pari manta, sewa motor, dan mobil dengan sopir. Booking langsung via WhatsApp.'
+      : SITE.description,
     disambiguatingDescription: SITE.disambiguatingDescription,
     isPartOf: { '@id': `${SITE.url}#website` },
     about: { '@id': `${SITE.url}#business` },
@@ -634,21 +674,28 @@ export function homepageJsonLd() {
       url: absoluteUrl('/images/West%20Trip/West%20Trip%20Kelingking%20Beach%204.jpeg'),
       width: 1920,
       height: 1080,
-      caption: 'Kelingking Beach Nusa Penida - NusaBeeTrip Tours',
+      caption: isIndonesian
+        ? 'Kelingking Beach Nusa Penida - Tour NusaBeeTrip'
+        : 'Kelingking Beach Nusa Penida - NusaBeeTrip Tours',
     },
     breadcrumb: {
       '@type': 'BreadcrumbList',
       itemListElement: [
-        { '@type': 'ListItem', position: 1, name: 'Home', item: SITE.url },
+        {
+          '@type': 'ListItem',
+          position: 1,
+          name: isIndonesian ? 'Beranda' : 'Home',
+          item: pageUrl,
+        },
       ],
     },
     speakable: {
       '@type': 'SpeakableSpecification',
       cssSelector: ['h1', '.hero-description'],
     },
-    inLanguage: ['en', 'id'],
+    inLanguage: isIndonesian ? 'id-ID' : 'en-US',
     datePublished: '2024-01-01',
-    dateModified: new Date().toISOString().split('T')[0],
+    dateModified: '2026-07-22',
   };
 }
 
@@ -778,7 +825,6 @@ export function localBusinessEnhancedJsonLd(opts?: {
       price: p.price,
       priceCurrency: p.currency,
       availability: 'https://schema.org/InStock',
-      priceValidUntil: new Date(new Date().getFullYear(), 11, 31).toISOString().split('T')[0],
       itemOffered: {
         '@type': 'TouristTrip',
         name: p.name,

@@ -8,6 +8,7 @@ import { BreadcrumbNav } from '@/components/seo';
 import { TourPackage } from '@/types';
 import { useLanguage } from '@/lib/LanguageContext';
 import { getWhatsAppLink } from '@/lib/whatsapp';
+import { localizedPath } from '@/lib/site-config';
 
 interface ToursPageContentProps {
   tourPackages: TourPackage[];
@@ -308,7 +309,7 @@ export default function ToursPageContent({ tourPackages }: ToursPageContentProps
                 {t.common.bookViaWhatsApp}
               </a>
               <Link
-                href="/rentals"
+                href={localizedPath('/rentals', language)}
                 className="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 border border-white/30 text-white px-8 py-4 rounded-xl font-semibold transition-all duration-200 backdrop-blur-sm"
               >
                 {language === 'id' ? 'Sewa Kendaraan' : 'Rent a Vehicle'}

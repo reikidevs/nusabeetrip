@@ -1,9 +1,11 @@
 import { Metadata } from 'next';
+import { headers } from 'next/headers';
 import { getTourPackages } from '@/lib/db/queries';
 import { TourPackage } from '@/types';
 import { resolveTourImage } from '@/lib/image-resolver';
 import { JsonLd } from '@/components/seo';
 import { breadcrumbJsonLd, buildMetadata, tourPackageListJsonLd } from '@/lib/seo';
+import { localeFromPath, localizedPath } from '@/lib/site-config';
 import ToursPageContent from './ToursPageContent';
 
 // Opt out of static generation — this page fetches from DB at runtime
@@ -15,7 +17,7 @@ export const runtime = 'nodejs'; // Use Node.js runtime
 export const metadata: Metadata = buildMetadata({
   title: 'Nusa Penida Tour Packages — West, East, Mix & Snorkeling',
   description:
-    'Full-day Nusa Penida tours: West Trip (Kelingking, Broken Beach), East Trip (Diamond, Atuh), Mix Trip, and Manta Snorkeling. Transport, guide & entrance included. From 200K IDR.',
+    'Nusa Penida tours: West, East, Mix, and Manta Snorkeling. Transport, guide, island tax, and parking included; attraction entry is separate. From 200K IDR.',
   path: '/tours',
   keywords: [
     'nusa penida tour package',
@@ -58,6 +60,8 @@ const transformTourPackage = (dbPackage: any): TourPackage => {
 };
 
 export default async function ToursPage() {
+  const locale = localeFromPath(headers().get('x-pathname') || '/');
+  const isIndonesian = locale === 'id';
   let tourPackages: TourPackage[] = [];
   
   try {
@@ -166,11 +170,11 @@ export default async function ToursPage() {
       <JsonLd
         id="ld-breadcrumbs-tours"
         data={breadcrumbJsonLd([
-          { name: 'Home', path: '/' },
-          { name: 'Tours', path: '/tours' },
+          { name: isIndonesian ? 'Beranda' : 'Home', path: localizedPath('/', locale) },
+          { name: isIndonesian ? 'Tur' : 'Tours', path: localizedPath('/tours', locale) },
         ])}
       />
-      <JsonLd id="ld-tour-list" data={tourPackageListJsonLd(tourPackages)} />
+      <JsonLd id="ld-tour-list" data={tourPackageListJsonLd(tourPackages, locale)} />
       <ToursPageContent tourPackages={tourPackages} />
     </>
   );
