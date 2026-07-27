@@ -1,3 +1,5 @@
+import { homepageTranslations } from './homepage-translations';
+
 export type Language = 'en' | 'id';
 
 export const translations = {
@@ -164,6 +166,7 @@ export const translations = {
       privacyPolicy: 'Privacy Policy',
       terms: 'Terms of Service',
     },
+    homepage: homepageTranslations.en,
     // Common / shared
     common: {
       bookViaWhatsApp: 'Book via WhatsApp',
@@ -334,6 +337,7 @@ export const translations = {
       privacyPolicy: 'Kebijakan Privasi',
       terms: 'Syarat & Ketentuan',
     },
+    homepage: homepageTranslations.id,
     // Common / shared
     common: {
       bookViaWhatsApp: 'Pesan via WhatsApp',

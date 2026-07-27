@@ -22,66 +22,66 @@ export type HomepageFaqItem = {
 export const HOMEPAGE_FAQ: Record<Language, HomepageFaqItem[]> = {
   en: [
     {
-      question: 'Is NusaBeeTrip the same as Nusatrip or BeeTrip?',
+      question: 'Can I book a driver or trip for today or tomorrow?',
       answer:
-        'No. NusaBeeTrip is an independent, locally-owned tour and vehicle rental operator based on Nusa Penida island, Bali. We are not affiliated with Nusatrip.com, the flight and hotel OTA, or BeeTrip. Book directly with us at nusabeetrip.com or via WhatsApp at +62 896-3128-1234.',
+        'Sometimes, depending on the date, driver, vehicle, and route. Send your pickup point, group size, and available time through the trip planner so Sidiq can confirm availability on WhatsApp.',
     },
     {
-      question: 'How much does a Nusa Penida tour cost?',
+      question: 'Can you pick me up from my hotel or the harbour?',
       answer:
-        'Tour prices start from IDR 200,000 for Manta Ray Snorkeling, IDR 390,000 for West Trip, IDR 430,000 for East Trip, and IDR 500,000 for Mix Trip. Packages include transport, a guide, island tax, and parking. Attraction entrance fees are paid separately where applicable.',
+        'Hotel and harbour pickup can be arranged. The practical route and quote depend on the exact location, so include your hotel name or arrival harbour in the trip brief.',
     },
     {
-      question: 'How do I get to Nusa Penida from Bali?',
+      question: 'Can snorkeling and a land tour fit in one day?',
       answer:
-        'Take a fast boat from Sanur Beach to Nusa Penida. The crossing usually takes 30-45 minutes. We can arrange pickup from the harbor after you arrive.',
+        'It may be possible when the sea schedule, weather, pickup point, and return time allow it. Sidiq will suggest a focused land route after checking your details. Manta Ray and other wildlife sightings are never guaranteed.',
     },
     {
-      question: 'Is it safe to rent a motorcycle in Nusa Penida?',
+      question: 'Can you return me before my fast boat departs?',
       answer:
-        'Our motorcycles are maintained regularly and include helmets. Roads can be steep, so we recommend scooters for confident riders. For easier travel, choose a car with driver.',
+        'Share the departure harbour and boat time before the route is planned. Stops can then be prioritized around that deadline, subject to traffic, weather, and final confirmation on WhatsApp.',
     },
     {
-      question: 'Do you offer hotel pickup for tours?',
+      question: 'Is the price per person or per car?',
       answer:
-        'Yes. Free pickup and drop-off is included with tour packages across Nusa Penida. Share your hotel name when booking via WhatsApp.',
+        'It depends on the service and group details. Your final WhatsApp quote will clearly state whether the price is per car or per person and list what is included and excluded.',
     },
     {
-      question: 'Can I combine West Trip and East Trip in one day?',
+      question: 'What does West + East highlights mean?',
       answer:
-        'Yes. Our Mix Trip combines key spots from West and East Nusa Penida in one full-day tour for IDR 500,000 per person.',
+        'It means selected highlights from both sides of Nusa Penida in one day, not every attraction. The selection depends on your pickup point and available time. Ask for two days if you prefer a less rushed visit.',
     },
   ],
   id: [
     {
-      question: 'Apakah NusaBeeTrip sama dengan Nusatrip atau BeeTrip?',
+      question: 'Bisakah booking driver atau trip untuk hari ini atau besok?',
       answer:
-        'Tidak. NusaBeeTrip adalah operator tour dan rental kendaraan lokal di Pulau Nusa Penida, Bali. Kami tidak berafiliasi dengan Nusatrip.com, OTA tiket pesawat dan hotel, maupun BeeTrip. Booking langsung di nusabeetrip.com atau via WhatsApp +62 896-3128-1234.',
+        'Terkadang bisa, tergantung tanggal, driver, kendaraan, dan rute. Kirim titik jemput, jumlah orang, dan waktu yang tersedia lewat perencana trip agar Sidiq dapat mengonfirmasi ketersediaannya di WhatsApp.',
     },
     {
-      question: 'Berapa harga paket tour Nusa Penida?',
+      question: 'Bisakah dijemput dari hotel atau pelabuhan?',
       answer:
-        'Harga tour mulai dari Rp 200.000 untuk Snorkeling Manta Ray, Rp 390.000 untuk West Trip, Rp 430.000 untuk East Trip, dan Rp 500.000 untuk Mix Trip. Paket termasuk transportasi, pemandu, pajak pulau, dan parkir. Tiket masuk objek wisata dibayar terpisah jika berlaku.',
+        'Penjemputan dari hotel atau pelabuhan dapat diatur. Rute dan harga bergantung pada lokasi pastinya, jadi sertakan nama hotel atau pelabuhan kedatangan dalam ringkasan trip.',
     },
     {
-      question: 'Bagaimana cara ke Nusa Penida dari Bali?',
+      question: 'Bisakah snorkeling dan tur darat dilakukan dalam satu hari?',
       answer:
-        'Naik fast boat dari Pantai Sanur ke Nusa Penida. Perjalanan biasanya 30-45 menit. Kami bisa mengatur penjemputan dari pelabuhan setelah Anda tiba.',
+        'Mungkin bisa jika jadwal laut, cuaca, titik jemput, dan waktu pulang memungkinkan. Sidiq akan menyarankan rute darat yang terarah setelah mengecek detailmu. Kemunculan Manta Ray atau satwa liar lain tidak dapat dijamin.',
     },
     {
-      question: 'Apakah aman sewa motor di Nusa Penida?',
+      question: 'Bisakah saya diantar kembali sebelum fast boat berangkat?',
       answer:
-        'Motor kami dirawat rutin dan sudah termasuk helm. Jalan di Nusa Penida bisa menanjak, jadi kami menyarankan motor untuk pengendara yang sudah percaya diri. Untuk lebih nyaman, pilih mobil dengan sopir.',
+        'Kirim pelabuhan keberangkatan dan jam fast boat sebelum rute disusun. Spot kemudian dapat diprioritaskan mengikuti batas waktu tersebut, dengan mempertimbangkan lalu lintas, cuaca, dan konfirmasi akhir di WhatsApp.',
     },
     {
-      question: 'Apakah tersedia pickup hotel untuk tour?',
+      question: 'Apakah harganya per orang atau per mobil?',
       answer:
-        'Ya. Penjemputan dan pengantaran gratis termasuk dalam paket tour di area Nusa Penida. Kirim nama hotel saat booking via WhatsApp.',
+        'Tergantung jenis layanan dan detail grup. Penawaran akhir di WhatsApp akan menyebutkan dengan jelas apakah harga per mobil atau per orang serta apa saja yang termasuk dan tidak termasuk.',
     },
     {
-      question: 'Bisakah gabung West Trip dan East Trip dalam satu hari?',
+      question: 'Apa arti highlight Barat + Timur?',
       answer:
-        'Bisa. Paket Mix Trip menggabungkan spot utama Barat dan Timur Nusa Penida dalam tour satu hari penuh dengan harga Rp 500.000 per orang.',
+        'Artinya beberapa spot pilihan dari kedua sisi Nusa Penida dalam satu hari, bukan semua tempat wisata. Pilihannya bergantung pada titik jemput dan waktu yang tersedia. Tanyakan rencana dua hari jika ingin lebih santai.',
     },
   ],
 };

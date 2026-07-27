@@ -1,922 +1,269 @@
 'use client';
 
-import dynamic from 'next/dynamic'
-import Link from 'next/link'
-import Image from 'next/image'
-import { useLanguage } from '@/lib/LanguageContext'
-import { formatPriceByLang, formatUsdPriceByLang } from '@/lib/currency'
-import { getWhatsAppLink, getWhatsAppRentalLink, getWhatsAppItemLink } from '@/lib/whatsapp'
-import { localizedPath } from '@/lib/site-config'
-import HomepageSEO, { HOMEPAGE_FAQ } from '@/components/seo/HomepageSEO'
+import dynamic from 'next/dynamic';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useState } from 'react';
+import { useLanguage } from '@/lib/LanguageContext';
+import { generateWhatsAppContactURL } from '@/lib/whatsapp';
+import { trackWhatsAppClick } from '@/lib/analytics';
+import { localizedPath } from '@/lib/site-config';
+import HomepageSEO, { HOMEPAGE_FAQ } from '@/components/seo/HomepageSEO';
+import QuickTripPlanner, { type TripIntent } from '@/components/business/QuickTripPlanner';
 
-// Testimonials section sits right below the hero and pulls reviews from the DB.
-// Code-split it so the hero ships smaller and renders faster (still SSR'd for SEO).
 const Testimonials = dynamic(
   () => import('@/components/business').then((mod) => mod.Testimonials),
   {
     ssr: true,
-    loading: () => (
-      <div className="py-16" aria-hidden="true">
-        <div className="container mx-auto px-4">
-          <div className="h-8 w-64 mx-auto bg-gray-100 rounded animate-pulse" />
-        </div>
-      </div>
-    ),
+    loading: () => <div className='mx-auto h-40 max-w-7xl animate-pulse bg-slate-50' aria-hidden='true' />,
   },
-)
+);
+
+const CHECK_PATH = 'M5 13l4 4L19 7';
 
 export default function Home() {
   const { t, language } = useLanguage();
-  const homepageFaq = HOMEPAGE_FAQ[language];
+  const copy = t.homepage;
+  const [selectedIntent, setSelectedIntent] = useState<TripIntent | null>(null);
   const localHref = (path: string) => localizedPath(path, language);
+  const homepageFaq = HOMEPAGE_FAQ[language];
+  const directMessage = language === 'id'
+    ? 'Halo Sidiq, saya membutuhkan bantuan untuk merencanakan perjalanan di Nusa Penida. Bisa bantu saya mulai dari detail yang perlu dikirim?'
+    : 'Hi Sidiq, I need help planning a Nusa Penida trip. Could you help me start with the details you need?';
+  const ideas: Array<{ key: 'oneDay' | 'twoDays' | 'snorkel' | 'driver'; intent: TripIntent; image: string; span: string }> = [
+    { key: 'oneDay', intent: 'famousHighlights', image: '/images/West%20Trip/West%20Trip%20Kelingking%20Beach%205.jpeg', span: 'lg:col-span-7' },
+    { key: 'twoDays', intent: 'twoDays', image: '/images/East%20Trip/East%20trip%20VIEW%20THOUSAND%20ISLAND.jpeg', span: 'lg:col-span-5' },
+    { key: 'snorkel', intent: 'snorkelLand', image: '/images/Snorkeling%20+%20Manta%20Rays/snorkeling%203.jpeg', span: 'lg:col-span-5' },
+    { key: 'driver', intent: 'driverOnly', image: '/images/Vehicle%20Rentals/Car%20with%20Driver.jpg', span: 'lg:col-span-7' },
+  ];
+
+  const handleUsePlan = (intent: TripIntent) => {
+    setSelectedIntent(intent);
+    requestAnimationFrame(() => document.getElementById('trip-planner')?.scrollIntoView({ behavior: 'smooth', block: 'start' }));
+  };
+
   return (
-    <main className="min-h-screen">
-      {/* Homepage-specific structured data for rich snippets */}
+    <>
       <HomepageSEO language={language} />
 
-      {/* Hero Section */}
-      <section className="relative text-white overflow-hidden" aria-label="Hero - Nusa Penida Tours">
-        {/* Real photo background */}
-        <div className="absolute inset-0">
-          <Image
-            src="/images/West%20Trip/West%20Trip%20Kelingking%20Beach%204.jpeg"
-            alt="Kelingking Beach Nusa Penida - Best Tour Destination in Bali"
-            fill
-            className="object-cover"
-            priority
-            sizes="100vw"
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-brand-blue-900/80 via-brand-blue-800/70 to-brand-teal-900/80" />
-        </div>
-
-        <div className="container mx-auto px-4 sm:px-6 py-14 sm:py-28 md:py-40 relative">
-          <div className="max-w-4xl mx-auto text-center">
-            <span className="inline-flex items-center gap-2 bg-white/15 backdrop-blur-sm text-white/95 px-4 sm:px-5 py-2 rounded-full text-xs sm:text-sm font-semibold mb-6 sm:mb-8 border border-white/20">
-              <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-              </svg>
-              {language === 'id'
-                ? 'Website resmi NusaBeeTrip - Nusa Penida, Bali'
-                : 'Official NusaBeeTrip website - Nusa Penida, Bali'}
-            </span>
-            <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-7xl font-bold mb-4 sm:mb-6 leading-tight tracking-tight">
-              {t.hero.title}
+      <section className='relative overflow-hidden bg-[#f2f7fb]' aria-label={copy.hero.eyebrow}>
+        <div className='pointer-events-none absolute -left-36 top-16 h-72 w-72 rounded-full bg-brand-teal-100/60 blur-3xl' aria-hidden='true' />
+        <div className='mx-auto grid max-w-7xl items-center gap-9 px-4 py-10 sm:px-6 sm:py-14 lg:grid-cols-[1.02fr_0.98fr] lg:gap-14 lg:px-8 lg:py-20'>
+          <div className='relative z-10'>
+            <div className='inline-flex items-center gap-2 rounded-lg border border-brand-blue-200 bg-white px-3 py-2 text-[11px] font-bold uppercase tracking-[0.16em] text-brand-blue-800 shadow-sm sm:text-xs'>
+              <span className='h-2 w-2 rounded-full bg-orange-500' aria-hidden='true' />
+              {copy.hero.eyebrow}
+            </div>
+            <h1 className='mt-5 max-w-3xl text-[2.05rem] font-bold leading-[1.12] tracking-[-0.035em] text-slate-950 sm:text-5xl lg:text-[3.5rem]'>
+              {copy.hero.title}
             </h1>
-
-            <p className="hero-description text-sm sm:text-lg md:text-xl lg:text-2xl mb-6 sm:mb-12 text-white/95 leading-relaxed max-w-2xl mx-auto">
-              {t.hero.subtitle}
-            </p>
-
-            <p className="text-xs sm:text-sm text-white/80 leading-relaxed max-w-2xl mx-auto -mt-3 mb-6 sm:-mt-8 sm:mb-10">
-              {language === 'id'
-                ? 'NusaBeeTrip adalah operator lokal independen di Nusa Penida. Booking resmi hanya melalui nusabeetrip.com dan WhatsApp +62 896-3128-1234.'
-                : 'NusaBeeTrip is an independent local operator in Nusa Penida. Official booking is only through nusabeetrip.com and WhatsApp +62 896-3128-1234.'}
-            </p>
-
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center mb-6 sm:mb-12">
-              <Link
-                href={localHref('/tours')}
-                className="inline-flex items-center gap-2 bg-white text-brand-blue-800 px-6 py-3 sm:px-8 sm:py-4 rounded-xl font-semibold text-sm sm:text-base hover:bg-gray-50 hover:shadow-xl hover:scale-105 transition-all duration-200 shadow-lg"
-              >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z" />
-                </svg>
-                {t.hero.viewTours}
-              </Link>
-
-              <a
-                href={getWhatsAppLink('bookTour', language)}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 bg-whatsapp hover:bg-whatsapp-dark text-white px-6 py-3 sm:px-8 sm:py-4 rounded-xl font-semibold text-sm sm:text-base hover:shadow-xl hover:scale-105 transition-all duration-200 shadow-lg"
-              >
-                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488" />
-                </svg>
-                {t.hero.bookWhatsApp}
+            <p className='mt-5 max-w-2xl text-[15px] leading-7 text-slate-600 sm:text-lg sm:leading-8'>{copy.hero.subtitle}</p>
+            <div className='mt-7 flex flex-col gap-3 min-[430px]:flex-row'>
+              <a href='#trip-planner' className='inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-brand-blue-800 px-6 py-3 text-sm font-bold text-white shadow-[0_14px_28px_-16px_rgba(30,64,175,0.9)] transition hover:-translate-y-0.5 hover:bg-brand-blue-900'>
+                {copy.hero.primaryCta}
+                <svg className='h-4 w-4' fill='none' stroke='currentColor' viewBox='0 0 24 24' aria-hidden='true'><path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M19 9l-7 7-7-7' /></svg>
+              </a>
+              <a href={generateWhatsAppContactURL(directMessage, language)} target='_blank' rel='noopener noreferrer' onClick={() => trackWhatsAppClick('homepage_hero_direct')}
+                className='inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border border-slate-300 bg-white px-6 py-3 text-sm font-bold text-slate-800 transition hover:-translate-y-0.5 hover:border-brand-teal-500 hover:text-brand-blue-800'>
+                <svg className='h-5 w-5 text-whatsapp-dark' fill='none' stroke='currentColor' viewBox='0 0 24 24' aria-hidden='true'><path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M8 10h.01M12 10h.01M16 10h.01M21 12c0 4.4-4 8-9 8a10 10 0 01-4.3-.9L3 20l1.4-3.7A7.2 7.2 0 013 12c0-4.4 4-8 9-8s9 3.6 9 8z' /></svg>
+                {copy.hero.secondaryCta}
               </a>
             </div>
+          </div>
 
-            {/* Trust indicators */}
-            <div className="flex flex-wrap justify-center gap-2 sm:gap-4">
-              {[
-                { icon: <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>, text: t.hero.localGuides },
-                { icon: <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>, text: t.hero.fairPrices },
-                { icon: <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>, text: t.hero.quickBooking },
-              ].map((item, i) => (
-                <div key={i} className="flex items-center gap-1.5 sm:gap-2 bg-white/10 backdrop-blur-sm px-3 py-1.5 sm:px-4 sm:py-2 rounded-full border border-white/15">
-                  <span className="text-white/90 [&>svg]:w-4 [&>svg]:h-4 sm:[&>svg]:w-5 sm:[&>svg]:h-5">{item.icon}</span>
-                  <span className="text-xs sm:text-sm font-medium text-white/90">{item.text}</span>
-                </div>
-              ))}
+          <div className='relative mx-auto w-full max-w-xl lg:mx-0'>
+            <div className='absolute -right-3 -top-3 h-full w-full rounded-[1.4rem] border border-brand-blue-200 bg-white sm:-right-5 sm:-top-5' aria-hidden='true' />
+            <div className='relative aspect-[4/3] overflow-hidden rounded-[1.25rem] bg-slate-200 shadow-[0_28px_60px_-36px_rgba(15,23,42,0.65)]'>
+              <Image src='/images/West%20Trip/West%20Trip%20Kelingking%20Beach%204.jpeg' alt={copy.hero.imageAlt} fill priority sizes='(min-width: 1024px) 48vw, 100vw' className='object-cover' />
+              <div className='absolute inset-0 bg-gradient-to-t from-slate-950/55 via-transparent to-transparent' />
+              <div className='absolute bottom-4 left-4 right-4 flex items-center gap-3 rounded-xl border border-white/20 bg-slate-950/75 px-4 py-3 text-white backdrop-blur-sm'>
+                <span className='flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-orange-500 text-sm font-black'>S</span>
+                <p className='text-xs font-medium leading-5 sm:text-sm'>{copy.hero.localNote}</p>
+              </div>
             </div>
+          </div>
+        </div>
+
+        <div className='border-y border-slate-200/80 bg-white/90'>
+          <div className='mx-auto grid max-w-7xl grid-cols-2 gap-px bg-slate-200 px-4 sm:grid-cols-4 sm:px-6 lg:px-8'>
+            {Object.values(copy.hero.proof).map((item) => (
+              <div key={item} className='flex min-h-[62px] items-center gap-2.5 bg-white px-3 py-3 text-xs font-semibold leading-5 text-slate-700 sm:min-h-[70px] sm:text-sm'>
+                <span className='flex h-6 w-6 shrink-0 items-center justify-center rounded-md bg-brand-teal-50 text-brand-teal-700'><svg className='h-4 w-4' fill='none' stroke='currentColor' viewBox='0 0 24 24' aria-hidden='true'><path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2.2} d={CHECK_PATH} /></svg></span>
+                {item}
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Customer Testimonials & Reviews */}
+      <QuickTripPlanner selectedIntent={selectedIntent} onIntentChange={setSelectedIntent} />
+
+      <section className='bg-white py-16 sm:py-24' aria-labelledby='trip-ideas-title'>
+        <div className='mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'>
+          <header className='max-w-3xl'>
+            <p className='text-xs font-bold uppercase tracking-[0.18em] text-brand-teal-700'>{copy.ideas.eyebrow}</p>
+            <h2 id='trip-ideas-title' className='mt-3 text-3xl font-bold tracking-tight text-slate-950 sm:text-5xl'>{copy.ideas.title}</h2>
+            <p className='mt-4 text-sm leading-6 text-slate-600 sm:text-base'>{copy.ideas.description}</p>
+          </header>
+
+          <div className='mt-9 grid gap-4 lg:grid-cols-12 lg:gap-5'>
+            {ideas.map((item) => {
+              const idea = copy.ideas[item.key];
+              const wide = item.key === 'oneDay' || item.key === 'driver';
+              return (
+                <article key={item.key} className={`group overflow-hidden rounded-2xl border border-slate-200 bg-[#fbfcfd] shadow-[0_18px_50px_-44px_rgba(15,23,42,0.7)] ${item.span} ${wide ? 'md:grid md:grid-cols-[0.95fr_1.05fr]' : ''}`}>
+                  <div className={`relative overflow-hidden bg-slate-200 ${wide ? 'min-h-[230px]' : 'aspect-[16/10]'}`}>
+                    <Image src={item.image} alt={idea.imageAlt} fill sizes={wide ? '(min-width: 1024px) 30vw, 100vw' : '(min-width: 1024px) 40vw, 100vw'} className='object-cover transition duration-700 group-hover:scale-[1.03]' />
+                    <span className='absolute left-4 top-4 rounded-lg bg-slate-950/80 px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.14em] text-white backdrop-blur-sm'>{idea.tag}</span>
+                  </div>
+                  <div className='flex flex-col items-start justify-center p-5 sm:p-6'>
+                    <h3 className='text-xl font-bold leading-7 text-slate-950'>{idea.title}</h3>
+                    <p className='mt-3 text-sm leading-6 text-slate-600'>{idea.description}</p>
+                    <button type='button' onClick={() => handleUsePlan(item.intent)} className='mt-5 inline-flex items-center gap-2 text-sm font-bold text-brand-blue-800 transition hover:gap-3 hover:text-brand-teal-700'>
+                      {copy.ideas.usePlan}
+                      <svg className='h-4 w-4' fill='none' stroke='currentColor' viewBox='0 0 24 24' aria-hidden='true'><path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M5 12h14m-6-6l6 6-6 6' /></svg>
+                    </button>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+      <section className='bg-[#0b2746] py-16 text-white sm:py-24' aria-labelledby='route-guide-title'>
+        <div className='mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'>
+          <div className='grid gap-8 lg:grid-cols-[0.7fr_1.3fr] lg:gap-14'>
+            <header>
+              <p className='text-xs font-bold uppercase tracking-[0.18em] text-brand-teal-300'>{copy.routes.eyebrow}</p>
+              <h2 id='route-guide-title' className='mt-3 text-3xl font-bold tracking-tight sm:text-5xl'>{copy.routes.title}</h2>
+              <p className='mt-4 text-sm leading-6 text-blue-100/75 sm:text-base'>{copy.routes.description}</p>
+              <Link href={localHref('/tours')} className='mt-7 inline-flex items-center gap-2 rounded-xl border border-white/25 px-5 py-3 text-sm font-bold text-white transition hover:border-white hover:bg-white/10'>
+                {copy.routes.browseTours}
+                <svg className='h-4 w-4' fill='none' stroke='currentColor' viewBox='0 0 24 24' aria-hidden='true'><path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M5 12h14m-6-6l6 6-6 6' /></svg>
+              </Link>
+            </header>
+
+            <div className='grid gap-3 sm:grid-cols-2'>
+              <article className='rounded-2xl border border-white/10 bg-white p-5 text-slate-900 shadow-xl sm:p-6'>
+                <div className='flex items-center justify-between'>
+                  <span className='text-[11px] font-black uppercase tracking-[0.18em] text-orange-700'>01 / West</span>
+                  <span className='h-2.5 w-2.5 rounded-full bg-orange-500' aria-hidden='true' />
+                </div>
+                <h3 className='mt-4 text-xl font-bold'>{copy.routes.westTitle}</h3>
+                <p className='mt-2 text-sm leading-6 text-slate-600'>{copy.routes.westDescription}</p>
+                <p className='mt-5 border-l-2 border-orange-400 pl-3 text-sm font-semibold leading-6 text-slate-800'>{copy.routes.westSpots}</p>
+              </article>
+              <article className='rounded-2xl border border-white/10 bg-white p-5 text-slate-900 shadow-xl sm:p-6'>
+                <div className='flex items-center justify-between'>
+                  <span className='text-[11px] font-black uppercase tracking-[0.18em] text-brand-teal-700'>02 / East</span>
+                  <span className='h-2.5 w-2.5 rounded-full bg-brand-teal-500' aria-hidden='true' />
+                </div>
+                <h3 className='mt-4 text-xl font-bold'>{copy.routes.eastTitle}</h3>
+                <p className='mt-2 text-sm leading-6 text-slate-600'>{copy.routes.eastDescription}</p>
+                <p className='mt-5 border-l-2 border-brand-teal-400 pl-3 text-sm font-semibold leading-6 text-slate-800'>{copy.routes.eastSpots}</p>
+              </article>
+              <article className='rounded-2xl border border-brand-teal-400/30 bg-brand-teal-900/50 p-5 sm:col-span-2 sm:p-6'>
+                <div className='grid gap-4 sm:grid-cols-[0.8fr_1.2fr] sm:items-center'>
+                  <div>
+                    <span className='text-[11px] font-black uppercase tracking-[0.18em] text-brand-teal-300'>03 / Selected highlights</span>
+                    <h3 className='mt-3 text-xl font-bold'>{copy.routes.combinedTitle}</h3>
+                  </div>
+                  <div>
+                    <p className='text-sm leading-6 text-white'>{copy.routes.combinedDescription}</p>
+                    <p className='mt-2 text-xs leading-5 text-blue-100/70'>{copy.routes.combinedSpots}</p>
+                  </div>
+                </div>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section className='bg-[#eef7f6] py-16 sm:py-24' aria-labelledby='exact-price-title'>
+        <div className='mx-auto grid max-w-7xl gap-9 px-4 sm:px-6 lg:grid-cols-[0.8fr_1.2fr] lg:items-center lg:gap-16 lg:px-8'>
+          <header>
+            <p className='text-xs font-bold uppercase tracking-[0.18em] text-brand-teal-800'>{copy.pricing.eyebrow}</p>
+            <h2 id='exact-price-title' className='mt-3 text-3xl font-bold tracking-tight text-slate-950 sm:text-5xl'>{copy.pricing.title}</h2>
+            <p className='mt-4 text-sm leading-6 text-slate-600 sm:text-base'>{copy.pricing.description}</p>
+          </header>
+          <div>
+            <ol className='grid gap-3 sm:grid-cols-2'>
+              {Object.values(copy.pricing.factors).map((factor, index) => (
+                <li key={factor} className='flex min-h-[76px] items-center gap-4 rounded-xl border border-teal-100 bg-white px-4 py-3 shadow-[0_12px_32px_-28px_rgba(15,23,42,0.65)]'>
+                  <span className='flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-brand-teal-50 text-xs font-black text-brand-teal-800'>{String(index + 1).padStart(2, '0')}</span>
+                  <span className='text-sm font-semibold leading-5 text-slate-800'>{factor}</span>
+                </li>
+              ))}
+            </ol>
+            <div className='mt-4 rounded-2xl border-l-4 border-orange-400 bg-white p-5 shadow-[0_18px_44px_-36px_rgba(15,23,42,0.7)] sm:p-6'>
+              <div className='flex gap-4'>
+                <svg className='mt-0.5 h-6 w-6 shrink-0 text-orange-600' fill='none' stroke='currentColor' viewBox='0 0 24 24' aria-hidden='true'><path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M9 12l2 2 4-4m5.6-4.4A11.9 11.9 0 0112 3a11.9 11.9 0 01-8.6 2.6A12 12 0 003 9c0 5.6 3.8 10.3 9 11.7 5.2-1.4 9-6.1 9-11.7 0-1.2-.1-2.3-.4-3.4z' /></svg>
+                <div>
+                  <h3 className='text-base font-bold text-slate-950'>{copy.pricing.quoteTitle}</h3>
+                  <p className='mt-1.5 text-sm leading-6 text-slate-600'>{copy.pricing.quoteDescription}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section className='bg-white py-16 sm:py-24' aria-labelledby='process-title'>
+        <div className='mx-auto max-w-6xl px-4 sm:px-6 lg:px-8'>
+          <header className='text-center'>
+            <p className='text-xs font-bold uppercase tracking-[0.18em] text-brand-blue-700'>{copy.process.eyebrow}</p>
+            <h2 id='process-title' className='mt-3 text-3xl font-bold tracking-tight text-slate-950 sm:text-5xl'>{copy.process.title}</h2>
+          </header>
+          <ol className='relative mt-10 grid gap-4 md:grid-cols-3 md:gap-0'>
+            <div className='absolute left-[16.66%] right-[16.66%] top-6 hidden h-px bg-slate-200 md:block' aria-hidden='true' />
+            {Object.values(copy.process.steps).map((step, index) => (
+              <li key={step.title} className='relative rounded-xl border border-slate-200 bg-white p-5 md:border-0 md:px-7 md:text-center'>
+                <span className='relative z-10 flex h-12 w-12 items-center justify-center rounded-xl border-4 border-white bg-brand-blue-800 text-sm font-black text-white shadow-md md:mx-auto'>{index + 1}</span>
+                <h3 className='mt-4 text-lg font-bold text-slate-950'>{step.title}</h3>
+                <p className='mt-2 text-sm leading-6 text-slate-600'>{step.description}</p>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
       <Testimonials />
-
-      {/* Tour Packages Preview - 2 Column Layout */}
-      <section className="py-12 sm:py-24 bg-gradient-to-b from-gray-50 to-white" aria-label="Tour Packages" id="tours-preview">
-        <div className="container mx-auto px-4">
-          {/* Section Header */}
-          <div className="text-center mb-8 sm:mb-16">
-            <h2 className="text-2xl sm:text-4xl md:text-5xl font-bold text-brand-blue-800 mb-3 sm:mb-4 tracking-tight">
-              {t.tours.heading}
-            </h2>
-            <p className="text-base sm:text-xl text-gray-600 max-w-2xl mx-auto">
-              {t.tours.subheading}
-            </p>
-          </div>
-
-          {/* 2 Column Layout: Content Left, Images Right */}
-          <div className="max-w-7xl mx-auto">
-            <div className="grid lg:grid-cols-2 gap-12 items-center mb-16">
-              {/* Left: Content */}
-              <div className="space-y-8">
-                <div className="bg-white p-4 sm:p-8 rounded-2xl shadow-lg border border-gray-100 hover:shadow-xl transition-shadow">
-                  <div className="flex items-start gap-4">
-                    <div className="flex-shrink-0 w-10 h-10 sm:w-16 sm:h-16 bg-blue-100 rounded-xl flex items-center justify-center shadow-sm">
-                      <svg className="w-5 h-5 sm:w-8 sm:h-8 text-brand-blue-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 21v-4m0 0V5a2 2 0 012-2h6.5l1 1H21l-3 6 3 6h-8.5l-1-1H5a2 2 0 00-2 2zm9-13.5V9" />
-                      </svg>
-                    </div>
-                    <div className="flex-1">
-                      <div className="flex items-center gap-3 mb-2">
-                        <h3 className="text-lg sm:text-2xl font-bold text-brand-blue-800">{t.tours.westTrip}</h3>
-                        <span className="bg-brand-blue-100 text-brand-blue-800 px-3 py-1 rounded-full text-sm font-semibold">8 {t.tours.hours}</span>
-                      </div>
-                      <p className="text-gray-600 mb-4 leading-relaxed">
-                        {t.tours.westTripDesc}
-                      </p>
-                      <div className="flex items-center justify-between">
-                        <div>
-                          <span className="text-gray-500 block text-sm">{t.tours.perPerson}</span>
-                          <span className="text-xl sm:text-4xl font-bold text-brand-blue-800">{formatPriceByLang(390000, language).display}</span>
-                        </div>
-                        <Link
-                          href={localHref('/tours/west-trip')}
-                          className="bg-brand-blue-800 hover:bg-brand-blue-700 text-white px-4 py-2 sm:px-6 sm:py-3 rounded-xl font-semibold text-sm sm:text-base transition-all hover:shadow-lg"
-                        >
-                          {t.tours.viewDetails}
-                        </Link>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="bg-white p-4 sm:p-8 rounded-2xl shadow-lg border border-gray-100 hover:shadow-xl transition-shadow">
-                  <div className="flex items-start gap-4">
-                    <div className="flex-shrink-0 w-10 h-10 sm:w-16 sm:h-16 bg-teal-100 rounded-xl flex items-center justify-center shadow-sm">
-                      <svg className="w-5 h-5 sm:w-8 sm:h-8 text-brand-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-                      </svg>
-                    </div>
-                    <div className="flex-1">
-                      <div className="flex items-center gap-3 mb-2">
-                        <h3 className="text-lg sm:text-2xl font-bold text-brand-blue-800">{t.tours.eastTrip}</h3>
-                        <span className="bg-brand-teal-100 text-brand-teal-800 px-3 py-1 rounded-full text-sm font-semibold">8 {t.tours.hours}</span>
-                      </div>
-                      <p className="text-gray-600 mb-4 leading-relaxed">
-                        {t.tours.eastTripDesc}
-                      </p>
-                      <div className="flex items-center justify-between">
-                        <div>
-                          <span className="text-gray-500 block text-sm">{t.tours.perPerson}</span>
-                          <span className="text-xl sm:text-4xl font-bold text-brand-blue-800">{formatPriceByLang(430000, language).display}</span>
-                        </div>
-                        <Link
-                          href={localHref('/tours/east-trip')}
-                          className="bg-brand-blue-800 hover:bg-brand-blue-700 text-white px-4 py-2 sm:px-6 sm:py-3 rounded-xl font-semibold text-sm sm:text-base transition-all hover:shadow-lg"
-                        >
-                          {t.tours.viewDetails}
-                        </Link>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="bg-white p-4 sm:p-8 rounded-2xl shadow-lg border border-gray-100 hover:shadow-xl transition-shadow">
-                  <div className="flex items-start gap-4">
-                    <div className="flex-shrink-0 w-10 h-10 sm:w-16 sm:h-16 bg-orange-100 rounded-xl flex items-center justify-center shadow-sm">
-                      <svg className="w-5 h-5 sm:w-8 sm:h-8 text-brand-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
-                      </svg>
-                    </div>
-                    <div className="flex-1">
-                      <div className="flex items-center gap-3 mb-2">
-                        <h3 className="text-lg sm:text-2xl font-bold text-brand-blue-800">{t.tours.mixTrip}</h3>
-                        <span className="bg-brand-orange-100 text-brand-orange-800 px-3 py-1 rounded-full text-sm font-semibold">8 {t.tours.hours}</span>
-                      </div>
-                      <p className="text-gray-600 mb-4 leading-relaxed">
-                        {t.tours.mixTripDesc}
-                      </p>
-                      <div className="flex items-center justify-between">
-                        <div>
-                          <span className="text-gray-500 block text-sm">{t.tours.perPerson}</span>
-                          <span className="text-xl sm:text-4xl font-bold text-brand-blue-800">{formatPriceByLang(500000, language).display}</span>
-                        </div>
-                        <Link
-                          href={localHref('/tours/mix-trip')}
-                          className="bg-brand-blue-800 hover:bg-brand-blue-700 text-white px-4 py-2 sm:px-6 sm:py-3 rounded-xl font-semibold text-sm sm:text-base transition-all hover:shadow-lg"
-                        >
-                          {t.tours.viewDetails}
-                        </Link>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="bg-white p-4 sm:p-8 rounded-2xl shadow-lg border border-gray-100 hover:shadow-xl transition-shadow">
-                  <div className="flex items-start gap-4">
-                    <div className="flex-shrink-0 w-10 h-10 sm:w-16 sm:h-16 bg-cyan-100 rounded-xl flex items-center justify-center shadow-sm">
-                      <svg className="w-5 h-5 sm:w-8 sm:h-8 text-cyan-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 10l-2 1m0 0l-2-1m2 1v2.5M20 7l-2 1m2-1l-2-1m2 1v2.5M14 4l-2-1-2 1M4 7l2-1M4 7l2 1M4 7v2.5M12 21l-2-1m2 1l2-1m-2 1v-2.5M6 18l-2-1v-2.5M18 18l2-1v-2.5" />
-                      </svg>
-                    </div>
-                    <div className="flex-1">
-                      <div className="flex items-center gap-3 mb-2">
-                        <h3 className="text-lg sm:text-2xl font-bold text-brand-blue-800">{t.tours.snorkelingManta}</h3>
-                        <span className="bg-cyan-100 text-cyan-800 px-3 py-1 rounded-full text-sm font-semibold">2 {t.tours.hours}</span>
-                      </div>
-                      <p className="text-gray-600 mb-4 leading-relaxed">
-                        {t.tours.snorkelingMantaDesc}
-                      </p>
-                      <div className="flex items-center justify-between">
-                        <div>
-                          <span className="text-gray-500 block text-sm">{t.tours.perPerson}</span>
-                          <span className="text-xl sm:text-4xl font-bold text-brand-blue-800">{formatPriceByLang(200000, language).display}</span>
-                        </div>
-                        <Link
-                          href={localHref('/tours/snorkeling-manta')}
-                          className="bg-brand-blue-800 hover:bg-brand-blue-700 text-white px-4 py-2 sm:px-6 sm:py-3 rounded-xl font-semibold text-sm sm:text-base transition-all hover:shadow-lg"
-                        >
-                          {t.tours.viewDetails}
-                        </Link>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Right: Image Gallery/Carousel */}
-              <div className="space-y-4">
-                <div className="relative h-96 rounded-2xl overflow-hidden shadow-2xl group">
-                  <Image
-                    src="/images/West%20Trip/West%20Trip%20Broken%20Beach%203.jpeg"
-                    alt="Broken Beach - West Trip"
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-700"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-                  <div className="absolute bottom-6 left-6 text-white">
-                    <p className="text-sm font-semibold mb-1">{language === 'id' ? 'Highlight West Trip' : 'West Trip Highlight'}</p>
-                    <h4 className="text-2xl font-bold">Broken Beach</h4>
-                  </div>
-                </div>
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="relative h-48 rounded-xl overflow-hidden shadow-lg group">
-                    <Image
-                      src="/images/West%20Trip/West%20Trip%20Kelingking%20Beach%207.jpeg"
-                      alt="Kelingking Beach - West Trip"
-                      fill
-                      className="object-cover group-hover:scale-105 transition-transform duration-700"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-                    <div className="absolute bottom-3 left-3 text-white">
-                      <p className="text-xs font-semibold">Kelingking Beach</p>
-                    </div>
-                  </div>
-                  <div className="relative h-48 rounded-xl overflow-hidden shadow-lg group">
-                    <Image
-                      src="/images/Snorkeling%20%2B%20Manta%20Rays/snorkeling%202.jpeg"
-                      alt="Snorkeling with Manta Rays"
-                      fill
-                      className="object-cover group-hover:scale-105 transition-transform duration-700"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-                    <div className="absolute bottom-3 left-3 text-white">
-                      <p className="text-xs font-semibold">Manta Ray Snorkeling</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* View All Link */}
-            <div className="text-center">
-              <Link
-                href={localHref('/tours')}
-                className="inline-flex items-center gap-2 text-brand-blue-800 hover:text-brand-teal-600 font-semibold text-lg transition-colors group"
-              >
-                {t.tours.viewAll}
-                <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                </svg>
-              </Link>
-            </div>
+      <section className='bg-[#f8fafc] py-16 sm:py-24' aria-labelledby='homepage-faq-title' id='faq'>
+        <div className='mx-auto grid max-w-7xl gap-8 px-4 sm:px-6 lg:grid-cols-[0.65fr_1.35fr] lg:gap-16 lg:px-8'>
+          <header>
+            <p className='text-xs font-bold uppercase tracking-[0.18em] text-brand-teal-700'>{copy.faq.eyebrow}</p>
+            <h2 id='homepage-faq-title' className='mt-3 text-3xl font-bold tracking-tight text-slate-950 sm:text-5xl'>{copy.faq.title}</h2>
+            <p className='mt-4 text-sm leading-6 text-slate-600 sm:text-base'>{copy.faq.description}</p>
+          </header>
+          <div className='divide-y divide-slate-200 border-y border-slate-200'>
+            {homepageFaq.map((item, index) => (
+              <details key={item.question} className='group py-5' open={index === 0 ? true : undefined}>
+                <summary className='flex cursor-pointer list-none items-start justify-between gap-4 text-left text-base font-bold leading-6 text-slate-900'>
+                  <span>{item.question}</span>
+                  <span className='mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-md bg-white text-brand-blue-700 shadow-sm'>
+                    <svg className='h-4 w-4 transition group-open:rotate-180' fill='none' stroke='currentColor' viewBox='0 0 24 24' aria-hidden='true'><path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M19 9l-7 7-7-7' /></svg>
+                  </span>
+                </summary>
+                <p className='mt-3 max-w-3xl pr-9 text-sm leading-6 text-slate-600 sm:text-base'>{item.answer}</p>
+              </details>
+            ))}
           </div>
         </div>
       </section>
-
-      {/* Destinations Gallery Section - Balanced Masonry Grid */}
-      <section className="py-12 sm:py-24 bg-white" aria-label="Popular Destinations in Nusa Penida" id="destinations">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-8 sm:mb-16">
-            <h2 className="text-2xl sm:text-4xl md:text-5xl font-bold text-brand-blue-800 mb-3 sm:mb-4 tracking-tight">
-              {t.destinations.heading}
-            </h2>
-            <p className="text-base sm:text-xl text-gray-600 max-w-2xl mx-auto">
-              {t.destinations.subheading}
-            </p>
-          </div>
-
-          {/* Balanced Grid Layout */}
-          <div className="max-w-7xl mx-auto">
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-              {/* Row 1: Large featured + 2 regular */}
-              <div className="col-span-2 row-span-2 group relative rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300">
-                <div className="relative h-full min-h-[240px] sm:min-h-[400px]">
-                  <Image
-                    src="/images/West%20Trip/West%20Trip%20Broken%20Beach%202.jpeg"
-                    alt="Broken Beach"
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-700"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-                  <div className="absolute bottom-6 left-6 text-white">
-                    <span className="text-sm font-semibold bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full mb-3 inline-block">{language === 'id' ? 'Destinasi Unggulan' : 'Featured Destination'}</span>
-                    <h3 className="text-3xl font-bold mb-2">Broken Beach</h3>
-                    <p className="text-white/90 text-sm">{language === 'id' ? 'Formasi lengkungan batu alam' : 'Natural rock arch formation'}</p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Right side - 2 stacked cards */}
-              <div className="group relative rounded-2xl overflow-hidden aspect-square shadow-md hover:shadow-xl transition-all duration-300">
-                <Image
-                  src="/images/West%20Trip/West%20trip%20ANGEL%20BILABONG.jpeg"
-                  alt="Angel Billabong"
-                  fill
-                  className="object-cover group-hover:scale-110 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                <span className="absolute bottom-4 left-4 text-white font-semibold drop-shadow-md">Angel Billabong</span>
-              </div>
-
-              <div className="group relative rounded-2xl overflow-hidden aspect-square shadow-md hover:shadow-xl transition-all duration-300">
-                <Image
-                  src="/images/West%20Trip/West%20trip%20CRYSTAL%20BAY%20BEACH.jpeg"
-                  alt="Crystal Bay Beach"
-                  fill
-                  className="object-cover group-hover:scale-110 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                <span className="absolute bottom-4 left-4 text-white font-semibold drop-shadow-md">Crystal Bay</span>
-              </div>
-
-              {/* Row 2: 3 equal cards */}
-              <div className="group relative rounded-2xl overflow-hidden aspect-square shadow-md hover:shadow-xl transition-all duration-300">
-                <Image
-                  src="/images/East%20Trip/East%20trip%20DIAMOND%20BEACH.jpeg"
-                  alt="Diamond Beach"
-                  fill
-                  className="object-cover group-hover:scale-110 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                <span className="absolute bottom-4 left-4 text-white font-semibold drop-shadow-md">Diamond Beach</span>
-              </div>
-
-              <div className="group relative rounded-2xl overflow-hidden aspect-square shadow-md hover:shadow-xl transition-all duration-300">
-                <Image
-                  src="/images/East%20Trip/East%20trip%20ATUH%20BEACH.jpeg"
-                  alt="Atuh Beach"
-                  fill
-                  className="object-cover group-hover:scale-110 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                <span className="absolute bottom-4 left-4 text-white font-semibold drop-shadow-md">Atuh Beach</span>
-              </div>
-
-              <div className="group relative rounded-2xl overflow-hidden aspect-square shadow-md hover:shadow-xl transition-all duration-300">
-                <Image
-                  src="/images/East%20Trip/East%20trip%20TREE%20HOUSE.jpeg"
-                  alt="Tree House"
-                  fill
-                  className="object-cover group-hover:scale-110 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                <span className="absolute bottom-4 left-4 text-white font-semibold drop-shadow-md">Tree House</span>
-              </div>
-            </div>
+      <section className='relative overflow-hidden bg-brand-blue-950 py-16 text-white sm:py-24' aria-labelledby='final-trip-brief-title'>
+        <div className='absolute inset-y-0 right-0 hidden w-1/2 lg:block'>
+          <Image src='/images/East%20Trip/East%20trip%20DIAMOND%20BEACH.jpeg' alt='' fill sizes='50vw' className='object-cover opacity-45' />
+          <div className='absolute inset-0 bg-gradient-to-r from-brand-blue-950 via-brand-blue-950/60 to-transparent' />
+        </div>
+        <div className='relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'>
+          <div className='max-w-2xl'>
+            <p className='text-xs font-bold uppercase tracking-[0.18em] text-brand-teal-300'>{copy.finalCta.eyebrow}</p>
+            <h2 id='final-trip-brief-title' className='mt-3 text-3xl font-bold tracking-tight sm:text-5xl'>{copy.finalCta.title}</h2>
+            <p className='mt-4 max-w-xl text-sm leading-6 text-blue-100/80 sm:text-base'>{copy.finalCta.description}</p>
+            <a href='#trip-planner' className='mt-7 inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-white px-6 py-3 text-sm font-bold text-brand-blue-900 shadow-xl transition hover:-translate-y-0.5 hover:bg-brand-teal-50'>
+              {copy.finalCta.button}
+              <svg className='h-4 w-4' fill='none' stroke='currentColor' viewBox='0 0 24 24' aria-hidden='true'><path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M5 12h14m-6-6l6 6-6 6' /></svg>
+            </a>
           </div>
         </div>
       </section>
-
-      {/* Why Choose Us Section - Horizontal Layout */}
-      <section className="py-12 sm:py-24 bg-gradient-to-b from-gray-50 to-white" aria-label="Why Choose NusaBeeTrip" id="why-us">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-8 sm:mb-16">
-            <h2 className="text-2xl sm:text-4xl md:text-5xl font-bold text-brand-blue-800 mb-3 sm:mb-4 tracking-tight">
-              {t.whyUs.heading}
-            </h2>
-            <p className="text-base sm:text-xl text-gray-600 max-w-2xl mx-auto">
-              {t.whyUs.subheading}
-            </p>
-          </div>
-
-          <div className="max-w-7xl mx-auto grid md:grid-cols-3 gap-4 sm:gap-8">
-            <div className="group bg-white rounded-2xl p-5 sm:p-8 border border-gray-100 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-              <div className="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                <svg className="w-8 h-8 text-brand-blue-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-bold text-brand-blue-800 mb-3">{t.whyUs.localGuides}</h3>
-              <p className="text-gray-600 leading-relaxed" suppressHydrationWarning>{t.whyUs.localGuidesDesc}</p>
-            </div>
-
-            <div className="group bg-white rounded-2xl p-5 sm:p-8 border border-gray-100 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-              <div className="w-16 h-16 bg-teal-100 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                <svg className="w-8 h-8 text-brand-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-bold text-brand-blue-800 mb-3">{t.whyUs.fairPricing}</h3>
-              <p className="text-gray-600 leading-relaxed">{t.whyUs.fairPricingDesc}</p>
-            </div>
-
-            <div className="group bg-white rounded-2xl p-5 sm:p-8 border border-gray-100 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-              <div className="w-16 h-16 bg-orange-100 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                <svg className="w-8 h-8 text-brand-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-bold text-brand-blue-800 mb-3">{t.whyUs.easyBooking}</h3>
-              <p className="text-gray-600 leading-relaxed">{t.whyUs.easyBookingDesc}</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Vehicle Rentals Section - Horizontal Scroll/Carousel Style */}
-      <section className="py-12 sm:py-24 bg-white" aria-label="Vehicle Rentals Nusa Penida" id="rentals-preview">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-8 sm:mb-16">
-            <h2 className="text-2xl sm:text-4xl md:text-5xl font-bold text-brand-blue-800 mb-3 sm:mb-4 tracking-tight">
-              {t.rentals.heading}
-            </h2>
-            <p className="text-base sm:text-xl text-gray-600 max-w-2xl mx-auto">
-              {t.rentals.subheading}
-            </p>
-          </div>
-
-          {/* Horizontal scrollable container */}
-          <div className="relative max-w-7xl mx-auto">
-            <div className="flex gap-6 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
-              {/* N-Max Rental */}
-              <div className="flex-shrink-0 w-80 snap-start">
-                <div className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-100 h-full">
-                  <div className="relative h-56 overflow-hidden">
-                    <Image
-                      src="/images/Vehicle%20Rentals/Yamaha%20N-Max.webp"
-                      alt="Yamaha N-Max - Scooter Rental Nusa Penida"
-                      fill
-                      className="object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
-                    <div className="absolute top-4 right-4">
-                      <span className="bg-brand-blue-800 text-white px-3 py-1 rounded-full text-sm font-semibold">{language === 'id' ? 'Populer' : 'Popular'}</span>
-                    </div>
-                  </div>
-                  <div className="p-6">
-                    <h3 className="text-xl font-bold text-brand-blue-800 mb-2">
-                      Yamaha N-Max
-                    </h3>
-                    <p className="text-gray-600 text-sm mb-4" suppressHydrationWarning>
-                      {t.rentals.automaticScooter}
-                    </p>
-                    <div className="flex items-baseline mb-5 pb-5 border-b border-gray-100">
-                      <span className="text-3xl font-bold text-brand-blue-800">{formatPriceByLang(125000, language).display}</span>
-                      <span className="text-gray-500 ml-2 text-sm">{t.rentals.perDay}</span>
-                    </div>
-                    <a
-                      href={getWhatsAppRentalLink('Yamaha N-Max', language)}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="block w-full text-center bg-brand-blue-800 hover:bg-brand-blue-700 text-white px-4 py-3 rounded-xl font-semibold transition-all duration-200"
-                    >
-                      {t.rentals.bookNow}
-                    </a>
-                  </div>
-                </div>
-              </div>
-
-              {/* Vario Rental */}
-              <div className="flex-shrink-0 w-80 snap-start">
-                <div className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-100 h-full">
-                  <div className="relative h-56 overflow-hidden">
-                    <Image
-                      src="/images/Vehicle%20Rentals/Honda%20Vario.png"
-                      alt="Honda Vario - Scooter Rental Nusa Penida"
-                      fill
-                      className="object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
-                  </div>
-                  <div className="p-6">
-                    <h3 className="text-xl font-bold text-brand-blue-800 mb-2">
-                      Honda Vario
-                    </h3>
-                    <p className="text-gray-600 text-sm mb-4">
-                      {t.rentals.automaticScooter}
-                    </p>
-                    <div className="flex items-baseline mb-5 pb-5 border-b border-gray-100">
-                      <span className="text-3xl font-bold text-brand-blue-800">{formatPriceByLang(100000, language).display}</span>
-                      <span className="text-gray-500 ml-2 text-sm">{t.rentals.perDay}</span>
-                    </div>
-                    <a
-                      href={getWhatsAppRentalLink('Honda Vario', language)}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="block w-full text-center bg-brand-blue-800 hover:bg-brand-blue-700 text-white px-4 py-3 rounded-xl font-semibold transition-all duration-200"
-                    >
-                      {t.rentals.bookNow}
-                    </a>
-                  </div>
-                </div>
-              </div>
-
-              {/* Scoopy Rental */}
-              <div className="flex-shrink-0 w-80 snap-start">
-                <div className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-100 h-full">
-                  <div className="relative h-56 overflow-hidden">
-                    <Image
-                      src="/images/Vehicle%20Rentals/Honda%20Scoopy.webp"
-                      alt="Honda Scoopy - Scooter Rental Nusa Penida"
-                      fill
-                      className="object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
-                  </div>
-                  <div className="p-6">
-                    <h3 className="text-xl font-bold text-brand-blue-800 mb-2">
-                      Honda Scoopy
-                    </h3>
-                    <p className="text-gray-600 text-sm mb-4">
-                      {t.rentals.compactScooter}
-                    </p>
-                    <div className="flex items-baseline mb-5 pb-5 border-b border-gray-100">
-                      <span className="text-3xl font-bold text-brand-blue-800">{formatPriceByLang(100000, language).display}</span>
-                      <span className="text-gray-500 ml-2 text-sm">{t.rentals.perDay}</span>
-                    </div>
-                    <a
-                      href={getWhatsAppRentalLink('Honda Scoopy', language)}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="block w-full text-center bg-brand-blue-800 hover:bg-brand-blue-700 text-white px-4 py-3 rounded-xl font-semibold transition-all duration-200"
-                    >
-                      {t.rentals.bookNow}
-                    </a>
-                  </div>
-                </div>
-              </div>
-
-              {/* Car Rental */}
-              <div className="flex-shrink-0 w-80 snap-start">
-                <div className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-100 h-full">
-                  <div className="relative h-56 overflow-hidden">
-                    <Image
-                      src="/images/Vehicle%20Rentals/Car%20with%20Driver.jpg"
-                      alt="Car with Driver - Car Rental Nusa Penida"
-                      fill
-                      className="object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
-                    <div className="absolute top-4 right-4">
-                      <span className="bg-brand-orange-600 text-white px-3 py-1 rounded-full text-sm font-semibold">{language === 'id' ? 'Premium' : 'Premium'}</span>
-                    </div>
-                  </div>
-                  <div className="p-6">
-                    <h3 className="text-xl font-bold text-brand-blue-800 mb-2">
-                      {t.rentals.carWithDriver}
-                    </h3>
-                    <p className="text-gray-600 text-sm mb-4">
-                      {t.rentals.fourHourRental}
-                    </p>
-                    <div className="flex items-baseline mb-5 pb-5 border-b border-gray-100">
-                      <span className="text-3xl font-bold text-brand-blue-800">{formatPriceByLang(500000, language).display}</span>
-                      <span className="text-gray-500 ml-2 text-sm">{t.rentals.zeroToFourHours}</span>
-                    </div>
-                    <a
-                      href={getWhatsAppRentalLink('Car with Driver', language)}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="block w-full text-center bg-brand-blue-800 hover:bg-brand-blue-700 text-white px-4 py-3 rounded-xl font-semibold transition-all duration-200"
-                    >
-                      {t.rentals.bookNow}
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Scroll hint */}
-            <div className="text-center mt-6 text-gray-500 text-sm md:hidden">
-              {language === 'id' ? 'Geser untuk lihat lainnya →' : 'Swipe to see more →'}
-            </div>
-          </div>
-
-          <div className="text-center mt-14">
-            <Link
-              href={localHref('/rentals')}
-              className="inline-flex items-center gap-2 text-brand-blue-800 hover:text-brand-blue-600 font-semibold text-lg transition-colors group"
-            >
-              {t.rentals.viewAll}
-              <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* Souvenirs Section - Bento Grid Layout */}
-      <section className="py-12 sm:py-24 bg-gradient-to-b from-gray-50 to-white">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-8 sm:mb-16">
-            <h2 className="text-2xl sm:text-4xl md:text-5xl font-bold text-brand-blue-800 mb-3 sm:mb-4 tracking-tight">
-              {t.souvenirs.heading}
-            </h2>
-            <p className="text-base sm:text-xl text-gray-600 max-w-2xl mx-auto">
-              {t.souvenirs.subheading}
-            </p>
-          </div>
-
-          {/* Bento Grid - Varied sizes */}
-          <div className="max-w-7xl mx-auto">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              {/* Large featured item - spans 2x2 */}
-              <div className="col-span-2 row-span-2 group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-100">
-                <div className="relative h-full min-h-[240px] sm:min-h-[400px] bg-gray-100 overflow-hidden">
-                  <Image
-                    src="/images/Souvenir%20Nusa%20Penida/WhatsApp%20Image%202026-04-24%20at%2018.36.37.jpeg"
-                    alt="Nusa Penida T-Shirt"
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-300"
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
-                  <div className="absolute top-4 left-4">
-                    <span className="bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-semibold text-brand-blue-800">
-                      {language === 'id' ? 'Unggulan' : 'Featured'}
-                    </span>
-                  </div>
-                  <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-                    <h3 className="text-2xl font-bold mb-2">
-                      Nusa Penida T-Shirt
-                    </h3>
-                    <div className="flex items-center justify-between">
-                      <span className="text-3xl font-bold">{formatUsdPriceByLang(5, language).display}</span>
-                      <a
-                        href={getWhatsAppItemLink('Nusa Penida T-Shirt', language)}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="bg-white text-brand-blue-800 hover:bg-gray-100 px-6 py-2 rounded-xl font-semibold transition-all duration-200"
-                      >
-                        {t.souvenirs.orderNow}
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Regular item */}
-              <div className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-100">
-                <div className="relative h-48 bg-gray-100 overflow-hidden">
-                  <Image
-                    src="/images/Souvenir%20Nusa%20Penida/WhatsApp%20Image%202026-04-24%20at%2018.36.39.jpeg"
-                    alt="Kelingking Beach Keychain"
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-300"
-                    sizes="(max-width: 768px) 50vw, 25vw"
-                  />
-                  <div className="absolute top-3 left-3">
-                    <span className="bg-white/90 backdrop-blur-sm px-2 py-1 rounded-full text-xs font-semibold text-brand-blue-800">
-                      {language === 'id' ? 'Aksesoris' : 'Accessories'}
-                    </span>
-                  </div>
-                </div>
-                <div className="p-4">
-                  <h3 className="text-base font-bold text-brand-blue-800 mb-2">
-                    Kelingking Keychain
-                  </h3>
-                  <div className="flex items-center justify-between">
-                    <span className="text-2xl font-bold text-brand-blue-800">{formatUsdPriceByLang(3, language).display}</span>
-                    <a
-                      href={getWhatsAppItemLink('Kelingking Keychain', language)}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-brand-blue-800 hover:text-brand-blue-600 font-semibold text-sm"
-                    >
-                      {t.souvenirs.orderNow} →
-                    </a>
-                  </div>
-                </div>
-              </div>
-
-              {/* Regular item */}
-              <div className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-100">
-                <div className="relative h-48 bg-gray-100 overflow-hidden">
-                  <Image
-                    src="/images/Souvenir%20Nusa%20Penida/WhatsApp%20Image%202026-04-24%20at%2018.36.40%20(1).jpeg"
-                    alt="Nusa Penida Cap"
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-300"
-                    sizes="(max-width: 768px) 50vw, 25vw"
-                  />
-                  <div className="absolute top-3 left-3">
-                    <span className="bg-white/90 backdrop-blur-sm px-2 py-1 rounded-full text-xs font-semibold text-brand-blue-800">
-                      {language === 'id' ? 'Pakaian' : 'Apparel'}
-                    </span>
-                  </div>
-                </div>
-                <div className="p-4">
-                  <h3 className="text-base font-bold text-brand-blue-800 mb-2">
-                    Nusa Penida Cap
-                  </h3>
-                  <div className="flex items-center justify-between">
-                    <span className="text-2xl font-bold text-brand-blue-800">{formatUsdPriceByLang(6, language).display}</span>
-                    <a
-                      href={getWhatsAppItemLink('Nusa Penida Cap', language)}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-brand-blue-800 hover:text-brand-blue-600 font-semibold text-sm"
-                    >
-                      {t.souvenirs.orderNow} →
-                    </a>
-                  </div>
-                </div>
-              </div>
-
-              {/* Wide item - spans 2 columns */}
-              <div className="col-span-2 group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-100">
-                <div className="flex h-full">
-                  <div className="relative w-1/2 bg-gray-100 overflow-hidden">
-                    <Image
-                      src="/images/Souvenir%20Nusa%20Penida/WhatsApp%20Image%202026-04-24%20at%2018.36.41.jpeg"
-                      alt="Canvas Tote Bag"
-                      fill
-                      className="object-cover group-hover:scale-105 transition-transform duration-300"
-                      sizes="(max-width: 768px) 50vw, 25vw"
-                    />
-                  </div>
-                  <div className="w-1/2 p-6 flex flex-col justify-between">
-                    <div>
-                      <span className="bg-brand-teal-100 text-brand-teal-800 px-3 py-1 rounded-full text-xs font-semibold inline-block mb-3">
-                        {language === 'id' ? 'Tas' : 'Bags'}
-                      </span>
-                      <h3 className="text-xl font-bold text-brand-blue-800 mb-2">
-                        Canvas Tote Bag
-                      </h3>
-                      <p className="text-gray-600 text-sm mb-4">
-                        {language === 'id' ? 'Tote bag ramah lingkungan dengan print Nusa Penida' : 'Eco-friendly tote bag with Nusa Penida print'}
-                      </p>
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <span className="text-3xl font-bold text-brand-blue-800">{formatUsdPriceByLang(8, language).display}</span>
-                      <a
-                        href={getWhatsAppItemLink('Canvas Tote Bag', language)}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="bg-brand-blue-800 hover:bg-brand-blue-700 text-white px-6 py-2 rounded-xl font-semibold transition-all duration-200"
-                      >
-                        {t.souvenirs.orderNow}
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="text-center mt-14">
-            <Link
-              href={localHref('/souvenirs')}
-              className="inline-flex items-center gap-2 text-brand-blue-800 hover:text-brand-blue-600 font-semibold text-lg transition-colors group"
-            >
-              {t.souvenirs.viewAll}
-              <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* FAQ Section - visible counterpart for homepage FAQ structured data */}
-      <section className="py-12 sm:py-20 bg-white" aria-label="NusaBeeTrip FAQ" id="faq">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-8 sm:mb-12">
-              <span className="inline-flex items-center justify-center px-3 py-1 rounded-full bg-brand-teal-50 text-brand-teal-700 text-xs font-semibold uppercase tracking-wide mb-4">
-                {language === 'id' ? 'FAQ NusaBeeTrip' : 'NusaBeeTrip FAQ'}
-              </span>
-              <h2 className="text-2xl sm:text-4xl font-bold text-brand-blue-800 tracking-tight mb-3">
-                {language === 'id'
-                  ? 'Pertanyaan tentang NusaBeeTrip'
-                  : 'Common Questions About NusaBeeTrip'}
-              </h2>
-              <p className="text-gray-600 text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
-                {language === 'id'
-                  ? 'Informasi resmi tentang brand NusaBeeTrip, harga tour, pickup, rental, dan booking langsung di Nusa Penida.'
-                  : 'Official information about the NusaBeeTrip brand, tour prices, pickup, rentals, and direct booking in Nusa Penida.'}
-              </p>
-            </div>
-
-            <div className="divide-y divide-gray-200 border-y border-gray-200">
-              {homepageFaq.map((item) => (
-                <details key={item.question} className="group py-5">
-                  <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-left font-semibold text-gray-900">
-                    <span>{item.question}</span>
-                    <svg
-                      className="h-5 w-5 flex-shrink-0 text-brand-blue-700 transition-transform group-open:rotate-180"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                      aria-hidden="true"
-                    >
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                    </svg>
-                  </summary>
-                  <p className="mt-3 text-sm sm:text-base text-gray-600 leading-relaxed">
-                    {item.answer}
-                  </p>
-                </details>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="relative text-white py-12 sm:py-20 overflow-hidden">
-        <div className="absolute inset-0">
-          <Image
-            src="/images/West%20Trip/West%20Trip%20Kelingking%20Beach%206.jpeg"
-            alt="Kelingking Beach Nusa Penida"
-            fill
-            className="object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-brand-blue-900/90 to-brand-teal-800/90" />
-        </div>
-        <div className="container mx-auto px-4 relative">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold mb-3 sm:mb-4">
-              {t.contact.heading}
-            </h2>
-            <p className="text-base sm:text-xl mb-6 sm:mb-10 text-white/90 max-w-2xl mx-auto">
-              {t.contact.subheading}
-            </p>
-
-            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-              <a
-                href={getWhatsAppLink('services', language)}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 bg-whatsapp hover:bg-whatsapp-dark text-white px-8 py-4 rounded-xl font-semibold hover:shadow-xl hover:scale-105 transition-all duration-200 shadow-lg"
-              >
-                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488" />
-                </svg>
-                {t.common.bookViaWhatsApp}
-              </a>
-              <Link
-                href={localHref('/contact')}
-                className="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 border border-white/30 text-white px-8 py-4 rounded-xl font-semibold transition-all duration-200 backdrop-blur-sm"
-              >
-                {t.contact.heading}
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                </svg>
-              </Link>
-            </div>
-
-            {/* Compact contact pills */}
-            <div className="flex flex-wrap justify-center gap-4">
-              <a href="tel:+6289631281234" className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-5 py-2.5 rounded-full border border-white/20 hover:bg-white/20 transition-colors">
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>
-                <span className="text-sm font-medium">+62 896-3128-1234</span>
-              </a>
-              <a href="mailto:sidiqdwiatmoko@gmail.com" className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-5 py-2.5 rounded-full border border-white/20 hover:bg-white/20 transition-colors">
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
-                <span className="text-sm font-medium">sidiqdwiatmoko@gmail.com</span>
-              </a>
-              <a href="https://instagram.com/sidiq_1312" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-5 py-2.5 rounded-full border border-white/20 hover:bg-white/20 transition-colors">
-                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" /></svg>
-                <span className="text-sm font-medium">@sidiq_1312</span>
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
-    </main>
-  )
+    </>
+  );
 }
