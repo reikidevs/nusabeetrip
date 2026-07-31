@@ -46,7 +46,6 @@ const KEYWORD_IMAGE_MAP: Record<string, string[]> = {
     '/images/East%20Trip/East%20trip%20DIAMOND%20BEACH.jpeg',
     '/images/East%20Trip/East%20Trip%20Diamond%20Beach%202.jpeg',
     '/images/East%20Trip/East%20Trip%20Diamond%20Beach%203.jpeg',
-    '/images/East%20Trip/East%20Trip%20Diamond%20Beach%204.jpeg',
     '/images/East%20Trip/East%20Trip%20Diamond%20Beach%205.jpeg',
   ],
   'tree house': [
@@ -68,11 +67,11 @@ const KEYWORD_IMAGE_MAP: Record<string, string[]> = {
     '/images/West%20Trip/West%20trip%20CRYSTAL%20BAY%20BEACH.jpeg',
   ],
   'snorkeling': [
-    '/images/Snorkeling%20%2B%20Manta%20Rays/snorkeling%201.jpeg',
-    '/images/Snorkeling%20%2B%20Manta%20Rays/snorkeling%202.jpeg',
-    '/images/Snorkeling%20%2B%20Manta%20Rays/snorkeling%203.jpeg',
-    '/images/Snorkeling%20%2B%20Manta%20Rays/snorkeling%204.jpeg',
-    '/images/Snorkeling%20%2B%20Manta%20Rays/snorkeling%205.jpeg',
+    '/images/snorkeling-manta-rays/snorkeling-manta-rays-nusa-penida-1.jpeg',
+    '/images/snorkeling-manta-rays/snorkeling-manta-rays-nusa-penida-2.jpeg',
+    '/images/snorkeling-manta-rays/snorkeling-manta-rays-nusa-penida-3.jpeg',
+    '/images/snorkeling-manta-rays/snorkeling-manta-rays-nusa-penida-4.jpeg',
+    '/images/snorkeling-manta-rays/snorkeling-manta-rays-nusa-penida-5.jpeg',
     '/images/West%20Trip/West%20Trip%20Kelingking%20Manta%20Snorkeling.png',
     '/images/East%20Trip/East%20Trip%20Diamond%20Beach%20Snorkeling.png',
     '/images/West%20Trip/West%20trip%20CRYSTAL%20BAY%20BEACH.jpeg',
@@ -84,21 +83,21 @@ const KEYWORD_IMAGE_MAP: Record<string, string[]> = {
     '/images/Mix%20Trip%20View%20Thoussand%20Island%20and%20Crystal%20bay%20Beach.png',
   ],
   'manta bay': [
-    '/images/Snorkeling%20%2B%20Manta%20Rays/snorkeling%201.jpeg',
-    '/images/Snorkeling%20%2B%20Manta%20Rays/snorkeling%202.jpeg',
+    '/images/snorkeling-manta-rays/snorkeling-manta-rays-nusa-penida-1.jpeg',
+    '/images/snorkeling-manta-rays/snorkeling-manta-rays-nusa-penida-2.jpeg',
   ],
   'gamat bay': [
-    '/images/Snorkeling%20%2B%20Manta%20Rays/snorkeling%203.jpeg',
+    '/images/snorkeling-manta-rays/snorkeling-manta-rays-nusa-penida-3.jpeg',
   ],
   'wall point': [
-    '/images/Snorkeling%20%2B%20Manta%20Rays/snorkeling%204.jpeg',
+    '/images/snorkeling-manta-rays/snorkeling-manta-rays-nusa-penida-4.jpeg',
   ],
   'snorkeling manta': [
-    '/images/Snorkeling%20%2B%20Manta%20Rays/snorkeling%201.jpeg',
-    '/images/Snorkeling%20%2B%20Manta%20Rays/snorkeling%202.jpeg',
-    '/images/Snorkeling%20%2B%20Manta%20Rays/snorkeling%203.jpeg',
-    '/images/Snorkeling%20%2B%20Manta%20Rays/snorkeling%204.jpeg',
-    '/images/Snorkeling%20%2B%20Manta%20Rays/snorkeling%205.jpeg',
+    '/images/snorkeling-manta-rays/snorkeling-manta-rays-nusa-penida-1.jpeg',
+    '/images/snorkeling-manta-rays/snorkeling-manta-rays-nusa-penida-2.jpeg',
+    '/images/snorkeling-manta-rays/snorkeling-manta-rays-nusa-penida-3.jpeg',
+    '/images/snorkeling-manta-rays/snorkeling-manta-rays-nusa-penida-4.jpeg',
+    '/images/snorkeling-manta-rays/snorkeling-manta-rays-nusa-penida-5.jpeg',
   ],
 };
 
@@ -126,7 +125,6 @@ const SCENIC_IMAGE_POOL: string[] = [
   '/images/East%20Trip/East%20trip%20DIAMOND%20BEACH.jpeg',
   '/images/East%20Trip/East%20Trip%20Diamond%20Beach%202.jpeg',
   '/images/East%20Trip/East%20Trip%20Diamond%20Beach%203.jpeg',
-  '/images/East%20Trip/East%20Trip%20Diamond%20Beach%204.jpeg',
   '/images/East%20Trip/East%20Trip%20Diamond%20Beach%205.jpeg',
   '/images/East%20Trip/East%20trip%20TREE%20HOUSE.jpeg',
   '/images/East%20Trip/East%20trip%20VIEW%20THOUSAND%20ISLAND.jpeg',
@@ -154,13 +152,31 @@ const SLUG_IMAGE_OVERRIDES: Record<string, string> = {
  * Check if a public image file actually exists on disk.
  * Handles URL-encoded paths (e.g. `%20` → space).
  */
-function imageFileExists(imageUrl: string): boolean {
+export function isLocalImageAvailable(imageUrl?: string | null): boolean {
+  if (!imageUrl || !imageUrl.startsWith('/images/') || /[?#]/.test(imageUrl)) {
+    return false;
+  }
+
   try {
-    // Decode percent-encoded characters to get real filesystem path
     const decoded = decodeURIComponent(imageUrl);
+    const segments = decoded.replace(/^\/+/, '').split('/');
+    if (decoded.includes('\0') || segments.includes('..')) return false;
+
     const publicDir = path.join(process.cwd(), 'public');
-    const filePath = path.join(publicDir, decoded);
-    return fs.existsSync(filePath);
+    let currentPath = publicDir;
+
+    for (const segment of segments) {
+      if (!fs.existsSync(currentPath) || !fs.statSync(currentPath).isDirectory()) {
+        return false;
+      }
+      const exactSegment = fs
+        .readdirSync(currentPath)
+        .find((entry) => entry === segment);
+      if (!exactSegment) return false;
+      currentPath = path.join(currentPath, exactSegment);
+    }
+
+    return fs.existsSync(currentPath) && fs.statSync(currentPath).isFile();
   } catch {
     return false;
   }
@@ -184,7 +200,7 @@ function seededIndex(seed: string, max: number): number {
  * Resolve the best image for a tour package based on its content.
  * 
  * Priority:
- * 1. ALWAYS use imageUrl from database if provided (even if file doesn't exist yet)
+ * 1. Use a database image only when it is a verified local public asset
  * 2. Match tour name, features, or description against keyword map
  * 3. Fall back to a deterministic "random" scenic image
  * 
@@ -206,9 +222,12 @@ export function resolveTourImage(context: {
     return SLUG_IMAGE_OVERRIDES[slug];
   }
 
-  // 1. ALWAYS prioritize imageUrl from database if it exists and is not a placeholder
-  // This ensures database values are always respected
-  if (imageUrl && !imageUrl.includes('placeholder')) {
+  // 1. A stale or external DB path must never break next/image at runtime.
+  if (
+    imageUrl &&
+    !imageUrl.includes('placeholder') &&
+    isLocalImageAvailable(imageUrl)
+  ) {
     return imageUrl;
   }
 

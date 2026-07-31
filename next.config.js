@@ -1,4 +1,13 @@
 /** @type {import('next').NextConfig} */
+const legacySnorkelingImageRedirects = Array.from({ length: 5 }, (_, index) => {
+  const imageNumber = index + 1;
+  return {
+    source: `/images/Snorkeling%20%2B%20Manta%20Rays/snorkeling%20${imageNumber}.jpeg`,
+    destination: `/images/snorkeling-manta-rays/snorkeling-manta-rays-nusa-penida-${imageNumber}.jpeg`,
+    permanent: true,
+  };
+});
+
 const nextConfig = {
   images: {
     domains: ['localhost'],
@@ -35,6 +44,7 @@ const nextConfig = {
   trailingSlash: false,
   async redirects() {
     return [
+      ...legacySnorkelingImageRedirects,
       // Common misspellings and old URLs
       { source: '/tour', destination: '/tours', permanent: true },
       { source: '/rental', destination: '/rentals', permanent: true },
@@ -73,10 +83,6 @@ const nextConfig = {
             key: 'Strict-Transport-Security',
             value: 'max-age=63072000; includeSubDomains; preload',
           },
-          {
-            key: 'X-Robots-Tag',
-            value: 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
-          },
         ],
       },
       // Sitemaps — fresh for crawlers
@@ -102,6 +108,21 @@ const nextConfig = {
           { key: 'Content-Type', value: 'text/plain; charset=utf-8' },
           { key: 'Cache-Control', value: 'public, max-age=3600, must-revalidate' },
           { key: 'X-Robots-Tag', value: 'noindex' },
+        ],
+      },
+      // Private/demo HTML stays crawlable so bots can read noindex.
+      {
+        source: '/admin/:path*',
+        headers: [
+          { key: 'X-Robots-Tag', value: 'noindex, nofollow' },
+          { key: 'Cache-Control', value: 'private, no-store, must-revalidate' },
+        ],
+      },
+      {
+        source: '/demo/:path*',
+        headers: [
+          { key: 'X-Robots-Tag', value: 'noindex, nofollow' },
+          { key: 'Cache-Control', value: 'private, no-store, must-revalidate' },
         ],
       },
       // API routes — never cached
@@ -135,7 +156,7 @@ const nextConfig = {
       },
       // HTML pages — short cache for freshness with edge SWR
       {
-        source: '/:path((?!api|_next|images|sitemap|robots|image-sitemap).*)',
+        source: '/:path((?!api|admin|demo|_next|images|sitemap|robots|image-sitemap).*)',
         headers: [
           { key: 'Cache-Control', value: 'public, max-age=0, s-maxage=3600, stale-while-revalidate=86400' },
         ],

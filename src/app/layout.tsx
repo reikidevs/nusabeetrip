@@ -6,6 +6,7 @@ import SiteChrome from '@/components/layout/SiteChrome'
 import { LanguageProvider } from '@/lib/LanguageContext'
 import ExchangeRateProvider from '@/components/ExchangeRateProvider'
 import PageViewTracker from '@/components/PageViewTracker'
+import MarketingAnalytics from '@/components/MarketingAnalytics'
 import { JsonLd } from '@/components/seo'
 import {
   buildMetadata,
@@ -99,6 +100,7 @@ export default async function RootLayout({
         <JsonLd id="ld-navigation" data={siteNavigationJsonLd(initialLanguage)} />
         <LanguageProvider initialLanguage={initialLanguage}>
           <ExchangeRateProvider />
+          <MarketingAnalytics />
           <PageViewTracker />
           <SiteChrome>
             {children}

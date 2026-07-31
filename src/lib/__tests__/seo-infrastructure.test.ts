@@ -17,9 +17,10 @@ describe('sitemap', () => {
 
     expect(entries).toHaveLength(expectedCount);
     expect(entries.every((entry) => !entry.url.includes('#'))).toBe(true);
-    expect(entries.find((entry) => entry.url === 'https://nusabeetrip.com/')).not.toHaveProperty(
-      'lastModified',
-    );
+    expect(
+      entries.find((entry) => entry.url === 'https://nusabeetrip.com/')
+        ?.lastModified,
+    ).toEqual(new Date('2026-07-31'));
 
     const guide = getAllGuides()[0];
     const guideEntry = entries.find(
@@ -38,7 +39,7 @@ describe('sitemap', () => {
 });
 
 describe('robots', () => {
-  it('keeps private routes blocked without blocking Next.js rendering assets', () => {
+  it('lets crawlers read HTML noindex directives without blocking rendering assets', () => {
     const config = robots() as any;
     const rules = Array.isArray(config.rules) ? config.rules : [config.rules];
 
@@ -50,7 +51,9 @@ describe('robots', () => {
           : [];
 
       expect(disallow).not.toContain('/_next/');
-      expect(disallow).toEqual(expect.arrayContaining(['/api/', '/admin/', '/demo']));
+      expect(disallow).toContain('/api/');
+      expect(disallow).not.toContain('/admin/');
+      expect(disallow).not.toContain('/demo');
     }
   });
 });

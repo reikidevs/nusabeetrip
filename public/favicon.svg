@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title">
+  <title>NusaBeeTrip</title>
+  <rect width="512" height="512" rx="112" fill="#0b2746"/>
+  <circle cx="404" cy="108" r="38" fill="#f59e0b"/>
+  <path d="M92 374c62-76 119-89 174-40 54 49 101 35 154-31" fill="none" stroke="#2dd4bf" stroke-width="24" stroke-linecap="round"/>
+  <circle cx="420" cy="303" r="15" fill="#2dd4bf"/>
+  <text x="256" y="263" fill="#fff" font-family="Arial, Helvetica, sans-serif" font-size="184" font-weight="800" text-anchor="middle" dominant-baseline="middle" letter-spacing="-14">NB</text>
+</svg>

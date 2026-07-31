@@ -7,6 +7,7 @@ import { JsonLd } from '@/components/seo';
 import { breadcrumbJsonLd, buildMetadata, rentalServiceListJsonLd } from '@/lib/seo';
 import { localeFromPath, localizedPath } from '@/lib/site-config';
 import RentalsPageContent from './RentalsPageContent';
+import { isLocalImageAvailable } from '@/lib/image-resolver';
 
 // Opt out of static generation — this page fetches from DB at runtime
 export const dynamic = 'force-dynamic';
@@ -44,13 +45,17 @@ const VEHICLE_IMAGE_MAP: Record<string, string> = {
 
 /**
  * Resolve a valid image path for a rental vehicle.
- * 1. ALWAYS use DB imageUrl if provided (prioritize database)
+ * 1. Use DB imageUrl only when it is a verified local asset
  * 2. Otherwise match model name to known vehicle image
  * 3. Fallback to placeholder
  */
 function resolveRentalImage(model: string, dbImageUrl: string | null): string {
-  // 1. ALWAYS prioritize DB imageUrl if it exists and is not a placeholder
-  if (dbImageUrl && !dbImageUrl.includes('placeholder')) {
+  // 1. Reject stale or external DB paths before they reach next/image.
+  if (
+    dbImageUrl &&
+    !dbImageUrl.includes('placeholder') &&
+    isLocalImageAvailable(dbImageUrl)
+  ) {
     return dbImageUrl;
   }
 

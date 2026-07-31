@@ -12,12 +12,15 @@ interface JsonLdProps {
  * Uses dangerouslySetInnerHTML which is the recommended pattern from Next.js docs.
  */
 export default function JsonLd({ data, id }: JsonLdProps) {
+  // Prevent user-managed text containing `</script>` from terminating the tag.
+  const serialized = JSON.stringify(data).replace(/</g, '\\u003c');
+
   return (
     <script
       type="application/ld+json"
       id={id}
       // eslint-disable-next-line react/no-danger
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
+      dangerouslySetInnerHTML={{ __html: serialized }}
     />
   );
 }

@@ -22,6 +22,11 @@ export type HomepageFaqItem = {
 export const HOMEPAGE_FAQ: Record<Language, HomepageFaqItem[]> = {
   en: [
     {
+      question: 'Is NusaBeeTrip the same company as Nusatrip?',
+      answer:
+        'No. NusaBeeTrip is an independent, locally owned Nusa Penida tour, private driver, transfer, snorkeling, and rental operator. It is not affiliated with the flight and hotel booking company Nusatrip.',
+    },
+    {
       question: 'Can I book a driver or trip for today or tomorrow?',
       answer:
         'Sometimes, depending on the date, driver, vehicle, and route. Send your pickup point, group size, and available time through the trip planner so Sidiq can confirm availability on WhatsApp.',
@@ -53,6 +58,11 @@ export const HOMEPAGE_FAQ: Record<Language, HomepageFaqItem[]> = {
     },
   ],
   id: [
+    {
+      question: 'Apakah NusaBeeTrip sama dengan Nusatrip?',
+      answer:
+        'Tidak. NusaBeeTrip adalah operator lokal independen di Nusa Penida untuk tur, private driver, transfer, snorkeling, dan rental kendaraan. NusaBeeTrip tidak terafiliasi dengan perusahaan pemesanan tiket dan hotel Nusatrip.',
+    },
     {
       question: 'Bisakah booking driver atau trip untuk hari ini atau besok?',
       answer:
@@ -99,7 +109,7 @@ export default function HomepageSEO({ language = 'en' }: HomepageSEOProps) {
     { name: 'West Trip Nusa Penida', url: href('/tours/west-trip'), image: '/images/West%20Trip/West%20trip%20%20kelingking%20beach.jpeg' },
     { name: 'East Trip Nusa Penida', url: href('/tours/east-trip'), image: '/images/East%20Trip/East%20trip%20DIAMOND%20BEACH.jpeg' },
     { name: 'Mix Trip (West & East)', url: href('/tours/mix-trip'), image: '/images/Mix%20Trip%20View%20Thoussand%20Island%20and%20Crystal%20bay%20Beach.png' },
-    { name: isIndonesian ? 'Snorkeling Pari Manta' : 'Snorkeling with Manta Rays', url: href('/tours/snorkeling-manta'), image: '/images/Snorkeling%20%2B%20Manta%20Rays/snorkeling%201.jpeg' },
+    { name: isIndonesian ? 'Snorkeling Pari Manta' : 'Snorkeling with Manta Rays', url: href('/tours/snorkeling-manta'), image: '/images/snorkeling-manta-rays/snorkeling-manta-rays-nusa-penida-1.jpeg' },
     { name: isIndonesian ? 'Sewa Yamaha N-Max' : 'Yamaha N-Max Rental', url: href('/rentals/nmax-motorcycle'), image: '/images/Vehicle%20Rentals/Yamaha%20N-Max.webp' },
     { name: isIndonesian ? 'Mobil dengan Sopir' : 'Car with Driver', url: href('/rentals/car-rental'), image: '/images/Vehicle%20Rentals/Car%20with%20Driver.jpg' },
   ];

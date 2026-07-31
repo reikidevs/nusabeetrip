@@ -38,7 +38,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }));
 
   const staticRoutes: MetadataRoute.Sitemap = [
-    ...localizedRoutes('/', 'daily', 1.0),
+    ...localizedRoutes('/', 'daily', 1.0, new Date('2026-07-31')),
     ...localizedRoutes('/tours', 'daily', 0.95),
     ...localizedRoutes('/bali-day-trip', 'weekly', 0.92),
     ...localizedRoutes('/rentals', 'weekly', 0.9),

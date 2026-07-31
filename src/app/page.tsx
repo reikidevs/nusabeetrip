@@ -33,7 +33,7 @@ export default function Home() {
   const ideas: Array<{ key: 'oneDay' | 'twoDays' | 'snorkel' | 'driver'; intent: TripIntent; image: string; span: string }> = [
     { key: 'oneDay', intent: 'famousHighlights', image: '/images/West%20Trip/West%20Trip%20Kelingking%20Beach%205.jpeg', span: 'lg:col-span-7' },
     { key: 'twoDays', intent: 'twoDays', image: '/images/East%20Trip/East%20trip%20VIEW%20THOUSAND%20ISLAND.jpeg', span: 'lg:col-span-5' },
-    { key: 'snorkel', intent: 'snorkelLand', image: '/images/Snorkeling%20+%20Manta%20Rays/snorkeling%203.jpeg', span: 'lg:col-span-5' },
+    { key: 'snorkel', intent: 'snorkelLand', image: '/images/snorkeling-manta-rays/snorkeling-manta-rays-nusa-penida-3.jpeg', span: 'lg:col-span-5' },
     { key: 'driver', intent: 'driverOnly', image: '/images/Vehicle%20Rentals/Car%20with%20Driver.jpg', span: 'lg:col-span-7' },
   ];
 
@@ -63,7 +63,13 @@ export default function Home() {
                 {copy.hero.primaryCta}
                 <svg className='h-4 w-4' fill='none' stroke='currentColor' viewBox='0 0 24 24' aria-hidden='true'><path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M19 9l-7 7-7-7' /></svg>
               </a>
-              <a href={generateWhatsAppContactURL(directMessage, language)} target='_blank' rel='noopener noreferrer' onClick={() => trackWhatsAppClick('homepage_hero_direct')}
+              <a
+                href={generateWhatsAppContactURL(directMessage, language)}
+                target='_blank'
+                rel='noopener noreferrer'
+                data-analytics-handled='true'
+                data-analytics-context='homepage_hero_direct'
+                onClick={() => trackWhatsAppClick('homepage_hero_direct')}
                 className='inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border border-slate-300 bg-white px-6 py-3 text-sm font-bold text-slate-800 transition hover:-translate-y-0.5 hover:border-brand-teal-500 hover:text-brand-blue-800'>
                 <svg className='h-5 w-5 text-whatsapp-dark' fill='none' stroke='currentColor' viewBox='0 0 24 24' aria-hidden='true'><path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M8 10h.01M12 10h.01M16 10h.01M21 12c0 4.4-4 8-9 8a10 10 0 01-4.3-.9L3 20l1.4-3.7A7.2 7.2 0 013 12c0-4.4 4-8 9-8s9 3.6 9 8z' /></svg>
                 {copy.hero.secondaryCta}

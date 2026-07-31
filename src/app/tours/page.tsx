@@ -149,7 +149,7 @@ export default async function ToursPage() {
         includesSnorkeling: true,
         features: ['Manta Bay', 'Crystal Bay', 'Gamat Bay / Wall Point', 'Snorkeling Equipment', 'Professional Guide', 'Transportation', 'Tax Island', 'Parking Ticket in Any Spot'],
         isActive: true,
-        imageUrl: '/images/Snorkeling%20%2B%20Manta%20Rays/snorkeling%201.jpeg',
+        imageUrl: '/images/snorkeling-manta-rays/snorkeling-manta-rays-nusa-penida-1.jpeg',
       },
     ];
 

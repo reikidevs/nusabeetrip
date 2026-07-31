@@ -49,19 +49,29 @@ function buildEntries(): UrlEntry[] {
         title: 'Kelingking Beach',
       },
       {
+        loc: absoluteUrl('/images/West%20Trip/West%20Trip%20Kelingking%20Beach%205.jpeg'),
+        caption: 'One-day Kelingking Beach highlights with NusaBeeTrip',
+        title: 'Kelingking Beach day trip',
+      },
+      {
+        loc: absoluteUrl('/images/East%20Trip/East%20trip%20VIEW%20THOUSAND%20ISLAND.jpeg'),
+        caption: 'Two-day West and East Nusa Penida trip planning',
+        title: 'Thousand Islands viewpoint',
+      },
+      {
+        loc: absoluteUrl('/images/snorkeling-manta-rays/snorkeling-manta-rays-nusa-penida-3.jpeg'),
+        caption: 'Snorkeling and land trip planning in Nusa Penida',
+        title: 'Nusa Penida snorkeling',
+      },
+      {
+        loc: absoluteUrl('/images/Vehicle%20Rentals/Car%20with%20Driver.jpg'),
+        caption: 'Private car with local driver in Nusa Penida',
+        title: 'Nusa Penida private driver',
+      },
+      {
         loc: absoluteUrl('/images/East%20Trip/East%20trip%20DIAMOND%20BEACH.jpeg'),
         caption: 'Diamond Beach Nusa Penida',
         title: 'Diamond Beach',
-      },
-      {
-        loc: absoluteUrl('/images/Snorkeling%20%2B%20Manta%20Rays/snorkeling%201.jpeg'),
-        caption: 'Snorkeling with Manta Rays',
-        title: 'Manta Snorkeling',
-      },
-      {
-        loc: absoluteUrl('/images/West%20Trip/West%20Trip%20Broken%20Beach%202.jpeg'),
-        caption: 'Broken Beach Nusa Penida',
-        title: 'Broken Beach',
       },
     ],
   });

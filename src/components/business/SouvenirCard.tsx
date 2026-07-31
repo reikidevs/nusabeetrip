@@ -4,7 +4,6 @@ import React from 'react';
 import Image from 'next/image';
 import { Souvenir } from '@/types';
 import WhatsAppBookingButton from './WhatsAppBookingButton';
-import { trackBookingClick } from '@/lib/analytics';
 import { useLanguage } from '@/lib/LanguageContext';
 import { formatUsdPriceByLang } from '@/lib/currency';
 
@@ -23,13 +22,6 @@ export const SouvenirCard: React.FC<SouvenirCardProps> = ({
   const { slug, name, description, price, currency, category, image, isAvailable } = souvenir;
 
   const handleBookingClick = () => {
-    trackBookingClick({
-      serviceType: 'souvenir',
-      serviceName: name,
-      price,
-      method: 'whatsapp',
-    });
-
     if (onBookingClick) {
       onBookingClick(name, price);
     }

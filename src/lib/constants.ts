@@ -137,7 +137,7 @@ export const TOUR_PACKAGES: TourPackage[] = [
       'Wall Point',
       'Snorkeling Equipment',
     ],
-    image: '/images/Snorkeling%20%2B%20Manta%20Rays/snorkeling%201.jpeg',
+    image: '/images/snorkeling-manta-rays/snorkeling-manta-rays-nusa-penida-1.jpeg',
     isActive: true,
   },
 ];
@@ -365,7 +365,7 @@ export const SITE_CONFIG = {
   name: BUSINESS_INFO.name,
   description: BUSINESS_INFO.description,
   url: 'https://nusabeetrip.com',
-  ogImage: '/images/og-image.jpg',
+  ogImage: '/images/NusaBeeTrip-Logo-final.png',
   links: {
     instagram: `https://instagram.com/${CONTACT_INFO.instagram}`,
     whatsapp: `https://wa.me/${CONTACT_INFO.whatsapp.replace(/[^0-9]/g, '')}`,

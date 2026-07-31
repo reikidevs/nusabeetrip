@@ -416,7 +416,7 @@ const GUIDES: Guide[] = [
     title: 'What to Pack for Nusa Penida',
     excerpt:
       'A focused packing list for a Nusa Penida day trip or short stay. What is essential, what is overkill, and what locals actually wish tourists brought.',
-    heroImage: '/images/Snorkeling%20%2B%20Manta%20Rays/snorkeling%202.jpeg',
+    heroImage: '/images/snorkeling-manta-rays/snorkeling-manta-rays-nusa-penida-2.jpeg',
     readingMinutes: 4,
     datePublished: '2026-02-12',
     dateModified: '2026-04-20',
@@ -753,7 +753,7 @@ const GUIDES: Guide[] = [
     title: 'Manta Ray Snorkeling in Nusa Penida: Complete Guide',
     excerpt:
       'Everything about snorkeling with manta rays in Nusa Penida — Manta Point vs Manta Bay, the best season, what to expect, and how to book a responsible trip.',
-    heroImage: '/images/Snorkeling%20%2B%20Manta%20Rays/snorkeling%203.jpeg',
+    heroImage: '/images/snorkeling-manta-rays/snorkeling-manta-rays-nusa-penida-3.jpeg',
     readingMinutes: 6,
     datePublished: '2026-04-02',
     dateModified: '2026-06-08',
@@ -993,7 +993,7 @@ const GUIDES: Guide[] = [
     title: 'Ubud to Nusa Penida Day Trip: Time & Cost',
     excerpt:
       'Plan a Ubud to Nusa Penida day trip with approximate distances, realistic road and boat times, return steps, costs, and a practical one-day route.',
-    heroImage: '/images/West%20Trip/West%20trip%20kelingking%20beach%202.jpeg',
+    heroImage: '/images/West%20Trip/West%20trip%20Kelingking%20Beach%202.jpeg',
     readingMinutes: 6,
     datePublished: '2026-06-12',
     dateModified: '2026-07-22',
@@ -1166,7 +1166,7 @@ const GUIDES: Guide[] = [
     title: 'Best Beaches in Nusa Penida',
     excerpt:
       'The best beaches in Nusa Penida ranked — Kelingking, Crystal Bay, Diamond Beach, Atuh, and more — with what each is good for and how hard they are to reach.',
-    heroImage: '/images/East%20Trip/East%20Trip%20Atuh%20Beach%202.jpeg',
+    heroImage: '/images/East%20Trip/East%20trip%20ATUH%20BEACH.jpeg',
     readingMinutes: 7,
     datePublished: '2026-06-12',
     dateModified: '2026-07-22',
@@ -1246,7 +1246,7 @@ const GUIDES: Guide[] = [
     title: 'Things to Do in Nusa Penida: Top Activities',
     excerpt:
       'The best things to do in Nusa Penida — viewpoints, snorkeling with manta rays, beaches, and hidden spots — and how to fit them into your trip.',
-    heroImage: '/images/West%20Trip/West%20trip%20kelingking%20beach%203.jpeg',
+    heroImage: '/images/West%20Trip/West%20trip%20Kelingking%20Beach%203.jpeg',
     readingMinutes: 6,
     datePublished: '2026-06-12',
     dateModified: '2026-07-22',

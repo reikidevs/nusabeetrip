@@ -1,9 +1,9 @@
 export const homepageTranslations = {
   en: {
     hero: {
-      eyebrow: 'Private driver & local trip planning',
+      eyebrow: 'Official NusaBeeTrip · Local private driver & trip planning',
       title: 'Already in Nusa Penida? Let’s plan what fits your time.',
-      subtitle: 'Share your date, hotel, group size, and return time. Sidiq will suggest a practical route and confirm one clear price on WhatsApp.',
+      subtitle: 'Share your date, hotel, group size, and return time. NusaBeeTrip local driver Sidiq will suggest a practical route and confirm one clear price on WhatsApp.',
       primaryCta: 'Plan my trip',
       secondaryCta: 'Ask Sidiq now',
       imageAlt: 'Kelingking Beach on Nusa Penida, Bali',
@@ -119,9 +119,9 @@ export const homepageTranslations = {
   },
   id: {
     hero: {
-      eyebrow: 'Private driver & perencana perjalanan lokal',
+      eyebrow: 'NusaBeeTrip Resmi · Private driver & perencana trip lokal',
       title: 'Sudah di Nusa Penida? Yuk susun perjalanan sesuai waktumu.',
-      subtitle: 'Kirim tanggal, hotel, jumlah orang, dan batas waktu pulang. Sidiq akan menyarankan rute yang realistis dan mengonfirmasi satu harga yang jelas lewat WhatsApp.',
+      subtitle: 'Kirim tanggal, hotel, jumlah orang, dan batas waktu pulang. Sidiq, driver lokal NusaBeeTrip, akan menyarankan rute realistis dan mengonfirmasi satu harga yang jelas lewat WhatsApp.',
       primaryCta: 'Susun perjalanan',
       secondaryCta: 'Tanya Sidiq sekarang',
       imageAlt: 'Pantai Kelingking di Nusa Penida, Bali',

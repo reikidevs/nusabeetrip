@@ -77,7 +77,14 @@ export function buildMetadata({
     : `${title} | ${SITE.name}`;
   const ogImage = image
     ? (image.startsWith('http') ? image : absoluteUrl(image))
-    : absoluteUrl(SITE.ogImage);
+    : absoluteUrl(SITE.socialImage);
+  const ogImageType = image
+    ? image.toLowerCase().endsWith('.png')
+      ? 'image/png'
+      : image.toLowerCase().endsWith('.webp')
+        ? 'image/webp'
+        : 'image/jpeg'
+    : 'image/png';
   const allKeywords = Array.from(new Set([...PRIMARY_KEYWORDS, ...keywords]));
 
   const languages = alternates ?? localizedAlternates(path);
@@ -124,10 +131,9 @@ export function buildMetadata({
       images: [
         {
           url: ogImage,
-          width: 1200,
-          height: 630,
+          ...(image ? {} : { width: 1200, height: 630 }),
           alt: imageAlt || SITE.ogImageAlt,
-          type: 'image/jpeg',
+          type: ogImageType,
         },
       ],
     },
@@ -136,7 +142,6 @@ export function buildMetadata({
       title: fullTitle,
       description,
       images: [ogImage],
-      creator: `@${SITE.contact.instagram}`,
     },
     robots: index
       ? {
@@ -160,8 +165,10 @@ export function buildMetadata({
         : undefined,
     },
     icons: {
-      icon: '/favicon.ico',
-      apple: '/images/NusaBeeTrip-Logo-final.png',
+      icon: {
+        url: '/favicon.svg',
+        type: 'image/svg+xml',
+      },
     },
     other: otherMeta,
   };
@@ -176,7 +183,7 @@ export function travelAgencyJsonLd() {
   return {
     '@context': 'https://schema.org',
     '@type': ['TravelAgency', 'LocalBusiness'],
-    '@id': `${SITE.url}#business`,
+    '@id': `${SITE.url}#organization`,
     name: SITE.name,
     legalName: SITE.legalName,
     alternateName: SITE.alternateNames,
@@ -187,9 +194,8 @@ export function travelAgencyJsonLd() {
     image: absoluteUrl(SITE.ogImage),
     telephone: SITE.contact.phone,
     email: SITE.contact.email,
-    priceRange: 'IDR 100,000 — IDR 550,000',
     currenciesAccepted: 'IDR, USD',
-    paymentAccepted: 'Cash, Bank Transfer, WhatsApp',
+    paymentAccepted: 'Cash, Bank Transfer',
     address: {
       '@type': 'PostalAddress',
       streetAddress: SITE.geo.streetAddress,
@@ -214,7 +220,7 @@ export function travelAgencyJsonLd() {
       opens: h.opens,
       closes: h.closes,
     })),
-    sameAs: [SITE.social.instagram, SITE.social.whatsapp],
+    sameAs: SITE.externalProfiles,
     knowsLanguage: ['en', 'id'],
     makesOffer: TOUR_PACKAGES.filter((p) => p.isActive).map((p) => ({
       '@type': 'Offer',
@@ -243,7 +249,7 @@ export function websiteJsonLd() {
     alternateName: SITE.alternateNames,
     description: SITE.description,
     disambiguatingDescription: SITE.disambiguatingDescription,
-    publisher: { '@id': `${SITE.url}#business` },
+    publisher: { '@id': `${SITE.url}#organization` },
     inLanguage: ['en', 'id'],
   };
 }
@@ -252,7 +258,7 @@ export function websiteJsonLd() {
 export function organizationJsonLd() {
   return {
     '@context': 'https://schema.org',
-    '@type': 'Organization',
+    '@type': ['Organization', 'LocalBusiness', 'TravelAgency'],
     '@id': `${SITE.url}#organization`,
     name: SITE.name,
     alternateName: SITE.alternateNames,
@@ -267,8 +273,8 @@ export function organizationJsonLd() {
     logo: {
       '@type': 'ImageObject',
       url: absoluteUrl(SITE.ogImage),
-      width: 512,
-      height: 512,
+      width: 677,
+      height: 369,
     },
     contactPoint: {
       '@type': 'ContactPoint',
@@ -276,8 +282,9 @@ export function organizationJsonLd() {
       contactType: 'customer service',
       areaServed: 'ID',
       availableLanguage: ['en', 'id'],
+      url: SITE.social.whatsapp,
     },
-    sameAs: [SITE.social.instagram, SITE.social.whatsapp],
+    sameAs: SITE.externalProfiles,
   };
 }
 
@@ -443,7 +450,7 @@ export function serviceJsonLd(opts: {
     description: opts.description,
     provider: {
       '@type': 'TravelAgency',
-      '@id': `${SITE.url}#business`,
+      '@id': `${SITE.url}#organization`,
       name: opts.provider || SITE.name,
     },
     areaServed: {
@@ -668,7 +675,7 @@ export function homepageJsonLd(locale: SiteLocale = 'en') {
       : SITE.description,
     disambiguatingDescription: SITE.disambiguatingDescription,
     isPartOf: { '@id': `${SITE.url}#website` },
-    about: { '@id': `${SITE.url}#business` },
+    about: { '@id': `${SITE.url}#organization` },
     primaryImageOfPage: {
       '@type': 'ImageObject',
       url: absoluteUrl('/images/West%20Trip/West%20Trip%20Kelingking%20Beach%204.jpeg'),
@@ -695,7 +702,7 @@ export function homepageJsonLd(locale: SiteLocale = 'en') {
     },
     inLanguage: isIndonesian ? 'id-ID' : 'en-US',
     datePublished: '2024-01-01',
-    dateModified: '2026-07-22',
+    dateModified: '2026-07-31',
   };
 }
 
@@ -730,7 +737,7 @@ export function localBusinessEnhancedJsonLd(opts?: {
   return {
     '@context': 'https://schema.org',
     '@type': 'TravelAgency',
-    '@id': `${SITE.url}#business`,
+    '@id': `${SITE.url}#organization`,
     name: SITE.name,
     alternateName: SITE.alternateNames,
     legalName: SITE.legalName,
@@ -741,13 +748,12 @@ export function localBusinessEnhancedJsonLd(opts?: {
     image: [
       absoluteUrl('/images/West%20Trip/West%20Trip%20Kelingking%20Beach%204.jpeg'),
       absoluteUrl('/images/East%20Trip/East%20trip%20DIAMOND%20BEACH.jpeg'),
-      absoluteUrl('/images/Snorkeling%20%2B%20Manta%20Rays/snorkeling%201.jpeg'),
+      absoluteUrl('/images/snorkeling-manta-rays/snorkeling-manta-rays-nusa-penida-1.jpeg'),
     ],
     telephone: SITE.contact.phone,
     email: SITE.contact.email,
-    priceRange: 'IDR 100,000 — IDR 550,000',
     currenciesAccepted: 'IDR, USD',
-    paymentAccepted: 'Cash, Bank Transfer, WhatsApp',
+    paymentAccepted: 'Cash, Bank Transfer',
     address: {
       '@type': 'PostalAddress',
       streetAddress: SITE.geo.streetAddress,
@@ -784,15 +790,9 @@ export function localBusinessEnhancedJsonLd(opts?: {
       opens: h.opens,
       closes: h.closes,
     })),
-    sameAs: [SITE.social.instagram, SITE.social.whatsapp],
+    sameAs: SITE.externalProfiles,
     knowsLanguage: ['en', 'id'],
     slogan: 'Best Travel Nusa Penida',
-    foundingDate: '2023',
-    numberOfEmployees: {
-      '@type': 'QuantitativeValue',
-      minValue: 5,
-      maxValue: 10,
-    },
     aggregateRating:
       includeReviews && reviewCount > 0
         ? {
@@ -818,20 +818,6 @@ export function localBusinessEnhancedJsonLd(opts?: {
           },
         }))
       : undefined,
-    makesOffer: TOUR_PACKAGES.filter((p) => p.isActive).map((p) => ({
-      '@type': 'Offer',
-      name: p.name,
-      url: absoluteUrl(`/tours/${p.slug}`),
-      price: p.price,
-      priceCurrency: p.currency,
-      availability: 'https://schema.org/InStock',
-      itemOffered: {
-        '@type': 'TouristTrip',
-        name: p.name,
-        description: p.description,
-        touristType: p.includesSnorkeling ? ['Adventure', 'Water Sports'] : ['Sightseeing', 'Nature'],
-      },
-    })),
     hasOfferCatalog: {
       '@type': 'OfferCatalog',
       name: 'NusaBeeTrip Services',

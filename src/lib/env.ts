@@ -15,8 +15,14 @@ export const TO_EMAIL = process.env.TO_EMAIL || 'sidiqdwiatmoko@gmail.com';
 export const NEXTAUTH_SECRET = process.env.NEXTAUTH_SECRET;
 export const NEXTAUTH_URL = process.env.NEXTAUTH_URL || 'http://localhost:3000';
 
-// Analytics configuration
-export const GOOGLE_ANALYTICS_ID = process.env.GOOGLE_ANALYTICS_ID;
+// Analytics and advertising configuration
+export const GOOGLE_TAG_ID = process.env.NEXT_PUBLIC_GOOGLE_TAG_ID;
+export const GOOGLE_ADS_WHATSAPP_CONVERSION =
+  process.env.NEXT_PUBLIC_GOOGLE_ADS_WHATSAPP_CONVERSION;
+export const GOOGLE_ADS_PHONE_CONVERSION =
+  process.env.NEXT_PUBLIC_GOOGLE_ADS_PHONE_CONVERSION;
+export const GOOGLE_ADS_FORM_CONVERSION =
+  process.env.NEXT_PUBLIC_GOOGLE_ADS_FORM_CONVERSION;
 export const GOOGLE_SEARCH_CONSOLE_ID = process.env.GOOGLE_SEARCH_CONSOLE_ID;
 
 // Business configuration

@@ -9,6 +9,7 @@ import { formatRentalList, getRentalIncludedBenefits } from '@/lib/rentals';
 import type { RentalService } from '@/types';
 import { localeFromPath, localizedPath } from '@/lib/site-config';
 import RentalDetailContent from './RentalDetailContent';
+import { isLocalImageAvailable } from '@/lib/image-resolver';
 
 export const dynamic = 'force-dynamic';
 export const runtime = 'nodejs';
@@ -26,7 +27,13 @@ const VEHICLE_IMAGE_MAP: Record<string, string> = {
 };
 
 function resolveImage(model: string, dbImageUrl?: string | null) {
-  if (dbImageUrl && !dbImageUrl.includes('placeholder')) return dbImageUrl;
+  if (
+    dbImageUrl &&
+    !dbImageUrl.includes('placeholder') &&
+    isLocalImageAvailable(dbImageUrl)
+  ) {
+    return dbImageUrl;
+  }
   const lower = model.toLowerCase();
   for (const [key, url] of Object.entries(VEHICLE_IMAGE_MAP)) {
     if (lower.includes(key)) return url;

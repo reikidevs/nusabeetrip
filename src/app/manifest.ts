@@ -18,21 +18,15 @@ export default function manifest(): MetadataRoute.Manifest {
     prefer_related_applications: false,
     icons: [
       {
-        src: '/images/NusaBeeTrip-Logo-final.png',
-        sizes: '512x512',
-        type: 'image/png',
+        src: '/favicon.svg',
+        sizes: 'any',
+        type: 'image/svg+xml',
         purpose: 'any',
       },
       {
-        src: '/images/NusaBeeTrip-Logo-final.png',
-        sizes: '192x192',
-        type: 'image/png',
-        purpose: 'any',
-      },
-      {
-        src: '/images/NusaBeeTrip-Logo-final.png',
-        sizes: '180x180',
-        type: 'image/png',
+        src: '/favicon.svg',
+        sizes: 'any',
+        type: 'image/svg+xml',
         purpose: 'maskable',
       },
     ],

@@ -319,7 +319,7 @@ export default function AboutPage() {
       <section className="relative text-white py-12 sm:py-20 overflow-hidden">
         <div className="absolute inset-0">
           <Image
-            src="/images/East%20Trip/East%20Trip%20Diamond%20Beach%204.jpeg"
+            src="/images/East%20Trip/East%20Trip%20Diamond%20Beach%205.jpeg"
             alt="Diamond Beach Nusa Penida"
             fill
             className="object-cover"

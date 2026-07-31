@@ -5,7 +5,7 @@ describe('homepage image assets', () => {
   it('uses the production-safe snorkeling image path', () => {
     const homepageSource = readFileSync(join(process.cwd(), 'src/app/page.tsx'), 'utf8');
 
-    expect(homepageSource).toContain('/images/Snorkeling%20+%20Manta%20Rays/snorkeling%203.jpeg');
-    expect(homepageSource).not.toContain('/images/Snorkeling%20%2B%20Manta%20Rays/snorkeling%203.jpeg');
+    expect(homepageSource).toContain('/images/snorkeling-manta-rays/snorkeling-manta-rays-nusa-penida-3.jpeg');
+    expect(homepageSource).not.toContain('/images/Snorkeling%20+%20Manta%20Rays');
   });
 });

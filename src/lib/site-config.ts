@@ -5,6 +5,9 @@
 
 import { CONTACT_INFO } from './constants';
 
+const GOOGLE_BUSINESS_PROFILE_URL =
+  process.env.NEXT_PUBLIC_GOOGLE_BUSINESS_PROFILE_URL || '';
+
 export const SITE = {
   /** Production canonical URL — change this when you buy your real domain */
   url: (process.env.NEXT_PUBLIC_SITE_URL || 'https://nusabeetrip.com').replace(/\/$/, ''),
@@ -23,14 +26,7 @@ export const SITE = {
   alternateNames: [
     'Nusa Bee Trip',
     'NusaBee Trip',
-    'Nusabee Trip',
-    'NusaBeeTrip.com',
-    'NusaBeeTrip Official',
-    'NusaBeeTrip Tour Nusa Penida',
-    'Nusa Bee Trip Bali',
-    'Nusa Bee Trip Nusa Penida',
-    'NusaBeeTrip Nusa Penida Tours',
-    'NusaBeeTrip Tours & Rentals',
+    'nusabeetrip.com',
   ],
 
   /** ~155 chars max — used as default <meta description> */
@@ -38,11 +34,12 @@ export const SITE = {
     'NusaBeeTrip official website for local Nusa Penida tours, Manta Ray snorkeling, scooter rental, and car with driver. Book direct via WhatsApp.',
 
   disambiguatingDescription:
-    'NusaBeeTrip is an independent local Nusa Penida tour and vehicle rental operator in Bali, not Nusatrip.com or other flight and hotel OTA brands.',
+    'NusaBeeTrip is an independent local tour, private driver, transfer, snorkeling, and vehicle rental operator based in Nusa Penida, Bali.',
 
   /** Default Open Graph image — must exist in /public */
   ogImage: '/images/NusaBeeTrip-Logo-final.png',
   ogImageAlt: 'NusaBeeTrip - Best Travel Nusa Penida',
+  socialImage: '/opengraph-image',
 
   /** Locale shipped on initial render */
   locale: 'en_US',
@@ -79,6 +76,12 @@ export const SITE = {
     instagram: `https://instagram.com/${CONTACT_INFO.instagram}`,
     whatsapp: `https://wa.me/${CONTACT_INFO.whatsapp.replace(/[^0-9]/g, '')}`,
   },
+
+  googleBusinessProfileUrl: GOOGLE_BUSINESS_PROFILE_URL,
+  externalProfiles: [
+    `https://instagram.com/${CONTACT_INFO.instagram}`,
+    ...(GOOGLE_BUSINESS_PROFILE_URL ? [GOOGLE_BUSINESS_PROFILE_URL] : []),
+  ],
 
   /**
    * Google Business Profile review link. Until the GBP is verified we fall back

@@ -127,7 +127,7 @@ const initialTourPackages = [
       'Tax Island',
       'Parking Ticket in Any Spot'
     ],
-    imageUrl: '/images/Snorkeling%20%2B%20Manta%20Rays/snorkeling%201.jpeg',
+    imageUrl: '/images/snorkeling-manta-rays/snorkeling-manta-rays-nusa-penida-1.jpeg',
     isActive: true,
   },
 ];

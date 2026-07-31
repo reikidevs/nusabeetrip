@@ -1,6 +1,12 @@
 import React from 'react';
+import type { Metadata } from 'next';
 import { TourPackageGrid, TourPackageCard, TourPackageDetail } from '@/components';
 import { TourPackage } from '@/types';
+
+export const metadata: Metadata = {
+  title: 'Component Demo — NusaBeeTrip',
+  robots: { index: false, follow: false },
+};
 
 // Sample tour package data
 const sampleTourPackages: TourPackage[] = [

@@ -27,7 +27,12 @@ export const getTourPackageBySlug = async (slug: string) => {
   const result = await db
     .select()
     .from(tourPackages)
-    .where(eq(tourPackages.slug, slug))
+    .where(
+      and(
+        eq(tourPackages.slug, slug),
+        eq(tourPackages.isActive, true),
+      ),
+    )
     .limit(1);
   
   return result[0] || null;
@@ -46,7 +51,12 @@ export const getRentalServiceBySlug = async (slug: string) => {
   const result = await db
     .select()
     .from(rentalServices)
-    .where(eq(rentalServices.slug, slug))
+    .where(
+      and(
+        eq(rentalServices.slug, slug),
+        eq(rentalServices.isAvailable, true),
+      ),
+    )
     .limit(1);
   
   return result[0] || null;
