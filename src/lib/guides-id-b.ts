@@ -134,21 +134,24 @@ export const GUIDE_ID_TRANSLATIONS_B: Record<string, GuideIdTranslation> = {
   },
 
   'nusa-penida-day-trip-from-ubud': {
-    title: 'Trip Ubud ke Nusa Penida: Waktu & Biaya',
+    title: 'Ubud ke Nusa Penida: Jarak, Fast Boat & Trip Sehari',
     excerpt:
-      'Rencanakan trip Ubud ke Nusa Penida dengan estimasi jarak, waktu perjalanan darat dan laut, biaya, rute sehari, serta langkah perjalanan pulang yang praktis.',
+      'Panduan Ubud ke Nusa Penida: jarak darat dan laut, waktu fast boat, biaya, itinerary sehari, serta cara kembali dari Nusa Penida ke Ubud.',
     keywords: [
       'trip sehari ke nusa penida dari ubud',
       'ubud ke nusa penida',
       'nusa penida dari ubud',
       'wisata sehari nusa penida dari ubud',
       'tur ubud ke nusa penida',
+      'jarak ubud ke nusa penida',
+      'nusa penida ke ubud',
+      'fast boat ubud ke nusa penida',
     ],
     sections: [
       {
-        heading: 'Rute, jarak, dan waktu perjalanan Ubud ke Nusa Penida',
+        heading: 'Berapa jarak Ubud ke Nusa Penida?',
         paragraphs: [
-          'Rute yang umum adalah dari pusat Ubud ke Pelabuhan Sanur dengan mobil, lalu dari Sanur ke Nusa Penida dengan kapal cepat. Pusat Ubud ke Sanur berjarak sekitar 25–30 km melalui jalan darat dan biasanya memerlukan 60–90 menit. Penyeberangan laut berjarak sekitar 25 km dan biasanya memerlukan 30–45 menit.',
+          'Tidak ada satu jarak jalan langsung dari Ubud ke Nusa Penida karena perjalanannya menggabungkan rute darat dan laut. Rute yang umum adalah dari pusat Ubud ke Pelabuhan Sanur dengan mobil, lalu dari Sanur ke Nusa Penida dengan kapal cepat. Pusat Ubud ke Sanur berjarak sekitar 25–30 km melalui jalan darat dan biasanya memerlukan 60–90 menit. Penyeberangan laut berjarak sekitar 25 km dan biasanya memerlukan 30–45 menit.',
           'Sisihkan sekitar dua jam untuk tiba di Nusa Penida sebelum mulai berkendara di pulau. Semua jarak dan waktu tersebut merupakan perkiraan: lalu lintas Bali, proses check-in di pelabuhan, cuaca, dan kondisi laut dapat memperpanjang perjalanan. Berangkat lebih awal akan menyisakan waktu yang memadai untuk menikmati perjalanan sehari.',
         ],
         bullets: [
@@ -202,14 +205,24 @@ export const GUIDE_ID_TRANSLATIONS_B: Record<string, GuideIdTranslation> = {
           'Bisa. Tinggalkan Ubud sekitar pukul 06.00, naik kapal cepat pukul 07.30–08.00 dari Sanur, dan sisihkan 30–45 menit untuk penyeberangan. Perjalanannya panjang, tetapi sangat memungkinkan, terutama untuk tempat-tempat unggulan di pesisir barat.',
       },
       {
-        question: 'Seberapa jauh Ubud dari pelabuhan kapal menuju Nusa Penida?',
+        question: 'Berapa jarak Ubud ke Nusa Penida?',
         answer:
-          'Pusat Ubud ke Pelabuhan Sanur berjarak sekitar 25–30 km melalui jalan darat dan biasanya memerlukan 60–90 menit dengan mobil. Sanur ke Nusa Penida berjarak sekitar 25 km melalui laut dan biasanya memerlukan 30–45 menit dengan kapal cepat. Sisihkan sekitar dua jam untuk tiba di pulau sebelum mulai berkendara; semua jarak dan waktu ini merupakan perkiraan dan dapat berubah karena lalu lintas, check-in, cuaca, serta kondisi laut.',
+          'Tidak ada satu jarak jalan langsung karena perjalanan menggabungkan darat dan laut. Pusat Ubud ke Pelabuhan Sanur berjarak sekitar 25–30 km melalui jalan darat, kemudian perjalanan fast boat ke Nusa Penida sekitar 25 km melalui laut. Sisihkan sekitar dua jam sebelum mulai berkendara di pulau; lalu lintas, check-in, cuaca, dan kondisi laut dapat memperpanjang perjalanan.',
       },
       {
         question: 'Pilih West Trip atau East Trip dari Ubud?',
         answer:
           'Untuk trip sehari dari Ubud, pilih West Trip—Kelingking, Broken Beach, Angel’s Billabong, dan Crystal Bay saling berdekatan. East Trip memerlukan perjalanan lebih panjang dan lebih cocok dilakukan saat menginap semalam.',
+      },
+      {
+        question: 'Bagaimana cara kembali dari Nusa Penida ke Ubud?',
+        answer:
+          'Naik fast boat dari Nusa Penida ke Sanur, lalu lanjutkan ke Ubud dengan sopir yang sudah diatur. Penyeberangan biasanya memerlukan 30–45 menit dan perjalanan Sanur–Ubud sekitar 60–90 menit, belum termasuk check-in, proses turun dari kapal, serta lalu lintas.',
+      },
+      {
+        question: 'Apakah penjemputan Ubud termasuk dalam harga tur Nusa Penida?',
+        answer:
+          'Harga dasar tur pulau mencakup layanan yang dikonfirmasi di Nusa Penida. Transfer Ubud–Sanur dan tiket fast boat terpisah kecuali penawaran tertulis Anda secara jelas memasukkannya. Kami dapat mengoordinasikan seluruh perjalanan dan mengonfirmasi rincian total sebelum Anda memesan.',
       },
     ],
   },

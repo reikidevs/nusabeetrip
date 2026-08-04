@@ -3,6 +3,7 @@ import {
   getDestinationRelatedGuideLinks,
   getGuideBySlug,
   getGuideRelatedDestinationLinks,
+  getTourRelatedGuideLinks,
 } from '@/lib/guides';
 import { GUIDE_ID_TRANSLATIONS } from '@/lib/guides-id';
 
@@ -26,7 +27,11 @@ describe('Indonesian guide content', () => {
       expect(indonesianGuide?.excerpt).not.toBe(englishGuide.excerpt);
       expect(indonesianGuide?.excerpt.length).toBeLessThanOrEqual(165);
       expect(indonesianGuide?.datePublished).toBe('2026-07-22');
-      expect(indonesianGuide?.dateModified).toBe('2026-07-22');
+      expect(indonesianGuide?.dateModified).toBe(
+        englishGuide.dateModified > '2026-07-22'
+          ? englishGuide.dateModified
+          : '2026-07-22',
+      );
       expect(indonesianGuide?.sections).toHaveLength(englishGuide.sections.length);
       expect(indonesianGuide?.sections).not.toEqual(englishGuide.sections);
       expect(indonesianGuide?.faq ?? []).toHaveLength(englishGuide.faq?.length ?? 0);
@@ -72,5 +77,35 @@ describe('Indonesian guide content', () => {
       '/id/guides/nusa-penida-day-trip-from-ubud',
     );
     expect(guideLinks[0]?.label).toBe(guide?.title);
+  });
+
+  it('consolidates the Ubud search-query cluster on one canonical guide', () => {
+    const guide = getGuideBySlug('nusa-penida-day-trip-from-ubud', 'en');
+
+    expect(guide?.title).toBe(
+      'Ubud to Nusa Penida: Distance, Ferry & Day Trip',
+    );
+    expect(guide?.keywords).toEqual(
+      expect.arrayContaining([
+        'ubud to nusa penida',
+        'ubud to nusa penida distance',
+        'how far is nusa penida from ubud',
+        'nusa penida to ubud',
+        'nusa penida day tour from ubud',
+      ]),
+    );
+    expect(guide?.faq?.map((item) => item.question)).toEqual(
+      expect.arrayContaining([
+        'How far is Nusa Penida from Ubud?',
+        'How do I get from Nusa Penida back to Ubud?',
+        'Is Ubud pickup included in a Nusa Penida tour?',
+      ]),
+    );
+
+    for (const tourSlug of ['west-trip', 'mix-trip']) {
+      expect(
+        getTourRelatedGuideLinks(tourSlug, 'en').map((link) => link.href),
+      ).toContain('/guides/nusa-penida-day-trip-from-ubud');
+    }
   });
 });

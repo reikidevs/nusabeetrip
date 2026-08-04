@@ -37,7 +37,7 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = buildMetadata({
-  title: 'Official NusaBeeTrip Website - Nusa Penida Tours',
+  title: 'Nusa Penida Tours & Private Driver — Official NusaBeeTrip',
   description:
     'NusaBeeTrip official website. Local-owned Nusa Penida tours, Manta Ray snorkeling, scooter rentals, and car with driver. Book direct via WhatsApp.',
   path: '/',

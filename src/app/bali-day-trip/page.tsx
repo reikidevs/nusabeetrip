@@ -100,6 +100,9 @@ const COPY = {
     heroAfterPrice: 'with pickup on Nusa Penida included.',
     viewTours: 'View Tour Packages',
     howToGetThere: 'How to Get There',
+    ubudGuideLead: 'Staying in Ubud? Use our',
+    ubudGuideLink: 'Ubud to Nusa Penida distance and day-trip guide',
+    ubudGuideTail: 'for realistic road, ferry, and return times.',
     whyTitle: 'Why Nusa Penida Is a Great Day Trip from Bali',
     whyParagraphs: [
       'Few day trips from Bali deliver as much scenery in one day as Nusa Penida. A 30–45 minute fast boat from Sanur reaches an island of limestone cliffs, turquoise bays, and the famous Kelingking Beach viewpoint.',
@@ -129,6 +132,9 @@ const COPY = {
     heroAfterPrice: 'dengan penjemputan di Nusa Penida.',
     viewTours: 'Lihat Paket Tur',
     howToGetThere: 'Panduan Cara ke Sana',
+    ubudGuideLead: 'Menginap di Ubud? Baca',
+    ubudGuideLink: 'panduan jarak dan trip sehari Ubud ke Nusa Penida',
+    ubudGuideTail: 'untuk estimasi perjalanan darat, fast boat, dan waktu pulang.',
     whyTitle: 'Mengapa Nusa Penida Cocok untuk Day Trip dari Bali',
     whyParagraphs: [
       'Nusa Penida menawarkan banyak pemandangan dalam satu hari. Perjalanan fast boat sekitar 30–45 menit dari Sanur membawa Anda menuju pulau dengan tebing batu kapur, teluk biru toska, dan viewpoint Kelingking Beach yang terkenal.',
@@ -257,6 +263,16 @@ export default function BaliDayTripPage() {
               {copy.whyParagraphs.map((paragraph) => (
                 <p key={paragraph}>{paragraph}</p>
               ))}
+              <p>
+                {copy.ubudGuideLead}{' '}
+                <Link
+                  href={localizedPath('/guides/nusa-penida-day-trip-from-ubud', locale)}
+                  className='font-semibold text-brand-blue-800 underline decoration-brand-teal-500 underline-offset-4 hover:text-brand-teal-700'
+                >
+                  {copy.ubudGuideLink}
+                </Link>{' '}
+                {copy.ubudGuideTail}
+              </p>
             </div>
           </div>
         </section>

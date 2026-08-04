@@ -160,7 +160,7 @@ const GUIDES: Guide[] = [
     relatedGuideSlugs: [
       'best-time-to-visit-nusa-penida',
       'nusa-penida-itinerary',
-      'what-to-pack-nusa-penida',
+      'nusa-penida-day-trip-from-ubud',
     ],
     howTo: {
       name: 'How to Get to Nusa Penida from Bali',
@@ -980,23 +980,33 @@ const GUIDES: Guide[] = [
           'Yes. Leave Ubud by around 06:00, catch the 07:30–08:00 fast boat from Sanur, and allow 30–45 minutes for the crossing. It is a long day but very doable, especially for the west-coast highlights.',
       },
       {
-        question: 'How far is Ubud from the Nusa Penida boat?',
+        question: 'How far is Nusa Penida from Ubud?',
         answer:
-          'Central Ubud to Sanur harbour is approximately 25–30 km by road and usually takes 60–90 minutes by car. Sanur to Nusa Penida is approximately 25 km by sea and usually takes 30–45 minutes by fast boat. Allow around two hours to reach the island before driving there; all distances and times are approximate and can vary with traffic, check-in, weather, and sea conditions.',
+          'There is no single direct road distance because the trip combines land and sea. Central Ubud to Sanur harbour is approximately 25–30 km by road, followed by roughly 25 km by fast boat to Nusa Penida. Allow around two hours before island driving; traffic, check-in, weather, and sea conditions can make it longer.',
       },
       {
         question: 'West Trip or East Trip from Ubud?',
         answer:
           'For a single day from Ubud, choose the West Trip — Kelingking, Broken Beach, Angel\u2019s Billabong, and Crystal Bay are close together. The East Trip involves longer drives and suits an overnight stay.',
       },
+      {
+        question: 'How do I get from Nusa Penida back to Ubud?',
+        answer:
+          'Take a fast boat from Nusa Penida to Sanur, then continue to Ubud with a pre-arranged driver. The boat usually takes 30–45 minutes and the Sanur–Ubud drive usually takes 60–90 minutes, before check-in, disembarkation, and traffic delays.',
+      },
+      {
+        question: 'Is Ubud pickup included in a Nusa Penida tour?',
+        answer:
+          'The base island-tour price covers the confirmed services on Nusa Penida. Ubud–Sanur transport and fast-boat tickets are separate unless your written quote explicitly includes them. We can coordinate every leg and confirm one itemised total before you book.',
+      },
     ],
-    title: 'Ubud to Nusa Penida Day Trip: Time & Cost',
+    title: 'Ubud to Nusa Penida: Distance, Ferry & Day Trip',
     excerpt:
-      'Plan a Ubud to Nusa Penida day trip with approximate distances, realistic road and boat times, return steps, costs, and a practical one-day route.',
+      'Plan Ubud to Nusa Penida travel with road and ferry distances, realistic times, costs, a one-day route, and the return from Nusa Penida to Ubud.',
     heroImage: '/images/West%20Trip/West%20trip%20Kelingking%20Beach%202.jpeg',
     readingMinutes: 6,
     datePublished: '2026-06-12',
-    dateModified: '2026-07-22',
+    dateModified: '2026-08-04',
     category: 'planning',
     keywords: [
       'nusa penida day trip from ubud',
@@ -1004,12 +1014,16 @@ const GUIDES: Guide[] = [
       'nusa penida from ubud',
       'day trip nusa penida ubud',
       'ubud to nusa penida tour',
+      'nusa penida day tour from ubud',
+      'ubud to nusa penida distance',
+      'how far is nusa penida from ubud',
+      'nusa penida to ubud',
     ],
     sections: [
       {
-        heading: 'Ubud to Nusa Penida route, distance and travel time',
+        heading: 'How far is Nusa Penida from Ubud?',
         paragraphs: [
-          'The usual route is central Ubud to Sanur harbour by car, then Sanur to Nusa Penida by fast boat. Central Ubud to Sanur is approximately 25–30 km by road and usually takes 60–90 minutes. The sea crossing is approximately 25 km and usually takes 30–45 minutes.',
+          'There is no single direct road distance from Ubud to Nusa Penida because the journey combines a drive and a sea crossing. The usual route is central Ubud to Sanur harbour by car, then Sanur to Nusa Penida by fast boat. Central Ubud to Sanur is approximately 25–30 km by road and usually takes 60–90 minutes. The crossing is approximately 25 km by sea and usually takes 30–45 minutes.',
           'Allow around two hours to reach Nusa Penida before any driving on the island. These are approximate distances and times: Bali traffic, harbour check-in, weather, and sea conditions can all make the journey longer. An early start keeps enough time for a useful day trip.',
         ],
         bullets: [
@@ -1483,7 +1497,10 @@ export function localizeGuide(guide: Guide, locale: SiteLocale = 'en'): Guide {
     ...guide,
     ...translation,
     datePublished: '2026-07-22',
-    dateModified: '2026-07-22',
+    dateModified:
+      guide.dateModified > '2026-07-22'
+        ? guide.dateModified
+        : '2026-07-22',
   };
 }
 
@@ -1623,7 +1640,7 @@ export function getDestinationRelatedGuideLinks(
 const TOUR_GUIDE_MAP: Record<string, string[]> = {
   'west-trip': [
     'best-beaches-nusa-penida',
-    'things-to-do-nusa-penida',
+    'nusa-penida-day-trip-from-ubud',
     'nusa-penida-itinerary',
   ],
   'east-trip': [
@@ -1644,7 +1661,7 @@ const TOUR_GUIDE_MAP: Record<string, string[]> = {
   'mix-trip': [
     'nusa-penida-itinerary',
     'things-to-do-nusa-penida',
-    'is-nusa-penida-worth-it',
+    'nusa-penida-day-trip-from-ubud',
   ],
   'snorkeling-manta': [
     'manta-ray-snorkeling-nusa-penida',

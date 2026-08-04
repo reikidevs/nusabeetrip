@@ -669,7 +669,7 @@ export function homepageJsonLd(locale: SiteLocale = 'en') {
     url: pageUrl,
     name: isIndonesian
       ? `Situs Resmi ${SITE.name} - Tour, Snorkeling & Rental Nusa Penida`
-      : `Official ${SITE.name} Website - Nusa Penida Tours, Snorkeling & Rentals`,
+      : `Nusa Penida Tours & Private Driver — Official ${SITE.name}`,
     description: isIndonesian
       ? 'Situs resmi NusaBeeTrip untuk tour lokal Nusa Penida, snorkeling pari manta, sewa motor, dan mobil dengan sopir. Booking langsung via WhatsApp.'
       : SITE.description,
@@ -702,7 +702,7 @@ export function homepageJsonLd(locale: SiteLocale = 'en') {
     },
     inLanguage: isIndonesian ? 'id-ID' : 'en-US',
     datePublished: '2024-01-01',
-    dateModified: '2026-07-31',
+    dateModified: '2026-08-04',
   };
 }
 

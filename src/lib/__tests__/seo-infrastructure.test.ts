@@ -20,7 +20,7 @@ describe('sitemap', () => {
     expect(
       entries.find((entry) => entry.url === 'https://nusabeetrip.com/')
         ?.lastModified,
-    ).toEqual(new Date('2026-07-31'));
+    ).toEqual(new Date('2026-08-04'));
 
     const guide = getAllGuides()[0];
     const guideEntry = entries.find(
@@ -73,12 +73,14 @@ describe('page metadata', () => {
 
   it('does not duplicate the brand in the English homepage title', () => {
     const metadata = buildMetadata({
-      title: 'Official NusaBeeTrip Website - Nusa Penida Tours',
+      title: 'Nusa Penida Tours & Private Driver — Official NusaBeeTrip',
       description,
       path: '/',
     });
 
-    expect(metadata.title).toBe('Official NusaBeeTrip Website - Nusa Penida Tours');
+    expect(metadata.title).toBe(
+      'Nusa Penida Tours & Private Driver — Official NusaBeeTrip',
+    );
   });
 
   it('infers Indonesian language metadata from an /id route', () => {

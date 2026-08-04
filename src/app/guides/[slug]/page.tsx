@@ -98,7 +98,7 @@ export default function GuideDetailPage({ params }: { params: { slug: string } }
             '@type': 'Organization',
             '@id': `${SITE.url}#organization`,
             name: SITE.name,
-            url: SITE.url,
+            url: absoluteUrl(localizedPath('/about', locale)),
           },
           publisher: {
             '@type': 'Organization',

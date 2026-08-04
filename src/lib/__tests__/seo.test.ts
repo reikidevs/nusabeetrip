@@ -118,7 +118,7 @@ describe('homepage JSON-LD', () => {
       url: 'https://nusabeetrip.com/',
       inLanguage: 'en-US',
       datePublished: '2024-01-01',
-      dateModified: '2026-07-31',
+      dateModified: '2026-08-04',
     });
     expect(schema.breadcrumb.itemListElement[0]).toMatchObject({
       name: 'Home',

@@ -96,6 +96,8 @@ export const homepageTranslations = {
       combinedDescription: 'Selected highlights from both sides in one day—not every attraction. For a less rushed visit, ask for two days.',
       combinedSpots: 'The exact selection depends on pickup, traffic, weather, and your return-boat deadline.',
       browseTours: 'Read detailed route guides',
+      ubudPrompt: 'Starting from mainland Bali?',
+      ubudLink: 'Plan Ubud to Nusa Penida travel',
     },
     pricing: {
       eyebrow: 'A clear quote, not a confusing “from” price',
@@ -204,6 +206,8 @@ export const homepageTranslations = {
       combinedDescription: 'Spot pilihan dari kedua sisi dalam satu hari—bukan semua tempat. Untuk perjalanan lebih santai, tanyakan rencana dua hari.',
       combinedSpots: 'Pilihan akhirnya bergantung pada titik jemput, lalu lintas, cuaca, dan batas waktu fast boat.',
       browseTours: 'Baca panduan rute lengkap',
+      ubudPrompt: 'Berangkat dari Bali daratan?',
+      ubudLink: 'Rencanakan perjalanan Ubud ke Nusa Penida',
     },
     pricing: {
       eyebrow: 'Satu harga jelas, bukan angka “mulai dari” yang membingungkan',

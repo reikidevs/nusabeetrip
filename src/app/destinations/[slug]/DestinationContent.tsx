@@ -28,14 +28,16 @@ export default function DestinationContent({
   const labels = {
     en: {
       regionLabel: `${d.region.charAt(0).toUpperCase() + d.region.slice(1)} Nusa Penida`,
-      highlights: 'Highlights',
-      tips: 'Tips for visitors',
+      visitHeading: 'How to visit ' + d.name + ' in Nusa Penida',
+      highlights: d.name + ' highlights',
+      tips: 'Visitor tips for ' + d.name,
       bestTime: 'Best time to visit',
       accessibility: 'Accessibility',
-      gallery: 'Gallery',
+      gallery: d.name + ' photos',
       relatedTours: 'Visit on these tours',
       relatedDestinations: 'Other spots nearby',
-      mapHeading: 'Find it on the map',
+      mapHeading: d.name + ' location and access',
+      quickFacts: d.name + ' visitor information',
       backToDestinations: 'All destinations',
       perPerson: 'per person',
       hours: 'hours',
@@ -52,14 +54,16 @@ export default function DestinationContent({
           : d.region === 'south'
           ? 'Nusa Penida Selatan'
           : 'Nusa Penida Tengah',
-      highlights: 'Sorotan',
-      tips: 'Tips berkunjung',
+      visitHeading: 'Panduan mengunjungi ' + (d.nameId || d.name) + ' di Nusa Penida',
+      highlights: 'Daya tarik ' + (d.nameId || d.name),
+      tips: 'Tips mengunjungi ' + (d.nameId || d.name),
       bestTime: 'Waktu terbaik berkunjung',
       accessibility: 'Aksesibilitas',
-      gallery: 'Galeri',
+      gallery: 'Foto ' + (d.nameId || d.name),
       relatedTours: 'Kunjungi dengan tur ini',
       relatedDestinations: 'Spot lain di sekitar',
-      mapHeading: 'Temukan di peta',
+      mapHeading: 'Lokasi dan akses ' + (d.nameId || d.name),
+      quickFacts: 'Informasi kunjungan ' + (d.nameId || d.name),
       backToDestinations: 'Semua destinasi',
       perPerson: 'per orang',
       hours: 'jam',
@@ -112,7 +116,7 @@ export default function DestinationContent({
               {L.regionLabel}
             </span>
             <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold mb-4 tracking-tight leading-tight">
-              {d.name}
+              {language === 'id' ? d.nameId || d.name : d.name}, Nusa Penida
             </h1>
             <p className="text-base sm:text-lg text-white/90 leading-relaxed max-w-2xl">
               {description}
@@ -128,6 +132,9 @@ export default function DestinationContent({
             <div className="space-y-10">
               {/* Long-form description */}
               <article className="prose prose-gray max-w-none">
+                <h2 className='mb-5 text-2xl font-bold tracking-tight text-brand-blue-800 sm:text-3xl'>
+                  {L.visitHeading}
+                </h2>
                 {body.map((para, i) => (
                   <p
                     key={i}
@@ -262,7 +269,7 @@ export default function DestinationContent({
               {/* Quick facts */}
               <div className="bg-white rounded-2xl p-6 border border-gray-100 shadow-md">
                 <h3 className="font-bold text-gray-900 mb-4">
-                  {language === 'id' ? 'Info cepat' : 'Quick facts'}
+                  {L.quickFacts}
                 </h3>
                 <dl className="space-y-3 text-sm">
                   <div>

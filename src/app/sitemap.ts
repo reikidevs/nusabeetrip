@@ -20,6 +20,7 @@ import { getAllGuides } from '@/lib/guides';
  */
 export default function sitemap(): MetadataRoute.Sitemap {
   type ChangeFrequency = NonNullable<MetadataRoute.Sitemap[number]['changeFrequency']>;
+  const seoContentUpdated = new Date('2026-08-04');
 
   const localizedRoutes = (
     path: string,
@@ -38,9 +39,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }));
 
   const staticRoutes: MetadataRoute.Sitemap = [
-    ...localizedRoutes('/', 'daily', 1.0, new Date('2026-07-31')),
+    ...localizedRoutes('/', 'daily', 1.0, seoContentUpdated),
     ...localizedRoutes('/tours', 'daily', 0.95),
-    ...localizedRoutes('/bali-day-trip', 'weekly', 0.92),
+    ...localizedRoutes('/bali-day-trip', 'weekly', 0.92, seoContentUpdated),
     ...localizedRoutes('/rentals', 'weekly', 0.9),
     ...localizedRoutes('/destinations', 'monthly', 0.85),
     ...localizedRoutes('/guides', 'weekly', 0.8),
@@ -53,14 +54,28 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const tourDetailRoutes: MetadataRoute.Sitemap = TOUR_PACKAGES.filter(
     (p) => p.isActive,
-  ).flatMap((p) => localizedRoutes(`/tours/${p.slug}`, 'weekly', 0.9));
+  ).flatMap((p) =>
+    localizedRoutes(
+      `/tours/${p.slug}`,
+      'weekly',
+      0.9,
+      p.slug === 'west-trip' || p.slug === 'mix-trip'
+        ? seoContentUpdated
+        : undefined,
+    ),
+  );
 
   const rentalDetailRoutes: MetadataRoute.Sitemap = RENTAL_SERVICES.filter(
     (r) => r.isAvailable,
   ).flatMap((r) => localizedRoutes(`/rentals/${r.slug}`, 'weekly', 0.85));
 
   const destinationRoutes: MetadataRoute.Sitemap = DESTINATIONS.flatMap((d) =>
-    localizedRoutes(`/destinations/${d.slug}`, 'monthly', 0.8),
+    localizedRoutes(
+      `/destinations/${d.slug}`,
+      'monthly',
+      0.8,
+      seoContentUpdated,
+    ),
   );
 
   const guideRoutes: MetadataRoute.Sitemap = (['en', 'id'] as SiteLocale[]).flatMap(

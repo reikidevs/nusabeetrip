@@ -35,6 +35,8 @@ export default function GuideContent({ guide: g, relatedGuides }: Props) {
         },
         minRead: 'menit baca',
         updated: 'Diperbarui',
+        by: 'Oleh',
+        authorRole: 'tim lokal Nusa Penida',
         ctaTitle: 'Siap merencanakan perjalanan?',
         ctaBody:
           'Beri tahu kami tanggal kedatangan Anda. Kami akan menyiapkan tur atau kendaraan yang sesuai dan mengonfirmasi syarat pembayaran; beberapa layanan mungkin memerlukan deposit.',
@@ -48,6 +50,8 @@ export default function GuideContent({ guide: g, relatedGuides }: Props) {
         category: GUIDE_CATEGORIES,
         minRead: 'min read',
         updated: 'Updated',
+        by: 'By',
+        authorRole: 'local Nusa Penida team',
         ctaTitle: 'Ready to plan your trip?',
         ctaBody:
           'Tell us when you arrive and we will arrange a suitable tour or rental and confirm the payment terms; some services may require a deposit.',
@@ -86,6 +90,17 @@ export default function GuideContent({ guide: g, relatedGuides }: Props) {
               <time dateTime={g.dateModified} className="text-gray-500">
                 {labels.updated} {formattedDate}
               </time>
+              <span className='text-gray-300'>·</span>
+              <span className='normal-case tracking-normal text-gray-500'>
+                {labels.by}{' '}
+                <Link
+                  href={localizedPath('/about', language)}
+                  className='font-semibold text-brand-blue-800 hover:text-brand-teal-700'
+                >
+                  NusaBeeTrip
+                </Link>
+                , {labels.authorRole}
+              </span>
             </div>
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 tracking-tight leading-tight mb-5">
               {g.title}

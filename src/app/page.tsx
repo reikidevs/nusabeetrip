@@ -20,6 +20,19 @@ const Testimonials = dynamic(
 );
 
 const CHECK_PATH = 'M5 13l4 4L19 7';
+const ROUTE_DESTINATIONS = {
+  west: [
+    { slug: 'kelingking-beach', label: { en: 'Kelingking Beach', id: 'Pantai Kelingking' } },
+    { slug: 'broken-beach', label: { en: 'Broken Beach', id: 'Broken Beach' } },
+    { slug: 'angel-billabong', label: { en: 'Angel’s Billabong', id: 'Angel’s Billabong' } },
+    { slug: 'crystal-bay-beach', label: { en: 'Crystal Bay', id: 'Crystal Bay' } },
+  ],
+  east: [
+    { slug: 'diamond-beach', label: { en: 'Diamond Beach', id: 'Diamond Beach' } },
+    { slug: 'atuh-beach', label: { en: 'Atuh Beach', id: 'Pantai Atuh' } },
+    { slug: 'tree-house-molenteng', label: { en: 'Tree House', id: 'Rumah Pohon' } },
+  ],
+} as const;
 
 export default function Home() {
   const { t, language } = useLanguage();
@@ -147,6 +160,15 @@ export default function Home() {
                 {copy.routes.browseTours}
                 <svg className='h-4 w-4' fill='none' stroke='currentColor' viewBox='0 0 24 24' aria-hidden='true'><path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M5 12h14m-6-6l6 6-6 6' /></svg>
               </Link>
+              <p className='mt-5 text-sm leading-6 text-blue-100/80'>
+                {copy.routes.ubudPrompt}{' '}
+                <Link
+                  href={localHref('/guides/nusa-penida-day-trip-from-ubud')}
+                  className='font-bold text-white underline decoration-brand-teal-300 underline-offset-4 transition hover:text-brand-teal-200'
+                >
+                  {copy.routes.ubudLink}
+                </Link>
+              </p>
             </header>
 
             <div className='grid gap-3 sm:grid-cols-2'>
@@ -157,7 +179,20 @@ export default function Home() {
                 </div>
                 <h3 className='mt-4 text-xl font-bold'>{copy.routes.westTitle}</h3>
                 <p className='mt-2 text-sm leading-6 text-slate-600'>{copy.routes.westDescription}</p>
-                <p className='mt-5 border-l-2 border-orange-400 pl-3 text-sm font-semibold leading-6 text-slate-800'>{copy.routes.westSpots}</p>
+                <nav
+                  aria-label={language === 'id' ? 'Destinasi Nusa Penida Barat' : 'West Nusa Penida destinations'}
+                  className='mt-5 flex flex-wrap gap-2 border-l-2 border-orange-400 pl-3'
+                >
+                  {ROUTE_DESTINATIONS.west.map((spot) => (
+                    <Link
+                      key={spot.slug}
+                      href={localHref(`/destinations/${spot.slug}`)}
+                      className='rounded-full bg-orange-50 px-3 py-1.5 text-xs font-bold text-orange-900 transition hover:bg-orange-100 hover:text-orange-950'
+                    >
+                      {spot.label[language]}
+                    </Link>
+                  ))}
+                </nav>
               </article>
               <article className='rounded-2xl border border-white/10 bg-white p-5 text-slate-900 shadow-xl sm:p-6'>
                 <div className='flex items-center justify-between'>
@@ -166,7 +201,20 @@ export default function Home() {
                 </div>
                 <h3 className='mt-4 text-xl font-bold'>{copy.routes.eastTitle}</h3>
                 <p className='mt-2 text-sm leading-6 text-slate-600'>{copy.routes.eastDescription}</p>
-                <p className='mt-5 border-l-2 border-brand-teal-400 pl-3 text-sm font-semibold leading-6 text-slate-800'>{copy.routes.eastSpots}</p>
+                <nav
+                  aria-label={language === 'id' ? 'Destinasi Nusa Penida Timur' : 'East Nusa Penida destinations'}
+                  className='mt-5 flex flex-wrap gap-2 border-l-2 border-brand-teal-400 pl-3'
+                >
+                  {ROUTE_DESTINATIONS.east.map((spot) => (
+                    <Link
+                      key={spot.slug}
+                      href={localHref(`/destinations/${spot.slug}`)}
+                      className='rounded-full bg-teal-50 px-3 py-1.5 text-xs font-bold text-teal-900 transition hover:bg-teal-100 hover:text-teal-950'
+                    >
+                      {spot.label[language]}
+                    </Link>
+                  ))}
+                </nav>
               </article>
               <article className='rounded-2xl border border-brand-teal-400/30 bg-brand-teal-900/50 p-5 sm:col-span-2 sm:p-6'>
                 <div className='grid gap-4 sm:grid-cols-[0.8fr_1.2fr] sm:items-center'>
