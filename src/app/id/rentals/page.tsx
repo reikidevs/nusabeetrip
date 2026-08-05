@@ -2,8 +2,9 @@ import type { Metadata } from 'next';
 import RentalsPage from '../../rentals/page';
 import { buildMetadata } from '@/lib/seo';
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 3600;
 export const runtime = 'nodejs';
+
 
 export const metadata: Metadata = buildMetadata({
   title: 'Sewa Motor & Mobil di Nusa Penida',

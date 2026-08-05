@@ -16,6 +16,8 @@ import {
   localBusinessEnhancedJsonLd,
 } from '@/lib/seo'
 import { localeFromPath, stripLocaleFromPath } from '@/lib/site-config'
+import { getAggregateRatingForSeo, getReviewsForSeo } from '@/lib/reviews-server'
+
 
 const inter = Inter({
   subsets: ['latin'],
@@ -75,7 +77,16 @@ export default async function RootLayout({
   const initialLanguage = localeFromPath(pathname)
   const isHomepage = stripLocaleFromPath(pathname) === '/'
 
+  // Pull real approved reviews + aggregate rating for JSON-LD.
+  // Safe fallbacks (static testimonials) are used when DB is unavailable,
+  // so existing review data is never lost.
+  const [reviewStats, reviewList] = await Promise.all([
+    getAggregateRatingForSeo(),
+    getReviewsForSeo(6),
+  ])
+
   return (
+
     <html lang={initialLanguage} dir="ltr" className={inter.variable}>
       <head>
         <link rel="dns-prefetch" href="//wa.me" />
@@ -96,7 +107,16 @@ export default async function RootLayout({
         {/* Site-wide JSON-LD: identifies the organization & site to Google */}
         <JsonLd id="ld-website" data={websiteJsonLd()} />
         <JsonLd id="ld-organization" data={organizationJsonLd()} />
-        <JsonLd id="ld-business" data={localBusinessEnhancedJsonLd()} />
+        <JsonLd
+          id="ld-business"
+          data={localBusinessEnhancedJsonLd({
+            ratingValue: reviewStats.ratingValue,
+            reviewCount: reviewStats.reviewCount,
+            includeReviews: true,
+            reviews: reviewList,
+          })}
+        />
+
         <JsonLd id="ld-navigation" data={siteNavigationJsonLd(initialLanguage)} />
         <LanguageProvider initialLanguage={initialLanguage}>
           <ExchangeRateProvider />

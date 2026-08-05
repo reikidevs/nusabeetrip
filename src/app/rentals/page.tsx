@@ -9,8 +9,10 @@ import { localeFromPath, localizedPath } from '@/lib/site-config';
 import RentalsPageContent from './RentalsPageContent';
 import { isLocalImageAvailable } from '@/lib/image-resolver';
 
-// Opt out of static generation — this page fetches from DB at runtime
-export const dynamic = 'force-dynamic';
+// ISR: revalidate every hour so availability stays fresh without a full
+// server render on every request (better TTFB + crawl budget).
+export const revalidate = 3600;
+
 
 export const metadata: Metadata = buildMetadata({
   title: 'Nusa Penida Vehicle Rentals — Motorcycle & Car with Driver',

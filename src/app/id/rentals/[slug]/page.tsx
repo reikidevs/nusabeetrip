@@ -4,8 +4,9 @@ import { RENTAL_SERVICES } from '@/lib/constants';
 import { buildMetadata } from '@/lib/seo';
 import { formatRentalList, getRentalIncludedBenefits } from '@/lib/rentals';
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 3600;
 export const runtime = 'nodejs';
+
 
 export function generateStaticParams() {
   return RENTAL_SERVICES.filter((r) => r.isAvailable).map((r) => ({ slug: r.slug }));

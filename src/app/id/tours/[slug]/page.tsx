@@ -3,10 +3,9 @@ import TourDetailPage from '../../../tours/[slug]/page';
 import { TOUR_PACKAGES } from '@/lib/constants';
 import { buildMetadata } from '@/lib/seo';
 
-export const dynamic = 'force-dynamic';
-export const revalidate = 0;
-export const fetchCache = 'force-no-store';
+export const revalidate = 3600;
 export const runtime = 'nodejs';
+
 
 export function generateStaticParams() {
   return TOUR_PACKAGES.filter((p) => p.isActive).map((p) => ({ slug: p.slug }));

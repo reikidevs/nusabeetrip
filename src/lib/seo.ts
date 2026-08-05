@@ -95,8 +95,8 @@ export function buildMetadata({
     'geo.placename': 'Nusa Penida, Bali',
     'geo.position': `${SITE.geo.latitude};${SITE.geo.longitude}`,
     'ICBM': `${SITE.geo.latitude}, ${SITE.geo.longitude}`,
-    'content-language': pageLocale,
   };
+
 
   if (datePublished) otherMeta['article:published_time'] = datePublished;
   if (dateModified) otherMeta['article:modified_time'] = dateModified;

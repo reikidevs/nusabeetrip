@@ -78,10 +78,21 @@ export const SITE = {
   },
 
   googleBusinessProfileUrl: GOOGLE_BUSINESS_PROFILE_URL,
+  /**
+   * Social / third-party profiles for JSON-LD `sameAs`.
+   * Only non-empty values are emitted, so leaving any env var blank is safe.
+   * Fill these in .env.local / Vercel to strengthen entity trust signals.
+   */
   externalProfiles: [
     `https://instagram.com/${CONTACT_INFO.instagram}`,
     ...(GOOGLE_BUSINESS_PROFILE_URL ? [GOOGLE_BUSINESS_PROFILE_URL] : []),
+    ...(process.env.NEXT_PUBLIC_FACEBOOK_URL ? [process.env.NEXT_PUBLIC_FACEBOOK_URL] : []),
+    ...(process.env.NEXT_PUBLIC_YOUTUBE_URL ? [process.env.NEXT_PUBLIC_YOUTUBE_URL] : []),
+    ...(process.env.NEXT_PUBLIC_TIKTOK_URL ? [process.env.NEXT_PUBLIC_TIKTOK_URL] : []),
+    ...(process.env.NEXT_PUBLIC_TRIPADVISOR_URL ? [process.env.NEXT_PUBLIC_TRIPADVISOR_URL] : []),
+    ...(process.env.NEXT_PUBLIC_WHATSAPP_URL ? [process.env.NEXT_PUBLIC_WHATSAPP_URL] : []),
   ],
+
 
   /**
    * Google Business Profile review link. Until the GBP is verified we fall back

@@ -91,8 +91,12 @@ describe('page metadata', () => {
     }) as any;
 
     expect(metadata.title).toBe('Paket Tour Nusa Penida | NusaBeeTrip');
-    expect(metadata.other['content-language']).toBe('id');
+    // content-language is deprecated by Google — ensure it is NOT emitted.
+    expect(metadata.other['content-language']).toBeUndefined();
+    // Geo tags remain for local SEO.
+    expect(metadata.other['geo.region']).toBe('ID-BA');
     expect(metadata.openGraph.locale).toBe('id_ID');
     expect(metadata.openGraph.alternateLocale).toEqual(['en_US']);
+
   });
 });

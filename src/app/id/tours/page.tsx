@@ -2,10 +2,9 @@ import type { Metadata } from 'next';
 import ToursPage from '../../tours/page';
 import { buildMetadata } from '@/lib/seo';
 
-export const dynamic = 'force-dynamic';
-export const revalidate = 0;
-export const fetchCache = 'force-no-store';
+export const revalidate = 3600;
 export const runtime = 'nodejs';
+
 
 export const metadata: Metadata = buildMetadata({
   title: 'Paket Tour Nusa Penida - West, East, Mix & Snorkeling',

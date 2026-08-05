@@ -8,11 +8,11 @@ import { breadcrumbJsonLd, buildMetadata, tourPackageListJsonLd } from '@/lib/se
 import { localeFromPath, localizedPath } from '@/lib/site-config';
 import ToursPageContent from './ToursPageContent';
 
-// Opt out of static generation — this page fetches from DB at runtime
-export const dynamic = 'force-dynamic';
-export const revalidate = 0; // Always fetch fresh data
-export const fetchCache = 'force-no-store'; // Disable fetch cache
+// ISR: revalidate every hour so price/availability stays fresh without
+// paying a full server render on every request (better TTFB + crawl budget).
+export const revalidate = 3600;
 export const runtime = 'nodejs'; // Use Node.js runtime
+
 
 export const metadata: Metadata = buildMetadata({
   title: 'Nusa Penida Tour Packages — West, East, Mix & Snorkeling',

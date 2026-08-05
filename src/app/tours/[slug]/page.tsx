@@ -16,10 +16,9 @@ import { localeFromPath, localizedPath } from '@/lib/site-config';
 import type { TourPackage } from '@/types';
 import TourDetailContent from './TourDetailContent';
 
-export const dynamic = 'force-dynamic';
-export const revalidate = 0;
-export const fetchCache = 'force-no-store';
+export const revalidate = 3600;
 export const runtime = 'nodejs';
+
 
 /**
  * Pre-generate static slugs from the canonical tour list. Even though the

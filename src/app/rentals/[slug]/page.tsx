@@ -11,8 +11,9 @@ import { localeFromPath, localizedPath } from '@/lib/site-config';
 import RentalDetailContent from './RentalDetailContent';
 import { isLocalImageAvailable } from '@/lib/image-resolver';
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 3600;
 export const runtime = 'nodejs';
+
 
 const VEHICLE_IMAGE_MAP: Record<string, string> = {
   'yamaha n-max': '/images/Vehicle%20Rentals/Yamaha%20N-Max.webp',
