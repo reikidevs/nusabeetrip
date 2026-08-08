@@ -68,7 +68,7 @@ export const seoData = pgTable('seo_data', {
   updatedAt: timestamp('updated_at').defaultNow(),
 });
 
-// Reviews / Testimonials table — Google-style guest reviews
+// Reviews / Testimonials stored and moderated by NusaBeeTrip.
 export const reviews = pgTable('reviews', {
   id: serial('id').primaryKey(),
 
@@ -105,9 +105,11 @@ export const reviews = pgTable('reviews', {
   ipAddress: inet('ip_address'),
   userAgent: text('user_agent'),
 
-  // Google integration (future — for syncing with Google Business Profile)
-  googleReviewId: varchar('google_review_id', { length: 255 }), // populate when synced to Google
+  // Reserved for a future read-only import of Google-origin reviews.
+  // Google does not let websites create customer reviews through its API.
+  googleReviewId: varchar('google_review_id', { length: 255 }),
   googleReviewUrl: varchar('google_review_url', { length: 500 }),
+  // Legacy field: website submissions must never set this to true.
   syncedToGoogle: boolean('synced_to_google').default(false),
 
   // Engagement

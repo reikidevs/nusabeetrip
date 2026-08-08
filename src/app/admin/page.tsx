@@ -78,8 +78,8 @@ export default async function AdminOverviewPage() {
       <header className="mb-8">
         <h1 className="text-2xl font-bold text-gray-900">Overview</h1>
         <p className="text-gray-500 mt-1 text-sm">
-          Your site at a glance. Reviews you approve here feed straight into the
-          star ratings Google shows in search results.
+          Your site at a glance. Reviews approved here appear on the website; they
+          do not change the rating on Google Maps.
         </p>
       </header>
 

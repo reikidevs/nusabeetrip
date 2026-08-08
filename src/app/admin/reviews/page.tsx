@@ -11,7 +11,8 @@ export default function AdminReviewsPage() {
         <h1 className="text-2xl font-bold text-gray-900">Reviews</h1>
         <p className="text-gray-500 mt-1 text-sm">
           Approve, reply, or remove guest reviews. Approved reviews appear on the
-          homepage and update the star rating Google shows in search results.
+          homepage and may be used in website structured data. They are not posted
+          to Google Maps.
         </p>
       </header>
       <Suspense fallback={<div className="h-40 bg-white rounded-2xl border border-gray-100 animate-pulse" />}>

@@ -118,7 +118,7 @@ Schema is defined in `src/lib/db/schema.ts`. Tables:
 - `page_views` — lightweight view tracking
 - `reviews` — guest testimonials (rating, body, status, optional Google sync columns)
 
-The `reviews` table is designed to mirror the shape of Google Business Profile reviews so they can be merged in later without changing the UI.
+The `reviews` table can also represent Google-origin reviews if a read-only import is added later. Website submissions are not published to Google Maps; guests must complete Google's own review form themselves.
 
 ### Review moderation flow
 

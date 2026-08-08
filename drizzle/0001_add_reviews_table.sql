@@ -1,4 +1,4 @@
--- Reviews / Testimonials table — Google-style guest reviews
+-- Reviews / Testimonials stored and moderated by NusaBeeTrip.
 -- Run this on your existing Neon database.
 -- Safe to run multiple times (uses IF NOT EXISTS).
 
@@ -38,7 +38,8 @@ CREATE TABLE IF NOT EXISTS "reviews" (
 	"ip_address" inet,
 	"user_agent" text,
 
-	-- Google integration (for future sync)
+	-- Reserved for a future read-only import of Google-origin reviews.
+	-- Website submissions cannot be published to Google through its API.
 	"google_review_id" varchar(255),
 	"google_review_url" varchar(500),
 	"synced_to_google" boolean DEFAULT false,
@@ -69,4 +70,4 @@ CREATE INDEX IF NOT EXISTS "idx_reviews_created_at" ON "reviews"("created_at" DE
 CREATE INDEX IF NOT EXISTS "idx_reviews_featured" ON "reviews"("is_featured") WHERE "is_featured" = true;
 
 -- Comment for documentation
-COMMENT ON TABLE "reviews" IS 'Customer reviews and testimonials. Style mirrors Google Business Profile reviews. The google_review_id column is reserved for future Google API sync.';
+COMMENT ON TABLE "reviews" IS 'Customer reviews and testimonials. Google-origin reviews may be imported read-only in a future integration; website reviews are not posted to Google Maps.';

@@ -445,8 +445,8 @@ function AddReviewModal({
         <div className="p-5 space-y-4">
           <p className="text-xs text-gray-500 bg-gray-50 rounded-lg p-3">
             Use this to add testimonials guests sent you over WhatsApp. They are
-            published and verified immediately, and count toward the star rating
-            shown in Google.
+            published and verified immediately on this website. They do not change
+            the rating shown on Google Maps.
           </p>
 
           {/* Rating */}

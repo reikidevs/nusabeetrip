@@ -7,6 +7,10 @@ import { CONTACT_INFO } from './constants';
 
 const GOOGLE_BUSINESS_PROFILE_URL =
   process.env.NEXT_PUBLIC_GOOGLE_BUSINESS_PROFILE_URL || '';
+const GOOGLE_REVIEW_URL =
+  process.env.NEXT_PUBLIC_GOOGLE_REVIEW_URL?.trim() || '';
+const GOOGLE_REVIEW_FALLBACK_URL =
+  'https://www.google.com/maps/search/?api=1&query=NusaBeeTrip+Nusa+Penida';
 
 export const SITE = {
   /** Production canonical URL — change this when you buy your real domain */
@@ -95,14 +99,15 @@ export const SITE = {
 
 
   /**
-   * Google Business Profile review link. Until the GBP is verified we fall back
-   * to a Maps brand search. Once verified, grab your short review link from the
-   * GBP dashboard (Ask for reviews → looks like https://g.page/r/XXXX/review)
+   * Google Business Profile review link. Without the exact link we fall back to
+   * a Maps brand search. Copy the short link from the GBP dashboard
+   * (Get more reviews → looks like https://g.page/r/XXXX/review)
    * and set NEXT_PUBLIC_GOOGLE_REVIEW_URL in Vercel — it propagates everywhere.
    */
   googleReviewUrl:
-    process.env.NEXT_PUBLIC_GOOGLE_REVIEW_URL ||
-    'https://www.google.com/maps/search/?api=1&query=NusaBeeTrip+Nusa+Penida',
+    GOOGLE_REVIEW_URL || GOOGLE_REVIEW_FALLBACK_URL,
+  /** True only when the official GBP "Get more reviews" link is configured. */
+  hasDirectGoogleReviewUrl: Boolean(GOOGLE_REVIEW_URL),
 
   contact: CONTACT_INFO,
 } as const;

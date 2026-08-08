@@ -142,3 +142,8 @@ export const trackEmailClick = () => {
 export const trackInstagramClick = () => {
   trackEvent('instagram_click', 'engagement', 'social_media');
 };
+
+/** Track hand-offs from the website to the official Google review flow. */
+export const trackGoogleReviewClick = (context: string) => {
+  trackEvent('google_review_click', 'engagement', context);
+};
