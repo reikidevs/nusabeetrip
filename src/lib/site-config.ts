@@ -5,12 +5,11 @@
 
 import { CONTACT_INFO } from './constants';
 
+const GOOGLE_PLACE_ID = 'ChIJUwlc6Uhz0i0RUwOyEzu2e-Y';
 const GOOGLE_BUSINESS_PROFILE_URL =
-  process.env.NEXT_PUBLIC_GOOGLE_BUSINESS_PROFILE_URL || '';
+  'https://maps.app.goo.gl/AT6nfQVX19KM9ryZ6';
 const GOOGLE_REVIEW_URL =
-  process.env.NEXT_PUBLIC_GOOGLE_REVIEW_URL?.trim() || '';
-const GOOGLE_REVIEW_FALLBACK_URL =
-  'https://www.google.com/maps/search/?api=1&query=NusaBeeTrip+Nusa+Penida';
+  `https://search.google.com/local/writereview?placeid=${GOOGLE_PLACE_ID}`;
 
 export const SITE = {
   /** Production canonical URL — change this when you buy your real domain */
@@ -51,13 +50,15 @@ export const SITE = {
 
   /** Geo for LocalBusiness JSON-LD (Nusa Penida, Bali) */
   geo: {
-    latitude: -8.7274,
-    longitude: 115.5442,
+    latitude: -8.6791946,
+    longitude: 115.4921559,
     addressLocality: 'Nusa Penida',
     addressRegion: 'Bali',
     postalCode: '80771',
     addressCountry: 'ID',
-    streetAddress: 'Nusa Penida, Klungkung Regency',
+    streetAddress: 'Desa Banjarnyuh, Ped',
+    fullAddress:
+      'Desa Banjarnyuh, Ped, Kec. Nusa Penida, Kabupaten Klungkung, Bali 80771',
   },
 
   /** Operating hours — used by LocalBusiness JSON-LD */
@@ -81,6 +82,7 @@ export const SITE = {
     whatsapp: `https://wa.me/${CONTACT_INFO.whatsapp.replace(/[^0-9]/g, '')}`,
   },
 
+  googlePlaceId: GOOGLE_PLACE_ID,
   googleBusinessProfileUrl: GOOGLE_BUSINESS_PROFILE_URL,
   /**
    * Social / third-party profiles for JSON-LD `sameAs`.
@@ -89,7 +91,7 @@ export const SITE = {
    */
   externalProfiles: [
     `https://instagram.com/${CONTACT_INFO.instagram}`,
-    ...(GOOGLE_BUSINESS_PROFILE_URL ? [GOOGLE_BUSINESS_PROFILE_URL] : []),
+    GOOGLE_BUSINESS_PROFILE_URL,
     ...(process.env.NEXT_PUBLIC_FACEBOOK_URL ? [process.env.NEXT_PUBLIC_FACEBOOK_URL] : []),
     ...(process.env.NEXT_PUBLIC_YOUTUBE_URL ? [process.env.NEXT_PUBLIC_YOUTUBE_URL] : []),
     ...(process.env.NEXT_PUBLIC_TIKTOK_URL ? [process.env.NEXT_PUBLIC_TIKTOK_URL] : []),
@@ -98,16 +100,10 @@ export const SITE = {
   ],
 
 
-  /**
-   * Google Business Profile review link. Without the exact link we fall back to
-   * a Maps brand search. Copy the short link from the GBP dashboard
-   * (Get more reviews → looks like https://g.page/r/XXXX/review)
-   * and set NEXT_PUBLIC_GOOGLE_REVIEW_URL in Vercel — it propagates everywhere.
-   */
-  googleReviewUrl:
-    GOOGLE_REVIEW_URL || GOOGLE_REVIEW_FALLBACK_URL,
-  /** True only when the official GBP "Get more reviews" link is configured. */
-  hasDirectGoogleReviewUrl: Boolean(GOOGLE_REVIEW_URL),
+  /** Direct Google review flow for the verified NusaBeeTrip Place ID. */
+  googleReviewUrl: GOOGLE_REVIEW_URL,
+  /** A direct review destination is always available through the Place ID. */
+  hasDirectGoogleReviewUrl: true,
 
   contact: CONTACT_INFO,
 } as const;

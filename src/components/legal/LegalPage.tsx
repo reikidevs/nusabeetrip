@@ -1,9 +1,10 @@
 import Link from 'next/link';
+import type { ReactNode } from 'react';
 import { CONTACT_INFO } from '@/lib/constants';
 
 type LegalSection = {
   heading: string;
-  body: string[];
+  body: ReactNode[];
 };
 
 type LegalPageProps = {
@@ -56,8 +57,8 @@ export default function LegalPage({
                     {section.heading}
                   </h2>
                   <div className="space-y-3 text-gray-600 text-sm sm:text-base leading-relaxed">
-                    {section.body.map((paragraph) => (
-                      <p key={paragraph}>{paragraph}</p>
+                    {section.body.map((paragraph, index) => (
+                      <p key={`${section.heading}-${index}`}>{paragraph}</p>
                     ))}
                   </div>
                 </section>

@@ -47,6 +47,51 @@ const sections = [
       'NusaBeeTrip is not responsible for indirect losses, missed third-party connections, or personal expenses caused by delays or conditions outside our reasonable control.',
     ],
   },
+  {
+    heading: 'Google Maps content',
+    body: [
+      <>
+        The Google Maps profile, review form, and public review panel are Google services. Their use is also governed by the{' '}
+        <a
+          href="https://maps.google.com/help/terms_maps/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="font-medium text-brand-blue-700 underline underline-offset-2"
+        >
+          Google Maps/Google Earth Additional Terms of Service
+        </a>{' '}
+        and the{' '}
+        <a
+          href="https://policies.google.com/terms"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="font-medium text-brand-blue-700 underline underline-offset-2"
+        >
+          Google Terms of Service
+        </a>
+        , the{' '}
+        <a
+          href="https://cloud.google.com/maps-platform/terms"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="font-medium text-brand-blue-700 underline underline-offset-2"
+        >
+          Google Maps Platform Terms of Service
+        </a>
+        , and the{' '}
+        <a
+          href="https://cloud.google.com/maps-platform/terms/maps-service-terms"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="font-medium text-brand-blue-700 underline underline-offset-2"
+        >
+          Google Maps Platform Service Specific Terms
+        </a>
+        .
+      </>,
+      'Google selects and orders the public reviews it returns. NusaBeeTrip does not represent Google review content as a website review or guarantee that every Google review will appear on this website.',
+    ],
+  },
 ];
 
 export default function TermsPage() {
@@ -63,7 +108,7 @@ export default function TermsPage() {
         eyebrow="Legal"
         title="Terms of Service"
         description="Booking terms for NusaBeeTrip tours, snorkeling trips, rentals, payments, and cancellations."
-        updatedLabel="Last updated: July 5, 2026"
+        updatedLabel="Last updated: August 8, 2026"
         sections={sections}
         contactLabel="Questions before booking?"
         contactHref="/contact"

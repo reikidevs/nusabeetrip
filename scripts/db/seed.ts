@@ -222,14 +222,16 @@ const initialSeoData = [
       email: 'sidiqdwiatmoko@gmail.com',
       address: {
         '@type': 'PostalAddress',
+        streetAddress: 'Desa Banjarnyuh, Ped',
         addressLocality: 'Nusa Penida',
         addressRegion: 'Bali',
+        postalCode: '80771',
         addressCountry: 'Indonesia'
       },
       geo: {
         '@type': 'GeoCoordinates',
-        latitude: -8.7274,
-        longitude: 115.5447
+        latitude: -8.6791946,
+        longitude: 115.4921559
       },
       priceRange: 'IDR 100,000 - 550,000',
       serviceArea: {

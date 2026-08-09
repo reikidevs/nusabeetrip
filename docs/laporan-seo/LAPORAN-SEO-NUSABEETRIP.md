@@ -213,7 +213,7 @@ Definisi Top 5 harus selalu menyebut kueri, jenis hasil (organik atau Maps), neg
 
 ## 10. Dukungan yang Dibutuhkan dari NusaBeeTrip
 
-1. **Konfirmasi alamat dan jam operasional.** GBP menampilkan alamat Desa Banjarnyuh, Ped dan jam buka pukul 08.00, sedangkan data website/schema saat ini masih lebih umum dan menggunakan jam layanan 06.00-22.00. Perlu dipastikan perbedaan antara jam lokasi fisik dan jam layanan WhatsApp sebelum diselaraskan.
+1. **Konfirmasi jam operasional.** Alamat dan koordinat website/schema sudah diselaraskan dengan listing GBP di Desa Banjarnyuh, Ped. Jam GBP perlu dikonfirmasi karena website menyebut jam layanan tur/rental 06.00-22.00; bedakan jam lokasi fisik dan jam layanan WhatsApp sebelum diselaraskan.
 2. **Ulasan Google asli dari tamu.** Kirim tautan ulasan kepada tamu setelah trip tanpa imbalan, hadiah, atau diskon. Ulasan adalah salah satu sinyal keterlihatan lokal bersama relevansi, jarak, tautan, dan konsistensi informasi.
 3. **Foto dan video asli.** Materi destinasi, kendaraan, proses pelayanan, dan tamu yang telah memberi izin.
 4. **Harga dan detail layanan terbaru.** Informasi yang akurat meningkatkan kepercayaan dan membantu calon tamu mengambil keputusan.

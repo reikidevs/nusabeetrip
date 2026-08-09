@@ -34,6 +34,24 @@ const sections = [
     ],
   },
   {
+    heading: 'Ulasan Google Maps',
+    body: [
+      'Saat panel ulasan Google tersedia, website meminta informasi tempat dan ulasan publik tertentu dari Google Maps Platform. Data tersebut dapat mencakup rating Google, jumlah rating, teks dan nilai ulasan, waktu publikasi, serta nama, foto, dan tautan profil penulis yang diberikan Google.',
+      <>
+        Google memproses informasi yang terkait dengan fitur ini sesuai{' '}
+        <a
+          href="https://policies.google.com/privacy?hl=id"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="font-medium text-brand-blue-700 underline underline-offset-2"
+        >
+          Kebijakan Privasi Google
+        </a>
+        . NusaBeeTrip tidak menyimpan secara permanen konten ulasan Google yang dikembalikan oleh fitur ini.
+      </>,
+    ],
+  },
+  {
     heading: 'Penyimpanan data',
     body: [
       'Kami menyimpan detail booking dan pertanyaan selama diperlukan untuk dukungan pelanggan, pencatatan, kualitas layanan, penanganan masalah, dan kewajiban hukum.',
@@ -62,7 +80,7 @@ export default function PrivacyPageId() {
         eyebrow="Legal"
         title="Kebijakan Privasi"
         description="Cara NusaBeeTrip menangani pertanyaan booking, detail kontak, ulasan, dan analytics website."
-        updatedLabel="Terakhir diperbarui: 5 Juli 2026"
+        updatedLabel="Terakhir diperbarui: 8 Agustus 2026"
         sections={sections}
         contactLabel="Butuh bantuan terkait data Anda?"
         contactHref="/id/contact"

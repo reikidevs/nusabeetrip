@@ -26,7 +26,11 @@ describe('Footer Component', () => {
     render(<Footer />);
 
     expect(screen.getByAltText('NusaBeeTrip')).toBeInTheDocument();
-    expect(screen.getByText('Nusa Penida, Klungkung, Bali')).toBeInTheDocument();
+    expect(
+      screen.getByRole('link', {
+        name: 'Desa Banjarnyuh, Ped, Nusa Penida, Bali 80771',
+      }),
+    ).toHaveAttribute('href', 'https://maps.app.goo.gl/AT6nfQVX19KM9ryZ6');
     expect(screen.getByText(/Local-owned tour & rental business/)).toBeInTheDocument();
   });
 

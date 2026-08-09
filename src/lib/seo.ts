@@ -767,7 +767,7 @@ export function localBusinessEnhancedJsonLd(opts?: {
       latitude: SITE.geo.latitude,
       longitude: SITE.geo.longitude,
     },
-    hasMap: `https://www.google.com/maps?q=${SITE.geo.latitude},${SITE.geo.longitude}`,
+    hasMap: SITE.googleBusinessProfileUrl,
     areaServed: [
       { '@type': 'Place', name: 'Nusa Penida', address: { '@type': 'PostalAddress', addressRegion: 'Bali', addressCountry: 'ID' } },
       { '@type': 'Place', name: 'Nusa Lembongan' },

@@ -2,7 +2,6 @@ import userEvent from '@testing-library/user-event';
 import { render, screen, waitFor } from '@/test/test-utils';
 import ReviewForm from '../ReviewForm';
 import { trackGoogleReviewClick } from '@/lib/analytics';
-import { SITE } from '@/lib/site-config';
 
 jest.mock('@/lib/analytics', () => ({
   trackGoogleReviewClick: jest.fn(),
@@ -11,6 +10,8 @@ jest.mock('@/lib/analytics', () => ({
 const fetchMock = jest.fn();
 const reviewTitle = 'Wonderful private tour';
 const reviewBody = 'Our guide was friendly and made the whole day memorable.';
+const GOOGLE_REVIEW_URL =
+  'https://search.google.com/local/writereview?placeid=ChIJUwlc6Uhz0i0RUwOyEzu2e-Y';
 
 async function submitReview(rating: number) {
   const user = userEvent.setup();
@@ -57,7 +58,7 @@ describe('ReviewForm Google review handoff', () => {
       await submitReview(rating);
 
       const googleCta = await screen.findByRole('link', { name: /Google Maps/i });
-      expect(googleCta).toHaveAttribute('href', SITE.googleReviewUrl);
+      expect(googleCta).toHaveAttribute('href', GOOGLE_REVIEW_URL);
       expect(
         screen.getByText(/Website reviews cannot be sent to Google automatically/i),
       ).toBeInTheDocument();

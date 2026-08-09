@@ -4,6 +4,7 @@ import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { useLanguage } from '@/lib/LanguageContext';
 import { TESTIMONIALS, countryFlag, getAggregateRating, type Testimonial } from '@/lib/testimonials';
 import ReviewForm from './ReviewForm';
+import GoogleReviewsPanel from './GoogleReviewsPanel';
 import { SITE } from '@/lib/site-config';
 import { trackGoogleReviewClick } from '@/lib/analytics';
 
@@ -333,6 +334,9 @@ export default function Testimonials() {
             </div>
           </div>
         </div>
+
+        {/* Google Maps reviews stay separate from the website review aggregate. */}
+        <GoogleReviewsPanel language={language} />
 
         {/* Active filter indicator (shows when user clicks a star bar) */}
         {typeof filter === 'number' && (

@@ -4,6 +4,7 @@ import { useLanguage } from '@/lib/LanguageContext';
 import { getWhatsAppLink } from '@/lib/whatsapp';
 import { BreadcrumbNav } from '@/components/seo';
 import Image from 'next/image';
+import { SITE } from '@/lib/site-config';
 
 export default function ContactPage() {
   const { t, language } = useLanguage();
@@ -206,14 +207,24 @@ export default function ContactPage() {
                         {language === 'id' ? 'Lokasi Kami' : 'Our Location'}
                       </h3>
                       <p className="text-gray-600 leading-relaxed">
-                        Nusa Penida, Klungkung Regency,<br />
-                        Bali, Indonesia
+                        {SITE.geo.fullAddress}
                       </p>
                       <p className="text-sm text-gray-400 mt-3">
                         {language === 'id'
                           ? 'Penjemputan tersedia di seluruh area Nusa Penida'
                           : 'Pickup available across all Nusa Penida areas'}
                       </p>
+                      <a
+                        href={SITE.googleBusinessProfileUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 mt-4 text-sm font-semibold text-brand-blue-700 hover:text-brand-blue-900 underline underline-offset-4"
+                      >
+                        {language === 'id'
+                          ? 'Buka profil NusaBeeTrip di Google Maps'
+                          : 'Open NusaBeeTrip on Google Maps'}
+                        <span aria-hidden="true">↗</span>
+                      </a>
                     </div>
                   </div>
                 </div>

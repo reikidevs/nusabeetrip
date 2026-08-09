@@ -34,6 +34,24 @@ const sections = [
     ],
   },
   {
+    heading: 'Google Maps reviews',
+    body: [
+      'When the Google reviews panel is available, the website requests selected public place and review information from Google Maps Platform. This may include the Google rating, rating count, review text, rating, publication time, and the author name, photo, and profile link provided by Google.',
+      <>
+        Google processes information related to this feature under the{' '}
+        <a
+          href="https://policies.google.com/privacy"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="font-medium text-brand-blue-700 underline underline-offset-2"
+        >
+          Google Privacy Policy
+        </a>
+        . NusaBeeTrip does not permanently store the Google review content returned by this feature.
+      </>,
+    ],
+  },
+  {
     heading: 'Data retention',
     body: [
       'We keep booking and inquiry details only as long as reasonably needed for customer support, accounting, service quality, dispute handling, and legal obligations.',
@@ -62,7 +80,7 @@ export default function PrivacyPage() {
         eyebrow="Legal"
         title="Privacy Policy"
         description="How NusaBeeTrip handles booking inquiries, contact details, reviews, and website analytics."
-        updatedLabel="Last updated: July 5, 2026"
+        updatedLabel="Last updated: August 8, 2026"
         sections={sections}
         contactLabel="Need help with your data?"
         contactHref="/contact"

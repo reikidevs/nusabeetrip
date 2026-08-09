@@ -5,7 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useLanguage } from '@/lib/LanguageContext';
 import { getWhatsAppLink } from '@/lib/whatsapp';
-import { localizedPath } from '@/lib/site-config';
+import { localizedPath, SITE } from '@/lib/site-config';
 
 const WHATSAPP_NUMBER = '6289631281234';
 
@@ -227,15 +227,20 @@ const Footer: React.FC = () => {
                 </a>
               </li>
               <li>
-                <div className="flex items-start gap-3 text-gray-400 text-sm">
+                <a
+                  href={SITE.googleBusinessProfileUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-start gap-3 text-gray-400 hover:text-white transition-colors text-sm group"
+                >
                   <div className="w-8 h-8 rounded-lg bg-gray-800 flex items-center justify-center flex-shrink-0">
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                     </svg>
                   </div>
-                  <span className="pt-1.5">Nusa Penida, Klungkung, Bali</span>
-                </div>
+                  <span className="pt-1.5">Desa Banjarnyuh, Ped, Nusa Penida, Bali 80771</span>
+                </a>
               </li>
             </ul>
 

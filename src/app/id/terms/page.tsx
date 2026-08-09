@@ -47,6 +47,51 @@ const sections = [
       'NusaBeeTrip tidak bertanggung jawab atas kerugian tidak langsung, koneksi pihak ketiga yang terlewat, atau biaya pribadi akibat keterlambatan atau kondisi di luar kendali wajar kami.',
     ],
   },
+  {
+    heading: 'Konten Google Maps',
+    body: [
+      <>
+        Profil Google Maps, formulir ulasan, dan panel ulasan publik merupakan layanan Google. Penggunaannya juga tunduk pada{' '}
+        <a
+          href="https://maps.google.com/help/terms_maps/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="font-medium text-brand-blue-700 underline underline-offset-2"
+        >
+          Persyaratan Layanan Tambahan Google Maps/Google Earth
+        </a>{' '}
+        dan{' '}
+        <a
+          href="https://policies.google.com/terms?hl=id"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="font-medium text-brand-blue-700 underline underline-offset-2"
+        >
+          Persyaratan Layanan Google
+        </a>
+        ,{' '}
+        <a
+          href="https://cloud.google.com/maps-platform/terms"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="font-medium text-brand-blue-700 underline underline-offset-2"
+        >
+          Persyaratan Layanan Google Maps Platform
+        </a>
+        , dan{' '}
+        <a
+          href="https://cloud.google.com/maps-platform/terms/maps-service-terms"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="font-medium text-brand-blue-700 underline underline-offset-2"
+        >
+          Persyaratan Khusus Layanan Google Maps Platform
+        </a>
+        .
+      </>,
+      'Google memilih dan mengurutkan ulasan publik yang dikembalikan. NusaBeeTrip tidak menyatakan konten ulasan Google sebagai ulasan website dan tidak menjamin semua ulasan Google akan tampil di website ini.',
+    ],
+  },
 ];
 
 export default function TermsPageId() {
@@ -63,7 +108,7 @@ export default function TermsPageId() {
         eyebrow="Legal"
         title="Syarat & Ketentuan"
         description="Syarat booking untuk tour, snorkeling, rental kendaraan, pembayaran, dan pembatalan bersama NusaBeeTrip."
-        updatedLabel="Terakhir diperbarui: 5 Juli 2026"
+        updatedLabel="Terakhir diperbarui: 8 Agustus 2026"
         sections={sections}
         contactLabel="Ada pertanyaan sebelum booking?"
         contactHref="/id/contact"

@@ -626,7 +626,7 @@ function kpis(): DocElement[] {
 function clientSupportAndInvoice(): DocElement[] {
   return [
     heading('10. Dukungan yang Dibutuhkan dari NusaBeeTrip'),
-    numbered('Konfirmasi alamat dan jam operasional. GBP menampilkan Desa Banjarnyuh, Ped dan buka pukul 08.00, sedangkan website/schema masih menggunakan alamat lebih umum serta jam layanan 06.00-22.00. Perlu dibedakan jam lokasi fisik dan jam layanan WhatsApp.'),
+    numbered('Konfirmasi jam operasional. Alamat dan koordinat website/schema sudah diselaraskan dengan listing GBP di Desa Banjarnyuh, Ped. Jam GBP perlu dikonfirmasi karena website menyebut jam layanan tur/rental 06.00-22.00; bedakan jam lokasi fisik dan jam layanan WhatsApp sebelum diselaraskan.'),
     numbered('Minta ulasan Google asli dari tamu tanpa imbalan, hadiah, atau diskon.'),
     numbered('Kirim foto/video asli destinasi, kendaraan, proses pelayanan, dan tamu yang sudah memberi izin.'),
     numbered('Berikan harga, included/excluded, serta detail layanan terbaru.'),
