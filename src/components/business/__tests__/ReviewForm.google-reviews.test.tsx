@@ -36,11 +36,22 @@ describe('ReviewForm Google review handoff', () => {
     });
   });
 
-  it('clearly discloses that a website submission is not posted to Google Maps', () => {
+  it('briefly explains where an English website review stays', () => {
     render(<ReviewForm isOpen onClose={jest.fn()} />);
 
     expect(
-      screen.getByText('Submitting here does not publish anything to Google Maps.'),
+      screen.getByText('This review stays on this website and may be shown publicly.'),
+    ).toBeInTheDocument();
+  });
+
+  it('briefly explains where an Indonesian website review stays', () => {
+    render(<ReviewForm isOpen onClose={jest.fn()} />, {
+      language: 'id',
+      route: '/id',
+    });
+
+    expect(
+      screen.getByText('Ulasan ini tetap di website dan dapat ditampilkan publik.'),
     ).toBeInTheDocument();
   });
 
@@ -57,16 +68,56 @@ describe('ReviewForm Google review handoff', () => {
 
       await submitReview(rating);
 
-      const googleCta = await screen.findByRole('link', { name: /Google Maps/i });
+      const googleCta = await screen.findByRole('link', {
+        name: 'Copy text & continue to Google',
+      });
       expect(googleCta).toHaveAttribute('href', GOOGLE_REVIEW_URL);
+      expect(googleCta).toHaveAttribute('target', '_blank');
+      expect(googleCta).toHaveAttribute('rel', 'noopener noreferrer');
+      expect(googleCta).toHaveClass('bg-brand-blue-800');
       expect(
-        screen.getByText(/Website reviews cannot be sent to Google automatically/i),
+        screen.getByText(/Your website review stays here/i),
       ).toBeInTheDocument();
+
+      const done = screen.getByRole('button', { name: 'Done' });
+      expect(done).toHaveClass('border-gray-300', 'bg-white');
 
       const request = fetchMock.mock.calls[0][1] as RequestInit;
       expect(JSON.parse(request.body as string)).toMatchObject({ rating });
     },
   );
+
+  it('uses the same clear Google-first success action in Indonesian', async () => {
+    fetchMock.mockResolvedValueOnce({
+      ok: true,
+      json: jest.fn().mockResolvedValue({ success: true, published: true }),
+    } as unknown as Response);
+    const user = userEvent.setup();
+
+    render(<ReviewForm isOpen onClose={jest.fn()} />, {
+      language: 'id',
+      route: '/id',
+    });
+
+    await user.click(screen.getByRole('button', { name: 'Rate 4 stars' }));
+    await user.type(screen.getByLabelText(/Nama Anda/i), 'Tamu Bali');
+    await user.type(screen.getByLabelText(/Judul ulasan/i), 'Tur yang menyenangkan');
+    await user.type(
+      screen.getByLabelText(/Ulasan Anda/i),
+      'Pemandu ramah dan perjalanan kami sangat menyenangkan.',
+    );
+    await user.click(screen.getByRole('button', { name: 'Kirim ulasan' }));
+
+    const googleCta = await screen.findByRole('link', {
+      name: 'Salin teks & lanjut ke Google',
+    });
+    expect(googleCta).toHaveAttribute('href', GOOGLE_REVIEW_URL);
+    expect(googleCta).toHaveClass('bg-brand-blue-800');
+    expect(screen.getByRole('button', { name: 'Selesai' })).toHaveClass(
+      'border-gray-300',
+      'bg-white',
+    );
+  });
 
   it('copies the submitted title and body and tracks the Google CTA click', async () => {
     fetchMock.mockResolvedValueOnce({
@@ -81,7 +132,9 @@ describe('ReviewForm Google review handoff', () => {
       value: { writeText },
     });
 
-    await user.click(await screen.findByRole('link', { name: /Google Maps/i }));
+    await user.click(
+      await screen.findByRole('link', { name: 'Copy text & continue to Google' }),
+    );
 
     expect(trackGoogleReviewClick).toHaveBeenCalledWith('review_form_success');
     expect(writeText).toHaveBeenCalledWith(`${reviewTitle}\n\n${reviewBody}`);

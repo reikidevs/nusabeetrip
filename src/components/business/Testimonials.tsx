@@ -16,6 +16,34 @@ type ReviewItem = Testimonial & {
 
 const REVIEWS_PER_PAGE = 6;
 
+function GoogleIcon() {
+  return (
+    <span
+      className="flex h-6 w-6 shrink-0 items-center justify-center rounded-md bg-white"
+      aria-hidden="true"
+    >
+      <svg viewBox="0 0 24 24" className="h-4 w-4">
+        <path
+          fill="#4285F4"
+          d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
+        />
+        <path
+          fill="#34A853"
+          d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
+        />
+        <path
+          fill="#FBBC05"
+          d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
+        />
+        <path
+          fill="#EA4335"
+          d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
+        />
+      </svg>
+    </span>
+  );
+}
+
 /**
  * Premium Testimonials section.
  * - Hero summary with rating distribution histogram (TripAdvisor / Booking.com style)
@@ -115,6 +143,8 @@ export default function Testimonials() {
       ratingSource: 'Website guest rating',
       poweredBy: 'Review us on Google',
       googleLinkLabel: 'Open NusaBeeTrip review page on Google Maps',
+      reviewDestinationNote: 'Google reviews are submitted on Google; website reviews stay on this website.',
+      reviewActionsLabel: 'Review options',
       ratingLabel: 'rating',
       clearFilter: 'Show all reviews',
     },
@@ -139,6 +169,8 @@ export default function Testimonials() {
       ratingSource: 'Rating tamu di website',
       poweredBy: 'Beri ulasan di Google',
       googleLinkLabel: 'Buka halaman ulasan NusaBeeTrip di Google Maps',
+      reviewDestinationNote: 'Ulasan Google dikirim di Google; ulasan website tetap di website ini.',
+      reviewActionsLabel: 'Pilihan ulasan',
       ratingLabel: 'rating',
       clearFilter: 'Tampilkan semua ulasan',
     },
@@ -284,52 +316,36 @@ export default function Testimonials() {
                 })}
               </div>
 
-              {/* Right — CTA */}
-              <div className="px-6 sm:px-8 py-6 sm:py-8 flex flex-col items-center justify-center gap-4 bg-gradient-to-br from-gray-50 to-white">
-                <button
-                  onClick={() => setShowForm(true)}
-                  className="inline-flex items-center justify-center gap-2 bg-brand-blue-800 hover:bg-brand-blue-700 text-white px-5 py-3 rounded-xl font-semibold transition-all hover:shadow-lg hover:scale-[1.02] text-sm whitespace-nowrap w-full sm:w-auto"
-                >
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                  </svg>
-                  {L.writeReview}
-                </button>
-
-                {/* Google reviews badge — subtle, professional */}
+              {/* Right — one clear primary action, with the website form as a fallback. */}
+              <div
+                className="flex flex-col items-center justify-center gap-3 bg-gradient-to-br from-gray-50 to-white px-6 py-6 sm:px-8 sm:py-8"
+                role="group"
+                aria-label={L.reviewActionsLabel}
+              >
                 <a
                   href={SITE.googleReviewUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => trackGoogleReviewClick('testimonials_panel')}
-                  className="group inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-white border border-gray-300 hover:border-gray-400 hover:shadow-sm transition-all w-full sm:w-auto"
+                  className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-brand-blue-800 px-5 py-3 text-sm font-bold text-white shadow-sm transition-colors hover:bg-brand-blue-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-blue-500 focus-visible:ring-offset-2 sm:min-w-56"
                   aria-label={L.googleLinkLabel}
                 >
-                  <svg viewBox="0 0 24 24" className="w-4 h-4" aria-hidden="true">
-                    <path
-                      fill="#4285F4"
-                      d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
-                    />
-                    <path
-                      fill="#34A853"
-                      d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
-                    />
-                    <path
-                      fill="#FBBC05"
-                      d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
-                    />
-                    <path
-                      fill="#EA4335"
-                      d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
-                    />
-                  </svg>
-                  <span className="text-xs font-medium text-gray-700 group-hover:text-gray-900">
-                    {L.poweredBy}
-                  </span>
-                  <svg className="w-3 h-3 text-gray-400 group-hover:text-gray-600 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                  </svg>
+                  <GoogleIcon />
+                  {L.poweredBy}
                 </a>
+                <button
+                  type="button"
+                  onClick={() => setShowForm(true)}
+                  className="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-gray-300 bg-white px-5 py-2.5 text-sm font-semibold text-gray-700 transition-colors hover:border-brand-blue-300 hover:bg-brand-blue-50 hover:text-brand-blue-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-blue-500 focus-visible:ring-offset-2 sm:min-w-56"
+                >
+                  <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                  </svg>
+                  {L.writeReview}
+                </button>
+                <p className="max-w-64 text-center text-xs leading-relaxed text-gray-600">
+                  {L.reviewDestinationNote}
+                </p>
               </div>
             </div>
           </div>
@@ -404,32 +420,42 @@ export default function Testimonials() {
         )}
 
         {/* Bottom CTA */}
-        <div className="mt-14 sm:mt-20 max-w-3xl mx-auto">
-          <div className="relative bg-gradient-to-br from-brand-blue-800 via-brand-blue-700 to-brand-teal-700 rounded-3xl p-8 sm:p-12 text-center text-white shadow-xl overflow-hidden">
-            {/* Decorative quote */}
-            <svg
-              className="absolute -top-4 -left-2 w-24 h-24 text-white/[0.08]"
-              fill="currentColor"
-              viewBox="0 0 32 32"
-              aria-hidden="true"
-            >
-              <path d="M9.352 4C4.456 7.456 1 13.12 1 19.36c0 5.088 3.072 8.064 6.624 8.064 3.36 0 5.856-2.688 5.856-5.856 0-3.168-2.208-5.472-5.088-5.472-.576 0-1.344.096-1.536.192.48-3.264 3.552-7.104 6.624-9.024L9.352 4zm16.512 0c-4.8 3.456-8.256 9.12-8.256 15.36 0 5.088 3.072 8.064 6.624 8.064 3.264 0 5.856-2.688 5.856-5.856 0-3.168-2.304-5.472-5.184-5.472-.576 0-1.248.096-1.44.192.48-3.264 3.456-7.104 6.528-9.024L25.864 4z" />
-            </svg>
-            <div className="relative">
-              <h3 className="text-2xl sm:text-3xl font-bold mb-3">{L.shareYour}</h3>
-              <p className="text-white/85 mb-7 text-sm sm:text-base max-w-xl mx-auto leading-relaxed">
-                {L.shareDesc}
-              </p>
-              <button
-                onClick={() => setShowForm(true)}
-                className="inline-flex items-center gap-2 bg-white text-brand-blue-800 hover:bg-amber-50 px-7 py-3.5 rounded-xl font-semibold transition-all hover:shadow-2xl hover:scale-105 text-sm sm:text-base"
+        <div className="mx-auto mt-14 max-w-3xl border-t border-gray-200 pt-10 text-center sm:mt-20 sm:pt-12">
+          <h3 className="mb-2 text-xl font-bold text-gray-900 sm:text-2xl">{L.shareYour}</h3>
+          <p className="mx-auto mb-6 max-w-xl text-sm leading-relaxed text-gray-600">
+            {L.shareDesc}
+          </p>
+          <div
+            className="mx-auto max-w-xl"
+            role="group"
+            aria-label={L.reviewActionsLabel}
+          >
+            <div className="flex flex-col items-stretch justify-center gap-3 sm:flex-row">
+              <a
+                href={SITE.googleReviewUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => trackGoogleReviewClick('testimonials_bottom')}
+                className="inline-flex min-h-12 flex-1 items-center justify-center gap-2 rounded-xl bg-brand-blue-800 px-6 py-3 text-sm font-bold text-white shadow-sm transition-colors hover:bg-brand-blue-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-blue-500 focus-visible:ring-offset-2"
+                aria-label={L.googleLinkLabel}
               >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <GoogleIcon />
+                {L.poweredBy}
+              </a>
+              <button
+                type="button"
+                onClick={() => setShowForm(true)}
+                className="inline-flex min-h-12 flex-1 items-center justify-center gap-2 rounded-xl border border-gray-300 bg-white px-6 py-3 text-sm font-semibold text-gray-700 transition-colors hover:border-brand-blue-300 hover:bg-brand-blue-50 hover:text-brand-blue-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-blue-500 focus-visible:ring-offset-2"
+              >
+                <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                 </svg>
                 {L.writeReview}
               </button>
             </div>
+            <p className="mt-3 text-xs leading-relaxed text-gray-600">
+              {L.reviewDestinationNote}
+            </p>
           </div>
         </div>
       </div>
