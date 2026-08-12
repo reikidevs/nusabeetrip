@@ -23,7 +23,6 @@ import {
   type SiteLocale,
 } from './site-config';
 import { TOUR_PACKAGES, RENTAL_SERVICES } from './constants';
-import { TESTIMONIALS, getAggregateRating } from './testimonials';
 import type { RentalService, TourPackage } from '@/types';
 
 type PageMetaInput = {
@@ -706,34 +705,15 @@ export function homepageJsonLd(locale: SiteLocale = 'en') {
   };
 }
 
-/** LocalBusiness with enhanced local SEO signals.
- *  Pass real DB rating/reviews via `opts` (server-side); falls back to static. */
-export function localBusinessEnhancedJsonLd(opts?: {
-  ratingValue?: number;
-  reviewCount?: number;
-  includeReviews?: boolean;
-  reviews?: Array<{
-    authorName: string;
-    title?: string | null;
-    body: string;
-    rating: number;
-    date: string;
-  }>;
-}) {
-  const fallback = getAggregateRating();
-  const ratingValue = opts?.ratingValue ?? fallback.ratingValue;
-  const reviewCount = opts?.reviewCount ?? fallback.reviewCount;
-  const includeReviews = opts?.includeReviews === true;
-  const reviewList =
-    opts?.reviews ??
-    TESTIMONIALS.slice(0, 6).map((t) => ({
-      authorName: t.name,
-      title: t.title,
-      body: t.body,
-      rating: t.rating,
-      date: t.date,
-    }));
-
+/**
+ * Canonical business entity for site-wide identity and local discovery.
+ *
+ * Deliberately excludes `review` and `aggregateRating`. Google does not make
+ * self-serving LocalBusiness/Organization reviews eligible for review snippets,
+ * and repeating that markup site-wide can create duplicate aggregate-rating
+ * items in Search Console. Reviews remain visible to visitors in the UI.
+ */
+export function localBusinessEnhancedJsonLd() {
   return {
     '@context': 'https://schema.org',
     '@type': 'TravelAgency',
@@ -744,6 +724,11 @@ export function localBusinessEnhancedJsonLd(opts?: {
     description: SITE.description,
     disambiguatingDescription: SITE.disambiguatingDescription,
     url: SITE.url,
+    identifier: {
+      '@type': 'PropertyValue',
+      propertyID: 'officialWebsite',
+      value: 'nusabeetrip.com',
+    },
     logo: absoluteUrl(SITE.ogImage),
     image: [
       absoluteUrl('/images/West%20Trip/West%20Trip%20Kelingking%20Beach%204.jpeg'),
@@ -752,6 +737,14 @@ export function localBusinessEnhancedJsonLd(opts?: {
     ],
     telephone: SITE.contact.phone,
     email: SITE.contact.email,
+    contactPoint: {
+      '@type': 'ContactPoint',
+      telephone: SITE.contact.phone,
+      contactType: 'customer service',
+      areaServed: 'ID',
+      availableLanguage: ['en', 'id'],
+      url: SITE.social.whatsapp,
+    },
     currenciesAccepted: 'IDR, USD',
     paymentAccepted: 'Cash, Bank Transfer',
     address: {
@@ -793,31 +786,6 @@ export function localBusinessEnhancedJsonLd(opts?: {
     sameAs: SITE.externalProfiles,
     knowsLanguage: ['en', 'id'],
     slogan: 'Best Travel Nusa Penida',
-    aggregateRating:
-      includeReviews && reviewCount > 0
-        ? {
-            '@type': 'AggregateRating',
-            ratingValue: ratingValue.toString(),
-            reviewCount: reviewCount.toString(),
-            bestRating: '5',
-            worstRating: '1',
-          }
-        : undefined,
-    review: includeReviews
-      ? reviewList.map((r) => ({
-          '@type': 'Review',
-          author: { '@type': 'Person', name: r.authorName },
-          datePublished: r.date,
-          name: r.title || undefined,
-          reviewBody: r.body,
-          reviewRating: {
-            '@type': 'Rating',
-            ratingValue: r.rating.toString(),
-            bestRating: '5',
-            worstRating: '1',
-          },
-        }))
-      : undefined,
     hasOfferCatalog: {
       '@type': 'OfferCatalog',
       name: 'NusaBeeTrip Services',

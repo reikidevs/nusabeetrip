@@ -90,7 +90,9 @@ export default function GuideDetailPage({ params }: { params: { slug: string } }
         id={`ld-article-${g.slug}`}
         data={{
           '@context': 'https://schema.org',
-          '@type': 'Article',
+          '@type': 'BlogPosting',
+          '@id': `${absoluteUrl(guidePath)}#article`,
+          url: absoluteUrl(guidePath),
           headline: g.title,
           description: g.excerpt,
           image: absoluteUrl(g.heroImage),
@@ -115,6 +117,7 @@ export default function GuideDetailPage({ params }: { params: { slug: string } }
             '@type': 'WebPage',
             '@id': absoluteUrl(guidePath),
           },
+          isPartOf: { '@id': `${SITE.url}#website` },
           articleSection,
           keywords: g.keywords.join(', '),
           wordCount: getGuideWordCount(g),

@@ -10,13 +10,11 @@ import MarketingAnalytics from '@/components/MarketingAnalytics'
 import { JsonLd } from '@/components/seo'
 import {
   buildMetadata,
-  organizationJsonLd,
   websiteJsonLd,
   siteNavigationJsonLd,
   localBusinessEnhancedJsonLd,
 } from '@/lib/seo'
 import { localeFromPath, stripLocaleFromPath } from '@/lib/site-config'
-import { getAggregateRatingForSeo, getReviewsForSeo } from '@/lib/reviews-server'
 
 
 const inter = Inter({
@@ -68,7 +66,7 @@ export const viewport: Viewport = {
   maximumScale: 5,
 }
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: {
   children: React.ReactNode
@@ -76,14 +74,6 @@ export default async function RootLayout({
   const pathname = headers().get('x-pathname') || '/'
   const initialLanguage = localeFromPath(pathname)
   const isHomepage = stripLocaleFromPath(pathname) === '/'
-
-  // Pull real approved reviews + aggregate rating for JSON-LD.
-  // Safe fallbacks (static testimonials) are used when DB is unavailable,
-  // so existing review data is never lost.
-  const [reviewStats, reviewList] = await Promise.all([
-    getAggregateRatingForSeo(),
-    getReviewsForSeo(6),
-  ])
 
   return (
 
@@ -104,18 +94,9 @@ export default async function RootLayout({
         )}
       </head>
       <body className={inter.className}>
-        {/* Site-wide JSON-LD: identifies the organization & site to Google */}
+        {/* Site-wide JSON-LD: one canonical business entity and its website. */}
         <JsonLd id="ld-website" data={websiteJsonLd()} />
-        <JsonLd id="ld-organization" data={organizationJsonLd()} />
-        <JsonLd
-          id="ld-business"
-          data={localBusinessEnhancedJsonLd({
-            ratingValue: reviewStats.ratingValue,
-            reviewCount: reviewStats.reviewCount,
-            includeReviews: true,
-            reviews: reviewList,
-          })}
-        />
+        <JsonLd id="ld-business" data={localBusinessEnhancedJsonLd()} />
 
         <JsonLd id="ld-navigation" data={siteNavigationJsonLd(initialLanguage)} />
         <LanguageProvider initialLanguage={initialLanguage}>

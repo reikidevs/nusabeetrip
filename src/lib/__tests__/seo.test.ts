@@ -146,6 +146,23 @@ describe('homepage JSON-LD', () => {
       'priceValidUntil',
     );
   });
+
+  it('keeps one canonical business entity without self-serving review markup', () => {
+    const schema = localBusinessEnhancedJsonLd();
+
+    expect(schema).toMatchObject({
+      '@type': 'TravelAgency',
+      '@id': 'https://nusabeetrip.com#organization',
+      name: 'NusaBeeTrip',
+      identifier: {
+        '@type': 'PropertyValue',
+        propertyID: 'officialWebsite',
+        value: 'nusabeetrip.com',
+      },
+    });
+    expect(schema).not.toHaveProperty('aggregateRating');
+    expect(schema).not.toHaveProperty('review');
+  });
 });
 
 describe('site navigation JSON-LD', () => {
