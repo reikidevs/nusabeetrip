@@ -176,11 +176,11 @@ export default function ContactPage() {
                           <span className="text-gray-600 font-medium">
                             {language === 'id' ? 'Tur & Rental' : 'Tours & Rentals'}
                           </span>
-                          <span className="text-brand-blue-800 font-semibold">06:00 – 22:00</span>
+                          <span className="text-brand-blue-800 font-semibold">08:00 – 22:00</span>
                         </div>
                         <div className="flex justify-between items-center py-2 border-b border-gray-200">
                           <span className="text-gray-600 font-medium">WhatsApp</span>
-                          <span className="text-whatsapp font-semibold">24/7</span>
+                          <span className="text-whatsapp font-semibold">08:00 – 22:00 WITA</span>
                         </div>
                         <div className="flex justify-between items-center py-2">
                           <span className="text-gray-600 font-medium">

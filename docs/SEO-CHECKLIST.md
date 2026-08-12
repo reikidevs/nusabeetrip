@@ -34,7 +34,7 @@ Untuk "tour nusa penida", "best tour bali" Google menampilkan **Map Pack** (3 bi
 4. Lokasi: Nusa Penida (set service area kalau tidak punya toko fisik — pilih "I deliver goods and services to my customers")
 5. Service area: Nusa Penida, Nusa Lembongan, Nusa Ceningan, Klungkung
 6. Telepon: +62 896-3128-1234 · Website: https://nusabeetrip.com
-7. Jam buka: 06:00–22:00 (samakan dengan `site-config.ts`)
+7. Jam layanan: 08:00–22:00 WITA (samakan dengan website, schema, dan profil Google)
 8. **Verifikasi** (video/postcard) — wajib supaya profil tampil
 
 Setelah aktif:

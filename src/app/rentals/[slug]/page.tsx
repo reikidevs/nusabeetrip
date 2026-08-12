@@ -93,15 +93,23 @@ export async function generateMetadata({
 
   return buildMetadata({
     title: isCar
-      ? `Car with Driver Nusa Penida — From ${priceDisplay}`
+      ? `Private Driver Nusa Penida — Car from ${priceDisplay}`
       : `${rental.model} Motorcycle Rental Nusa Penida — From ${priceDisplay}/Day`,
-    description: `${isCar ? 'Hire a car with driver' : `Rent a ${rental.model}`} in Nusa Penida for ${priceDisplay}${isCar ? '' : ' per day'}.${inclusionCopy} Book on WhatsApp.`.slice(0, 160),
+    description: `${isCar ? 'Book a private local driver and air-conditioned car' : `Rent a ${rental.model}`} in Nusa Penida for ${priceDisplay}${isCar ? '. Hotel or harbour pickup and flexible West, East, or custom routes' : ' per day'}.${inclusionCopy} Book on WhatsApp.`.slice(0, 160),
     path: `/rentals/${rental.slug}`,
     keywords: [
       `${rental.model.toLowerCase()} rental nusa penida`,
       `sewa ${rental.model.toLowerCase()} nusa penida`,
       `${rental.vehicleType} rental nusa penida`,
       `${rental.slug.replace(/-/g, ' ')}`,
+      ...(isCar
+        ? [
+            'private driver nusa penida',
+            'nusa penida car with driver',
+            'nusa penida private car hire',
+            'nusa penida harbour pickup',
+          ]
+        : []),
     ],
     image: rental.image,
     imageAlt: `${rental.model} rental in Nusa Penida`,

@@ -108,16 +108,10 @@ export async function POST(request: NextRequest) {
       null;
     const userAgent = request.headers.get('user-agent') || null;
 
-    // Auto-approve unless spam or low rating (low ratings get reviewed first)
-    // - Spam → 'spam' (hidden)
-    // - Rating ≤ 2 → 'pending' (manual review required)
-    // - Otherwise → 'approved' (instant publish)
+    // Apply the same moderation policy to every rating.
     const ratingNum = Math.round(body.rating);
-    const autoStatus: 'approved' | 'pending' | 'spam' = isSpam
-      ? 'spam'
-      : ratingNum <= 2
-      ? 'pending'
-      : 'approved';
+    // Spam stays hidden; every other submission needs manual approval.
+    const autoStatus: 'pending' | 'spam' = isSpam ? 'spam' : 'pending';
 
     // Build review record
     const reviewData: NewReview = {
@@ -147,11 +141,7 @@ export async function POST(request: NextRequest) {
 
     // Build response message based on status
     let message: string;
-    if (autoStatus === 'approved') {
-      message = body.language === 'id'
-        ? 'Terima kasih! Ulasan Anda sudah dipublikasikan.'
-        : 'Thank you! Your review has been published.';
-    } else if (autoStatus === 'pending') {
+    if (autoStatus === 'pending') {
       message = body.language === 'id'
         ? 'Terima kasih atas masukan Anda. Tim kami akan meninjau dalam 24 jam.'
         : 'Thank you for your feedback. Our team will review it within 24 hours.';
@@ -166,7 +156,7 @@ export async function POST(request: NextRequest) {
         success: true,
         message,
         reviewId: newReview.id,
-        published: autoStatus === 'approved',
+        published: false,
       },
       { status: 201 },
     );

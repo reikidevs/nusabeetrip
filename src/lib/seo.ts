@@ -6,7 +6,7 @@
  * - JSON-LD generators are pure functions, return plain objects
  * - Each route should embed at least 1 LocalBusiness/TravelAgency schema
  *   plus a Breadcrumb schema for SERP rich results
- * - Rich snippets: FAQ, HowTo, ItemList, Review, AggregateRating
+ * - Rich results: FAQ, HowTo, ItemList, and article metadata
  * - Local SEO: GeoCoordinates, areaServed, serviceArea
  * - E-E-A-T signals: author, publisher, datePublished, dateModified
  */
@@ -478,28 +478,6 @@ export function serviceJsonLd(opts: {
       : {}),
     ...(opts.image ? { image: absoluteUrl(opts.image) } : {}),
     ...(opts.url ? { url: absoluteUrl(opts.url) } : {}),
-  };
-}
-
-/** Review/AggregateRating schema — for social proof */
-export function aggregateRatingJsonLd(opts: {
-  itemName: string;
-  itemType?: string;
-  ratingValue: number;
-  reviewCount: number;
-  bestRating?: number;
-}) {
-  return {
-    '@context': 'https://schema.org',
-    '@type': opts.itemType || 'TravelAgency',
-    name: opts.itemName,
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: opts.ratingValue.toString(),
-      reviewCount: opts.reviewCount.toString(),
-      bestRating: (opts.bestRating || 5).toString(),
-      worstRating: '1',
-    },
   };
 }
 

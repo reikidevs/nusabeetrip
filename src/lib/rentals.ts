@@ -7,7 +7,7 @@ const INDONESIAN_FEATURE_LABELS: Record<string, string> = {
   'storage space': 'Ruang penyimpanan',
   'helmet included': 'Helm termasuk',
   'full tank': 'Tangki penuh',
-  '24/7 support': 'Dukungan 24/7',
+  'whatsapp support 08:00-22:00 wita': 'Dukungan WhatsApp 08.00–22.00 WITA',
   'fuel efficient': 'Hemat BBM',
   'easy handling': 'Mudah dikendarai',
   lightweight: 'Ringan',
@@ -65,9 +65,9 @@ export function getRentalIncludedBenefits(
     'asuransi',
   );
   add(
-    hasFeature(rental, /24\s*\/\s*7.*support|support.*24\s*\/\s*7/i),
-    '24/7 support',
-    'dukungan 24/7',
+    hasFeature(rental, /whatsapp support 08:00-22:00 wita/i),
+    'WhatsApp support from 08:00 to 22:00 WITA',
+    'dukungan WhatsApp pukul 08.00–22.00 WITA',
   );
 
   return benefits;

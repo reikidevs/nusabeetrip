@@ -157,7 +157,7 @@ export const RENTAL_SERVICES: RentalService[] = [
       'Storage Space',
       'Helmet Included',
       'Full Tank',
-      '24/7 Support'
+      'WhatsApp Support 08:00-22:00 WITA'
     ],
     image: '/images/Vehicle%20Rentals/Yamaha%20N-Max.webp',
     isAvailable: true,
@@ -175,7 +175,7 @@ export const RENTAL_SERVICES: RentalService[] = [
       'Easy Handling',
       'Helmet Included',
       'Full Tank',
-      '24/7 Support'
+      'WhatsApp Support 08:00-22:00 WITA'
     ],
     image: '/images/Vehicle%20Rentals/Honda%20Vario.png',
     isAvailable: true,
@@ -193,7 +193,7 @@ export const RENTAL_SERVICES: RentalService[] = [
       'Perfect for Beginners',
       'Helmet Included',
       'Full Tank',
-      '24/7 Support'
+      'WhatsApp Support 08:00-22:00 WITA'
     ],
     image: '/images/Vehicle%20Rentals/Honda%20Scoopy.webp',
     isAvailable: true,

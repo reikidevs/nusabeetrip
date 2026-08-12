@@ -61,6 +61,7 @@ export default function RentalDetailContent({
     },
   };
   const L = labels[language];
+  const isCarWithDriver = rental.vehicleType === 'car';
 
   const priceLabel = formatPriceByLang(rental.pricePerDay, language);
   const hourPrice = rental.pricePerHour
@@ -88,12 +89,20 @@ export default function RentalDetailContent({
                 {L.heroBadge}
               </span>
               <h1 className="text-3xl sm:text-5xl font-bold mb-3 tracking-tight leading-tight">
-                {rental.model}
+                {isCarWithDriver
+                  ? language === 'id'
+                    ? 'Private Driver Nusa Penida — Mobil dengan Sopir Lokal'
+                    : 'Private Driver Nusa Penida — Car with Local Driver'
+                  : rental.model}
               </h1>
               <p className="text-base sm:text-lg text-white/90 leading-relaxed max-w-xl mb-7">
-                {language === 'id'
-                  ? `Sewa ${rental.model} di Nusa Penida.${benefitSummary ? ` Khusus kendaraan ini termasuk ${benefitSummary}.` : ''}`
-                  : `Rent a well-maintained ${rental.model} in Nusa Penida.${benefitSummary ? ` This vehicle includes ${benefitSummary}.` : ''}`}
+                {isCarWithDriver
+                  ? language === 'id'
+                    ? `Pesan mobil privat dengan sopir lokal untuk jemput hotel atau pelabuhan, rute Barat, Timur, atau pemberhentian khusus.${benefitSummary ? ` Layanan ini termasuk ${benefitSummary}.` : ''}`
+                    : `Book a private car with a local driver for hotel or harbour pickup, West or East Nusa Penida, or a flexible custom route.${benefitSummary ? ` This service includes ${benefitSummary}.` : ''}`
+                  : language === 'id'
+                    ? `Sewa ${rental.model} di Nusa Penida.${benefitSummary ? ` Khusus kendaraan ini termasuk ${benefitSummary}.` : ''}`
+                    : `Rent a well-maintained ${rental.model} in Nusa Penida.${benefitSummary ? ` This vehicle includes ${benefitSummary}.` : ''}`}
               </p>
 
               <div className="flex flex-col sm:flex-row gap-3">
@@ -149,6 +158,40 @@ export default function RentalDetailContent({
         <div className="container mx-auto px-4">
           <div className="max-w-7xl mx-auto grid lg:grid-cols-[1fr_360px] gap-8">
             <div className="space-y-10">
+              {isCarWithDriver && (
+                <section className="rounded-2xl border border-blue-100 bg-white p-6 shadow-sm sm:p-8">
+                  <h2 className="text-xl font-bold text-brand-blue-800 sm:text-2xl">
+                    {language === 'id'
+                      ? 'Layanan private driver yang dapat diatur'
+                      : 'Private driver services you can arrange'}
+                  </h2>
+                  <p className="mt-3 leading-relaxed text-gray-600">
+                    {language === 'id'
+                      ? 'Kirim lokasi jemput, jumlah tamu, tujuan utama, dan batas waktu pulang. Sidiq akan menyarankan rute yang realistis dan mengonfirmasi harga total sebelum perjalanan.'
+                      : 'Share your pickup point, group size, preferred stops, and return deadline. Sidiq will suggest a realistic route and confirm the total quote before the trip.'}
+                  </p>
+                  <ul className="mt-5 grid gap-3 sm:grid-cols-2">
+                    {(language === 'id'
+                      ? [
+                          'Jemput hotel atau Pelabuhan Banjar Nyuh/Toyapakeh',
+                          'Rute Barat: Kelingking, Broken Beach, Angel’s Billabong',
+                          'Rute Timur: Diamond Beach, Atuh, dan Rumah Pohon',
+                          'Transfer, rute fleksibel, atau perjalanan dua hari',
+                        ]
+                      : [
+                          'Hotel or Banjar Nyuh/Toyapakeh harbour pickup',
+                          'West route: Kelingking, Broken Beach, and Angel’s Billabong',
+                          'East route: Diamond Beach, Atuh, and the Tree House',
+                          'Transfers, flexible routes, or a two-day trip',
+                        ]).map((item) => (
+                      <li key={item} className="flex items-start gap-3 rounded-xl bg-blue-50/60 px-4 py-3 text-sm text-gray-700">
+                        <span className="mt-1 text-brand-teal-600" aria-hidden="true">✓</span>
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </section>
+              )}
               {rental.features.length > 0 && (
                 <div className="bg-white rounded-2xl p-6 sm:p-8 border border-gray-100 shadow-sm">
                   <h2 className="text-xl sm:text-2xl font-bold text-brand-blue-800 mb-5">

@@ -1,10 +1,10 @@
 /**
- * Testimoni / Review data — easy to edit, no database needed.
+ * Development-only testimonial fixtures.
  *
  * Cara menambah testimoni baru:
  * 1. Tambahkan object baru di array TESTIMONIALS
- * 2. Save → refresh website
- * 3. Otomatis tampil di section reviews + masuk JSON-LD untuk SEO
+ * 2. Seed only into a local development database
+ * 3. Never publish these fixtures or use them in structured data
  *
  * Field guide:
  * - id: unique identifier (e.g. 'review-001')

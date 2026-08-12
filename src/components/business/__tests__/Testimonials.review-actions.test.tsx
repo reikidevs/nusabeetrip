@@ -27,7 +27,25 @@ describe('Testimonials review actions', () => {
     jest.clearAllMocks();
     fetchMock.mockResolvedValue({
       ok: true,
-      json: jest.fn().mockResolvedValue({ success: true, reviews: [] }),
+      json: jest.fn().mockResolvedValue({
+        success: true,
+        reviews: [
+          {
+            id: 101,
+            authorName: 'Verified Guest',
+            authorCountry: 'Australia',
+            authorCountryCode: 'AU',
+            rating: 5,
+            tourName: 'West Trip',
+            createdAt: '2026-08-01T00:00:00.000Z',
+            title: 'Great local trip',
+            body: 'A genuine moderated review used only by this component test.',
+            language: 'en',
+            isVerified: true,
+            source: 'website',
+          },
+        ],
+      }),
     } as unknown as Response);
     Object.defineProperty(global, 'fetch', {
       configurable: true,
@@ -40,8 +58,10 @@ describe('Testimonials review actions', () => {
     const user = userEvent.setup();
     render(<Testimonials />);
 
+    await waitFor(() => {
+      expect(screen.getAllByRole('group', { name: 'Review options' })).toHaveLength(2);
+    });
     const actionGroups = screen.getAllByRole('group', { name: 'Review options' });
-    expect(actionGroups).toHaveLength(2);
 
     actionGroups.forEach((group) => {
       const google = within(group).getByRole('link', {
@@ -82,11 +102,13 @@ describe('Testimonials review actions', () => {
     }));
   });
 
-  it('uses the same Google-first hierarchy and honest copy in Indonesian', () => {
+  it('uses the same Google-first hierarchy and honest copy in Indonesian', async () => {
     render(<Testimonials />, { language: 'id', route: '/id' });
 
+    await waitFor(() => {
+      expect(screen.getAllByRole('group', { name: 'Pilihan ulasan' })).toHaveLength(2);
+    });
     const actionGroups = screen.getAllByRole('group', { name: 'Pilihan ulasan' });
-    expect(actionGroups).toHaveLength(2);
 
     actionGroups.forEach((group) => {
       const google = within(group).getByRole('link', {

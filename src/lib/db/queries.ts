@@ -1,4 +1,4 @@
-import { eq, desc, and, sql as drizzleSql } from 'drizzle-orm';
+import { eq, desc, and, or, inArray, isNull, not, sql as drizzleSql } from 'drizzle-orm';
 import { db } from './config';
 import { 
   tourPackages, 
@@ -140,12 +140,34 @@ export const getPageViewStats = async (pagePath?: string, days = 30) => {
 /*  Reviews / Testimonials Queries                                      */
 /* ─────────────────────────────────────────────────────────────────── */
 
+const LEGACY_PLACEHOLDER_REVIEW_AUTHORS = [
+  'Sarah M.',
+  'James K.',
+  'Rina W.',
+  'Mark T.',
+  'Budi S.',
+  'Emma & Tom',
+];
+
+/**
+ * Six early demo testimonials were seeded into production as verified reviews.
+ * Keep the rows recoverable for audit purposes, but never expose them publicly.
+ */
+const publicReviewFilter = and(
+  eq(reviews.status, 'approved'),
+  or(
+    isNull(reviews.source),
+    not(eq(reviews.source, 'whatsapp')),
+    not(inArray(reviews.authorName, LEGACY_PLACEHOLDER_REVIEW_AUTHORS)),
+  ),
+);
+
 /** Get all approved reviews for public display (homepage, etc.) */
 export const getApprovedReviews = async (limit = 50): Promise<Review[]> => {
   return await db
     .select()
     .from(reviews)
-    .where(eq(reviews.status, 'approved'))
+    .where(publicReviewFilter)
     .orderBy(desc(reviews.isFeatured), desc(reviews.createdAt))
     .limit(limit);
 };
@@ -158,7 +180,7 @@ export const getApprovedReviewsByLanguage = async (
   return await db
     .select()
     .from(reviews)
-    .where(and(eq(reviews.status, 'approved'), eq(reviews.language, language)))
+    .where(and(publicReviewFilter, eq(reviews.language, language)))
     .orderBy(desc(reviews.isFeatured), desc(reviews.createdAt))
     .limit(limit);
 };
@@ -168,7 +190,7 @@ export const getReviewsByTourSlug = async (tourSlug: string): Promise<Review[]> 
   return await db
     .select()
     .from(reviews)
-    .where(and(eq(reviews.status, 'approved'), eq(reviews.tourSlug, tourSlug)))
+    .where(and(publicReviewFilter, eq(reviews.tourSlug, tourSlug)))
     .orderBy(desc(reviews.createdAt));
 };
 
@@ -251,10 +273,10 @@ export const getReviewStats = async (): Promise<{
   const allApproved = await db
     .select()
     .from(reviews)
-    .where(eq(reviews.status, 'approved'));
+    .where(publicReviewFilter);
 
   if (allApproved.length === 0) {
-    return { ratingValue: 5, reviewCount: 0, ratingDistribution: { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 } };
+    return { ratingValue: 0, reviewCount: 0, ratingDistribution: { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 } };
   }
 
   const sum = allApproved.reduce((acc, r) => acc + r.rating, 0);

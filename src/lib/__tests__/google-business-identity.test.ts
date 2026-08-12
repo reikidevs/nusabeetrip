@@ -26,6 +26,13 @@ describe('verified Google Business identity', () => {
     expect(SITE.googleReviewUrl).toBe(GOOGLE_REVIEW_URL);
     expect(SITE.geo).toEqual(EXPECTED_GEO);
     expect(SITE.externalProfiles).toContain(GOOGLE_BUSINESS_PROFILE_URL);
+    expect(SITE.openingHours).toEqual([
+      {
+        dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+        opens: '08:00',
+        closes: '22:00',
+      },
+    ]);
   });
 
   it('uses the verified listing in LocalBusiness structured data', () => {

@@ -15,7 +15,11 @@ describe('rental facts', () => {
   it('uses only the motorcycle inclusions declared in its features', () => {
     const benefits = getRentalIncludedBenefits(motorcycle, 'en');
 
-    expect(benefits).toEqual(['a helmet', 'a full tank', '24/7 support']);
+    expect(benefits).toEqual([
+      'a helmet',
+      'a full tank',
+      'WhatsApp support from 08:00 to 22:00 WITA',
+    ]);
     expect(benefits).not.toContain('insurance');
     expect(benefits).not.toContain('a professional driver');
   });

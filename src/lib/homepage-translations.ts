@@ -2,7 +2,7 @@ export const homepageTranslations = {
   en: {
     hero: {
       eyebrow: 'Official NusaBeeTrip · Local private driver & trip planning',
-      title: 'Already in Nusa Penida? Let’s plan what fits your time.',
+      title: 'Private Driver & Nusa Penida Tours, Planned Around Your Time.',
       subtitle: 'Share your date, hotel, group size, and return time. NusaBeeTrip local driver Sidiq will suggest a practical route and confirm one clear price on WhatsApp.',
       primaryCta: 'Plan my trip',
       secondaryCta: 'Ask Sidiq now',
@@ -122,7 +122,7 @@ export const homepageTranslations = {
   id: {
     hero: {
       eyebrow: 'NusaBeeTrip Resmi · Private driver & perencana trip lokal',
-      title: 'Sudah di Nusa Penida? Yuk susun perjalanan sesuai waktumu.',
+      title: 'Private Driver & Tour Nusa Penida Sesuai Waktu Perjalananmu.',
       subtitle: 'Kirim tanggal, hotel, jumlah orang, dan batas waktu pulang. Sidiq, driver lokal NusaBeeTrip, akan menyarankan rute realistis dan mengonfirmasi satu harga yang jelas lewat WhatsApp.',
       primaryCta: 'Susun perjalanan',
       secondaryCta: 'Tanya Sidiq sekarang',

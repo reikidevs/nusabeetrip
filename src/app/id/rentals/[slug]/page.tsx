@@ -37,7 +37,7 @@ export function generateMetadata({
 
   return buildMetadata({
     title: isCar
-      ? 'Sewa Mobil dengan Sopir di Nusa Penida'
+      ? 'Private Driver Nusa Penida — Mobil dengan Sopir Lokal'
       : `Sewa Motor ${rental.model} di Nusa Penida`,
     description: `Sewa ${vehicleName} di Nusa Penida mulai ${priceDisplay}${isCar ? '' : ' per hari'}.${inclusionCopy} Pesan via WhatsApp.`.slice(0, 160),
     path: `/id/rentals/${rental.slug}`,
@@ -46,6 +46,14 @@ export function generateMetadata({
       `${rental.model.toLowerCase()} rental nusa penida`,
       'sewa motor nusa penida',
       'rental kendaraan nusa penida',
+      ...(isCar
+        ? [
+            'private driver nusa penida',
+            'sopir pribadi nusa penida',
+            'sewa mobil dengan sopir nusa penida',
+            'jemput pelabuhan nusa penida',
+          ]
+        : []),
     ],
     image: rental.image,
     imageAlt: `${rental.model} rental Nusa Penida`,

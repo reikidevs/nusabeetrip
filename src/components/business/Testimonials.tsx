@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { useLanguage } from '@/lib/LanguageContext';
-import { TESTIMONIALS, countryFlag, getAggregateRating, type Testimonial } from '@/lib/testimonials';
+import { countryFlag, type Testimonial } from '@/lib/testimonials';
 import ReviewForm from './ReviewForm';
 import GoogleReviewsPanel from './GoogleReviewsPanel';
 import { SITE } from '@/lib/site-config';
@@ -48,14 +48,14 @@ function GoogleIcon() {
  * Premium Testimonials section.
  * - Hero summary with rating distribution histogram (TripAdvisor / Booking.com style)
  * - Filterable, paginated review cards
- * - Connected to /api/reviews with static fallback
- * - Schema.org Review microdata for rich snippets
+ * - Connected to moderated records from /api/reviews
+ * - No review structured data: self-serving business reviews are not eligible
  */
 export default function Testimonials() {
   const { language } = useLanguage();
   const [filter, setFilter] = useState<'all' | number>('all');
   const [showForm, setShowForm] = useState(false);
-  const [reviews, setReviews] = useState<ReviewItem[]>(TESTIMONIALS as ReviewItem[]);
+  const [reviews, setReviews] = useState<ReviewItem[]>([]);
   const [visible, setVisible] = useState(REVIEWS_PER_PAGE);
 
   const fetchReviews = useCallback(async () => {
@@ -84,7 +84,7 @@ export default function Testimonials() {
         setReviews(mapped);
       }
     } catch (err) {
-      console.warn('[Testimonials] Using static fallback:', err);
+      console.warn('[Testimonials] Website reviews are temporarily unavailable:', err);
     }
   }, []);
 
@@ -95,7 +95,7 @@ export default function Testimonials() {
   // Compute aggregate stats with distribution
   const stats = useMemo(() => {
     if (reviews.length === 0) {
-      return { ratingValue: 5, reviewCount: 0, distribution: [0, 0, 0, 0, 0] };
+      return { ratingValue: 0, reviewCount: 0, distribution: [0, 0, 0, 0, 0] };
     }
     const sum = reviews.reduce((acc, r) => acc + r.rating, 0);
     const dist = [0, 0, 0, 0, 0];
@@ -205,6 +205,7 @@ export default function Testimonials() {
       <div className="container mx-auto px-4 relative">
         {/* Section header */}
         <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
+          {stats.reviewCount > 0 && (
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border border-gray-200 shadow-sm mb-5">
             <span className="flex items-center -space-x-1">
               {[1, 2, 3, 4, 5].map((i) => (
@@ -223,6 +224,7 @@ export default function Testimonials() {
               {qualityLabel} {stats.ratingValue.toFixed(1)} / 5
             </span>
           </div>
+          )}
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-3 sm:mb-4 tracking-tight">
             {L.heading}
           </h2>
@@ -230,6 +232,7 @@ export default function Testimonials() {
         </div>
 
         {/* Premium aggregate panel — Booking/TripAdvisor style */}
+        {stats.reviewCount > 0 && (
         <div className="max-w-5xl mx-auto mb-10 sm:mb-14">
           <div className="bg-white rounded-3xl shadow-[0_8px_30px_rgba(0,0,0,0.06)] border border-gray-100 overflow-hidden">
             <div className="grid md:grid-cols-[auto_1fr_auto] gap-0 divide-y md:divide-y-0 md:divide-x divide-gray-100">
@@ -350,6 +353,7 @@ export default function Testimonials() {
             </div>
           </div>
         </div>
+        )}
 
         {/* Google Maps reviews stay separate from the website review aggregate. */}
         <GoogleReviewsPanel language={language} />

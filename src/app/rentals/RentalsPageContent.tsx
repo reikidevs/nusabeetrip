@@ -138,7 +138,7 @@ export default function RentalsPageContent({ rentalServices }: RentalsPageConten
                 <p className="text-gray-600 leading-relaxed">{t.rentals.qualityVehiclesDesc}</p>
               </div>
 
-              {/* 24/7 Support */}
+              {/* WhatsApp support */}
               <div className="group bg-gray-50 rounded-2xl p-8 border border-gray-100 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
                 <div className="w-16 h-16 bg-teal-100 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
                   <svg className="w-8 h-8 text-brand-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">

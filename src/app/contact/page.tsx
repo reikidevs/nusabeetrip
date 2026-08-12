@@ -6,7 +6,7 @@ import ContactPageContent from './ContactPageContent';
 export const metadata: Metadata = buildMetadata({
   title: 'Contact NusaBeeTrip — Book Tours & Rentals via WhatsApp',
   description:
-    'Reach NusaBeeTrip on WhatsApp +62 896-3128-1234 for instant booking. Tours, rentals, and souvenirs in Nusa Penida, Bali. Open 06:00 — 22:00 WITA.',
+    'Reach NusaBeeTrip on WhatsApp +62 896-3128-1234 for direct booking. Tours, rentals, and souvenirs in Nusa Penida, Bali. Open 08:00 — 22:00 WITA.',
   path: '/contact',
   keywords: [
     'contact nusa penida tour',
@@ -40,7 +40,7 @@ const FAQ = [
   {
     question: 'What are your operating hours?',
     answer:
-      'Tours and rentals run 06:00 — 22:00 WITA (GMT+8). WhatsApp support is available 24/7.',
+      'Tours, rentals, and WhatsApp support operate daily from 08:00 — 22:00 WITA (GMT+8). Messages received outside these hours are answered when service reopens.',
   },
 ];
 

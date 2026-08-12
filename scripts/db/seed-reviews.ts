@@ -3,7 +3,7 @@
  *
  * Run:
  *   npm run db:seed-reviews            (uses DATABASE_URL = dev)
- *   npm run db:seed-reviews:prod       (uses DATABASE_URL_PROD)
+ * Production seeding is deliberately disabled: these are development fixtures.
  *
  * Idempotent: skips duplicates by author_name + body.
  */
@@ -14,7 +14,6 @@ config({ path: '.env.local' });
 import { neon } from '@neondatabase/serverless';
 import { drizzle } from 'drizzle-orm/neon-http';
 import { eq, and } from 'drizzle-orm';
-import * as readline from 'readline';
 import * as schema from '../../src/lib/db/schema';
 import { reviews } from '../../src/lib/db/schema';
 import { TESTIMONIALS } from '../../src/lib/testimonials';
@@ -25,8 +24,10 @@ async function main() {
   let label: string;
 
   if (arg === 'prod') {
-    databaseUrl = process.env.DATABASE_URL_PROD;
-    label = 'PRODUCTION';
+    console.error(
+      'Production seeding is disabled: static testimonials are development fixtures, not verified customer records.',
+    );
+    process.exit(1);
   } else {
     databaseUrl = process.env.DATABASE_URL;
     label = 'DEVELOPMENT';
@@ -41,19 +42,6 @@ async function main() {
   console.log(`Target: ${label}`);
   console.log(`Host:   ${databaseUrl.replace(/:[^@]+@/, ':***@').slice(0, 100)}...`);
   console.log('');
-
-  // Confirmation for prod
-  if (arg === 'prod') {
-    const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
-    const answer = await new Promise<string>((resolve) => {
-      rl.question(`Type "yes" to seed ${TESTIMONIALS.length} reviews into PRODUCTION: `, resolve);
-    });
-    rl.close();
-    if (answer.trim().toLowerCase() !== 'yes') {
-      console.log('Cancelled.');
-      process.exit(0);
-    }
-  }
 
   const sql = neon(databaseUrl);
   const db = drizzle(sql, { schema });

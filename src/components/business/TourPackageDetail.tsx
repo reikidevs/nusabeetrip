@@ -164,7 +164,7 @@ const TourPackageDetail: React.FC<TourPackageDetailProps> = ({
               onClick={handleBookingClick}
             />
             <p className="text-sm text-gray-600 text-center mt-3">
-              {language === 'id' ? 'Respon instan • Tersedia 24/7 • Konsultasi gratis' : 'Get instant response • Available 24/7 • Free consultation'}
+              {language === 'id' ? 'Balasan langsung • Layanan 08.00–22.00 WITA • Konsultasi gratis' : 'Direct reply • Service 08:00–22:00 WITA • Free consultation'}
             </p>
           </div>
 

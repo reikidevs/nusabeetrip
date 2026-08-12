@@ -24,7 +24,7 @@ export default function AboutPage() {
       label: language === 'id' ? 'Kendaraan Sewa' : 'Rental Vehicles',
     },
     {
-      value: '24/7',
+      value: '08–22',
       label: language === 'id' ? 'Dukungan WhatsApp' : 'WhatsApp Support',
     },
   ];
